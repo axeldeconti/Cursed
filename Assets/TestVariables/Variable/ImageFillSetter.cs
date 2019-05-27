@@ -17,7 +17,6 @@ public class ImageFillSetter : MonoBehaviour
 
     private void Update()
     {
-        Image.fillAmount = Mathf.Clamp01(
-            Mathf.InverseLerp(Min, Max, Variable));
+        Image.fillAmount = Mathf.Clamp01(Mathf.InverseLerp(Min, Max, Variable));
     }
 }
