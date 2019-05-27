@@ -6,6 +6,7 @@ public class PlayerHPVariable : MonoBehaviour
 {
     public FloatReference maxHP;
     public FloatVariable hp;
+    public IntVariable playerLevel;
 
     private void Start()
     {

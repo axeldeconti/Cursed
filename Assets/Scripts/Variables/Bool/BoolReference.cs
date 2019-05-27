@@ -1,27 +1,27 @@
 ﻿using System;
 
 [Serializable]
-public class FloatReference
+public class BoolReference
 {
     public bool UseConstant = true;
-    public float ConstantValue;
-    public FloatVariable Variable;
+    public bool ConstantValue;
+    public BoolVariable Variable;
 
-    public FloatReference()
+    public BoolReference()
     { }
 
-    public FloatReference(float value)
+    public BoolReference(bool value)
     {
         UseConstant = true;
         ConstantValue = value;
     }
 
-    public float Value
+    public bool Value
     {
         get { return UseConstant ? ConstantValue : Variable.Value; }
     }
 
-    public static implicit operator float(FloatReference reference)
+    public static implicit operator bool(BoolReference reference)
     {
         return reference.Value;
     }
