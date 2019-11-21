@@ -14,12 +14,7 @@ namespace Cursed.LevelEditor
         [SerializeField] private Level_SO[] _levelsTwo = null;
         [SerializeField] private Level_SO[] _levelsThree = null;
 
-        private void Start()
-        {
-            GenerateLevel();
-        }
-
-        private void GenerateLevel()
+        public void GenerateLevel()
         {
             for (int x = 0; x < map.width; x++)
             {
