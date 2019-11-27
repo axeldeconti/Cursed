@@ -21,7 +21,7 @@ namespace Cursed.Combat
         public Attack CreateAttack(CharacterStats wielderStats, CharacterStats defenderStats)
         {
             //Base damages
-            float coreDamage = wielderStats.characterDefinition.baseDamage;
+            float coreDamage = wielderStats.baseStats.BaseDamage;
             //Add the damages of the attack
             coreDamage += Random.Range(_minDamage, _maxDamage);
 

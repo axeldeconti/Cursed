@@ -11,12 +11,22 @@ namespace Cursed.Character
         private int _currentHealth = 0;
 
         public Action<int> onHealthUpdate;
+        public Action<int> onMaxHealthUpdate;
         public Action onDeath;
+
+        #region Initalizer
 
         private void Start()
         {
+            //Set to an eventual base number
+            CharacterStats charStats = GetComponent<CharacterStats>();
+            if (charStats != null)
+                _maxHealth = charStats.baseStats.MaxHealth;
+
             UpdateHealth(_maxHealth);
         }
+
+        #endregion
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
@@ -41,9 +51,23 @@ namespace Cursed.Character
             }
         }
 
+        public void AddMaxHealth(int amount)
+        {
+            _maxHealth += amount;
+
+            if (onMaxHealthUpdate != null)
+                onMaxHealthUpdate.Invoke(_maxHealth);
+
+            UpdateHealth(_currentHealth + amount);
+        }
+
+        #region Death
+
         private void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
         }
+
+        #endregion
     }
 }

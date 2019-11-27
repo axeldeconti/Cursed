@@ -1,82 +1,84 @@
-﻿using UnityEngine;
-using Cursed.Item;
-using Cursed.Combat;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Cursed.Character
 {
+    [RequireComponent(typeof(HealthManager))]
     public class CharacterStats : MonoBehaviour
     {
-        public CharacterStats_SO characterDefinition;
+        public CharacterStats_SO baseStats;
         public CharacterInventory charInv;
-        public GameObject characterWeaponSlot;
 
-        #region Constructors
-        public CharacterStats()
-        {
-            charInv = CharacterInventory.instance;
-        }
-        #endregion
+        private HealthManager _healthMgr;
+        private Dictionary<Stat, float> _statModifier;
 
-        #region Initializations
-        void Start()
+        #region Initializer
+
+        private void Start()
         {
-            if (!characterDefinition.setManually)
+            _healthMgr = GetComponent<HealthManager>();
+
+            //Init modifiers dico
+            _statModifier = new Dictionary<Stat, float>();
+            for (int i = 0; i < Enum.GetNames(typeof(Stat)).Length; i++)
             {
-                characterDefinition.maxHealth = 100;
-                characterDefinition.currentHealth = 50;
-
-                characterDefinition.baseDamage = 2;
-                characterDefinition.currentDamage = characterDefinition.baseDamage;
+                _statModifier.Add((Stat)i, 0f);
             }
         }
+
         #endregion
 
-        #region Stat Increasers
-        public void ApplyHealth(int healthAmount)
-        {
-            characterDefinition.ApplyHealth(healthAmount);
-        }
-        #endregion
+        #region Stat Modifer
 
-        #region Stat Reducers
-        public void TakeDamage(int amount)
+        public void ModifyStat(Stat stat, float amount)
         {
-            characterDefinition.TakeDamage(amount);
-        }
-        #endregion
-
-        #region Weapon and Armor Change
-        public void ChangeWeapon(ItemPickUp weaponPickUp)
-        {
-            if (!characterDefinition.UnEquipWeapon(weaponPickUp, charInv, characterWeaponSlot))
+            if (!_statModifier.ContainsKey(stat))
             {
-                characterDefinition.EquipWeapon(weaponPickUp, charInv, characterWeaponSlot);
+                Debug.LogError("Stat not in modifier dictionary.");
+                return;
+            }
+            else
+                _statModifier[stat] += amount;
+
+            //Allows to do specific action depending on the stat changing
+            switch (stat)
+            {
+                case Stat.Health:
+                    _healthMgr.AddMaxHealth((int)amount);
+                    break;
+                case Stat.Damage:
+                    break;
+                case Stat.Speed:
+                    break;
+                case Stat.RunSpeed:
+                    break;
+                case Stat.WallSpeed:
+                    break;
+                case Stat.JumpForce:
+                    break;
+                case Stat.Weight:
+                    break;
+                default:
+                    break;
             }
         }
+
         #endregion
 
         #region Getters
-        public int GetHealth()
-        {
-            return characterDefinition.currentHealth;
-        }
-
-        public Weapon GetCurrentWeapon()
-        {
-            if (characterDefinition.weapon != null)
-            {
-                return characterDefinition.weapon.itemDefinition.weaponSlotObject;
-            }
-            else
-            {
-                return null;
-            }
-        }
 
         public int GetDamage()
         {
-            return characterDefinition.currentDamage;
+            //Change to return current damages
+            return baseStats.BaseDamage;
         }
+
+        public float GetStatModifier(Stat stat)
+        {
+            return _statModifier[stat];
+        }
+
         #endregion
     }
 }

@@ -35,11 +35,10 @@ namespace Cursed.Item
             switch (itemDefinition.itemType)
             {
                 case ItemTypeDefinitions.HEALTH:
-                    charStats.ApplyHealth(itemDefinition.itemAmount);
-                    Debug.Log(charStats.GetHealth());
+                    //charStats.ApplyHealth(itemDefinition.itemAmount);
                     break;
                 case ItemTypeDefinitions.WEAPON:
-                    charStats.ChangeWeapon(this);
+                    //charStats.ChangeWeapon(this);
                     break;
             }
         }

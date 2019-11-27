@@ -5,9 +5,8 @@ using TMPro;
 
 namespace Cursed.Console
 {
-    public class DevelopperConsole : MonoBehaviour
+    public class DevelopperConsole : Singleton<DevelopperConsole>
     {
-        public static DevelopperConsole Instance { get; private set; }
         public static Dictionary<string, ConsoleCommand> Commands { get; private set; }
 
         [SerializeField] private Canvas _consoleCanvas = null;
@@ -16,12 +15,10 @@ namespace Cursed.Console
         [SerializeField] private TextMeshProUGUI _inputText = null;
         [SerializeField] private TMP_InputField _consoleInput = null;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance != null)
-                return;
+            base.Awake();
 
-            Instance = this;
             Commands = new Dictionary<string, ConsoleCommand>();
         }
 
