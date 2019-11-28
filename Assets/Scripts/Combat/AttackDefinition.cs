@@ -7,29 +7,56 @@ namespace Cursed.Combat
     public class AttackDefinition : ScriptableObject
     {
         [Header("Data")]
-        [SerializeField] private float _cooldown;
-        [SerializeField] protected float _range;
+        public float cooldown;
 
-        [Header("Damages")]
-        [SerializeField] private float _minDamage;
-        [SerializeField] private float _maxDamage;
+        [Header("Damage")]
+        public DamageTypeDefinition damageType;
+        public float fixedDamage;
+        public float minDamage;
+        public float maxDamage;
+        public float dotDamage;
+        public float dotDuration;
 
-        [Header("Crit")]
-        [SerializeField] private float _criticalMultiplier;
-        [SerializeField] private float _criticalChance;
+        [Header("Critic")]
+        public float criticalMultiplier;
+        public float criticalChance;
 
-        public Attack CreateAttack(CharacterStats wielderStats, CharacterStats defenderStats)
+        public Attack CreateAttack(CharacterStats wielderStats)
         {
-            //Base damages
-            float coreDamage = wielderStats.baseStats.BaseDamage;
-            //Add the damages of the attack
-            coreDamage += Random.Range(_minDamage, _maxDamage);
+            float coreDamage = 0f;
 
-            bool isCritical = Random.value < _criticalChance;
+            switch (damageType)
+            {
+                case DamageTypeDefinition.Fixed:
+                    coreDamage = fixedDamage;
+                    coreDamage += wielderStats.GetStatModifier(Stat.FixedDamage);
+                    break;
+                case DamageTypeDefinition.Fork:
+                    coreDamage = Random.Range(minDamage, maxDamage);
+                    coreDamage += wielderStats.GetStatModifier(Stat.FixedDamage);
+                    break;
+                case DamageTypeDefinition.Dot:
+                    coreDamage = dotDamage;
+                    coreDamage += wielderStats.GetStatModifier(Stat.DotDamage);
+                    break;
+                default:
+                    break;
+            }
+
+            bool isCritical = Random.value < criticalChance;
             if (isCritical)
-                coreDamage *= _criticalMultiplier;
+                coreDamage *= criticalMultiplier;
 
-            return new Attack((int)coreDamage, isCritical);
+            return new Attack((int)coreDamage, isCritical, dotDuration);
+        }
+
+        public void ResetDamages()
+        {
+            fixedDamage = 0f;
+            minDamage = 0f;
+            maxDamage = 0f;
+            dotDamage = 0f;
+            dotDuration = 0f;
         }
     }
 }

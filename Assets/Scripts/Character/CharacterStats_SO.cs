@@ -9,7 +9,6 @@ namespace Cursed.Character
         #region Fields
 
         [SerializeField] private int _maxHealth = 0;
-        [SerializeField] private int _baseDamage = 0;
         [SerializeField] private float _speed = 0;
         [SerializeField] private float _runSpeed = 0;
         [SerializeField] private float _wallSpeed = 0;
@@ -21,7 +20,6 @@ namespace Cursed.Character
         #region Getters
 
         public int MaxHealth => _maxHealth;
-        public int BaseDamage => _baseDamage;
         public float Speed => _speed;
         public float RunSpeed => _runSpeed;
         public float WallSpeed => _wallSpeed;

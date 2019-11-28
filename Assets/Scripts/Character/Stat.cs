@@ -3,11 +3,12 @@
     public enum Stat 
     { 
         Health = 0, 
-        Damage = 1, 
-        Speed = 2, 
-        RunSpeed = 3, 
-        WallSpeed = 4, 
-        JumpForce = 5, 
-        Weight = 6 
+        FixedDamage = 1,
+        DotDamage = 2,
+        Speed = 3, 
+        RunSpeed = 4, 
+        WallSpeed = 5, 
+        JumpForce = 6, 
+        Weight = 7 
     }
 }

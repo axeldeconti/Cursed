@@ -13,7 +13,7 @@ namespace Cursed.Combat
         {
             // Fire Projectile at target
             Projectile projectile = Instantiate(ProjectileToFire, HotSpot, Quaternion.identity);
-            projectile.Fire(Caster, Target, ProjectileSpeed, _range);
+            //projectile.Fire(Caster, Target, ProjectileSpeed, _range);
 
             // Set Projectile's collision layer
             projectile.gameObject.layer = Layer;
@@ -34,7 +34,7 @@ namespace Cursed.Combat
             var casterStats = Caster.GetComponent<CharacterStats>();
             var targetStats = Target.GetComponent<CharacterStats>();
 
-            var attack = CreateAttack(casterStats, targetStats);
+            var attack = CreateAttack(casterStats);
 
             // Send attack to all attackable behaviors of the target
             var attackables = Target.GetComponentsInChildren(typeof(IAttackable));

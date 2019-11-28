@@ -32,7 +32,7 @@ namespace Cursed.Combat
                 var casterStats = Caster.GetComponent<CharacterStats>();
                 var collisionStats = collisionGo.GetComponent<CharacterStats>();
 
-                var attack = CreateAttack(casterStats, collisionStats);
+                var attack = CreateAttack(casterStats);
 
                 var attackables = collisionGo.GetComponentsInChildren(typeof(IAttackable));
                 foreach (IAttackable a in attackables)

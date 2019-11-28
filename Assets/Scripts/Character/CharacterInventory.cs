@@ -110,7 +110,7 @@ namespace Cursed.Character
                                 ie.Value.stackSize += 1;
                                 AddItemToHotBar(ie.Value);
                                 itsInInv = true;
-                                DestroyObject(itemEntry.invEntry.gameObject);
+                                Destroy(itemEntry.invEntry.gameObject);
                                 break;
                             }
                             //If item does not exist already in inventory then continue here
@@ -147,7 +147,7 @@ namespace Cursed.Character
         {
             itemsInInventory.Add(idCount, new InventoryEntry(itemEntry.stackSize, Instantiate(itemEntry.invEntry), itemEntry.hbSprite));
 
-            DestroyObject(itemEntry.invEntry.gameObject);
+            Destroy(itemEntry.invEntry.gameObject);
 
             FillInventoryDisplay();
             AddItemToHotBar(itemsInInventory[idCount]);

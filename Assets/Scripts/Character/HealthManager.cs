@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Cursed.Combat;
+using System.Collections;
 
 namespace Cursed.Character
 {
@@ -30,7 +31,11 @@ namespace Cursed.Character
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            UpdateHealth(_currentHealth - attack.Damage);
+            if (attack.Duration != 0)
+                StartCoroutine(ApplyDot(attack));
+            else
+                UpdateHealth(_currentHealth - attack.Damage);
+
             //Play sound, vfx and animation
             //Do something if critical
         }
@@ -59,6 +64,12 @@ namespace Cursed.Character
                 onMaxHealthUpdate.Invoke(_maxHealth);
 
             UpdateHealth(_currentHealth + amount);
+        }
+
+        public IEnumerator ApplyDot(Attack attack)
+        {
+            //Apply dot
+            return null;
         }
 
         #region Death

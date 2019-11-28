@@ -47,7 +47,9 @@ namespace Cursed.Character
                 case Stat.Health:
                     _healthMgr.AddMaxHealth((int)amount);
                     break;
-                case Stat.Damage:
+                case Stat.FixedDamage:
+                    break;
+                case Stat.DotDamage:
                     break;
                 case Stat.Speed:
                     break;
@@ -67,12 +69,6 @@ namespace Cursed.Character
         #endregion
 
         #region Getters
-
-        public int GetDamage()
-        {
-            //Change to return current damages
-            return baseStats.BaseDamage;
-        }
 
         public float GetStatModifier(Stat stat)
         {

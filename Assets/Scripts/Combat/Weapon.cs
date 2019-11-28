@@ -14,8 +14,10 @@ namespace Cursed.Combat
                 return;
 
             //Check if defender is in range of the attacker
+            /*
             if (Vector3.Distance(attacker.transform.position, defender.transform.position) > _range)
                 return;
+            */
 
             //Check if defender is in front of the player
             if (!attacker.transform.IsFacingTarget(defender.transform))
@@ -25,7 +27,7 @@ namespace Cursed.Combat
             var attackerStats = attacker.GetComponent<CharacterStats>();
             var defenderStats = defender.GetComponent<CharacterStats>();
 
-            var attack = CreateAttack(attackerStats, defenderStats);
+            var attack = CreateAttack(attackerStats);
 
             var attackables = defender.GetComponentsInChildren(typeof(IAttackable));
             foreach (IAttackable a in attackables)
