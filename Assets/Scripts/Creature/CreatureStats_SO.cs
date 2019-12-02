@@ -2,7 +2,7 @@
 
 namespace Cursed.Creature
 {
-    [CreateAssetMenu(fileName = "NewStats", menuName = "Creature/Stats")]
+    //[CreateAssetMenu(fileName = "NewStats", menuName = "Creature/Stats")]
     public class CreatureStats_SO : ScriptableObject
     {
         #region Fields

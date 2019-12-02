@@ -3,9 +3,9 @@ using Cursed.Character;
 
 namespace Cursed.Item
 {
-    public class ItemPickUp : MonoBehaviour
+    public class SS_ItemPickUp : MonoBehaviour
     {
-        public ItemPickUps_SO itemDefinition;
+        public SS_ItemPickUps_SO itemDefinition;
 
         public CharacterStats charStats;
         CharacterInventory charInventory;
@@ -13,7 +13,7 @@ namespace Cursed.Item
         GameObject foundStats;
 
         #region Constructors
-        public ItemPickUp()
+        public SS_ItemPickUp()
         {
             charInventory = CharacterInventory.instance;
         }

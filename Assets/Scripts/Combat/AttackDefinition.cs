@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using Cursed.Character;
+using Cursed.Item;
 
 namespace Cursed.Combat
 {
     [CreateAssetMenu(fileName = "New Attack", menuName = "Attack/BaseAttack")]
-    public class AttackDefinition : ScriptableObject
+    public class AttackDefinition : PickUp_SO
     {
         [Header("Data")]
         public float cooldown;

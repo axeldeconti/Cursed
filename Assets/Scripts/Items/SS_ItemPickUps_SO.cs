@@ -6,8 +6,8 @@ namespace Cursed.Item
     public enum ItemTypeDefinitions { HEALTH, WEALTH, MANA, WEAPON, ARMOR, BUFF, EMPTY };
     public enum ItemArmorSubType { None, Head, Chest, Hands, Legs, Boots };
 
-    [CreateAssetMenu(fileName = "NewItem", menuName = "Spawnable Item/New Pick-up", order = 1)]
-    public class ItemPickUps_SO : ScriptableObject
+    //[CreateAssetMenu(fileName = "NewItem", menuName = "Spawnable Item/New Pick-up", order = 1)]
+    public class SS_ItemPickUps_SO : ScriptableObject
     {
         public string itemName = "New Item";
         public ItemTypeDefinitions itemType = ItemTypeDefinitions.HEALTH;

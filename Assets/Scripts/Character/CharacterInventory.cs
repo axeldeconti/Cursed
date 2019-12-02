@@ -72,7 +72,7 @@ namespace Cursed.Character
             }
         }
 
-        public void StoreItem(ItemPickUp itemToStore)
+        public void StoreItem(SS_ItemPickUp itemToStore)
         {
             addedItem = false;
             itemEntry.invEntry = itemToStore;

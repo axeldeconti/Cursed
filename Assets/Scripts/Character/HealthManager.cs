@@ -22,7 +22,7 @@ namespace Cursed.Character
             //Set to an eventual base number
             CharacterStats charStats = GetComponent<CharacterStats>();
             if (charStats != null)
-                _maxHealth = charStats.baseStats.MaxHealth;
+                _maxHealth = charStats.BaseStats.MaxHealth;
 
             UpdateHealth(_maxHealth);
         }

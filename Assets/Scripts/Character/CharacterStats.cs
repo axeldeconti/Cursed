@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Cursed.Item;
 
 namespace Cursed.Character
 {
-    [RequireComponent(typeof(HealthManager))]
+    [RequireComponent(typeof(HealthManager)), RequireComponent(typeof(Inventory))]
     public class CharacterStats : MonoBehaviour
     {
-        public CharacterStats_SO baseStats;
-        public CharacterInventory charInv;
+        [SerializeField] private CharacterStats_SO _baseStats = null;
 
-        private HealthManager _healthMgr;
-        private Dictionary<Stat, float> _statModifier;
+        private HealthManager _healthMgr  = null;
+        private Inventory _inventory = null;
+        private Dictionary<Stat, float> _statModifier = null;
 
         #region Initializer
 
         private void Start()
         {
             _healthMgr = GetComponent<HealthManager>();
+            _inventory = GetComponent<Inventory>();
 
             //Init modifiers dico
             _statModifier = new Dictionary<Stat, float>();
@@ -69,6 +71,8 @@ namespace Cursed.Character
         #endregion
 
         #region Getters
+
+        public CharacterStats_SO BaseStats => _baseStats;
 
         public float GetStatModifier(Stat stat)
         {
