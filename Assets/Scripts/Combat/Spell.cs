@@ -34,7 +34,7 @@ namespace Cursed.Combat
             var casterStats = Caster.GetComponent<CharacterStats>();
             var targetStats = Target.GetComponent<CharacterStats>();
 
-            var attack = CreateAttack(casterStats);
+            var attack = CreateAttack(casterStats, targetStats);
 
             // Send attack to all attackable behaviors of the target
             var attackables = Target.GetComponentsInChildren(typeof(IAttackable));

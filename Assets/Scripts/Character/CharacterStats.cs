@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cursed.Item;
+using Cursed.Combat;
 
 namespace Cursed.Character
 {
@@ -73,6 +74,7 @@ namespace Cursed.Character
         #region Getters
 
         public CharacterStats_SO BaseStats => _baseStats;
+        public HealthManager HealthManager => _healthMgr;
 
         public float GetStatModifier(Stat stat)
         {

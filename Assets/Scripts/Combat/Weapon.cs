@@ -27,7 +27,7 @@ namespace Cursed.Combat
             var attackerStats = attacker.GetComponent<CharacterStats>();
             var defenderStats = defender.GetComponent<CharacterStats>();
 
-            var attack = CreateAttack(attackerStats);
+            var attack = CreateAttack(attackerStats, defenderStats);
 
             var attackables = defender.GetComponentsInChildren(typeof(IAttackable));
             foreach (IAttackable a in attackables)

@@ -10,6 +10,7 @@ namespace Cursed.Character
         [SerializeField] private int _maxHealth = 100;
         
         private int _currentHealth = 0;
+        private CharacterStats _stats = null;
 
         public Action<int> onHealthUpdate;
         public Action<int> onMaxHealthUpdate;
@@ -20,9 +21,9 @@ namespace Cursed.Character
         private void Start()
         {
             //Set to an eventual base number
-            CharacterStats charStats = GetComponent<CharacterStats>();
-            if (charStats != null)
-                _maxHealth = charStats.BaseStats.MaxHealth;
+            _stats = GetComponent<CharacterStats>();
+            if (_stats != null)
+                _maxHealth = _stats.BaseStats.MaxHealth;
 
             UpdateHealth(_maxHealth);
         }
@@ -31,10 +32,20 @@ namespace Cursed.Character
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
+            /*
             if (attack.Duration != 0)
                 StartCoroutine(ApplyDot(attack));
             else
                 UpdateHealth(_currentHealth - attack.Damage);
+
+            */
+
+            //Update health
+            UpdateHealth(_currentHealth - attack.Damage);
+
+            //Apply the effect of the attack
+            if (attack.Effect != null && _stats != null)
+                attack.Effect.Invoke(_stats);
 
             //Play sound, vfx and animation
             //Do something if critical
@@ -66,10 +77,23 @@ namespace Cursed.Character
             UpdateHealth(_currentHealth + amount);
         }
 
-        public IEnumerator ApplyDot(Attack attack)
+        public void ApplyDot(float damagePerSecond, float duration)
         {
-            //Apply dot
-            return null;
+            StartCoroutine(ApplyDotCoroutine(damagePerSecond, duration));
+        }
+
+        private IEnumerator ApplyDotCoroutine(float damagePerSecond, float duration)
+        {
+            //Aplly dot
+            float timeLeft = duration;
+
+            while(timeLeft > 0)
+            {
+                UpdateHealth((int)((float)_currentHealth - damagePerSecond));
+                yield return new WaitForSeconds(1f);
+            }
+
+            //End dot
         }
 
         #region Death

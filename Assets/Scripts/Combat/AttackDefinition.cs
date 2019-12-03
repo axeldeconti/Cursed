@@ -8,56 +8,27 @@ namespace Cursed.Combat
     public class AttackDefinition : PickUp_SO
     {
         [Header("Data")]
-        public float cooldown;
+        public float cooldown = 1f;
 
         [Header("Damage")]
-        public DamageTypeDefinition damageType;
-        public float fixedDamage;
-        public float minDamage;
-        public float maxDamage;
-        public float dotDamage;
-        public float dotDuration;
+        public DamageType_SO damageType = null;
 
         [Header("Critic")]
-        public float criticalMultiplier;
-        public float criticalChance;
+        public float criticalMultiplier = 1.5f;
+        public float criticalChance = 0.1f;
 
-        public Attack CreateAttack(CharacterStats wielderStats)
+        public Attack CreateAttack(CharacterStats attackerStats, CharacterStats defenserStats)
         {
             float coreDamage = 0f;
+            coreDamage += damageType.GetDamages();
 
-            switch (damageType)
-            {
-                case DamageTypeDefinition.Fixed:
-                    coreDamage = fixedDamage;
-                    coreDamage += wielderStats.GetStatModifier(Stat.FixedDamage);
-                    break;
-                case DamageTypeDefinition.Fork:
-                    coreDamage = Random.Range(minDamage, maxDamage);
-                    coreDamage += wielderStats.GetStatModifier(Stat.FixedDamage);
-                    break;
-                case DamageTypeDefinition.Dot:
-                    coreDamage = dotDamage;
-                    coreDamage += wielderStats.GetStatModifier(Stat.DotDamage);
-                    break;
-                default:
-                    break;
-            }
+            coreDamage += attackerStats.GetStatModifier(damageType.Modifier);
 
             bool isCritical = Random.value < criticalChance;
             if (isCritical)
                 coreDamage *= criticalMultiplier;
 
-            return new Attack((int)coreDamage, isCritical, dotDuration);
-        }
-
-        public void ResetDamages()
-        {
-            fixedDamage = 0f;
-            minDamage = 0f;
-            maxDamage = 0f;
-            dotDamage = 0f;
-            dotDuration = 0f;
+            return new Attack((int)coreDamage, isCritical, damageType.Effect);
         }
     }
 }
