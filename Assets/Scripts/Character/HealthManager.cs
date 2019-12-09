@@ -51,7 +51,7 @@ namespace Cursed.Character
             //Do something if critical
         }
 
-        private void UpdateHealth(int health)
+        public void UpdateHealth(int health)
         {
             //Check if dead or not
             if(health <= 0)
@@ -70,6 +70,9 @@ namespace Cursed.Character
         public void AddMaxHealth(int amount)
         {
             _maxHealth += amount;
+
+            if (_maxHealth < 0)
+                _maxHealth = 0;
 
             if (onMaxHealthUpdate != null)
                 onMaxHealthUpdate.Invoke(_maxHealth);
@@ -102,6 +105,13 @@ namespace Cursed.Character
         {
             Debug.Log(gameObject.name + " is dead :(");
         }
+
+        #endregion
+
+        #region Getters
+
+        public int CurrentHealth => _currentHealth;
+        public int MaxHealth => _maxHealth;
 
         #endregion
     }

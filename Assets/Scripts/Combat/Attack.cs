@@ -11,6 +11,11 @@ namespace Cursed.Combat
 
         public Attack(int damage, bool critical, Action<CharacterStats> effect)
         {
+            if(damage < 0)
+            {
+                throw new ArgumentOutOfRangeException("damage", "Damage amount can't be negative");
+            }
+
             _damage = damage;
             _critical = critical;
             _effect = effect;

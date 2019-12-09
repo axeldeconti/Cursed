@@ -6,6 +6,7 @@ namespace Cursed.Combat
     [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Attack/Weapon")]
     public class Weapon : AttackDefinition
     {
+        [Header("Prefabs")]
         [SerializeField] private Rigidbody _weaponPrefab;
 
         public void ExecuteAttack(GameObject attacker, GameObject defender)

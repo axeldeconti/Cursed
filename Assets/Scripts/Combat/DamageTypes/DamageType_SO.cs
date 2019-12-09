@@ -3,6 +3,7 @@ using Cursed.Character;
 
 namespace Cursed.Combat
 {
+    [System.Serializable]
     public abstract class DamageType_SO : ScriptableObject
     {
         [SerializeField] protected string _name = "New Damage Type";
