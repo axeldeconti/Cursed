@@ -12,7 +12,7 @@ namespace Cursed.Combat
         public abstract int GetDamages();
         public abstract void Effect(CharacterStats statsToAffect);
 
-        public string Name => _name;
+        public string Name { get => _name; set => _name = value; }
         public Stat Modifier => _modifier;
     }
 }

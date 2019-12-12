@@ -11,6 +11,8 @@ namespace Cursed.Combat
         [SerializeField] private float _damagePerSecond = 0f;
         [SerializeField] private float _duration = 0f;
 
+        private void OnEnable() => _modifier = Stat.DotDamage;
+
         public override void Effect(CharacterStats statsToAffect)
         {
             statsToAffect.HealthManager.ApplyDot(_damagePerSecond, _duration);
@@ -20,5 +22,8 @@ namespace Cursed.Combat
         {
             return 0;
         }
+
+        public float DamagePerSecond { get => _damagePerSecond; set => _damagePerSecond = value; }
+        public float Duration { get => _duration; set => _duration = value; }
     }
 }

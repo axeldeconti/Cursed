@@ -8,27 +8,32 @@ namespace Cursed.Combat
     public class AttackDefinition : PickUp_SO
     {
         [Header("Data")]
-        public float cooldown = 1f;
+        [SerializeField] private float _cooldown = 1f;
 
         [Header("Damage")]
-        public DamageType_SO damageType = null;
+        [SerializeField] private DamageType_SO _damageType = null;
 
         [Header("Critic")]
-        public float criticalMultiplier = 1.5f;
-        public float criticalChance = 0.1f;
+        [SerializeField] private float _criticalMultiplier = 1.5f;
+        [SerializeField] private float _criticalChance = 0.1f;
 
         public Attack CreateAttack(CharacterStats attackerStats, CharacterStats defenserStats)
         {
             float coreDamage = 0f;
-            coreDamage += damageType.GetDamages();
+            coreDamage += _damageType.GetDamages();
 
-            coreDamage += attackerStats.GetStatModifier(damageType.Modifier);
+            coreDamage += attackerStats.GetStatModifier(_damageType.Modifier);
 
-            bool isCritical = Random.value < criticalChance;
+            bool isCritical = Random.value < _criticalChance;
             if (isCritical)
-                coreDamage *= criticalMultiplier;
+                coreDamage *= _criticalMultiplier;
 
-            return new Attack((int)coreDamage, isCritical, damageType.Effect);
+            return new Attack((int)coreDamage, isCritical, _damageType.Effect);
         }
+
+        public float Cooldown { get => _cooldown; set => _cooldown = value; }
+        public DamageType_SO DamageType { get => _damageType; set => _damageType = value; }
+        public float CriticalMultiplier { get => _criticalMultiplier; set => _criticalMultiplier = value; }
+        public float CriticalChance { get => _criticalChance; set => _criticalChance = value; }
     }
 }

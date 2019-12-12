@@ -8,6 +8,8 @@ namespace Cursed.Combat
     {
         [SerializeField] private int _damage = 0;
 
+        private void OnEnable() => _modifier = Stat.FixedDamage;
+
         public override void Effect(CharacterStats statsToAffect)
         {
             
@@ -17,5 +19,7 @@ namespace Cursed.Combat
         {
             return _damage;
         }
+
+        public int Damage { get => _damage; set => _damage = value; }
     }
 }

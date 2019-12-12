@@ -15,11 +15,11 @@ namespace Cursed.Item
 
         #endregion
 
-        #region Getters
+        #region Getters & Setters
 
-        public string Name => _name;
-        public PickUpType Type => _type;
-        public int SpawnChanceWeight => _spawnChanceWeight;
+        public string Name { get => _name; set => _name = value; }
+        public PickUpType Type { get => _type; set => _type = value; }
+        public int SpawnChanceWeight { get => _spawnChanceWeight; set => _spawnChanceWeight = value; }
 
         #endregion
     }
