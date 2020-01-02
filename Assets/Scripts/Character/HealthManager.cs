@@ -30,16 +30,10 @@ namespace Cursed.Character
 
         #endregion
 
+        #region Modifiers
+
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            /*
-            if (attack.Duration != 0)
-                StartCoroutine(ApplyDot(attack));
-            else
-                UpdateHealth(_currentHealth - attack.Damage);
-
-            */
-
             //Update health
             UpdateHealth(_currentHealth - attack.Damage);
 
@@ -98,6 +92,8 @@ namespace Cursed.Character
 
             //End dot
         }
+
+        #endregion
 
         #region Death
 

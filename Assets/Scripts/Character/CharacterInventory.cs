@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Cursed.Character
 {
+    //Used as an example to help with the inventory
     public class CharacterInventory : MonoBehaviour
     {
         #region Variable Declarations

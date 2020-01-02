@@ -23,6 +23,6 @@ namespace Cursed.Combat
 
         public int Damage => _damage;
         public bool IsCritical => _critical;
-        public Action<CharacterStats> Effect;
+        public Action<CharacterStats> Effect => _effect;
     }
 }
