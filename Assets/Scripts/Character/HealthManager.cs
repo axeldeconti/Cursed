@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Cursed.Combat;
 using System.Collections;
 
@@ -7,14 +6,14 @@ namespace Cursed.Character
 {
     public class HealthManager : MonoBehaviour, IAttackable
     {
-        [SerializeField] private int _maxHealth = 100;
+        [SerializeField] private IntReference _maxHealth;
         
         private int _currentHealth = 0;
         private CharacterStats _stats = null;
 
-        public Action<int> onHealthUpdate;
-        public Action<int> onMaxHealthUpdate;
-        public Action onDeath;
+        public IntEvent onHealthUpdate;
+        public IntEvent onMaxHealthUpdate;
+        public VoidEvent onDeath;
 
         #region Initalizer
 
@@ -23,7 +22,7 @@ namespace Cursed.Character
             //Set to an eventual base number
             _stats = GetComponent<CharacterStats>();
             if (_stats != null)
-                _maxHealth = _stats.BaseStats.MaxHealth;
+                _maxHealth.Value = _stats.BaseStats.MaxHealth;
 
             UpdateHealth(_maxHealth);
         }
@@ -57,19 +56,19 @@ namespace Cursed.Character
                 _currentHealth = health;
 
                 if (onHealthUpdate != null)
-                    onHealthUpdate.Invoke(_currentHealth);
+                    onHealthUpdate.Raise(_currentHealth);
             }
         }
 
         public void AddMaxHealth(int amount)
         {
-            _maxHealth += amount;
+            _maxHealth.Value += amount;
 
             if (_maxHealth < 0)
-                _maxHealth = 0;
+                _maxHealth.Value = 0;
 
             if (onMaxHealthUpdate != null)
-                onMaxHealthUpdate.Invoke(_maxHealth);
+                onMaxHealthUpdate.Raise(_maxHealth);
 
             UpdateHealth(_currentHealth + amount);
         }

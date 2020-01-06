@@ -8,14 +8,14 @@ namespace Cursed.Combat
     public class AttackDefinition : PickUp_SO
     {
         [Header("Data")]
-        [SerializeField] private float _cooldown = 1f;
+        [SerializeField] private FloatReference _cooldown;
 
         [Header("Damage")]
         [SerializeField] private DamageType_SO _damageType = null;
 
         [Header("Critic")]
-        [SerializeField] private float _criticalMultiplier = 1.5f;
-        [SerializeField] private float _criticalChance = 0.1f;
+        [SerializeField] private FloatReference _criticalMultiplier;
+        [SerializeField] private FloatReference _criticalChance;
 
         public Attack CreateAttack(CharacterStats attackerStats, CharacterStats defenserStats)
         {
@@ -31,9 +31,9 @@ namespace Cursed.Combat
             return new Attack((int)coreDamage, isCritical, _damageType.Effect);
         }
 
-        public float Cooldown { get => _cooldown; set => _cooldown = value; }
+        public float Cooldown { get => _cooldown; set => _cooldown.Value = value; }
         public DamageType_SO DamageType { get => _damageType; set => _damageType = value; }
-        public float CriticalMultiplier { get => _criticalMultiplier; set => _criticalMultiplier = value; }
-        public float CriticalChance { get => _criticalChance; set => _criticalChance = value; }
+        public float CriticalMultiplier { get => _criticalMultiplier; set => _criticalMultiplier.Value = value; }
+        public float CriticalChance { get => _criticalChance; set => _criticalChance.Value = value; }
     }
 }

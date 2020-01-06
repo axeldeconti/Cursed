@@ -8,7 +8,7 @@ namespace Cursed.Character
     {
         #region Fields
 
-        [SerializeField] private int _maxHealth = 0;
+        [SerializeField] private IntReference _maxHealth;
         [SerializeField] private float _speed = 0;
         [SerializeField] private float _runSpeed = 0;
         [SerializeField] private float _wallSpeed = 0;

@@ -6,7 +6,7 @@ namespace Cursed.Combat
     [CreateAssetMenu(fileName = "New Fixed Damage", menuName = "Attack/Types/Fixed Damage")]
     public class FixedDamage : DamageType_SO
     {
-        [SerializeField] private int _damage = 0;
+        [SerializeField] private IntReference _damage;
 
         private void OnEnable() => _modifier = Stat.FixedDamage;
 
@@ -20,6 +20,6 @@ namespace Cursed.Combat
             return _damage;
         }
 
-        public int Damage { get => _damage; set => _damage = value; }
+        public int Damage { get => _damage; set => _damage.Value = value; }
     }
 }
