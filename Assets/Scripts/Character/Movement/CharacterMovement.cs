@@ -72,6 +72,28 @@ namespace Cursed.Character
             //Set the anim for walking
             //_anim.SetHorizontalMovement(x, y, _rb.velocity.y);
 
+            //Jump
+            if (Input.GetButtonDown("Jump"))
+            {
+                //Set anim value
+                //_anim.SetTrigger("jump");
+
+                //If on ground, jump
+                if (_coll.OnGround)
+                    Jump(Vector2.up, false);
+
+                //If on wall, wall jump
+                if (_coll.OnWall && !_coll.OnGround)
+                    WallJump();
+            }
+
+            //Dash
+            if (Input.GetButtonDown("Dash&Grab") && !_hasDashed && _groundTouch)
+            {
+                if (xRaw != 0 || yRaw != 0)
+                    Dash(xRaw, 0);
+            }
+
             //If is on ground, reset values
             if (_coll.OnGround && !_isDashing)
             {
@@ -79,8 +101,8 @@ namespace Cursed.Character
                 _betterJump.enabled = true;
             }
 
-            //If on wall and left shif hold, wall grab
-            if (_coll.OnWall && Input.GetButton("Dash") && _canMove)
+            //If on wall and input Grab hold, wall grab
+            if (_coll.OnWall && Input.GetButton("Dash&Grab") && _canMove)
             {
                 if (_side != _coll.WallSide)
                 //_anim.Flip(_side * -1);
@@ -104,55 +126,41 @@ namespace Cursed.Character
                 //Apply new velocity
                 _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * speedModifier));
             }
-
             else
             {
                 //Reset gravity
                 _rb.gravityScale = 3;
             }
 
+            //Wall slide
+            if (_coll.OnWall && !_coll.OnGround)
+            {
+                if (_wallGrab)
+                {
+                    _wallSlide = true;
+                    //SlideOnWall();
+                }
+            }
+
+            //Wall fall
+            if (_coll.OnWall && !_coll.OnGround)
+            {
+                if (!_wallGrab)
+                {
+                    _wallSlide = false;
+                }
+            }
+
             //Reset wall grab
-            if (Input.GetButtonUp("Dash") || !_coll.OnWall || !_canMove)
+            if (Input.GetButtonUp("Dash&Grab") || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
                 _wallSlide = false;
             }
 
-            //Wall slide
-            if (_coll.OnWall && !_coll.OnGround)
-            {
-                if (!_wallGrab)
-                {
-                    _wallSlide = true;
-                    SlideOnWall();
-                }
-            }
-
             //Reset wall slide
             if (!_coll.OnWall || _coll.OnGround)
                 _wallSlide = false;
-
-            //Jump
-            if (Input.GetButtonDown("Jump"))
-            {
-                //Set anim value
-                //_anim.SetTrigger("jump");
-
-                //If on ground, jump
-                if (_coll.OnGround)
-                    Jump(Vector2.up, false);
-
-                //If on wall, wall jump
-                if (_coll.OnWall && !_coll.OnGround)
-                    WallJump();
-            }
-
-            //Dash
-            if (Input.GetButtonDown("Dash") && !_hasDashed && _groundTouch)
-            {
-                if (xRaw != 0 || yRaw != 0)
-                    Dash(xRaw, 0);
-            }
 
             //Just touch ground
             if (_coll.OnGround && !_groundTouch)
