@@ -45,7 +45,6 @@ namespace Cursed.Character
         [SerializeField] private ParticleSystem _dashParticle;
         [SerializeField] private ParticleSystem _jumpParticle;
         [SerializeField] private ParticleSystem _wallJumpParticle;
-        [SerializeField] private ParticleSystem _slideParticle;
 
         void Start()
         {
@@ -54,7 +53,6 @@ namespace Cursed.Character
             _betterJump = GetComponent<BetterJumping>();
             _anim = GetComponentInChildren<AnimationHandler>();
             _ripple = Camera.main.GetComponent<RippleEffect>();
-            _ghostTrail = FindObjectOfType<GhostTrail>();
         }
 
         void Update()
@@ -72,7 +70,7 @@ namespace Cursed.Character
             Walk(dir);
 
             //Set the anim for walking
-            _anim.SetHorizontalMovement(x, y, _rb.velocity.y);
+            //_anim.SetHorizontalMovement(x, y, _rb.velocity.y);
 
             //If is on ground, reset values
             if (_coll.OnGround && !_isDashing)
@@ -82,10 +80,10 @@ namespace Cursed.Character
             }
 
             //If on wall and left shif hold, wall grab
-            if (_coll.OnWall && Input.GetButton("Fire3") && _canMove)
+            if (_coll.OnWall && Input.GetButton("Dash") && _canMove)
             {
                 if (_side != _coll.WallSide)
-                    _anim.Flip(_side * -1);
+                //_anim.Flip(_side * -1);
                 _wallGrab = true;
                 _wallSlide = false;
             }
@@ -97,7 +95,7 @@ namespace Cursed.Character
                 _rb.gravityScale = 0;
 
                 //??????
-                if (x > .2f || x < -.2f)
+                if (x > .2f || x < .2f)
                     _rb.velocity = new Vector2(_rb.velocity.x, 0);
 
                 //Change the speed for wall climbing up or down
@@ -106,6 +104,7 @@ namespace Cursed.Character
                 //Apply new velocity
                 _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * speedModifier));
             }
+
             else
             {
                 //Reset gravity
@@ -113,7 +112,7 @@ namespace Cursed.Character
             }
 
             //Reset wall grab
-            if (Input.GetButtonUp("Fire3") || !_coll.OnWall || !_canMove)
+            if (Input.GetButtonUp("Dash") || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
                 _wallSlide = false;
@@ -122,7 +121,7 @@ namespace Cursed.Character
             //Wall slide
             if (_coll.OnWall && !_coll.OnGround)
             {
-                if (x != 0 && !_wallGrab)
+                if (!_wallGrab)
                 {
                     _wallSlide = true;
                     SlideOnWall();
@@ -137,7 +136,7 @@ namespace Cursed.Character
             if (Input.GetButtonDown("Jump"))
             {
                 //Set anim value
-                _anim.SetTrigger("jump");
+                //_anim.SetTrigger("jump");
 
                 //If on ground, jump
                 if (_coll.OnGround)
@@ -149,10 +148,10 @@ namespace Cursed.Character
             }
 
             //Dash
-            if (Input.GetButtonDown("Fire1") && !_hasDashed)
+            if (Input.GetButtonDown("Dash") && !_hasDashed && _groundTouch)
             {
                 if (xRaw != 0 || yRaw != 0)
-                    Dash(xRaw, yRaw);
+                    Dash(xRaw, 0);
             }
 
             //Just touch ground
@@ -163,8 +162,6 @@ namespace Cursed.Character
             if (!_coll.OnGround && _groundTouch)
                 _groundTouch = false;
 
-            //Handle wall particle
-            WallParticle(y);
 
             //Return if the character can't flip 
             if (_wallGrab || _wallSlide || !_canMove)
@@ -174,14 +171,15 @@ namespace Cursed.Character
             if (x > 0)
             {
                 _side = 1;
-                _anim.Flip(_side);
+                //_anim.Flip(_side);
             }
             if (x < 0)
             {
                 _side = -1;
-                _anim.Flip(_side);
+                //_anim.Flip(_side);
             }
         }
+
 
         /// <summary>
         /// Call when just touch ground
@@ -193,10 +191,8 @@ namespace Cursed.Character
             _hasDashed = false;
             _isDashing = false;
 
-            _side = _anim.Renderer.flipX ? -1 : 1;
+            _side = 1; //_anim.Renderer.flipX ? -1 : 1;
 
-            //Play grounded particle
-            _jumpParticle.Play();
         }
 
         //Dash in the direction in parameter
@@ -207,14 +203,8 @@ namespace Cursed.Character
             //End all tweens
             Camera.main.transform.DOComplete();
 
-            //Shake the camera
-            Camera.main.transform.DOShakePosition(.2f, .5f, 14, 90, false, true);
-
-            //Play ripple effect
-            _ripple.Emit(Camera.main.WorldToViewportPoint(transform.position));
-
             //Set anim value
-            _anim.SetTrigger("dash");
+            //_anim.SetTrigger("dash");
 
             //Reset the velocity
             _rb.velocity = Vector2.zero;
@@ -229,17 +219,12 @@ namespace Cursed.Character
 
         private IEnumerator DashWait()
         {
-            //Show the ghost
-            _ghostTrail.ShowGhosts();
 
             //Start the ground dash coroutine
             StartCoroutine(GroundDash());
 
             //Change the value of the rigidbody drag
             DOVirtual.Float(14, 0, .8f, RigidbodyDrag);
-
-            //Play dash particle
-            _dashParticle.Play();
 
             //Set values for the dash
             _rb.gravityScale = 0;
@@ -248,9 +233,6 @@ namespace Cursed.Character
             _isDashing = true;
 
             yield return new WaitForSeconds(.3f);
-
-            //Stop the dash particle
-            _dashParticle.Stop();
 
             //Reset values
             _rb.gravityScale = 3;
@@ -280,7 +262,7 @@ namespace Cursed.Character
             if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
             {
                 _side *= -1;
-                _anim.Flip(_side);
+                //_anim.Flip(_side);
             }
 
             //Disable movement input
@@ -299,7 +281,7 @@ namespace Cursed.Character
         {
             //Flip if necessary
             if (_coll.WallSide != _side)
-                _anim.Flip(_side * -1);
+                //_anim.Flip(_side * -1);
 
             //Return if cannot move
             if (!_canMove)
@@ -347,11 +329,6 @@ namespace Cursed.Character
         /// </summary>
         private void Jump(Vector2 dir, bool wall)
         {
-            //Play the right particle
-            _slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
-            ParticleSystem particle = wall ? _wallJumpParticle : _jumpParticle;
-            particle.Play();
-
             //Apply jump velocity
             _rb.velocity = new Vector2(_rb.velocity.x, 0);
             _rb.velocity += dir * _jumpForce;
@@ -373,33 +350,6 @@ namespace Cursed.Character
         private void RigidbodyDrag(float x)
         {
             _rb.drag = x;
-        }
-
-        /// <summary>
-        /// Handle wall particle
-        /// </summary>
-        void WallParticle(float vertical)
-        {
-            var main = _slideParticle.main;
-
-            if (_wallSlide || (_wallGrab && vertical < 0))
-            {
-                _slideParticle.transform.parent.localScale = new Vector3(ParticleSide(), 1, 1);
-                main.startColor = Color.white;
-            }
-            else
-            {
-                main.startColor = Color.clear;
-            }
-        }
-
-        /// <summary>
-        /// Return the side where to apply the particle
-        /// </summary>
-        private int ParticleSide()
-        {
-            int particleSide = _coll.OnRightWall ? 1 : -1;
-            return particleSide;
         }
 
         #region Getters & Setters
