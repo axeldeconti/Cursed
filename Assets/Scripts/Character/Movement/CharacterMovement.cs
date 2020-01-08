@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using Cursed.FX;
 
 namespace Cursed.Character
 {
@@ -14,8 +13,6 @@ namespace Cursed.Character
         private Rigidbody2D _rb;
         private BetterJumping _betterJump;
         private AnimationHandler _anim;
-        private RippleEffect _ripple;
-        private GhostTrail _ghostTrail;
 
         [Space]
         [Header("Stats")]
@@ -53,7 +50,6 @@ namespace Cursed.Character
             _rb = GetComponent<Rigidbody2D>();
             _betterJump = GetComponent<BetterJumping>();
             _anim = GetComponentInChildren<AnimationHandler>();
-            _ripple = Camera.main.GetComponent<RippleEffect>();
         }
 
         void Update()
@@ -69,8 +65,6 @@ namespace Cursed.Character
 
             //Walk in that direction
             Walk(dir);
-
-
 
             //Jump
             if (Input.GetButtonDown("Jump"))
@@ -91,15 +85,12 @@ namespace Cursed.Character
                 _betterJump.enabled = true;
             }
 
-
             //Dash
             if (Input.GetButtonDown("Dash&Grab") && !_hasDashed && _groundTouch)
             {
                 if (xRaw != 0 || yRaw != 0)
                     Dash(xRaw, 0);
             }
-
-
 
             //If on wall and input Grab hold, wall grab
             if (_coll.OnWall && Input.GetButton("Dash&Grab") && _canMove)
@@ -119,11 +110,16 @@ namespace Cursed.Character
                 if (x > .2f || x < .2f)
                     _rb.velocity = new Vector2(_rb.velocity.x, 0);
 
-                //Change the speed for wall climbing up or down
-                float speedModifier = y > 0 ? .5f : 1;
-
-                //Apply new velocity
-                _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * speedModifier));
+                if(y > .1f)
+                {
+                    //Apply new velocity
+                    _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * .5f));
+                }
+                else
+                {
+                    _wallSlide = true;
+                    SlideOnWall();
+                }            
             }
             else
             {
@@ -131,17 +127,7 @@ namespace Cursed.Character
                 _rb.gravityScale = 3;
             }
 
-            //Wall slide when grab
-            if (_coll.OnWall && !_coll.OnGround)
-            {
-                if (_wallGrab)
-                {
-                    _wallSlide = true;
-                    SlideOnWall();
-                }
-            }
-
-            //Reset wall grab and wall fall
+            //Reset wall grab and fall
             if (Input.GetButtonUp("Dash&Grab") || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
@@ -167,8 +153,6 @@ namespace Cursed.Character
                 _groundTouch = false;
             }
 
-
-
             //Return if the character can't flip 
             if (_wallGrab || _wallSlide || !_canMove)
                 return;
@@ -177,16 +161,12 @@ namespace Cursed.Character
             if (x > 0)
             {
                 _side = 1;
-                //_anim.Flip(_side);
             }
             if (x < 0)
             {
                 _side = -1;
-                //_anim.Flip(_side);
             }
         }
-
-
 
         /// <summary>
         /// Call when just touch ground
@@ -198,8 +178,7 @@ namespace Cursed.Character
             _hasDashed = false;
             _isDashing = false;
 
-            _side = 1; //_anim.Renderer.flipX ? -1 : 1;
-
+            _side = 1;
         }
 
         //Dash in the direction in parameter
