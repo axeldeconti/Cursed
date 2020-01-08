@@ -23,6 +23,7 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _jumpForce;
         [SerializeField] private FloatReference _slideSpeed;
         [SerializeField] private FloatReference _wallJumpLerp;
+        [SerializeField] [Range(0, 1)] private float _wallJumpImpulse;
         [SerializeField] private FloatReference _dashSpeed;
 
         [Space]
@@ -69,15 +70,11 @@ namespace Cursed.Character
             //Walk in that direction
             Walk(dir);
 
-            //Set the anim for walking
-            //_anim.SetHorizontalMovement(x, y, _rb.velocity.y);
+
 
             //Jump
             if (Input.GetButtonDown("Jump"))
             {
-                //Set anim value
-                //_anim.SetTrigger("jump");
-
                 //If on ground, jump
                 if (_coll.OnGround)
                     Jump(Vector2.up, false);
@@ -87,13 +84,6 @@ namespace Cursed.Character
                     WallJump();
             }
 
-            //Dash
-            if (Input.GetButtonDown("Dash&Grab") && !_hasDashed && _groundTouch)
-            {
-                if (xRaw != 0 || yRaw != 0)
-                    Dash(xRaw, 0);
-            }
-
             //If is on ground, reset values
             if (_coll.OnGround && !_isDashing)
             {
@@ -101,11 +91,20 @@ namespace Cursed.Character
                 _betterJump.enabled = true;
             }
 
+
+            //Dash
+            if (Input.GetButtonDown("Dash&Grab") && !_hasDashed && _groundTouch)
+            {
+                if (xRaw != 0 || yRaw != 0)
+                    Dash(xRaw, 0);
+            }
+
+
+
             //If on wall and input Grab hold, wall grab
             if (_coll.OnWall && Input.GetButton("Dash&Grab") && _canMove)
             {
                 if (_side != _coll.WallSide)
-                //_anim.Flip(_side * -1);
                 _wallGrab = true;
                 _wallSlide = false;
             }
@@ -132,26 +131,17 @@ namespace Cursed.Character
                 _rb.gravityScale = 3;
             }
 
-            //Wall slide
+            //Wall slide when grab
             if (_coll.OnWall && !_coll.OnGround)
             {
                 if (_wallGrab)
                 {
                     _wallSlide = true;
-                    //SlideOnWall();
+                    SlideOnWall();
                 }
             }
 
-            //Wall fall
-            if (_coll.OnWall && !_coll.OnGround)
-            {
-                if (!_wallGrab)
-                {
-                    _wallSlide = false;
-                }
-            }
-
-            //Reset wall grab
+            //Reset wall grab and wall fall
             if (Input.GetButtonUp("Dash&Grab") || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
@@ -160,15 +150,23 @@ namespace Cursed.Character
 
             //Reset wall slide
             if (!_coll.OnWall || _coll.OnGround)
+            {
                 _wallSlide = false;
+            }
 
             //Just touch ground
             if (_coll.OnGround && !_groundTouch)
+            {
                 GroundTouch();
+                _groundTouch = true;
+            }
 
             //Just leave ground
             if (!_coll.OnGround && _groundTouch)
+            {
                 _groundTouch = false;
+            }
+
 
 
             //Return if the character can't flip 
@@ -187,6 +185,7 @@ namespace Cursed.Character
                 //_anim.Flip(_side);
             }
         }
+
 
 
         /// <summary>
@@ -210,9 +209,6 @@ namespace Cursed.Character
 
             //End all tweens
             Camera.main.transform.DOComplete();
-
-            //Set anim value
-            //_anim.SetTrigger("dash");
 
             //Reset the velocity
             _rb.velocity = Vector2.zero;
@@ -270,7 +266,6 @@ namespace Cursed.Character
             if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
             {
                 _side *= -1;
-                //_anim.Flip(_side);
             }
 
             //Disable movement input
@@ -279,7 +274,7 @@ namespace Cursed.Character
 
             //Jump in the right direction
             Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
-            Jump((Vector2.up / 1.5f + wallDir / 1.5f), true);
+            Jump((Vector2.up / 1f + wallDir / _wallJumpImpulse), true);
         }
 
         /// <summary>
@@ -287,10 +282,6 @@ namespace Cursed.Character
         /// </summary>
         private void SlideOnWall()
         {
-            //Flip if necessary
-            if (_coll.WallSide != _side)
-                //_anim.Flip(_side * -1);
-
             //Return if cannot move
             if (!_canMove)
                 return;
