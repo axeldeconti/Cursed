@@ -44,21 +44,24 @@ namespace Cursed.Character
         [SerializeField] private ParticleSystem _jumpParticle;
         [SerializeField] private ParticleSystem _wallJumpParticle;
 
+        [SerializeField] private IInputController _input = null;
+
         void Start()
         {
             _coll = GetComponent<CollisionHandler>();
             _rb = GetComponent<Rigidbody2D>();
             _betterJump = GetComponent<BetterJumping>();
             _anim = GetComponentInChildren<AnimationHandler>();
+            _input = GetComponent<IInputController>();
         }
 
         void Update()
         {
             //Get input - to put in an input manager
-            float x = Input.GetAxis("Horizontal");
-            float y = Input.GetAxis("Vertical");
-            float xRaw = Input.GetAxisRaw("Horizontal");
-            float yRaw = Input.GetAxisRaw("Vertical");
+            float x = _input.x;
+            float y = _input.y;
+            float xRaw = _input.xRaw;
+            float yRaw = _input.yRaw;
 
             //Get direction of the movement
             Vector2 dir = new Vector2(x, y);
@@ -67,7 +70,7 @@ namespace Cursed.Character
             Walk(dir);
 
             //Jump
-            if (Input.GetButtonDown("Jump"))
+            if (_input.Jump == true)
             {
                 //If on ground, jump
                 if (_coll.OnGround)
@@ -86,14 +89,14 @@ namespace Cursed.Character
             }
 
             //Dash
-            if (Input.GetButtonDown("Dash&Grab") && !_hasDashed && _groundTouch)
+            if (_input.Dash == true && !_hasDashed && _groundTouch)
             {
                 if (xRaw != 0 || yRaw != 0)
                     Dash(xRaw, 0);
             }
 
             //If on wall and input Grab hold, wall grab
-            if (_coll.OnWall && Input.GetButton("Dash&Grab") && _canMove)
+            if (_coll.OnWall && _input.Grab == true && _canMove)
             {
                 if (_side != _coll.WallSide)
                 _wallGrab = true;
@@ -128,7 +131,7 @@ namespace Cursed.Character
             }
 
             //Reset wall grab and fall
-            if (Input.GetButtonUp("Dash&Grab") || !_coll.OnWall || !_canMove)
+            if (_input.Grab == false || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
                 _wallSlide = false;

@@ -609,6 +609,7 @@ GameObject:
   - component: {fileID: 1807558209}
   - component: {fileID: 1807558208}
   - component: {fileID: 1807558207}
+  - component: {fileID: 1807558214}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -688,7 +689,7 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 5
     Variable: {fileID: 0}
-  _wallJumpImpulse: 0.8
+  _wallJumpImpulse: 0.5
   _dashSpeed:
     UseConstant: 1
     ConstantValue: 40
@@ -803,6 +804,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807558214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807558206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bda37a051b5d2424baaafeccc38be333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2049960414
 GameObject:
   m_ObjectHideFlags: 0
