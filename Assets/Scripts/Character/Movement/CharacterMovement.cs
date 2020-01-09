@@ -21,19 +21,20 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _jumpForce;
         [SerializeField] private FloatReference _slideSpeed;
         [SerializeField] private FloatReference _wallJumpLerp;
-        [SerializeField] [Range(0, 1)] private float _wallJumpImpulse;
+        [SerializeField] private FloatReference _wallJumpImpulse;
         [SerializeField] private FloatReference _dashSpeed;
         [SerializeField] private FloatReference _dashCooldown;
         [SerializeField] private FloatReference _dashInvincibilityFrame;
 
         [Space]
         [Header("Booleans")]
-        [SerializeField] private bool _canMove;
-        [SerializeField] private bool _wallGrab;
-        [SerializeField] private bool _wallJumped;
-        [SerializeField] private bool _wallSlide;
-        [SerializeField] private bool _isDashing;
-        [SerializeField] private bool _doubleJump;
+        [SerializeField] private bool _canMove = true;
+        [SerializeField] private bool _wallGrab = false;
+        [SerializeField] private bool _wallJumped = false;
+        [SerializeField] private bool _wallSlide = false;
+        [SerializeField] private bool _isDashing = false;
+        [SerializeField] private bool _doubleJump = false;
+        [SerializeField] private bool _isJumping = false;
 
         [Space]
         [SerializeField] private bool _dashUnlock;
@@ -63,8 +64,9 @@ namespace Cursed.Character
             _betterJump = GetComponent<BetterJumping>();
             _anim = GetComponentInChildren<AnimationHandler>();
             _input = GetComponent<IInputController>();
+            _coll.OnGrounded += ResetIsJumping;
         }
-
+        
         void Update()
         {
             //Get input - to put in an input manager
@@ -118,9 +120,9 @@ namespace Cursed.Character
             //If on wall and input Grab hold, wall grab
             if (_coll.OnWall && _input.Grab && _canMove)
             {
-                if (_side != _coll.WallSide)
                 _wallGrab = true;
                 _wallSlide = false;
+                ResetIsJumping();
             }
 
             //Wall grab handler
@@ -128,21 +130,22 @@ namespace Cursed.Character
             {
                 //Set gravity to zero
                 _rb.gravityScale = 0;
-
+                
                 //??????
-                if (x > .2f || x < .2f)
+                if ((x > .2f || x < .2f) && !_isJumping)
                     _rb.velocity = new Vector2(_rb.velocity.x, 0);
 
-                if(y > .1f)
+                if (y > .1f)
                 {
                     //Apply new velocity
-                    _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * .5f));
+                    if(!_isJumping)
+                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * .5f));
                 }
                 else
                 {
                     _wallSlide = true;
                     SlideOnWall();
-                }            
+                }   
             }
             else
             {
@@ -171,10 +174,7 @@ namespace Cursed.Character
 
             //Just touch ground
             if (_coll.OnGround && !_groundTouch)
-            {
                 GroundTouch();
-                _groundTouch = true;
-            }
 
             //Just leave ground
             if (!_coll.OnGround && _groundTouch)
@@ -210,13 +210,12 @@ namespace Cursed.Character
             _side = 1;
         }
 
-        //Dash in the direction in parameter
+        /// <summary>
+        /// Dash in the direction in parameter
+        /// </summary>
         private void Dash(float x, float y)
         {
             _hasDashed = true;
-
-            //End all tweens
-            Camera.main.transform.DOComplete();
 
             //Reset the velocity
             _rb.velocity = Vector2.zero;
@@ -231,15 +230,13 @@ namespace Cursed.Character
 
         private IEnumerator DashWait()
         {
-
             //Start the ground dash coroutine
             StartCoroutine(GroundDash());
 
             //Change the value of the rigidbody drag
-            DOVirtual.Float(14, 0, .8f, RigidbodyDrag);
+            DOVirtual.Float(14, 0, .2f, RigidbodyDrag);
 
             //Set values for the dash
-            _rb.gravityScale = 0;
             _betterJump.enabled = false;
             _wallJumped = true;
             _isDashing = true;
@@ -248,7 +245,6 @@ namespace Cursed.Character
             yield return new WaitForSeconds(_dashInvincibilityFrame);
 
             //Reset values
-            _rb.gravityScale = _gravity;
             _betterJump.enabled = true;
             _wallJumped = false;
             _isDashing = false;
@@ -271,7 +267,6 @@ namespace Cursed.Character
         private void WallJump()
         {
             _wallJumped = true;
-
             //Flip the character to face the wall
             if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
             {
@@ -284,7 +279,9 @@ namespace Cursed.Character
 
             //Jump in the right direction
             Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
-            Jump((Vector2.up / 1f + wallDir / _wallJumpImpulse), true);
+            Vector2 dir = Vector2.up / 1f + wallDir / _wallJumpImpulse;
+
+            Jump(dir, true);
         }
 
         /// <summary>
@@ -339,8 +336,10 @@ namespace Cursed.Character
         private void Jump(Vector2 dir, bool wall)
         {
             //Apply jump velocity
-            _rb.velocity = new Vector2(_rb.velocity.x, 0);
+            float y = wall ? _rb.velocity.y : 0;
+            _rb.velocity = new Vector2(_rb.velocity.x, y);
             _rb.velocity += dir * _jumpForce;
+            _isJumping = true;
         }
 
         /// <summary>
@@ -359,6 +358,11 @@ namespace Cursed.Character
         private void RigidbodyDrag(float x)
         {
             _rb.drag = x;
+        }
+
+        private void ResetIsJumping()
+        {
+            _isJumping = false;
         }
 
         #region Getters & Setters

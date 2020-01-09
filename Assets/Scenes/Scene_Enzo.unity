@@ -2102,7 +2102,10 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 5
     Variable: {fileID: 0}
-  _wallJumpImpulse: 0.8
+  _wallJumpImpulse:
+    UseConstant: 1
+    ConstantValue: 1.2
+    Variable: {fileID: 0}
   _dashSpeed:
     UseConstant: 1
     ConstantValue: 100
@@ -2113,7 +2116,7 @@ MonoBehaviour:
     Variable: {fileID: 0}
   _dashInvincibilityFrame:
     UseConstant: 1
-    ConstantValue: 0.5
+    ConstantValue: 0.3
     Variable: {fileID: 0}
   _canMove: 1
   _wallGrab: 0
@@ -2121,6 +2124,7 @@ MonoBehaviour:
   _wallSlide: 0
   _isDashing: 0
   _doubleJump: 0
+  _isJumping: 0
   _dashUnlock: 1
   _doubleJumpUnlock: 1
   _side: 1

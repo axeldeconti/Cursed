@@ -16,6 +16,16 @@ namespace Cursed.Character
         private CollisionHandler _coll;
         private SpriteRenderer _renderer;
 
+        private static readonly int _hasIsMoving = Animator.StringToHash("IsMoving");
+        private static readonly int _hasIsDashing = Animator.StringToHash("IsDashing");
+        private static readonly int _hasIsJumping = Animator.StringToHash("IsJumping");
+        private static readonly int _hasIsGrabing = Animator.StringToHash("IsGrabing");
+        private static readonly int _hasIsClimbing = Animator.StringToHash("IsClimbing");
+        private static readonly int _hasIsSliding = Animator.StringToHash("IsSliding");
+        private static readonly int _hasIsAttacking = Animator.StringToHash("IsAttacking");
+        private static readonly int _hasOnRightWall = Animator.StringToHash("OnRightWall");
+        private static readonly int _hasCanMove = Animator.StringToHash("CanMove");
+
         void Start()
         {
             _anim = GetComponent<Animator>();
@@ -27,13 +37,16 @@ namespace Cursed.Character
         void Update()
         {
             //Update every anim variables
-            _anim.SetBool("onGround", _coll.OnGround);
-            _anim.SetBool("onWall", _coll.OnWall);
-            _anim.SetBool("onRightWall", _coll.OnRightWall);
-            _anim.SetBool("wallGrab", _move.WallGrab);
-            _anim.SetBool("wallSlide", _move.WallSlide);
-            _anim.SetBool("canMove", _move.CanMove);
-            _anim.SetBool("isDashing", _move.IsDashing);
+            _anim.SetBool(_hasIsMoving, _coll.OnGround);
+            _anim.SetBool(_hasIsClimbing, _coll.OnWall);
+            _anim.SetBool(_hasIsGrabing, _move.WallGrab);
+            _anim.SetBool(_hasIsSliding, _move.WallSlide);
+            _anim.SetBool(_hasCanMove, _move.CanMove);
+            _anim.SetBool(_hasOnRightWall, _coll.OnRightWall);
+
+            _anim.SetTrigger(_hasIsDashing);
+            _anim.SetTrigger(_hasIsJumping);
+
         }
 
         /// <summary>
@@ -44,14 +57,6 @@ namespace Cursed.Character
             _anim.SetFloat("HorizontalAxis", x);
             _anim.SetFloat("VerticalAxis", y);
             _anim.SetFloat("VerticalVelocity", yVel);
-        }
-
-        /// <summary>
-        /// Trigger the animator with the string in parameter
-        /// </summary>
-        public void SetTrigger(string trigger)
-        {
-            _anim.SetTrigger(trigger);
         }
 
         /// <summary>

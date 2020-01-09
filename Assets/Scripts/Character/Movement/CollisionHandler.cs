@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -17,16 +18,18 @@ namespace Cursed.Character
         [SerializeField] private int _wallSide;
 
         [Space]
-
         [Header("Collision")]
         public float collisionRadius = 0.25f;
         public Vector2 bottomOffset, rightOffset, leftOffset;
         private Color debugCollisionColor = Color.red;
+        public Action OnGrounded;
 
         void Update()
         {
             //Grounded if there is something of ground layer beneath
             _onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, _groundLayer);
+            if (OnGround)
+                OnGrounded?.Invoke();
 
             //On a wall if there is something of ground layer on the right or on the left
             _onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, _groundLayer) || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, _groundLayer);
