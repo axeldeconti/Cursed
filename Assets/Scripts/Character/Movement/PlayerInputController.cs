@@ -18,8 +18,8 @@ namespace Cursed.Character
             y = Input.GetAxis("Vertical");
             xRaw = Input.GetAxisRaw("Horizontal");
             yRaw = Input.GetAxisRaw("Vertical");
-            Jump = Input.GetButton("Jump");
-            Dash = Input.GetButton("Dash&Grab");
+            Jump = Input.GetButtonDown("Jump");
+            Dash = Input.GetButtonDown("Dash&Grab");
             Grab = Input.GetButton("Dash&Grab");
         }
     }

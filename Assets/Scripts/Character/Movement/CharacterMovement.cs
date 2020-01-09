@@ -70,7 +70,7 @@ namespace Cursed.Character
             Walk(dir);
 
             //Jump
-            if (_input.Jump == true)
+            if (_input.Jump)
             {
                 //If on ground, jump
                 if (_coll.OnGround)
@@ -89,14 +89,14 @@ namespace Cursed.Character
             }
 
             //Dash
-            if (_input.Dash == true && !_hasDashed && _groundTouch)
+            if (_input.Dash && !_hasDashed && _groundTouch)
             {
                 if (xRaw != 0 || yRaw != 0)
                     Dash(xRaw, 0);
             }
 
             //If on wall and input Grab hold, wall grab
-            if (_coll.OnWall && _input.Grab == true && _canMove)
+            if (_coll.OnWall && _input.Grab && _canMove)
             {
                 if (_side != _coll.WallSide)
                 _wallGrab = true;
@@ -131,7 +131,7 @@ namespace Cursed.Character
             }
 
             //Reset wall grab and fall
-            if (_input.Grab == false || !_coll.OnWall || !_canMove)
+            if (!_input.Grab || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
                 _wallSlide = false;
