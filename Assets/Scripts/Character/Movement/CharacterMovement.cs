@@ -17,11 +17,14 @@ namespace Cursed.Character
         [Space]
         [Header("Stats")]
         [SerializeField] private FloatReference _speed;
+        [SerializeField] private FloatReference _gravity;
         [SerializeField] private FloatReference _jumpForce;
         [SerializeField] private FloatReference _slideSpeed;
         [SerializeField] private FloatReference _wallJumpLerp;
         [SerializeField] [Range(0, 1)] private float _wallJumpImpulse;
         [SerializeField] private FloatReference _dashSpeed;
+        [SerializeField] private FloatReference _dashCooldown;
+        [SerializeField] private FloatReference _dashInvincibilityFrame;
 
         [Space]
         [Header("Booleans")]
@@ -30,12 +33,19 @@ namespace Cursed.Character
         [SerializeField] private bool _wallJumped;
         [SerializeField] private bool _wallSlide;
         [SerializeField] private bool _isDashing;
+        [SerializeField] private bool _doubleJump;
+
+        [Space]
+        [SerializeField] private bool _dashUnlock;
+        [SerializeField] private bool _doubleJumpUnlock;
 
         [Space]
 
         private bool _groundTouch;
         private bool _hasDashed;
+        private bool _invincibilityFrame;
 
+        [Space]
         [SerializeField] private int _side;
 
         [Space]
@@ -76,6 +86,13 @@ namespace Cursed.Character
                 if (_coll.OnGround)
                     Jump(Vector2.up, false);
 
+                //If in air, double jump
+                if (!_coll.OnWall && !_coll.OnGround && !_doubleJump && _doubleJumpUnlock)
+                {
+                    _doubleJump = true;
+                    Jump(Vector2.up, false);
+                }
+
                 //If on wall, wall jump
                 if (_coll.OnWall && !_coll.OnGround)
                     WallJump();
@@ -89,10 +106,13 @@ namespace Cursed.Character
             }
 
             //Dash
-            if (_input.Dash && !_hasDashed && _groundTouch)
+            if (_input.Dash && !_hasDashed && _groundTouch && _dashUnlock)
             {
                 if (xRaw != 0 || yRaw != 0)
                     Dash(xRaw, 0);
+
+                if (_invincibilityFrame)
+                    Debug.Log("Invincibility Frame");
             }
 
             //If on wall and input Grab hold, wall grab
@@ -127,7 +147,7 @@ namespace Cursed.Character
             else
             {
                 //Reset gravity
-                _rb.gravityScale = 3;
+                _rb.gravityScale = _gravity;
             }
 
             //Reset wall grab and fall
@@ -141,6 +161,12 @@ namespace Cursed.Character
             if (!_coll.OnWall || _coll.OnGround)
             {
                 _wallSlide = false;
+            }
+
+            //Reset double jump
+            if (_coll.OnWall || _coll.OnGround)
+            {
+                _doubleJump = false;
             }
 
             //Just touch ground
@@ -217,14 +243,16 @@ namespace Cursed.Character
             _betterJump.enabled = false;
             _wallJumped = true;
             _isDashing = true;
+            _invincibilityFrame = true;
 
-            yield return new WaitForSeconds(.3f);
+            yield return new WaitForSeconds(_dashInvincibilityFrame);
 
             //Reset values
-            _rb.gravityScale = 3;
+            _rb.gravityScale = _gravity;
             _betterJump.enabled = true;
             _wallJumped = false;
             _isDashing = false;
+            _invincibilityFrame = false;
         }
 
         /// <summary>
@@ -232,7 +260,7 @@ namespace Cursed.Character
         /// </summary>
         private IEnumerator GroundDash()
         {
-            yield return new WaitForSeconds(.15f);
+            yield return new WaitForSeconds(_dashCooldown);
             if (_coll.OnGround)
                 _hasDashed = false;
         }
