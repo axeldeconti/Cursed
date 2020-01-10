@@ -12,6 +12,10 @@ namespace Cursed.Character
         public bool Dash { get; private set; }
         public bool Grab { get; private set; }
 
+        private bool _hasDashed = false;
+
+        private void Start() => _hasDashed = false;
+
         private void Update()
         {
             x = Input.GetAxis("Horizontal");
@@ -19,8 +23,18 @@ namespace Cursed.Character
             xRaw = Input.GetAxisRaw("Horizontal");
             yRaw = Input.GetAxisRaw("Vertical");
             Jump = Input.GetButtonDown("Jump");
-            Dash = Input.GetButtonDown("Dash&Grab");
-            Grab = Input.GetButton("Dash&Grab");
+            Grab = Input.GetAxis("Dash&Grab") > 0.5f ? true : false;
+
+            if (Input.GetAxis("Dash&Grab") > 0.5f && !Dash && !_hasDashed)
+            {
+                Dash = true;
+                _hasDashed = true;
+            }
+            else
+                Dash = false;
+
+            if (Input.GetAxis("Dash&Grab") < 0.5f)
+                _hasDashed = false;
         }
     }
 }
