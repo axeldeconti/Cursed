@@ -10,6 +10,12 @@ namespace Cursed.Creature
 
         private Dictionary<CreatureStat, float> _statModifier;
 
+        private int _currentEnergy;
+        private float _currentMoveSpeed;
+        private float _currentDrainSpeed;
+        private int _currentMaxHealth;
+
+
         #region Initializer
 
         private void Start()
@@ -20,6 +26,17 @@ namespace Cursed.Creature
             {
                 _statModifier.Add((CreatureStat)i, 0f);
             }
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            //Init current stats
+            _currentEnergy = baseStats.Energy;
+            _currentMoveSpeed = baseStats.MoveSpeed;
+            _currentDrainSpeed = baseStats.DrainSpeed;
+            _currentMaxHealth = baseStats.MaxHealth;
         }
 
         #endregion
@@ -40,12 +57,16 @@ namespace Cursed.Creature
             switch (stat)
             {
                 case CreatureStat.Energy:
+                    _currentEnergy += (int)amount;
                     break;
                 case CreatureStat.MoveSpeed:
+                    _currentMoveSpeed += amount;
                     break;
                 case CreatureStat.DrainSpeed:
+                    _currentDrainSpeed += amount;
                     break;
                 case CreatureStat.MaxHealth:
+                    _currentMaxHealth += (int)amount;
                     break;
                 default:
                     break;
@@ -54,12 +75,17 @@ namespace Cursed.Creature
 
         #endregion
 
-        #region Getters
+        #region Getters & Setters
 
         public float GetStatModifier(CreatureStat stat)
         {
             return _statModifier[stat];
         }
+
+        public float CurrentEnergy => _currentEnergy;
+        public float CurrentMoveSpeed => _currentMoveSpeed;
+        public float CurrentDrainSpeed => _currentDrainSpeed;
+        public float CurrentMaxHealth => _currentMaxHealth;
 
         #endregion
     }
