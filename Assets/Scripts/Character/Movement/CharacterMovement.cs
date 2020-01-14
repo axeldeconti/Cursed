@@ -371,7 +371,10 @@ namespace Cursed.Character
         public bool WallSlide => _wallSlide;
         public bool CanMove => _canMove;
         public bool IsDashing => _isDashing;
+        public bool IsJumping => _isJumping;
         public float XSpeed => _rb.velocity.x;
+        public float YSpeed => _rb.velocity.y;
+        public bool OnGroundTouch => _groundTouch;
 
         #endregion
     }

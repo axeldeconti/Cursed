@@ -15,7 +15,10 @@ namespace Cursed.Character
         private CollisionHandler _coll;
         private SpriteRenderer _renderer;
 
-        private static readonly int _hasIsMoving = Animator.StringToHash("MoveSpeedX");
+        private static readonly int _hasIsMovingOnX = Animator.StringToHash("MoveSpeedX");
+        private static readonly int _hasIsMovingOnY = Animator.StringToHash("MoveSpeedY");
+        private static readonly int _hasIsJumping = Animator.StringToHash("IsJumping");
+        private static readonly int _hasGroundTouch = Animator.StringToHash("GroundTouch");
 
         void Start()
         {
@@ -28,8 +31,10 @@ namespace Cursed.Character
         void Update()
         {
             //Update every anim variables
-            _anim.SetFloat(_hasIsMoving, Mathf.Abs(_move.XSpeed));
-
+            _anim.SetFloat(_hasIsMovingOnX, Mathf.Abs(_move.XSpeed));
+            _anim.SetFloat(_hasIsMovingOnY, Mathf.Clamp(_move.YSpeed, -1, 1));
+            _anim.SetBool(_hasGroundTouch, _move.OnGroundTouch);
+            _anim.SetBool(_hasIsJumping, _move.IsJumping);
         }
 
         /// <summary>
