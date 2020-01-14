@@ -11,6 +11,7 @@ namespace Cursed.Character
         public bool Jump { get; private set; }
         public bool Dash { get; private set; }
         public bool Grab { get; private set; }
+        public bool Attack { get; private set; }
 
         private bool _hasDashed = false;
 
@@ -18,10 +19,13 @@ namespace Cursed.Character
 
         private void Update()
         {
+            // Input for player movements
             x = Input.GetAxis("Horizontal");
             y = Input.GetAxis("Vertical");
             xRaw = Input.GetAxisRaw("Horizontal");
             yRaw = Input.GetAxisRaw("Vertical");
+
+            // Input for player abilities
             Jump = Input.GetButtonDown("Jump");
             Grab = Input.GetAxis("Dash&Grab") > 0.5f ? true : false;
 
@@ -35,6 +39,9 @@ namespace Cursed.Character
 
             if (Input.GetAxis("Dash&Grab") < 0.5f)
                 _hasDashed = false;
+
+            // Input for player attack
+            Attack = Input.GetButtonDown("Attack");
         }
     }
 }

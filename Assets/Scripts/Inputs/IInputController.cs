@@ -2,6 +2,9 @@
 
 namespace Cursed.Character
 {
+    /// <summary>
+    /// Interface Input Controller
+    /// </summary>
     public interface IInputController
     {
         float x { get; }
@@ -11,5 +14,6 @@ namespace Cursed.Character
         bool Jump { get; }
         bool Dash { get; }
         bool Grab { get; }
+        bool Attack { get; }
     }
 }

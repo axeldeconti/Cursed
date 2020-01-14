@@ -5,16 +5,18 @@ namespace Cursed.Character
 {
     public class CollisionHandler : MonoBehaviour
     {
-
+        [Space]
         [Header("Layers")]
         [SerializeField] private LayerMask _groundLayer;
 
         [Space]
-
+        [Header("Booleans")]
         [SerializeField] private bool _onGround;
         [SerializeField] private bool _onWall;
         [SerializeField] private bool _onRightWall;
         [SerializeField] private bool _onLeftWall;
+
+        [Space]
         [SerializeField] private int _wallSide;
 
         [Space]

@@ -10,21 +10,12 @@ namespace Cursed.Character
     [RequireComponent(typeof(SpriteRenderer))]
     public class AnimationHandler : MonoBehaviour
     {
-
         private Animator _anim;
         private CharacterMovement _move;
         private CollisionHandler _coll;
         private SpriteRenderer _renderer;
 
-        private static readonly int _hasIsMoving = Animator.StringToHash("IsMoving");
-        private static readonly int _hasIsDashing = Animator.StringToHash("IsDashing");
-        private static readonly int _hasIsJumping = Animator.StringToHash("IsJumping");
-        private static readonly int _hasIsGrabing = Animator.StringToHash("IsGrabing");
-        private static readonly int _hasIsClimbing = Animator.StringToHash("IsClimbing");
-        private static readonly int _hasIsSliding = Animator.StringToHash("IsSliding");
-        private static readonly int _hasIsAttacking = Animator.StringToHash("IsAttacking");
-        private static readonly int _hasOnRightWall = Animator.StringToHash("OnRightWall");
-        private static readonly int _hasCanMove = Animator.StringToHash("CanMove");
+        private static readonly int _hasIsMoving = Animator.StringToHash("MoveSpeedX");
 
         void Start()
         {
@@ -37,15 +28,7 @@ namespace Cursed.Character
         void Update()
         {
             //Update every anim variables
-            _anim.SetBool(_hasIsMoving, _coll.OnGround);
-            _anim.SetBool(_hasIsClimbing, _coll.OnWall);
-            _anim.SetBool(_hasIsGrabing, _move.WallGrab);
-            _anim.SetBool(_hasIsSliding, _move.WallSlide);
-            _anim.SetBool(_hasCanMove, _move.CanMove);
-            _anim.SetBool(_hasOnRightWall, _coll.OnRightWall);
-
-            _anim.SetTrigger(_hasIsDashing);
-            _anim.SetTrigger(_hasIsJumping);
+            _anim.SetFloat(_hasIsMoving, Mathf.Abs(_move.XSpeed));
 
         }
 

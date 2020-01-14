@@ -14,6 +14,8 @@ namespace Cursed.Character
         private BetterJumping _betterJump;
         private AnimationHandler _anim;
 
+        [SerializeField] private IInputController _input = null;
+
         [Space]
         [Header("Stats")]
         [SerializeField] private FloatReference _speed;
@@ -41,21 +43,12 @@ namespace Cursed.Character
         [SerializeField] private bool _doubleJumpUnlock;
 
         [Space]
-
         private bool _groundTouch;
         private bool _hasDashed;
         private bool _invincibilityFrame;
 
         [Space]
         [SerializeField] private int _side;
-
-        [Space]
-        [Header("VFX")]
-        [SerializeField] private ParticleSystem _dashParticle;
-        [SerializeField] private ParticleSystem _jumpParticle;
-        [SerializeField] private ParticleSystem _wallJumpParticle;
-
-        [SerializeField] private IInputController _input = null;
 
         void Start()
         {
@@ -131,7 +124,6 @@ namespace Cursed.Character
                 //Set gravity to zero
                 _rb.gravityScale = 0;
                 
-                //??????
                 if ((x > .2f || x < .2f) && !_isJumping)
                     _rb.velocity = new Vector2(_rb.velocity.x, 0);
 
@@ -190,10 +182,12 @@ namespace Cursed.Character
             if (x > 0)
             {
                 _side = 1;
+                _anim.Flip(_side);
             }
             if (x < 0)
             {
                 _side = -1;
+                _anim.Flip(_side);
             }
         }
 
@@ -228,6 +222,9 @@ namespace Cursed.Character
             StartCoroutine(DashWait());
         }
 
+        /// <summary>
+        /// Start cooldown dash and invicibility frame
+        /// </summary>
         private IEnumerator DashWait()
         {
             //Start the ground dash coroutine
@@ -360,6 +357,9 @@ namespace Cursed.Character
             _rb.drag = x;
         }
 
+        /// <summary>
+        /// Reste variable for jump
+        /// </summary>
         private void ResetIsJumping()
         {
             _isJumping = false;
@@ -371,6 +371,7 @@ namespace Cursed.Character
         public bool WallSlide => _wallSlide;
         public bool CanMove => _canMove;
         public bool IsDashing => _isDashing;
+        public float XSpeed => _rb.velocity.x;
 
         #endregion
     }

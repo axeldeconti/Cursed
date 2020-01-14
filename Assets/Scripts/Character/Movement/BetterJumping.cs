@@ -7,8 +7,8 @@ namespace Cursed.Character
     {
         private Rigidbody2D _rb2D;
 
-        public FloatReference fallMultiplier;//2.5
-        public FloatReference lowJumpMultiplier;//2
+        public FloatReference fallMultiplier;
+        public FloatReference lowJumpMultiplier;
 
         void Start()
         {
