@@ -20,8 +20,10 @@ namespace Cursed.Character
         [Header("Stats")]
         [SerializeField] private FloatReference _speed;
         [SerializeField] private FloatReference _gravity;
+        [SerializeField] private FloatReference _airControl;
         [SerializeField] private FloatReference _jumpForce;
-        [SerializeField] private FloatReference _slideSpeed;
+        [SerializeField] private FloatReference _wallClimbSpeed;
+        [SerializeField] private FloatReference _wallSlideSpeed;
         [SerializeField] private FloatReference _wallJumpLerp;
         [SerializeField] private FloatReference _wallJumpImpulse;
         [SerializeField] private FloatReference _dashSpeed;
@@ -68,11 +70,19 @@ namespace Cursed.Character
             float xRaw = _input.xRaw;
             float yRaw = _input.yRaw;
 
-            //Get direction of the movement
-            Vector2 dir = new Vector2(x, y);
+            if (_coll.OnGround)
+            {
+                //Get direction of the movement and Walk in that direction
+                Vector2 dir = new Vector2(x, y);
+                Walk(dir);
+            }
 
-            //Walk in that direction
-            Walk(dir);
+            if (!_coll.OnGround)
+            {
+                //Get direction of the movement and Walk in that direction
+                Vector2 dir = new Vector2(x*_airControl, y*_airControl);
+                Walk(dir);
+            }
 
             //Jump
             if (_input.Jump)
@@ -131,7 +141,7 @@ namespace Cursed.Character
                 {
                     //Apply new velocity
                     if(!_isJumping)
-                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * .5f));
+                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * _wallClimbSpeed));
                 }
                 else
                 {
@@ -268,6 +278,7 @@ namespace Cursed.Character
             if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
             {
                 _side *= -1;
+                _anim.Flip(_side);
             }
 
             //Disable movement input
@@ -299,7 +310,7 @@ namespace Cursed.Character
             float push = pushingWall ? 0 : _rb.velocity.x;
 
             //Apply new velocity
-            _rb.velocity = new Vector2(push, -_slideSpeed);
+            _rb.velocity = new Vector2(push, -_wallSlideSpeed);
         }
 
         /// <summary>

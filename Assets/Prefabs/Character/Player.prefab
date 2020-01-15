@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 8498843447298849143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.27, y: -1.26, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -50,8 +50,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 2
+  m_UseAutoMass: 1
+  m_Mass: 3.6809778
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 4723107735738678597, guid: aaa53fecde1cd5a448ce9baee8bf2190,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -159,11 +159,19 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 3
     Variable: {fileID: 0}
+  _airControl:
+    UseConstant: 1
+    ConstantValue: 0.5
+    Variable: {fileID: 0}
   _jumpForce:
     UseConstant: 1
-    ConstantValue: 15
+    ConstantValue: 20
     Variable: {fileID: 0}
-  _slideSpeed:
+  _wallClimbSpeed:
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 0}
+  _wallSlideSpeed:
     UseConstant: 1
     ConstantValue: 2
     Variable: {fileID: 0}
@@ -173,19 +181,19 @@ MonoBehaviour:
     Variable: {fileID: 0}
   _wallJumpImpulse:
     UseConstant: 1
-    ConstantValue: 1.2
+    ConstantValue: 1.5
     Variable: {fileID: 0}
   _dashSpeed:
     UseConstant: 1
-    ConstantValue: 100
+    ConstantValue: 75
     Variable: {fileID: 0}
   _dashCooldown:
     UseConstant: 1
-    ConstantValue: 1
+    ConstantValue: 0.8
     Variable: {fileID: 0}
   _dashInvincibilityFrame:
     UseConstant: 1
-    ConstantValue: 0.3
+    ConstantValue: 0.2
     Variable: {fileID: 0}
   _canMove: 1
   _wallGrab: 0
@@ -237,10 +245,10 @@ MonoBehaviour:
   _onRightWall: 0
   _onLeftWall: 0
   _wallSide: 0
-  collisionRadius: 0.15
-  bottomOffset: {x: 0, y: 0.02}
-  rightOffset: {x: 0.4, y: 1}
-  leftOffset: {x: -0.4, y: 1}
+  collisionRadius: 0.5
+  bottomOffset: {x: 0, y: 0}
+  rightOffset: {x: 0.8, y: 1.5}
+  leftOffset: {x: -0.8, y: 1.5}
 --- !u!114 &8498843447298849025
 MonoBehaviour:
   m_ObjectHideFlags: 0

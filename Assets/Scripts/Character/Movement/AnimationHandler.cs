@@ -32,7 +32,7 @@ namespace Cursed.Character
         {
             //Update every anim variables
             _anim.SetFloat(_hasIsMovingOnX, Mathf.Abs(_move.XSpeed));
-            _anim.SetFloat(_hasIsMovingOnY, Mathf.Clamp(_move.YSpeed, -1, 1));
+            _anim.SetFloat(_hasIsMovingOnY, Mathf.Clamp(_move.YSpeed, -15, 15));
             _anim.SetBool(_hasGroundTouch, _move.OnGroundTouch);
             _anim.SetBool(_hasIsJumping, _move.IsJumping);
         }
