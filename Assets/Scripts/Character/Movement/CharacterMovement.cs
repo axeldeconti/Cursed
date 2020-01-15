@@ -372,6 +372,7 @@ namespace Cursed.Character
         public bool CanMove => _canMove;
         public bool IsDashing => _isDashing;
         public float XSpeed => _rb.velocity.x;
+        public int Side => _side;
 
         #endregion
     }
