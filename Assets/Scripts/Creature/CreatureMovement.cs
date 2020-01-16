@@ -11,9 +11,7 @@ namespace Cursed.Creature
         private CreatureStats _creatureStats;
         private Rigidbody2D _rb;
         private CreatureManager _creatureManager;
-        private bool _moveToPlayer;
-        private bool _moveInTheAir;
-        private bool _onPlayer;
+        private CreatureSearching _creatureSearching;
         private int _direction;
 
         private void Start()
@@ -22,39 +20,35 @@ namespace Cursed.Creature
             _creatureStats = GetComponent<CreatureStats>();
             _rb = GetComponent<Rigidbody2D>();
             _creatureManager = GetComponent<CreatureManager>();
+            _creatureSearching = GetComponent<CreatureSearching>();
         }
 
         private void Update()
         {
-            if(_moveToPlayer) MoveToTarget(playerPosition.position);
-            if(_moveInTheAir) MoveToDirection(_direction);
+            if(_creatureManager.CurrentState == CreatureState.OnComeBack) 
+                MoveToTarget(playerPosition.position);
+            if(_creatureManager.CurrentState == CreatureState.Moving) 
+                MoveToDirection(_direction);
+            if(_creatureManager.CurrentState == CreatureState.Chasing)
+                MoveToTarget(_creatureSearching.Enemy);
         }
 
         public void MoveToDirection(int direction)
         {
-            _rb.velocity = new Vector2(direction * _creatureStats.CurrentMoveSpeed, _rb.velocity.y);
+            _rb.velocity = new Vector2(direction * _creatureStats.CurrentMoveSpeedInAir, _rb.velocity.y);
+            //transform.position += (Vector3.right * _creatureStats.CurrentMoveSpeed * direction);
         }
 
         public void MoveToTarget(Vector3 target)
         {
-            transform.position = Vector3.MoveTowards(this.transform.position, target, _creatureStats.CurrentMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(this.transform.position, target, _creatureStats.CurrentMoveSpeedChaseAndComeBack * Time.deltaTime);
         }
 
         // GETTERS & SETTERS
-        public bool MoveToPlayer
-        {
-            get => _moveToPlayer;
-            set => _moveToPlayer = value;
-        }
         public int Direction 
         {
             get => _direction;
             set => _direction = value;
-        }
-        public bool MoveInTheAir
-        {
-            get => _moveInTheAir;
-            set => _moveInTheAir = value;
         }
     }
 }

@@ -11,13 +11,14 @@ namespace Cursed.Creature
         Moving,
         OnEnemy,
         OnComeBack,
+        Chasing,
         OnPausing
     }
 
     public class CreatureManager : MonoBehaviour
     {
         public CharacterMovement _characterMovement;
-        private CreatureState _creatureState;
+        [SerializeField] private CreatureState _creatureState;
         private CreatureMovement _movement;
         private CreatureInputController _input;
 
@@ -40,20 +41,20 @@ namespace Cursed.Creature
         {
             if(_input.Creature || Input.GetButtonDown("Creature"))
             {
-                if(_creatureState == CreatureState.OnCharacter) DeAttachFromPlayer();
-                else CurrentState = CreatureState.OnComeBack;
+                if(_creatureState == CreatureState.OnCharacter) 
+                    DeAttachFromPlayer();
+                else
+                {
+                    CurrentState = CreatureState.OnComeBack;
+                    Debug.Log("Come back input");
+                }
             }
-        }
-
-        private void OnCharacter()
-        {
-            _movement.MoveToPlayer = false;
-            ToggleChilds(false);
         }
 
         private void DeAttachFromPlayer()
         {
-            transform.position = _characterMovement.transform.position + new Vector3(0f, 1f, 0f);
+            Debug.Log("Deattach");
+            transform.position = _characterMovement.transform.position + new Vector3(1f * _characterMovement.Side, 1.5f, 0f);
 
             _movement.Direction = _characterMovement.Side;
             CurrentState = CreatureState.Moving;
@@ -65,6 +66,7 @@ namespace Cursed.Creature
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(active);
+                Debug.Log("Active childs");
             }
         }
 
@@ -79,20 +81,23 @@ namespace Cursed.Creature
                 {
                     case CreatureState.Moving:
                         ToggleChilds(true);
-                        _movement.MoveInTheAir = true;
+                        //_movement.MoveInTheAir = true;
                         break;
                 
                     case CreatureState.OnCharacter:
-                        OnCharacter();
+                        ToggleChilds(false);
                         break;
                 
                     case CreatureState.OnComeBack:
                         // Launch movement to player
-                        _movement.MoveInTheAir = false;
-                        _movement.MoveToPlayer = true;
+                        ToggleChilds(true);
                         break;
                 
                     case CreatureState.OnEnemy:
+                        ToggleChilds(false);
+                        break;
+
+                    case CreatureState.Chasing:
                         break;
                     
                     case CreatureState.OnPausing:

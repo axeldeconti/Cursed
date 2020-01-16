@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 672938721202977458}
   - component: {fileID: 672938721202977463}
   - component: {fileID: 672938721202977462}
+  - component: {fileID: 1774645476348435594}
+  - component: {fileID: 650134762}
   m_Layer: 0
   m_Name: Creature
   m_TagString: Untagged
@@ -86,6 +88,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71d4794a96ad5044a8b7e0c95bb8704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterMovement: {fileID: 0}
+  _creatureState: 0
+--- !u!114 &1774645476348435594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672938721202977457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9d737aacd518a4c9e5907dae9ef942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!50 &650134762
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672938721202977457}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4132217360804632334
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +214,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6494810293441498829}
   - component: {fileID: 2766293629249864647}
-  - component: {fileID: 2868675368315256289}
   - component: {fileID: 5145673111556155876}
   m_Layer: 0
   m_Name: Collider
@@ -226,27 +262,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!50 &2868675368315256289
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6454707349696767708}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &5145673111556155876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,3 +274,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3d824df53da3642b76cd425d19427b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CreatureOnCharacter: {fileID: 0}

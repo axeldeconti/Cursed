@@ -11,9 +11,10 @@ namespace Cursed.Creature
         private Dictionary<CreatureStat, float> _statModifier;
 
         private int _currentEnergy;
-        private float _currentMoveSpeed;
+        private float _currentMoveSpeedInAir;
         private float _currentDrainSpeed;
         private int _currentMaxHealth;
+        private float _currentMoveSpeedChaseAndComeBack;
 
 
         #region Initializer
@@ -34,9 +35,10 @@ namespace Cursed.Creature
         {
             //Init current stats
             _currentEnergy = baseStats.Energy;
-            _currentMoveSpeed = baseStats.MoveSpeed;
+            _currentMoveSpeedInAir = baseStats.MoveSpeedInAir;
             _currentDrainSpeed = baseStats.DrainSpeed;
             _currentMaxHealth = baseStats.MaxHealth;
+            _currentMoveSpeedChaseAndComeBack = baseStats.MoveSpeedChaseAndComeBack;
         }
 
         #endregion
@@ -59,14 +61,17 @@ namespace Cursed.Creature
                 case CreatureStat.Energy:
                     _currentEnergy += (int)amount;
                     break;
-                case CreatureStat.MoveSpeed:
-                    _currentMoveSpeed += amount;
+                case CreatureStat.MoveSpeedInAir:
+                    _currentMoveSpeedInAir += amount;
                     break;
                 case CreatureStat.DrainSpeed:
                     _currentDrainSpeed += amount;
                     break;
                 case CreatureStat.MaxHealth:
                     _currentMaxHealth += (int)amount;
+                    break;
+                case CreatureStat.MoveSpeedChaseAndComeBack:
+                    _currentMoveSpeedChaseAndComeBack += amount;
                     break;
                 default:
                     break;
@@ -83,9 +88,10 @@ namespace Cursed.Creature
         }
 
         public float CurrentEnergy => _currentEnergy;
-        public float CurrentMoveSpeed => _currentMoveSpeed;
+        public float CurrentMoveSpeedInAir => _currentMoveSpeedInAir;
         public float CurrentDrainSpeed => _currentDrainSpeed;
         public float CurrentMaxHealth => _currentMaxHealth;
+        public float CurrentMoveSpeedChaseAndComeBack => _currentMoveSpeedChaseAndComeBack;
 
         #endregion
     }
