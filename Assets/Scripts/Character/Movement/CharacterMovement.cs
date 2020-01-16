@@ -79,7 +79,7 @@ namespace Cursed.Character
 
             if (!_coll.OnGround)
             {
-                //Get direction of the movement and Walk in that direction
+                //Get direction of the movement if is on air and apply air control
                 Vector2 dir = new Vector2(x*_airControl, y*_airControl);
                 Walk(dir);
             }
@@ -113,7 +113,7 @@ namespace Cursed.Character
             //Dash
             if (_input.Dash && !_hasDashed && _groundTouch && _dashUnlock)
             {
-                if (xRaw != 0 || yRaw != 0)
+                if (xRaw != 0)
                     Dash(xRaw, 0);
 
                 if (_invincibilityFrame)
@@ -193,11 +193,23 @@ namespace Cursed.Character
             {
                 _side = 1;
                 _anim.Flip(_side);
+
+                if (_coll.OnRightWall)
+                {
+                    Vector2 dir = new Vector2(0, y);
+                    Walk(dir);
+                }
             }
             if (x < 0)
             {
                 _side = -1;
                 _anim.Flip(_side);
+
+                if (_coll.OnLeftWall)
+                {
+                    Vector2 dir = new Vector2(0, y);
+                    Walk(dir);
+                }
             }
         }
 

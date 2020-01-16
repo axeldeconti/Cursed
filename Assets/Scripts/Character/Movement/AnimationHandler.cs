@@ -19,6 +19,7 @@ namespace Cursed.Character
         private static readonly int _hasIsMovingOnY = Animator.StringToHash("MoveSpeedY");
         private static readonly int _hasIsJumping = Animator.StringToHash("IsJumping");
         private static readonly int _hasGroundTouch = Animator.StringToHash("GroundTouch");
+        private static readonly int _hasIsDashing = Animator.StringToHash("IsDashing");
 
         void Start()
         {
@@ -35,6 +36,7 @@ namespace Cursed.Character
             _anim.SetFloat(_hasIsMovingOnY, Mathf.Clamp(_move.YSpeed, -15, 15));
             _anim.SetBool(_hasGroundTouch, _move.OnGroundTouch);
             _anim.SetBool(_hasIsJumping, _move.IsJumping);
+            _anim.SetBool(_hasIsDashing, _move.IsDashing);
         }
 
         /// <summary>
