@@ -25,7 +25,7 @@ namespace Cursed.Creature
                     if(hit.collider.gameObject.CompareTag("Enemy"))
                     {
                         _enemyHit = hit.collider.transform;
-                        if (EnemyInRange(Radius, true))
+                        if (EnemyInRange(Radius, false))
                         {
                             _creatureManager.CurrentState = CreatureState.Chasing;
                         }
