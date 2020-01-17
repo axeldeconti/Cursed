@@ -7,6 +7,7 @@ namespace Cursed.Creature
     {
         [Header ("Referencies")]
         public GameObject CreatureOnCharacter;
+        public GameObject CreatureOnWall;
         private CreatureManager _creatureManager;
 
         void Start()
@@ -16,15 +17,17 @@ namespace Cursed.Creature
 
         void OnTriggerEnter2D(Collider2D collider)
         {
-            if(collider.gameObject.CompareTag("Player"))
+            if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
+                _creatureManager.CurrentState = CreatureState.OnComeBack;
+                GameObject go = Instantiate(CreatureOnWall, this.transform.position, Quaternion.identity, collider.transform);
             }
 
-            if(collider.transform.GetComponent<CharacterMovement>())
+            if (collider.transform.GetComponent<CharacterMovement>())
             {
-                if(collider.gameObject.CompareTag("Player"))
+                if (collider.gameObject.CompareTag("Player"))
                     _creatureManager.CurrentState = CreatureState.OnCharacter;
-                else if(collider.gameObject.CompareTag("Enemy"))
+                else if (collider.gameObject.CompareTag("Enemy"))
                     _creatureManager.CurrentState = CreatureState.OnEnemy;
 
                 Instantiate(CreatureOnCharacter, collider.transform.position, Quaternion.identity, collider.transform);

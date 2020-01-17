@@ -21,7 +21,7 @@ namespace Cursed.Creature
             if( _parent.GetComponent<SpriteMask>() == null) 
                 _mask = gameObject.AddComponent(typeof(SpriteMask)) as SpriteMask;
             else 
-                _mask = _parent.GetComponent<SpriteMask>();
+                _mask = gameObject.GetComponent<SpriteMask>();
 
             _spriteParent = _parent.GetComponent<SpriteRenderer>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();

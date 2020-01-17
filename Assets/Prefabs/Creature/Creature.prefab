@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 672938721202977463}
   - component: {fileID: 672938721202977462}
   - component: {fileID: 1774645476348435594}
+  - component: {fileID: 4191044967726581530}
   - component: {fileID: 650134762}
   m_Layer: 0
   m_Name: Creature
@@ -103,6 +104,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 10
+  TimeBeforeComeBack: 3
+  _timer: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &4191044967726581530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672938721202977457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2daf308c54bd8c44390386642aab8ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &650134762
 Rigidbody2D:
   serializedVersion: 4
@@ -261,7 +279,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &5145673111556155876
 MonoBehaviour:
@@ -275,4 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3d824df53da3642b76cd425d19427b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreatureOnCharacter: {fileID: 0}
+  CreatureOnCharacter: {fileID: 3107878127329163696, guid: 2ab846ad64418874cb5097b1b50df5d7,
+    type: 3}
+  CreatureOnWall: {fileID: 3164817021948877361, guid: 8af913c0c0ee85a49b150a7555053c63,
+    type: 3}
