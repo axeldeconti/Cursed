@@ -25,7 +25,6 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _wallClimbSpeed;
         [SerializeField] private FloatReference _wallSlideSpeed;
         [SerializeField] private FloatReference _wallJumpLerp;
-        [SerializeField] private FloatReference _wallJumpImpulse;
         [SerializeField] private FloatReference _dashSpeed;
         [SerializeField] private FloatReference _dashCooldown;
         [SerializeField] private FloatReference _dashInvincibilityFrame;
@@ -64,6 +63,8 @@ namespace Cursed.Character
             _anim = GetComponentInChildren<AnimationHandler>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
+
+            _groundTouch = true;
         }
         
         void Update()
@@ -100,7 +101,7 @@ namespace Cursed.Character
                     _doubleJump = true;
                     _betterJump.fallMultiplier = 3f;
                     _betterJump.lowJumpMultiplier = 8f;
-                    Jump(Vector2.up, false);
+                    Jump(Vector2.up, true);
                 }
 
                 //If on ground, jump
@@ -109,7 +110,7 @@ namespace Cursed.Character
                     _canEvenJump = false;
                     _betterJump.fallMultiplier = 3f;
                     _betterJump.lowJumpMultiplier = 8f;
-                    Jump(Vector2.up, false);                   
+                    Jump(Vector2.up, true);                   
                 }
 
                 //If on wall, wall jump
@@ -307,31 +308,6 @@ namespace Cursed.Character
         }
 
         /// <summary>
-        /// Call to do a wall jump
-        /// </summary>
-        private void WallJump()
-        {
-            _wallJumped = true;
-
-            //Flip the character to face the wall
-            if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
-            {
-                _side *= -1;
-                _anim.Flip(_side);
-            }
-
-            //Disable movement input
-            StopCoroutine(DisableMovement(0));
-            StartCoroutine(DisableMovement(.1f));
-
-            //Jump in the right direction
-            Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
-            Vector2 dir = Vector2.up / 1f + wallDir / _wallJumpImpulse;
-
-            Jump(dir, true);
-        }
-
-        /// <summary>
         /// Call to slide on a wall
         /// </summary>
         private void SlideOnWall()
@@ -387,6 +363,33 @@ namespace Cursed.Character
             _rb.velocity = new Vector2(_rb.velocity.x, y);
             _rb.velocity += dir * _jumpForce;
             _isJumping = true;
+        }
+
+
+        /// <summary>
+        /// Call to do a wall jump
+        /// </summary>
+        private void WallJump()
+        {
+            _wallJumped = true;
+
+            //Flip the character to face the wall
+            if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
+            {
+                _side *= -1;
+                _anim.Flip(_side);
+            }
+
+            //Disable movement input
+            StopCoroutine(DisableMovement(0));
+            StartCoroutine(DisableMovement(.1f));
+
+            //Jump in the right direction
+            Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
+            Vector2 dir = Vector2.up / 1f + wallDir;
+
+            Jump(dir, false);
+
         }
 
         /// <summary>
