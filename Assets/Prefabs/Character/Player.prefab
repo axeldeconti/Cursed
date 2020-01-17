@@ -181,7 +181,7 @@ MonoBehaviour:
     Variable: {fileID: 0}
   _wallJumpImpulse:
     UseConstant: 1
-    ConstantValue: 1.5
+    ConstantValue: 2
     Variable: {fileID: 0}
   _dashSpeed:
     UseConstant: 1
@@ -192,6 +192,14 @@ MonoBehaviour:
     ConstantValue: 0.8
     Variable: {fileID: 0}
   _dashInvincibilityFrame:
+    UseConstant: 1
+    ConstantValue: 0.2
+    Variable: {fileID: 0}
+  _coyoteTimeForJump:
+    UseConstant: 1
+    ConstantValue: 0.2
+    Variable: {fileID: 0}
+  _bufferJump:
     UseConstant: 1
     ConstantValue: 0.2
     Variable: {fileID: 0}
@@ -217,14 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add285d66bc55ec47b1e6fd4ffeedb1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallMultiplier:
-    UseConstant: 1
-    ConstantValue: 3
-    Variable: {fileID: 0}
-  lowJumpMultiplier:
-    UseConstant: 1
-    ConstantValue: 8
-    Variable: {fileID: 0}
+  fallMultiplier: 0
+  lowJumpMultiplier: 0
 --- !u!114 &8498843447298849142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,10 +247,10 @@ MonoBehaviour:
   _onRightWall: 0
   _onLeftWall: 0
   _wallSide: 0
-  collisionRadius: 0.5
-  bottomOffset: {x: 0, y: 0}
-  rightOffset: {x: 0.8, y: 1.5}
-  leftOffset: {x: -0.8, y: 1.5}
+  collisionRadius: 0.4
+  bottomOffset: {x: 0, y: 0.2}
+  rightOffset: {x: 0.6, y: 1.5}
+  leftOffset: {x: -0.6, y: 1.5}
 --- !u!114 &8498843447298849025
 MonoBehaviour:
   m_ObjectHideFlags: 0

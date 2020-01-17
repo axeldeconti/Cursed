@@ -29,6 +29,8 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _dashSpeed;
         [SerializeField] private FloatReference _dashCooldown;
         [SerializeField] private FloatReference _dashInvincibilityFrame;
+        [SerializeField] private FloatReference _coyoteTimeForJump;
+        [SerializeField] private FloatReference _bufferJump;
 
         [Space]
         [Header("Booleans")]
@@ -48,6 +50,8 @@ namespace Cursed.Character
         private bool _groundTouch;
         private bool _hasDashed;
         private bool _invincibilityFrame;
+        private bool _canEvenJump;
+        private bool _jumpWasPressed;
 
         [Space]
         [SerializeField] private int _side;
@@ -64,7 +68,7 @@ namespace Cursed.Character
         
         void Update()
         {
-            //Get input - to put in an input manager
+            //Set and Get input
             float x = _input.x;
             float y = _input.y;
             float xRaw = _input.xRaw;
@@ -87,20 +91,34 @@ namespace Cursed.Character
             //Jump
             if (_input.Jump)
             {
-                //If on ground, jump
-                if (_coll.OnGround)
-                    Jump(Vector2.up, false);
+                _jumpWasPressed = true;
+                StartCoroutine(RememberJumpTime(_bufferJump));
 
                 //If in air, double jump
-                if (!_coll.OnWall && !_coll.OnGround && !_doubleJump && _doubleJumpUnlock)
+                if (!_coll.OnWall && !_coll.OnGround && !_doubleJump && _doubleJumpUnlock && !_canEvenJump)
                 {
                     _doubleJump = true;
+                    _betterJump.fallMultiplier = 3f;
+                    _betterJump.lowJumpMultiplier = 8f;
                     Jump(Vector2.up, false);
+                }
+
+                //If on ground, jump
+                if (_coll.OnGround || _canEvenJump)
+                {
+                    _canEvenJump = false;
+                    _betterJump.fallMultiplier = 3f;
+                    _betterJump.lowJumpMultiplier = 8f;
+                    Jump(Vector2.up, false);                   
                 }
 
                 //If on wall, wall jump
                 if (_coll.OnWall && !_coll.OnGround)
+                {
+                    _betterJump.fallMultiplier = 0f;
+                    _betterJump.lowJumpMultiplier = 0f;
                     WallJump();
+                }
             }
 
             //If is on ground, reset values
@@ -182,6 +200,7 @@ namespace Cursed.Character
             if (!_coll.OnGround && _groundTouch)
             {
                 _groundTouch = false;
+                StartCoroutine(CoyoteTimeForJump(_coyoteTimeForJump));
             }
 
             //Return if the character can't flip 
@@ -222,8 +241,15 @@ namespace Cursed.Character
             _groundTouch = true;
             _hasDashed = false;
             _isDashing = false;
+            _canEvenJump = true;
 
             _side = 1;
+
+            if(_jumpWasPressed)
+            {
+                Jump(Vector2.up, false);
+                _canEvenJump = false;
+            }
         }
 
         /// <summary>
@@ -286,6 +312,7 @@ namespace Cursed.Character
         private void WallJump()
         {
             _wallJumped = true;
+
             //Flip the character to face the wall
             if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
             {
@@ -386,6 +413,24 @@ namespace Cursed.Character
         private void ResetIsJumping()
         {
             _isJumping = false;
+        }
+
+        /// <summary>
+        /// Coyote Time
+        /// </summary>
+        private IEnumerator CoyoteTimeForJump(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _canEvenJump = false;
+        }
+
+        /// <summary>
+        /// Input buffer jump
+        /// </summary>
+        private IEnumerator RememberJumpTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _jumpWasPressed = false;
         }
 
         #region Getters & Setters

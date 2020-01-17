@@ -7,12 +7,14 @@ namespace Cursed.Character
     {
         private Rigidbody2D _rb2D;
 
-        public FloatReference fallMultiplier;
-        public FloatReference lowJumpMultiplier;
+        public float fallMultiplier;
+        public float lowJumpMultiplier;
 
         void Start()
         {
             _rb2D = GetComponent<Rigidbody2D>();
+            fallMultiplier = 0f;
+            lowJumpMultiplier = 0f;
         }
 
         void Update()
