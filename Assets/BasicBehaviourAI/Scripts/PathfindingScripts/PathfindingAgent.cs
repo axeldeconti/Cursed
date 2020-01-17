@@ -21,7 +21,6 @@ public class PathfindingAgent : MonoBehaviour
     //Ensures starting position is grounded at the correct location.
     private bool useStored = false;
     private Vector3 storePoint;
-    private GameObject storeObject;
 
     //Pathfinding
     public bool repathOnFail = true;
@@ -153,7 +152,7 @@ public class PathfindingAgent : MonoBehaviour
         if (_controller.collisions.below)
         {
             useStored = false;
-            if (debugBool) { Debug.Log("requeseting path vector"); }
+            if (debugBool) { Debug.Log("requesting path vector"); }
             lastOrder = pathVector;
             _pathfindingManagerScript.RequestPathInstructions(gameObject, lastOrder, _characterScript.jump.maxJumpHeight
                 , _characterScript.movement.ability
@@ -174,7 +173,7 @@ public class PathfindingAgent : MonoBehaviour
         pathfindingTarget = Go;
         if (_controller.collisions.below)
         {
-            if (debugBool) { Debug.Log("requeseting path target"); }
+            if (debugBool) { Debug.Log("requesting path target"); }
             _pathfindingManagerScript.RequestPathInstructions(gameObject, pathfindingTarget.transform.position, _characterScript.jump.maxJumpHeight
                 , _characterScript.movement.ability
                 , _characterScript.jump.ability
@@ -212,27 +211,6 @@ public class PathfindingAgent : MonoBehaviour
                 transform.position = new Vector3(Mathf.Lerp(transform.position.x, currentOrders[orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
             }
 
-            //climbing
-            if (currentOrders[orderNum].order == "climb" && transform.position.x + pointAccuracy > currentOrders[orderNum].pos.x && transform.position.x - pointAccuracy < currentOrders[orderNum].pos.x)
-            {
-                //if last node is ground node that was switched to climbing, path completed
-                if (orderNum == currentOrders.Count - 1) { orderComplete = true; }
-                if (transform.position.y + pointAccuracy > currentOrders[orderNum].pos.y && transform.position.y - pointAccuracy < currentOrders[orderNum].pos.y)
-                {
-
-                    if (orderNum == currentOrders.Count - 1) { orderComplete = true; }
-
-                    if (orderNum + 1 < currentOrders.Count && currentOrders[orderNum + 1].order == "climb")
-                    {
-                        orderComplete = true;
-                    }
-                }
-                if (orderNum + 1 < currentOrders.Count && currentOrders[orderNum + 1].order != "climb")
-                {
-                    input.y = currentOrders[orderNum + 1].pos.y < currentOrders[orderNum].pos.y ? -1 : 1;
-
-                }
-            }
 
             //match X position of node (Ground, Fall)
             if (currentOrders[orderNum].order != "jump" && currentOrders[orderNum].order != "climb"
@@ -287,21 +265,6 @@ public class PathfindingAgent : MonoBehaviour
                 aiJumped = false;
             }
 
-            //oneway nodes
-            if (orderNum > 0 && (currentOrders[orderNum - 1].order == "fall" || currentOrders[orderNum - 1].order == "jump"))
-            {
-                if (_controller.collisions.below)
-                {
-
-                    onewayGrounded = true;
-                    if (onewayGrounded && onewayDropDown)
-                    {
-                        input.y = -1;
-                        onewayGrounded = false;
-                    }
-
-                }
-            }
 
             //next order!
             if (orderComplete)
@@ -338,7 +301,7 @@ public class PathfindingAgent : MonoBehaviour
             RequestPath(storePoint);
         }
 
-        //Only recieve orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
+        //Only receive orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
         if (waitingOrders != null && (_controller.collisions.below))
         {
             if (_aiControllerScript.NeedsPathfinding())
@@ -413,10 +376,10 @@ public class PathfindingAgent : MonoBehaviour
             if (fFollowPathTimer >= followPathTimer)
             {
                 fFollowPathTimer = 0f;
-                if ((currentOrders != null && currentOrders.Count > 0 && currentOrders.Count > 0 && Vector3.Distance(currentOrders[currentOrders.Count - 1].pos, pathfindingTarget.transform.position) > followDistance)
+                if ((currentOrders != null && currentOrders.Count > 0 && Vector3.Distance(currentOrders[currentOrders.Count - 1].pos, pathfindingTarget.transform.position) > followDistance)
                     || ((currentOrders == null || currentOrders.Count == 0)))
                 {
-                    if (Vector3.Distance(transform.position, pathfindingTarget.transform.position) > followDistance + 0.18f)
+                    if (Vector3.Distance(transform.position, pathfindingTarget.transform.position) > followDistance + 0.18f) { }
                         pathIsDirty = true;
                 }
             }
@@ -458,6 +421,9 @@ public class PathfindingAgent : MonoBehaviour
             }
         }
     }
+
+
+
 
     //Debugging visuals
     private void OnDrawGizmos()

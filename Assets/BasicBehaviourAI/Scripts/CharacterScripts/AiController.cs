@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class AiController : MonoBehaviour
@@ -26,6 +26,7 @@ public class AiController : MonoBehaviour
 
     public static GameObject player;
     private bool destroy = false;
+
 
 
     private void Awake()
@@ -118,22 +119,20 @@ public class AiController : MonoBehaviour
 
     private void Chase()
     { //Add this method into AiController
-        if (!PlayerInRange(8f, false)) //Change boolean to true for OnSight aggro
+        if (!PlayerInRange(6f, false)) //Change boolean to true for OnSight aggro
         {
             state = ai_state.groundpatrol;
             return;
-
+            
         }
         _pathAgent.pathfindingTarget = player;
-        state = ai_state.chase;
-        _behaviourText.text = "Chase";
 
     }
 
     private void GroundPatrol(ref Vector2 input)
     {
         //Switch to chase if player in range
-        if (PlayerInRange(8f, false)) //Change boolean to true for OnSight aggro
+        if (PlayerInRange(6f, true)) //Change boolean to true for OnSight aggro
         {
             state = ai_state.chase;
             return;
@@ -144,14 +143,17 @@ public class AiController : MonoBehaviour
         if (direction == 1 && (_controller.collisions.right || (!_controller.rightGrounded && _controller.collisions.below)))
         {
             direction = -1;
-            Debug.Log("CollisionRight");
         }
         else if (direction == -1 && (_controller.collisions.left || (!_controller.leftGrounded && _controller.collisions.below)))
         {
             direction = 1;
-            Debug.Log("CollisionLeft");
         }
         
         input.x = direction;
+
+        //_pathAgent.pathfindingTarget = _pathScript.GroundNodes[Random.Range(0, _pathScript.GroundNodes.Count)].gameObject;
+        //_characterScript.target = _pathScript.GroundNodes[Random.Range(0, _pathScript.GroundNodes.Count)].gameObject;
+
     }
+
 }
