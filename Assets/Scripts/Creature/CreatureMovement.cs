@@ -26,11 +26,11 @@ namespace Cursed.Creature
         private void Update()
         {
             if(_creatureManager.CurrentState == CreatureState.OnComeBack) 
-                MoveToTarget(playerPosition.position);
+                MoveToTarget(playerPosition.GetChild(0).position);
             if(_creatureManager.CurrentState == CreatureState.Moving) 
                 MoveToDirection(_direction);
             if(_creatureManager.CurrentState == CreatureState.Chasing)
-                MoveToTarget(_creatureSearching.Enemy);
+                MoveToTarget(_creatureSearching.Enemy.GetChild(0).position);
         }
 
         public void MoveToDirection(int direction)
@@ -41,6 +41,7 @@ namespace Cursed.Creature
 
         public void MoveToTarget(Vector3 target)
         {
+            _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target, _creatureStats.CurrentMoveSpeedChaseAndComeBack * Time.deltaTime);
         }
 

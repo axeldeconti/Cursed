@@ -10,6 +10,8 @@ namespace Cursed.Creature
         private Transform _parent;
         private SpriteRenderer _spriteParent, _spriteRenderer;
         private CreatureManager _creatureManager;
+        private CharacterMovement _characterMovemenent;
+        private int _side;
 
 
         void Awake()
@@ -17,13 +19,15 @@ namespace Cursed.Creature
             _parent = transform.parent;
 
             if( _parent.GetComponent<SpriteMask>() == null) 
-                _mask = _parent.gameObject.AddComponent(typeof(SpriteMask)) as SpriteMask;
+                _mask = gameObject.AddComponent(typeof(SpriteMask)) as SpriteMask;
             else 
                 _mask = _parent.GetComponent<SpriteMask>();
 
             _spriteParent = _parent.GetComponent<SpriteRenderer>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
             _creatureManager = (CreatureManager)FindObjectOfType(typeof(CreatureManager));
+            _characterMovemenent = _parent.GetComponent<CharacterMovement>();
+            _side = 1;
         }
 
         void Update()
@@ -39,12 +43,21 @@ namespace Cursed.Creature
 
         private void UpdateSpriteMask()
         {
-            _mask.sprite = _parent.GetComponent<SpriteRenderer>().sprite;
+            _mask.sprite = _spriteParent.sprite;
         }
 
         private void UpdateFlip()
         {
-            _spriteRenderer.flipX = _spriteParent.flipX;
+            if(_side == 1 && _characterMovemenent.Side == -1)
+            {
+                _side = -1;
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            }
+            if (_side == -1 && _characterMovemenent.Side == 1)
+            {
+                _side = 1;
+                transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            }
         }
     }
 }

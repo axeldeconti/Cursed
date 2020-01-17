@@ -5,7 +5,7 @@ namespace Cursed.Creature
     public class CreatureSearching : MonoBehaviour
     {
         public float Radius = 4f;
-        private Vector3 _enemyHit;
+        private Transform _enemyHit;
         private CreatureManager _creatureManager;
 
         void Start()
@@ -16,19 +16,20 @@ namespace Cursed.Creature
         {
             if(_creatureManager.CurrentState == CreatureState.Moving)
             {
-                RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, Radius, new Vector3(0f, 0f, 0f));
-                foreach(RaycastHit2D hit in obj)
+                RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, Radius, new Vector2(0f,0f));
+                foreach (RaycastHit2D hit in obj)
                 {
+                    Debug.Log(hit.collider.gameObject.name);
                     if(hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        _enemyHit = hit.collider.transform.position;
-                        GetComponent<CreatureManager>().CurrentState = CreatureState.Chasing;
+                        _enemyHit = hit.collider.transform;
+                        _creatureManager.CurrentState = CreatureState.Chasing;
                     }
                 }
             }
         }
 
-        public Vector3 Enemy 
+        public Transform Enemy 
         {
             get => _enemyHit;
             set => _enemyHit = value;
