@@ -69,7 +69,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 8498843447298849143}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 86e2560e9c03f2b4580ed67d77b0f307, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -159,26 +159,20 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 3
     Variable: {fileID: 0}
-  _airControl:
-    UseConstant: 1
-    ConstantValue: 0.8
-    Variable: {fileID: 0}
+  _airControl: 0.6
   _jumpForce:
     UseConstant: 1
     ConstantValue: 20
     Variable: {fileID: 0}
-  _wallClimbSpeed:
+  _wallClimbMultiplySpeed:
     UseConstant: 1
-    ConstantValue: 1.5
+    ConstantValue: 1.2
     Variable: {fileID: 0}
   _wallSlideSpeed:
     UseConstant: 1
-    ConstantValue: 2
+    ConstantValue: 5
     Variable: {fileID: 0}
-  _wallJumpLerp:
-    UseConstant: 1
-    ConstantValue: 8
-    Variable: {fileID: 0}
+  _wallJumpLerp: 3
   _dashSpeed:
     UseConstant: 1
     ConstantValue: 75
@@ -199,6 +193,9 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 0.2
     Variable: {fileID: 0}
+  _horizontalDampingWhenStopping: 0.8
+  _horizontalDampingWhenTurning: 0.2
+  _horizontalDampingBasic: 0.4
   _canMove: 1
   _wallGrab: 0
   _wallJumped: 0

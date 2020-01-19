@@ -20,16 +20,24 @@ namespace Cursed.Character
         [Header("Stats")]
         [SerializeField] private FloatReference _speed;
         [SerializeField] private FloatReference _gravity;
-        [SerializeField] private FloatReference _airControl;
+        [Range (0,1)]
+        [SerializeField] private float _airControl;
         [SerializeField] private FloatReference _jumpForce;
-        [SerializeField] private FloatReference _wallClimbSpeed;
+        [SerializeField] private FloatReference _wallClimbMultiplySpeed;
         [SerializeField] private FloatReference _wallSlideSpeed;
-        [SerializeField] private FloatReference _wallJumpLerp;
+        [Range(0, 5)]
+        [SerializeField] private float _wallJumpLerp;
         [SerializeField] private FloatReference _dashSpeed;
         [SerializeField] private FloatReference _dashCooldown;
         [SerializeField] private FloatReference _dashInvincibilityFrame;
         [SerializeField] private FloatReference _coyoteTimeForJump;
         [SerializeField] private FloatReference _bufferJump;
+        [Range(0, 1)]
+        [SerializeField] private float _horizontalDampingWhenStopping;
+        [Range(0, 1)]
+        [SerializeField] private float _horizontalDampingWhenTurning;
+        [Range(0, 1)]
+        [SerializeField] private float _horizontalDampingBasic;
 
         [Space]
         [Header("Booleans")]
@@ -70,13 +78,18 @@ namespace Cursed.Character
         void Update()
         {
             //Set and Get input
-            float x = _input.x;
+            float x = _rb.velocity.x + _input.x;
             float y = _input.y;
-            float xRaw = _input.xRaw;
-            float yRaw = _input.yRaw;
 
             if (_coll.OnGround)
             {
+                if (Mathf.Abs(_input.x) < 0.01f)
+                    x *= Mathf.Pow(1f - _horizontalDampingWhenStopping, Time.deltaTime * _speed);
+                else if (Mathf.Sign(_input.x) != Mathf.Sign(x))
+                    x *= Mathf.Pow(1f - _horizontalDampingWhenTurning, Time.deltaTime * _speed);
+                else
+                    x *= Mathf.Pow(1f - _horizontalDampingBasic, Time.deltaTime * _speed);
+
                 //Get direction of the movement and Walk in that direction
                 Vector2 dir = new Vector2(x, y);
                 Walk(dir);
@@ -84,8 +97,15 @@ namespace Cursed.Character
 
             if (!_coll.OnGround)
             {
+                if (Mathf.Abs(_input.x) < 0.01f)
+                    x *= Mathf.Pow(1f - _horizontalDampingWhenStopping, Time.deltaTime * (_speed / _airControl));
+                else if (Mathf.Sign(_input.x) != Mathf.Sign(x))
+                    x *= Mathf.Pow(1f - _horizontalDampingWhenTurning, Time.deltaTime * (_speed / _airControl));
+                else
+                    x *= Mathf.Pow(1f - _horizontalDampingBasic, Time.deltaTime * (_speed / _airControl));
+
                 //Get direction of the movement if is on air and apply air control
-                Vector2 dir = new Vector2(x*_airControl, y*_airControl);
+                Vector2 dir = new Vector2(x, y);
                 Walk(dir);
             }
 
@@ -132,8 +152,8 @@ namespace Cursed.Character
             //Dash
             if (_input.Dash && !_hasDashed && _groundTouch && _dashUnlock)
             {
-                if (xRaw != 0)
-                    Dash(xRaw, 0);
+                if (x != 0)
+                    Dash(x, 0);
 
                 if (_invincibilityFrame)
                     Debug.Log("Invincibility Frame");
@@ -160,7 +180,7 @@ namespace Cursed.Character
                 {
                     //Apply new velocity
                     if(!_isJumping)
-                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * _wallClimbSpeed));
+                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * _wallClimbMultiplySpeed));
                 }
                 else
                 {
@@ -344,12 +364,12 @@ namespace Cursed.Character
             if (!_wallJumped)
             {
                 //Walk
-                _rb.velocity = new Vector2(dir.x * _speed, _rb.velocity.y);
+                _rb.velocity = new Vector2(dir.x, _rb.velocity.y);
             }
             else
             {
                 //Apply x velocity during a wall jump
-                _rb.velocity = Vector2.Lerp(_rb.velocity, (new Vector2(dir.x * _speed, _rb.velocity.y)), _wallJumpLerp * Time.deltaTime);
+                _rb.velocity = Vector2.Lerp(_rb.velocity, (new Vector2(dir.x, _rb.velocity.y)), _wallJumpLerp * Time.deltaTime);
             }
         }
 
@@ -358,11 +378,12 @@ namespace Cursed.Character
         /// </summary>
         private void Jump(Vector2 dir, bool wall)
         {
+            _isJumping = true;
+
             //Apply jump velocity
             float y = wall ? _rb.velocity.y : 0;
             _rb.velocity = new Vector2(_rb.velocity.x, y);
             _rb.velocity += dir * _jumpForce;
-            _isJumping = true;
         }
 
 
