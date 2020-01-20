@@ -7,8 +7,8 @@ namespace Cursed.Character
     public class HealthManager : MonoBehaviour, IAttackable
     {
         [SerializeField] private IntReference _maxHealth;
-        
-        private int _currentHealth = 0;
+
+        [SerializeField] private int _currentHealth = 0;
         private CharacterStats _stats = null;
 
         public IntEvent onHealthUpdate;
@@ -24,7 +24,7 @@ namespace Cursed.Character
             if (_stats != null)
                 _maxHealth.Value = _stats.BaseStats.MaxHealth;
 
-            UpdateHealth(_maxHealth);
+            UpdateCurrentHealth(_maxHealth);
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace Cursed.Character
         public void OnAttack(GameObject attacker, Attack attack)
         {
             //Update health
-            UpdateHealth(_currentHealth - attack.Damage);
+            UpdateCurrentHealth(_currentHealth - attack.Damage);
 
             //Apply the effect of the attack
             if (attack.Effect != null && _stats != null)
@@ -44,10 +44,10 @@ namespace Cursed.Character
             //Do something if critical
         }
 
-        public void UpdateHealth(int health)
+        public void UpdateCurrentHealth(int health)
         {
             //Check if dead or not
-            if(health <= 0)
+            if (health <= 0)
             {
                 Die();
             }
@@ -60,6 +60,20 @@ namespace Cursed.Character
             }
         }
 
+        public void AddCurrentHealth(int amount)
+        {
+            _currentHealth += amount;
+
+            if (_currentHealth < 0)
+                _currentHealth = 0;
+
+            if (_currentHealth >= MaxHealth)
+                _currentHealth = MaxHealth;
+
+            if (onHealthUpdate != null)
+                onHealthUpdate.Raise(_maxHealth);
+        }
+
         public void AddMaxHealth(int amount)
         {
             _maxHealth.Value += amount;
@@ -70,7 +84,7 @@ namespace Cursed.Character
             if (onMaxHealthUpdate != null)
                 onMaxHealthUpdate.Raise(_maxHealth);
 
-            UpdateHealth(_currentHealth + amount);
+            UpdateCurrentHealth(_currentHealth + amount);
         }
 
         public void ApplyDot(float damagePerSecond, float duration)
@@ -85,7 +99,7 @@ namespace Cursed.Character
 
             while(timeLeft > 0)
             {
-                UpdateHealth((int)((float)_currentHealth - damagePerSecond));
+                UpdateCurrentHealth((int)((float)_currentHealth - damagePerSecond));
                 yield return new WaitForSeconds(1f);
             }
 
@@ -105,7 +119,11 @@ namespace Cursed.Character
 
         #region Getters
 
-        public int CurrentHealth => _currentHealth;
+        public int CurrentHealth
+        {
+            get => _currentHealth;
+            set => _currentHealth = value;
+        }
         public int MaxHealth => _maxHealth;
 
         #endregion

@@ -7,21 +7,21 @@ namespace Cursed.Creature
     {
         #region Fields
 
-        [SerializeField] private int _energy = 0;
-        [SerializeField] private float _moveSpeedInAir = 0;
-        [SerializeField] private float _drainSpeed = 0;
-        [SerializeField] private int _maxHealth = 0;
-        [SerializeField] private float _moveSpeedChaseAndComeBack = 0;
+        [SerializeField] private IntReference _energy;
+        [SerializeField] private FloatReference _moveSpeedInAir;
+        [SerializeField] private FloatReference _drainSpeed;
+        [SerializeField] private IntReference _maxHealth;
+        [SerializeField] private FloatReference _moveSpeedChaseAndComeBack;
 
         #endregion
 
         #region Getters
 
-        public int Energy => _energy;
-        public float MoveSpeedInAir => _moveSpeedInAir;
-        public float DrainSpeed => _drainSpeed;
-        public int MaxHealth => _maxHealth;
-        public float MoveSpeedChaseAndComeBack => _moveSpeedChaseAndComeBack;
+        public IntReference Energy => _energy;
+        public FloatReference MoveSpeedInAir => _moveSpeedInAir;
+        public FloatReference DrainSpeed => _drainSpeed;
+        public IntReference MaxHealth => _maxHealth;
+        public FloatReference MoveSpeedChaseAndComeBack => _moveSpeedChaseAndComeBack;
 
         #endregion
     }

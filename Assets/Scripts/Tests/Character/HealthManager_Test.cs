@@ -13,7 +13,7 @@ namespace Tests
         {
             var healthManager = new GameObject().AddComponent<HealthManager>();
 
-            healthManager.UpdateHealth(100);
+            healthManager.UpdateCurrentHealth(100);
 
             healthManager.OnAttack(null, new Attack(amount, false, null));
 

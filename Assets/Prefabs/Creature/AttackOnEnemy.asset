@@ -9,26 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ed835f2bd41a824daba8acbf0889e70, type: 3}
-  m_Name: CreatureBaseStats
+  m_Script: {fileID: 11500000, guid: 4c444ea94b4365a418d2a15690a9c5e7, type: 3}
+  m_Name: AttackOnEnemy
   m_EditorClassIdentifier: 
-  _energy:
+  _name: Creature
+  _type: 0
+  _spawnChanceWeight: 0
+  _cooldown:
     UseConstant: 1
-    ConstantValue: 100
+    ConstantValue: 0
     Variable: {fileID: 0}
-  _moveSpeedInAir:
+  _damageType: {fileID: 11400000, guid: 619ecc85a0e93254d98beb91b4596346, type: 2}
+  _criticalMultiplier:
     UseConstant: 1
-    ConstantValue: 7
+    ConstantValue: 0
     Variable: {fileID: 0}
-  _drainSpeed:
+  _criticalChance:
     UseConstant: 1
-    ConstantValue: 5
+    ConstantValue: 0
     Variable: {fileID: 0}
-  _maxHealth:
+  _timeBetweenAttack:
     UseConstant: 1
-    ConstantValue: 100
-    Variable: {fileID: 0}
-  _moveSpeedChaseAndComeBack:
-    UseConstant: 1
-    ConstantValue: 10
+    ConstantValue: 0.5
     Variable: {fileID: 0}

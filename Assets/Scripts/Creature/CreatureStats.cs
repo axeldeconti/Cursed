@@ -10,11 +10,11 @@ namespace Cursed.Creature
 
         private Dictionary<CreatureStat, float> _statModifier;
 
-        private int _currentEnergy;
-        private float _currentMoveSpeedInAir;
-        private float _currentDrainSpeed;
-        private int _currentMaxHealth;
-        private float _currentMoveSpeedChaseAndComeBack;
+        private IntReference _currentEnergy;
+        private FloatReference _currentMoveSpeedInAir;
+        private FloatReference _currentDrainSpeed;
+        private IntReference _currentMaxHealth;
+        private FloatReference _currentMoveSpeedChaseAndComeBack;
 
 
         #region Initializer
@@ -59,19 +59,19 @@ namespace Cursed.Creature
             switch (stat)
             {
                 case CreatureStat.Energy:
-                    _currentEnergy += (int)amount;
+                    _currentEnergy.Value += (int)amount;
                     break;
                 case CreatureStat.MoveSpeedInAir:
-                    _currentMoveSpeedInAir += amount;
+                    _currentMoveSpeedInAir.Value += amount;
                     break;
                 case CreatureStat.DrainSpeed:
-                    _currentDrainSpeed += amount;
+                    _currentDrainSpeed.Value += amount;
                     break;
                 case CreatureStat.MaxHealth:
-                    _currentMaxHealth += (int)amount;
+                    _currentMaxHealth.Value += (int)amount;
                     break;
                 case CreatureStat.MoveSpeedChaseAndComeBack:
-                    _currentMoveSpeedChaseAndComeBack += amount;
+                    _currentMoveSpeedChaseAndComeBack.Value += amount;
                     break;
                 default:
                     break;
@@ -90,7 +90,11 @@ namespace Cursed.Creature
         public float CurrentEnergy => _currentEnergy;
         public float CurrentMoveSpeedInAir => _currentMoveSpeedInAir;
         public float CurrentDrainSpeed => _currentDrainSpeed;
-        public float CurrentMaxHealth => _currentMaxHealth;
+        public int CurrentMaxHealth
+        {
+            get => _currentMaxHealth;
+            set => _currentMaxHealth.Value = value;
+        }
         public float CurrentMoveSpeedChaseAndComeBack => _currentMoveSpeedChaseAndComeBack;
 
         #endregion

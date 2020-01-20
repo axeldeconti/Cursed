@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 8793390707879121957}
   - component: {fileID: 8793390707879122010}
   - component: {fileID: 8793390707879121965}
+  - component: {fileID: 5719582349677325205}
   - component: {fileID: 8793390707879121954}
   m_Layer: 0
   m_Name: Player
@@ -284,6 +285,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd54cf2b73f58704a83b929a7f51a1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5719582349677325205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8793390707879122011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd40fd21f91096742ad813a1c3e8cd51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  onHealthUpdate: {fileID: 11400000, guid: 4859836420cc5c340a2f67959dce997f, type: 2}
+  onMaxHealthUpdate: {fileID: 11400000, guid: 868fb2563c3987f459bdfd7df0420c6a, type: 2}
+  onDeath: {fileID: 0}
 --- !u!95 &8793390707879121954
 Animator:
   serializedVersion: 3

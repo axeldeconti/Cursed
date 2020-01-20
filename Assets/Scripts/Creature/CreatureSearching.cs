@@ -5,9 +5,9 @@ namespace Cursed.Creature
     public class CreatureSearching : MonoBehaviour
     {
         [Header("Settings")]
-        public float Radius = 4f;
+        [SerializeField] private float _radius = 4f;
         [Header("Referencies")]
-        public LayerMask groundLayer;
+        [SerializeField] private LayerMask _checkLayer;
         private Transform _enemyHit;
         private CreatureManager _creatureManager;
 
@@ -15,35 +15,40 @@ namespace Cursed.Creature
         {
             _creatureManager = GetComponent<CreatureManager>();
         }
+
         void Update()
         {
             if(_creatureManager.CurrentState == CreatureState.Moving)
             {
-                RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, Radius, new Vector2(0f,0f));
+                RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, _radius, new Vector2(0f,0f));
                 foreach (RaycastHit2D hit in obj)
                 {
                     if(hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        _enemyHit = hit.collider.transform;
-                        if (EnemyInRange(Radius, false))
+                        if (EnemyInRange(hit.collider.transform, _radius, true))
                         {
                             _creatureManager.CurrentState = CreatureState.Chasing;
                         }
                     }
                 }
             }
-        }
+        }        
 
-        
-
-        private bool EnemyInRange(float range, bool raycastOn)
+        private bool EnemyInRange(Transform ennemy, float range, bool raycastOn)
         {
-            if (_enemyHit && Vector3.Distance(_enemyHit.position, transform.position) < range)
+            if (ennemy && Vector3.Distance(ennemy.position, transform.position) < range)
             {
-                if (raycastOn && !Physics2D.Linecast(transform.position, _enemyHit.position, groundLayer))
+                Debug.Log(ennemy.position);
+                if (raycastOn)
                 {
-                    Debug.Log("In Range");
-                    return true;
+                    if (Physics2D.Linecast(transform.position, ennemy.position, _checkLayer).collider.gameObject.layer == ennemy.gameObject.layer)
+                    {
+                        Debug.Log("In Range");
+                        _enemyHit = ennemy;
+                        return true;
+                    }
+                    else
+                        return false;
                 }
                 else if (!raycastOn)
                 {
@@ -53,10 +58,12 @@ namespace Cursed.Creature
             return false;
         }
 
-        public Transform Enemy 
+        public Transform Enemy => _enemyHit;
+
+        private void OnDrawGizmos()
         {
-            get => _enemyHit;
-            set => _enemyHit = value;
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, _radius);
         }
     }
 }
