@@ -12,6 +12,7 @@ namespace Cursed.Character
         float xRaw { get; }
         float yRaw { get; }
         bool Jump { get; }
+        bool HoldJump { get; }
         bool Dash { get; }
         bool Grab { get; }
         bool Attack { get; }

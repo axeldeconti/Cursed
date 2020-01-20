@@ -151,19 +151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 649bd8ce194d72c49b8346c66bac445b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed:
-    UseConstant: 1
-    ConstantValue: 15
-    Variable: {fileID: 0}
-  _gravity:
-    UseConstant: 1
-    ConstantValue: 3
-    Variable: {fileID: 0}
-  _airControl: 0.6
-  _jumpForce:
-    UseConstant: 1
-    ConstantValue: 20
-    Variable: {fileID: 0}
+  _state: 0
+  _runSpeed:
+    UseConstant: 0
+    ConstantValue: 4
+    Variable: {fileID: 11400000, guid: 1c18d04cc0c51634f96fce053dcd98d3, type: 2}
+  _airControl:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0bb41bf2b1747aa4fa82afb1c999e25f, type: 2}
   _wallClimbMultiplySpeed:
     UseConstant: 1
     ConstantValue: 1.2
@@ -172,36 +168,43 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 5
     Variable: {fileID: 0}
-  _wallJumpLerp: 3
-  _dashSpeed:
-    UseConstant: 1
-    ConstantValue: 75
-    Variable: {fileID: 0}
+  _dashDistance:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 9d2be862eeac24040adc89f8f3a2f117, type: 2}
+  _dashTime:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 751686dffac94b64499f1ff6df7cf9bc, type: 2}
   _dashCooldown:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 0.8
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: eebfc10f4c92b5840861946e112b6f33, type: 2}
   _dashInvincibilityFrame:
     UseConstant: 1
     ConstantValue: 0.2
     Variable: {fileID: 0}
-  _coyoteTimeForJump:
-    UseConstant: 1
-    ConstantValue: 0.2
-    Variable: {fileID: 0}
-  _bufferJump:
-    UseConstant: 1
-    ConstantValue: 0.2
-    Variable: {fileID: 0}
-  _horizontalDampingWhenStopping: 0.6
-  _horizontalDampingWhenTurning: 0.2
-  _horizontalDampingBasic: 0.4
+  _normalJump: {fileID: 11400000, guid: fc3e26308e6583a48b7890b1249a9e24, type: 2}
+  _lightJump: {fileID: 11400000, guid: 236e8dab7a4348b4388bc1d51c3504ef, type: 2}
+  _doubleJump: {fileID: 11400000, guid: e06f6de9d57e30d40a0e96e6947c5516, type: 2}
+  _wallJump: {fileID: 11400000, guid: 2fb9933ae32c50e4486a2783c3d6fe60, type: 2}
+  _fastFall: {fileID: 11400000, guid: f87564077aa248a459a5142a4e0be1a4, type: 2}
+  _wallJumpLerp: 3
+  _coyoteTime:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 4b95ae61f64283b48b807a0adff6adff, type: 2}
+  _jumpBuffer:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 667dfe7192b2e5b40bcd4e8f2e541ed8, type: 2}
   _canMove: 1
   _wallGrab: 0
   _wallJumped: 0
   _wallSlide: 0
+  _wallRun: 0
   _isDashing: 0
-  _doubleJump: 0
+  _hasDoubleJumped: 0
   _isJumping: 0
   _dashUnlock: 1
   _doubleJumpUnlock: 1
@@ -213,7 +216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8498843447298849143}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add285d66bc55ec47b1e6fd4ffeedb1d, type: 3}
   m_Name: 

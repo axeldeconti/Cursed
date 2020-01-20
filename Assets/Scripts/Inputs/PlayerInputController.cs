@@ -9,6 +9,7 @@ namespace Cursed.Character
         public float xRaw { get; private set; }
         public float yRaw { get; private set; }
         public bool Jump { get; private set; }
+        public bool HoldJump { get; private set; }
         public bool Dash { get; private set; }
         public bool Grab { get; private set; }
         public bool Attack { get; private set; }
@@ -27,6 +28,7 @@ namespace Cursed.Character
 
             // Input for player abilities
             Jump = Input.GetButtonDown("Jump");
+            HoldJump = Input.GetButton("Jump");
             Grab = Input.GetAxis("Dash&Grab") > 0.5f ? true : false;
 
             if (Input.GetAxis("Dash&Grab") > 0.5f && !Dash && !_hasDashed)
