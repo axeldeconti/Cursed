@@ -14,6 +14,7 @@ namespace Cursed.Character
         private BetterJumping _betterJump;
         private AnimationHandler _anim;
 
+        [SerializeField] private CharacterState _state = CharacterState.Idle;
         [SerializeField] private IInputController _input = null;
 
         [Space]
@@ -51,6 +52,7 @@ namespace Cursed.Character
         [SerializeField] private bool _isJumping = false;
 
         [Space]
+        [Header("Unlocks")]
         [SerializeField] private bool _dashUnlock;
         [SerializeField] private bool _doubleJumpUnlock;
 
@@ -76,12 +78,13 @@ namespace Cursed.Character
             _groundTouch = true;
         }
         
-        void Update()
+        private void Update()
         {
             //Set and Get input
             float x = _input.x;
             float y = _input.y;
 
+            //Is Grounded
             if (_coll.OnGround)
             {
                 //Get direction of the movement and Walk in that direction
@@ -96,8 +99,7 @@ namespace Cursed.Character
                 Vector2 dir = new Vector2(x, y);
                 Walk(dir);
             }
-
-            if (!_coll.OnGround)
+            else
             {
                 //Get direction of the movement if is on air and apply air control
                 /*
@@ -112,157 +114,17 @@ namespace Cursed.Character
                 Walk(dir);
             }
 
-            //Jump
-            if (_input.Jump)
-            {
-                _jumpWasPressed = true;
-                StartCoroutine(RememberJumpTime(_bufferJump));
-
-                //If in air, double jump
-                if (!_coll.OnWall && !_coll.OnGround && !_doubleJump && _doubleJumpUnlock && !_canEvenJump)
-                {
-                    _doubleJump = true;
-                    _betterJump.fallMultiplier = 3f;
-                    _betterJump.lowJumpMultiplier = 8f;
-                    Jump(Vector2.up);
-                }
-
-                //If on ground, jump
-                if (_coll.OnGround || _canEvenJump)
-                {
-                    _canEvenJump = false;
-                    _betterJump.fallMultiplier = 3f;
-                    _betterJump.lowJumpMultiplier = 8f;
-                    Jump(Vector2.up);                   
-                }
-
-                //If on wall, wall jump
-                if (_coll.OnWall && !_coll.OnGround)
-                {
-                    _betterJump.fallMultiplier = 0f;
-                    _betterJump.lowJumpMultiplier = 0f;
-                    WallJump();
-                }
-            }
-
-            //If is on ground, reset values
-            if (_coll.OnGround && !_isDashing)
-            {
-                _wallJumped = false;
-                _betterJump.enabled = true;
-            }
-
-            //Dash
-            if (_input.Dash && !_hasDashed && _groundTouch && _dashUnlock)
-            {
-                if (x != 0)
-                    Dash(x, 0);
-
-                if (_invincibilityFrame)
-                    Debug.Log("Invincibility Frame");
-            }
-
-            //If on wall and input Grab hold, wall grab
-            if (_coll.OnWall && _input.Grab && _canMove)
-            {
-                _wallGrab = true;
-                _wallSlide = false;
-                ResetIsJumping();
-            }
-
-            //Wall grab handler
-            if (_wallGrab && !_isDashing)
-            {
-                //Set gravity to zero
-                _rb.gravityScale = 0;
-                
-                if ((x > .2f || x < .2f) && !_isJumping)
-                    _rb.velocity = new Vector2(_rb.velocity.x, 0);
-
-                if (y > .1f)
-                {
-                    _wallRun = true;
-
-                    //Apply new velocity
-                    if (!_isJumping)
-                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * _wallClimbMultiplySpeed));
-                }
-                else
-                {
-                    _wallRun = false;
-                    _wallSlide = true;
-                    SlideOnWall();
-                }   
-            }
-            else
-            {
-                //Reset gravity
-                _rb.gravityScale = _gravity;
-            }
-
-            //Reset wall grab and fall
-            if (!_input.Grab || !_coll.OnWall || !_canMove)
-            {
-                _wallGrab = false;
-                _wallSlide = false;
-            }
-
-            //Reset wall slide
-            if (!_coll.OnWall || _coll.OnGround)
-            {
-                _wallSlide = false;
-            }
-
-            //Reset double jump
-            if (_coll.OnWall || _coll.OnGround)
-            {
-                _doubleJump = false;
-            }
-
-            //Just touch ground
-            if (_coll.OnGround && !_groundTouch)
-                GroundTouch();
-
-            //Just leave ground
-            if (!_coll.OnGround && _groundTouch)
-            {
-                _groundTouch = false;
-                StartCoroutine(CoyoteTimeForJump(_coyoteTimeForJump));
-            }
-
-            //Return if the character can't flip 
-            if (_wallGrab || _wallSlide || !_canMove)
-                return;
-
-            //Handle the flip side
-            if (x > 0)
-            {
-                _side = 1;
-                _anim.Flip(_side);
-
-                if (_coll.OnRightWall)
-                {
-                    Vector2 dir = new Vector2(0, y);
-                    Walk(dir);
-                }
-            }
-            if (x < 0)
-            {
-                _side = -1;
-                _anim.Flip(_side);
-
-                if (_coll.OnLeftWall)
-                {
-                    Vector2 dir = new Vector2(0, y);
-                    Walk(dir);
-                }
-            }
+            UpdateBools();
+            UpdateJump();
+            UpdateDash(x);
+            UpdateWallGrab(x, y);
+            UpdateFlip(x, y);
         }
 
         /// <summary>
         /// Call when just touch ground
         /// </summary>
-        void GroundTouch()
+        private void GroundTouch()
         {
             //Reset grounded values
             _groundTouch = true;
@@ -278,6 +140,8 @@ namespace Cursed.Character
                 _canEvenJump = false;
             }
         }
+
+        #region Dash
 
         /// <summary>
         /// Dash in the direction in parameter
@@ -333,6 +197,8 @@ namespace Cursed.Character
                 _hasDashed = false;
         }
 
+        #endregion
+
         /// <summary>
         /// Call to slide on a wall
         /// </summary>
@@ -379,6 +245,8 @@ namespace Cursed.Character
             }
         }
 
+        #region Jump
+
         /// <summary>
         /// Handle jump
         /// </summary>
@@ -390,7 +258,6 @@ namespace Cursed.Character
             _rb.velocity = new Vector2(_rb.velocity.x, 1);
             _rb.velocity += dir * _jumpForce;
         }
-
 
         /// <summary>
         /// Call to do a wall jump
@@ -419,24 +286,6 @@ namespace Cursed.Character
         }
 
         /// <summary>
-        /// Disable the movement input for the duration in parameter
-        /// </summary>
-        private IEnumerator DisableMovement(float time)
-        {
-            _canMove = false;
-            yield return new WaitForSeconds(time);
-            _canMove = true;
-        }
-
-        /// <summary>
-        /// Change the drag parameter of the rigidbody
-        /// </summary>
-        private void RigidbodyDrag(float x)
-        {
-            _rb.drag = x;
-        }
-
-        /// <summary>
         /// Reste variable for jump
         /// </summary>
         private void ResetIsJumping()
@@ -462,6 +311,199 @@ namespace Cursed.Character
             _jumpWasPressed = false;
         }
 
+        #endregion
+
+        #region Updates
+
+        /// <summary>
+        /// Handle the different jumps
+        /// </summary>
+        private void UpdateJump()
+        {
+            if (!_input.Jump)
+                return;
+
+            _jumpWasPressed = true;
+            StartCoroutine(RememberJumpTime(_bufferJump));
+
+            //If on ground, jump
+            if (_coll.OnGround || _canEvenJump)
+            {
+                _canEvenJump = false;
+                _betterJump.fallMultiplier = 3f;
+                _betterJump.lowJumpMultiplier = 8f;
+                Jump(Vector2.up);
+            }
+
+            //If in air, double jump
+            if (!_coll.OnWall && !_coll.OnGround && !_doubleJump && _doubleJumpUnlock && !_canEvenJump)
+            {
+                _doubleJump = true;
+                _betterJump.fallMultiplier = 3f;
+                _betterJump.lowJumpMultiplier = 8f;
+                Jump(Vector2.up);
+            }
+
+            //If on wall, wall jump
+            if (_coll.OnWall && !_coll.OnGround)
+            {
+                _betterJump.fallMultiplier = 0f;
+                _betterJump.lowJumpMultiplier = 0f;
+                WallJump();
+            }
+        }
+
+        /// <summary>
+        /// Handle the dash
+        /// </summary>
+        private void UpdateDash(float x)
+        {
+            if (!_input.Dash && _hasDashed && !_groundTouch && !_dashUnlock)
+                return;
+
+            if (x != 0)
+                Dash(x, 0);
+
+            if (_invincibilityFrame)
+                Debug.Log("Invincibility Frame");
+        }
+
+        /// <summary>
+        /// Handle the wall grab
+        /// </summary>
+        private void UpdateWallGrab(float x, float y)
+        {
+            if (_wallGrab && !_isDashing)
+            {
+                //Set gravity to zero
+                _rb.gravityScale = 0;
+
+                if ((x > .2f || x < .2f) && !_isJumping)
+                    _rb.velocity = new Vector2(_rb.velocity.x, 0);
+
+                //Wall climb
+                if (y > .1f)
+                {
+                    _wallRun = true;
+
+                    //Apply new velocity
+                    if (!_isJumping)
+                        _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * _wallClimbMultiplySpeed));
+                }
+                else //Slide on wall
+                {
+                    _wallRun = false;
+                    _wallSlide = true;
+                    SlideOnWall();
+                }
+            }
+            else
+            {
+                //Reset gravity
+                _rb.gravityScale = _gravity;
+            }
+        }
+
+        /// <summary>
+        /// Update the flip side
+        /// </summary>
+        private void UpdateFlip(float x, float y)
+        {
+            //Return if the character can't flip 
+            if (_wallGrab || _wallSlide || !_canMove)
+                return;
+
+            if (x > 0)
+            {
+                _side = 1;
+                _anim.Flip(_side);
+
+                if (_coll.OnRightWall)
+                {
+                    Vector2 dir = new Vector2(0, y);
+                    Walk(dir);
+                }
+            }
+            if (x < 0)
+            {
+                _side = -1;
+                _anim.Flip(_side);
+
+                if (_coll.OnLeftWall)
+                {
+                    Vector2 dir = new Vector2(0, y);
+                    Walk(dir);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update all boolean values
+        /// </summary>
+        private void UpdateBools()
+        {
+            //If is on ground, reset values
+            if (_coll.OnGround && !_isDashing)
+            {
+                _wallJumped = false;
+                _betterJump.enabled = true;
+            }
+
+            //If on wall and input Grab hold, wall grab
+            if (_coll.OnWall && _input.Grab && _canMove)
+            {
+                _wallGrab = true;
+                _wallSlide = false;
+                ResetIsJumping();
+            }
+
+            //Reset wall grab and fall
+            if (!_input.Grab || !_coll.OnWall || !_canMove)
+            {
+                _wallGrab = false;
+                _wallSlide = false;
+            }
+
+            //Reset wall slide
+            if (!_coll.OnWall || _coll.OnGround)
+                _wallSlide = false;
+
+            //Reset double jump
+            if (_coll.OnWall || _coll.OnGround)
+                _doubleJump = false;
+
+            //Just touch ground
+            if (_coll.OnGround && !_groundTouch)
+                GroundTouch();
+
+            //Just leave ground
+            if (!_coll.OnGround && _groundTouch)
+            {
+                _groundTouch = false;
+                StartCoroutine(CoyoteTimeForJump(_coyoteTimeForJump));
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Disable the movement input for the duration in parameter
+        /// </summary>
+        private IEnumerator DisableMovement(float time)
+        {
+            _canMove = false;
+            yield return new WaitForSeconds(time);
+            _canMove = true;
+        }
+
+        /// <summary>
+        /// Change the drag parameter of the rigidbody
+        /// </summary>
+        private void RigidbodyDrag(float x)
+        {
+            _rb.drag = x;
+        }
+
         #region Getters & Setters
 
         public bool WallGrab => _wallGrab;
@@ -474,6 +516,9 @@ namespace Cursed.Character
         public bool OnGroundTouch => _groundTouch;
         public bool IsGrabing => _wallGrab;
         public bool IsWallRun => _wallRun;
+
+        public CharacterState State => _state;
+
         #endregion
     }
 }
