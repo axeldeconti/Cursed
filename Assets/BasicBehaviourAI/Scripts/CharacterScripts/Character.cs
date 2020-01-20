@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(Rigidbody2D))]       /*Used for collision detection*/

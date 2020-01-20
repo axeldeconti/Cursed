@@ -7,7 +7,9 @@ public class Pathfinding : MonoBehaviour
 
     /*
     ****
+    ****
     /**** This script is subject to change in future versions. There are definitely some areas in this script that need to be edited for your game and it's pretty sloppy.
+    ****
     ****
     */
 
@@ -180,6 +182,7 @@ public class Pathfinding : MonoBehaviour
             a.instr = instr;
             readyOrders.Add(a);
             return;
+            //purgeCurrentPath();
         }
 
         startNode.g = 0;
@@ -187,6 +190,7 @@ public class Pathfinding : MonoBehaviour
 
         openNodes.Add(startNode);
 
+        //evaluateNode (startNode);
 
         pathNode currentNode = new pathNode("0", Vector3.zero);
         while (openNodes.Count > 0)
@@ -448,6 +452,8 @@ public class Pathfinding : MonoBehaviour
             newGroundNode.gameObject = objects[i];
         }
 
+        /*TEMP FOR ONEWAY PLATFORMS*/
+        // objects = GameObject.FindGameObjectsWithTag("oneway");
 
 
     }
@@ -629,26 +635,32 @@ public class Pathfinding : MonoBehaviour
                                 Vector3 lowerMid = new Vector3(a.pos.x + middle, a.pos.y - blockSize, a.pos.z);
                                 Vector3 straightUp = new Vector3(b.pos.x, a.pos.y - blockSize, a.pos.z);
 
+                                //Debug.DrawLine(origin, quarterPoint, Color.yellow);
+                                //Debug.DrawLine(origin, midPoint, Color.yellow);
 
-                                if (Physics2D.Linecast(origin, quarterPoint, groundLayer) ||
+                                // Debug.DrawLine(lowerMid, b.pos, Color.yellow);
+                                // Debug.DrawLine(b.pos, quarterPastMidPoint, Color.yellow);
+                                //Debug.DrawLine(b.pos, straightUp, Color.yellow);
+                                if (xDistance > blockSize + groundMaxWidth)
+                                    if (Physics2D.Linecast(origin, quarterPoint, groundLayer) ||
 
-                                    (xDistance > blockSize + groundMaxWidth &&
-                                     Physics2D.Linecast(b.pos, quarterPastMidPoint, groundLayer) &&
-                                     a.spawnedFrom.pos.y >= b.pos.y - groundNodeHeight) ||
+                                        (xDistance > blockSize + groundMaxWidth &&
+                                         Physics2D.Linecast(b.pos, quarterPastMidPoint, groundLayer) &&
+                                         a.spawnedFrom.pos.y >= b.pos.y - groundNodeHeight) ||
 
-                                    (Physics2D.Linecast(origin, midPoint, groundLayer)) ||
+                                        (Physics2D.Linecast(origin, midPoint, groundLayer)) ||
 
-                                      (xDistance > blockSize + groundMaxWidth &&
-                                     a.spawnedFrom.pos.y >= b.pos.y - groundNodeHeight &&
-                                     Physics2D.Linecast(lowerMid, b.pos, groundLayer)) ||
+                                          (xDistance > blockSize + groundMaxWidth &&
+                                         a.spawnedFrom.pos.y >= b.pos.y - groundNodeHeight &&
+                                         Physics2D.Linecast(lowerMid, b.pos, groundLayer)) ||
 
-                                        (xDistance > blockSize * 1f + groundMaxWidth &&
-                                     a.spawnedFrom.pos.y >= b.pos.y &&
-                                      Physics2D.Linecast(b.pos, straightUp, groundLayer))
-                                   )
-                                {
-                                    hitTest = false;
-                                }
+                                            (xDistance > blockSize * 1f + groundMaxWidth &&
+                                         a.spawnedFrom.pos.y >= b.pos.y &&
+                                          Physics2D.Linecast(b.pos, straightUp, groundLayer))
+                                       )
+                                    {
+                                        hitTest = false;
+                                    }
                                 //}
                                 //}
                             }
@@ -697,6 +709,7 @@ public class Pathfinding : MonoBehaviour
 
                     newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
 
+                    //Debug.DrawLine(nodes[i].pos, temp.pos, Color.red);
                 }
             }
 
@@ -762,6 +775,11 @@ public class Pathfinding : MonoBehaviour
                         Vector3 quarterPointBot = new Vector3(b.pos.x - quarter, b.pos.y, b.pos.z);
 
                         Vector3 corner = new Vector3(b.pos.x, (a.pos.y - blockSize * xDistance - blockSize * 0.5f) - groundNodeHeight, a.pos.z);
+
+                        //Debug.DrawLine(middlePointDrop, b.pos, Color.yellow);
+                        //Debug.DrawLine (quarterPointTop, b.pos, Color.yellow);
+                        //Debug.DrawLine (quarterPointBot, a.pos, Color.yellow);
+                        //Debug.DrawLine (corner, b.pos, Color.yellow);
 
                         if (Physics2D.Linecast(quarterPointTop, b.pos, groundLayer) ||
                             Physics2D.Linecast(middlePointDrop, b.pos, groundLayer) ||
@@ -934,9 +952,6 @@ public class Pathfinding : MonoBehaviour
             return Color.white;
         }
     }
-
-    public List<pathNode> GroundNodes => groundNodes;
-
 }
 
 //Accessible classes from other scripts below
