@@ -118,7 +118,7 @@ public class AiController : MonoBehaviour
 
     private void Chase()
     { //Add this method into AiController
-        if (!PlayerInRange(8f, false)) //Change boolean to true for OnSight aggro
+        if (!PlayerInRange(6f, false)) //Change boolean to true for OnSight aggro
         {
             state = ai_state.groundpatrol;
             return;
@@ -133,7 +133,7 @@ public class AiController : MonoBehaviour
     private void GroundPatrol(ref Vector2 input)
     {
         //Switch to chase if player in range
-        if (PlayerInRange(8f, false)) //Change boolean to true for OnSight aggro
+        if (PlayerInRange(6f, true)) //Change boolean to true for OnSight aggro
         {
             state = ai_state.chase;
             return;
