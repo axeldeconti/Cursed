@@ -45,6 +45,7 @@ namespace Cursed.Character
         [SerializeField] private bool _wallGrab = false;
         [SerializeField] private bool _wallJumped = false;
         [SerializeField] private bool _wallSlide = false;
+        [SerializeField] private bool _wallRun = false;
         [SerializeField] private bool _isDashing = false;
         [SerializeField] private bool _doubleJump = false;
         [SerializeField] private bool _isJumping = false;
@@ -78,33 +79,35 @@ namespace Cursed.Character
         void Update()
         {
             //Set and Get input
-            float x = _rb.velocity.x + _input.x;
+            float x = _input.x;
             float y = _input.y;
 
             if (_coll.OnGround)
             {
+                //Get direction of the movement and Walk in that direction
+                /*
                 if (Mathf.Abs(_input.x) < 0.01f)
                     x *= Mathf.Pow(1f - _horizontalDampingWhenStopping, Time.deltaTime * _speed);
                 else if (Mathf.Sign(_input.x) != Mathf.Sign(x))
                     x *= Mathf.Pow(1f - _horizontalDampingWhenTurning, Time.deltaTime * _speed);
                 else
                     x *= Mathf.Pow(1f - _horizontalDampingBasic, Time.deltaTime * _speed);
-
-                //Get direction of the movement and Walk in that direction
+                */
                 Vector2 dir = new Vector2(x, y);
                 Walk(dir);
             }
 
             if (!_coll.OnGround)
             {
+                //Get direction of the movement if is on air and apply air control
+                /*
                 if (Mathf.Abs(_input.x) < 0.01f)
                     x *= Mathf.Pow(1f - _horizontalDampingWhenStopping, Time.deltaTime * (_speed / _airControl));
                 else if (Mathf.Sign(_input.x) != Mathf.Sign(x))
                     x *= Mathf.Pow(1f - _horizontalDampingWhenTurning, Time.deltaTime * (_speed / _airControl));
                 else
                     x *= Mathf.Pow(1f - _horizontalDampingBasic, Time.deltaTime * (_speed / _airControl));
-
-                //Get direction of the movement if is on air and apply air control
+                */
                 Vector2 dir = new Vector2(x, y);
                 Walk(dir);
             }
@@ -121,7 +124,7 @@ namespace Cursed.Character
                     _doubleJump = true;
                     _betterJump.fallMultiplier = 3f;
                     _betterJump.lowJumpMultiplier = 8f;
-                    Jump(Vector2.up, true);
+                    Jump(Vector2.up);
                 }
 
                 //If on ground, jump
@@ -130,7 +133,7 @@ namespace Cursed.Character
                     _canEvenJump = false;
                     _betterJump.fallMultiplier = 3f;
                     _betterJump.lowJumpMultiplier = 8f;
-                    Jump(Vector2.up, true);                   
+                    Jump(Vector2.up);                   
                 }
 
                 //If on wall, wall jump
@@ -178,12 +181,15 @@ namespace Cursed.Character
 
                 if (y > .1f)
                 {
+                    _wallRun = true;
+
                     //Apply new velocity
-                    if(!_isJumping)
+                    if (!_isJumping)
                         _rb.velocity = new Vector2(_rb.velocity.x, y * (_speed * _wallClimbMultiplySpeed));
                 }
                 else
                 {
+                    _wallRun = false;
                     _wallSlide = true;
                     SlideOnWall();
                 }   
@@ -268,7 +274,7 @@ namespace Cursed.Character
 
             if(_jumpWasPressed)
             {
-                Jump(Vector2.up, false);
+                Jump(Vector2.up);
                 _canEvenJump = false;
             }
         }
@@ -364,25 +370,24 @@ namespace Cursed.Character
             if (!_wallJumped)
             {
                 //Walk
-                _rb.velocity = new Vector2(dir.x, _rb.velocity.y);
+                _rb.velocity = new Vector2(dir.x * _speed, _rb.velocity.y);
             }
             else
             {
                 //Apply x velocity during a wall jump
-                _rb.velocity = Vector2.Lerp(_rb.velocity, (new Vector2(dir.x, _rb.velocity.y)), _wallJumpLerp * Time.deltaTime);
+                _rb.velocity = Vector2.Lerp(_rb.velocity, (new Vector2(dir.x / 2, _rb.velocity.y)), _wallJumpLerp * Time.deltaTime);
             }
         }
 
         /// <summary>
         /// Handle jump
         /// </summary>
-        private void Jump(Vector2 dir, bool wall)
+        private void Jump(Vector2 dir)
         {
             _isJumping = true;
 
             //Apply jump velocity
-            float y = wall ? _rb.velocity.y : 0;
-            _rb.velocity = new Vector2(_rb.velocity.x, y);
+            _rb.velocity = new Vector2(_rb.velocity.x, 1);
             _rb.velocity += dir * _jumpForce;
         }
 
@@ -409,7 +414,7 @@ namespace Cursed.Character
             Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
             Vector2 dir = Vector2.up / 1f + wallDir;
 
-            Jump(dir, false);
+            Jump(dir);
 
         }
 
@@ -467,7 +472,8 @@ namespace Cursed.Character
         public float XSpeed => _rb.velocity.x;
         public float YSpeed => _rb.velocity.y;
         public bool OnGroundTouch => _groundTouch;
-
+        public bool IsGrabing => _wallGrab;
+        public bool IsWallRun => _wallRun;
         #endregion
     }
 }
