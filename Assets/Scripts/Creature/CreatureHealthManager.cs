@@ -21,6 +21,7 @@ namespace Cursed.Creature
 
         private float _currentTimer;
         private bool _alreadyOnPlayer;
+        private bool _giveHealth;
 
         private void Awake()
         {

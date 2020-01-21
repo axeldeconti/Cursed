@@ -29,6 +29,7 @@ namespace Cursed.Character
 
         #endregion
 
+
         #region Modifiers
 
         public void OnAttack(GameObject attacker, Attack attack)
@@ -71,7 +72,7 @@ namespace Cursed.Character
                 _currentHealth = MaxHealth;
 
             if (onHealthUpdate != null)
-                onHealthUpdate.Raise(_maxHealth);
+                onHealthUpdate.Raise(_currentHealth);
         }
 
         public void AddMaxHealth(int amount)
