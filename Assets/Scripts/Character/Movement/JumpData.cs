@@ -6,18 +6,18 @@ namespace Cursed.Character
     public class JumpData : ScriptableObject
     {
         [SerializeField] private float _height = 0f;
-        [SerializeField] private float _halfDistance = 0f;
+        [SerializeField] private float _distance = 0f;
 
         public float InitialVelocity(float Vx)
         {
-            float v = (2 * _height * Vx) / _halfDistance;
+            float v = (2 * _height * 100 * Vx) / (_distance * 100 / 2);
 
             return v;
         }
 
         public float Gravity(float Vx)
         {
-            float g = (2 * _height * Vx * Vx) / (_halfDistance * _halfDistance);
+            float g = (2 * _height * 100 * Vx * Vx) / ((_distance * 100 / 2) * (_distance * 100 / 2));
 
             return g;
         }

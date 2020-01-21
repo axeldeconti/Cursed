@@ -227,7 +227,6 @@ namespace Cursed.Character
         /// </summary>
         private void Jump(JumpData jump)
         {
-            Debug.Log("Jump => " + jump.name);
             _isJumping = true;
 
             //Apply jump velocity
@@ -263,10 +262,7 @@ namespace Cursed.Character
         /// <summary>
         /// Reste variable for jump
         /// </summary>
-        private void ResetIsJumping()
-        {
-            _isJumping = false;
-        }
+        private void ResetIsJumping() => _isJumping = false;
 
         /// <summary>
         /// Coyote Time
@@ -330,6 +326,7 @@ namespace Cursed.Character
             {
                 _hasDoubleJumped = true;
                 Jump(_doubleJump);
+                Debug.Log("Double Jump");
             }
 
             //If on wall, wall jump
@@ -344,27 +341,29 @@ namespace Cursed.Character
         {
             //Set to default to Normal jump
             _currentGravity = _normalJump.Gravity(_runSpeed);
-            Debug.Log("Normal gravity");
 
-            ////Going upward
-            //if (_currentVelocity.y >= 0f)
-            //{
-            //    if (_isJumping)
-            //    {
-            //        if (_input.HoldJump)
-            //        {
-            //            //Light jump
-            //            _currentGravity = _lightJump.Gravity(_runSpeed);
-            //            Debug.Log("Light gravity");
-            //        }
-            //    }
-            //}
-            //else //Going downward
-            //{
-            //    //Fast fall
-            //    _currentGravity = _fastFall.Gravity(_runSpeed);
-            //    Debug.Log("Fast gravity");
-            //}
+            //Going upward
+            if (_currentVelocity.y >= 0.1f)
+            {
+                if (_isJumping)
+                {
+                    if (_hasDoubleJumped)
+                    {
+                        //Double jump
+                        _currentGravity = _doubleJump.Gravity(_runSpeed);
+                    }
+                    else if (!_input.HoldJump)
+                    {
+                        //Light jump
+                        _currentGravity = _lightJump.Gravity(_runSpeed);
+                    }
+                }
+            }
+            else if(_currentVelocity.y <= 0.1f)//Going downward
+            {
+                //Fast fall
+                _currentGravity = _fastFall.Gravity(_runSpeed);
+            }
 
             ////Wall climb
             //if (_wallGrab && !_isDashing)
