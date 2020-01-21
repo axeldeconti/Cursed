@@ -4,10 +4,10 @@ namespace Cursed.Character
 {
     public class PlayerInputController : MonoBehaviour, IInputController
     {
+        [SerializeField] private FloatReference _joystickDeadzone;
+
         public float x { get; private set; }
         public float y { get; private set; }
-        public float xRaw { get; private set; }
-        public float yRaw { get; private set; }
         public bool Jump { get; private set; }
         public bool HoldJump { get; private set; }
         public bool Dash { get; private set; }
@@ -21,10 +21,8 @@ namespace Cursed.Character
         private void Update()
         {
             // Input for player movements
-            x = Input.GetAxis("Horizontal");
-            y = Input.GetAxis("Vertical");
-            xRaw = Input.GetAxisRaw("Horizontal");
-            yRaw = Input.GetAxisRaw("Vertical");
+            x = Input.GetAxisRaw("Horizontal") >= _joystickDeadzone ? 1 : Input.GetAxisRaw("Horizontal") <= -_joystickDeadzone ? -1 : 0;
+            y = Input.GetAxisRaw("Vertical") >= _joystickDeadzone ? 1 : Input.GetAxisRaw("Vertical") <= -_joystickDeadzone ? -1 : 0;
 
             // Input for player abilities
             Jump = Input.GetButtonDown("Jump");

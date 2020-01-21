@@ -138,6 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda37a051b5d2424baaafeccc38be333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _joystickDeadzone:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 35f7f5a3fb7cefc4fa8d1ca46c8da04f, type: 2}
 --- !u!114 &8498843447298849032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +171,10 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 5
     Variable: {fileID: 0}
+  _walkInertia:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 4f1ce59bf17e0c44191035c1c4740b4a, type: 2}
   _dashDistance:
     UseConstant: 0
     ConstantValue: 0
@@ -229,8 +237,8 @@ MonoBehaviour:
   _wallSide: 0
   collisionRadius: 0.4
   bottomOffset: {x: 0, y: 0.2}
-  rightOffset: {x: 0.6, y: 1.5}
-  leftOffset: {x: -0.6, y: 1.5}
+  rightOffset: {x: 1, y: 3.5}
+  leftOffset: {x: -1, y: 3.5}
 --- !u!114 &8498843447298849025
 MonoBehaviour:
   m_ObjectHideFlags: 0

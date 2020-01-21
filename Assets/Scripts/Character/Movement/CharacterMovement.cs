@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 
 namespace Cursed.Character
 {
@@ -22,6 +22,7 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _airControl;
         [SerializeField] private FloatReference _wallClimbMultiplySpeed;
         [SerializeField] private FloatReference _wallSlideSpeed;
+        [SerializeField] private FloatReference _walkInertia;
 
         [Space]
         [Header("Dash")]
@@ -29,14 +30,6 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _dashTime;
         [SerializeField] private FloatReference _dashCooldown;
         [SerializeField] private FloatReference _dashInvincibilityFrame;
-        
-        
-        //[Range(0, 1)]
-        //[SerializeField] private float _horizontalDampingWhenStopping;
-        //[Range(0, 1)]
-        //[SerializeField] private float _horizontalDampingWhenTurning;
-        //[Range(0, 1)]
-        //[SerializeField] private float _horizontalDampingBasic;
 
         [Space]
         [Header("Jump")]
@@ -73,6 +66,7 @@ namespace Cursed.Character
         private bool _canEvenJump;
         private bool _jumpWasPressed;
         private int _side;
+        private Vector2 _vel = Vector2.zero;
 
         [Space]
         private float _currentGravity = 0f;
@@ -88,20 +82,32 @@ namespace Cursed.Character
 
             _groundTouch = true;
         }
-        
+
         private void Update()
         {
-            //Set and Get input
+            //Get input
             float x = _input.x;
             float y = _input.y;
 
-            UpdateWalk(x, y);
             UpdateBools();
-            UpdateGravity();
             UpdateJump();
             UpdateDash(x);
             UpdateWallGrab(x, y);
             UpdateFlip(x, y);
+
+            //Set current velocity
+            _currentVelocity = _rb.velocity;
+        }
+
+        private void FixedUpdate()
+        {
+            //Get input
+            float x = _input.x;
+            float y = _input.y;
+
+            UpdateGravity();
+            UpdateWalk(x);
+            UpdateAirControl(x);
         }
 
         /// <summary>
@@ -117,7 +123,7 @@ namespace Cursed.Character
 
             //_side = 1;
 
-            if(_jumpWasPressed)
+            if (_jumpWasPressed)
             {
                 Jump(_normalJump);
                 _canEvenJump = false;
@@ -204,20 +210,11 @@ namespace Cursed.Character
         /// <summary>
         /// Handle the walk
         /// </summary>
-        private void Walk(Vector2 dir)
+        private void Walk(float x)
         {
-            if (!_wallJumped)
-            {
-                //Walk
-                UpdateVelocity(dir.x * _runSpeed, _rb.velocity.y);
-            }
-            else
-            {
-                //-----Rien à faire ici-----
-                //Apply x velocity during a wall jump
-                Vector2 v = Vector2.Lerp(_currentVelocity, (new Vector2(dir.x / 2, _currentVelocity.y)), _wallJumpLerp * Time.deltaTime);
-                UpdateVelocity(v.x, v.y);
-            }
+            //Walk
+            Vector2 v = Vector2.SmoothDamp(_currentVelocity, new Vector2(x * _runSpeed, _rb.velocity.y), ref _vel, _walkInertia);
+            UpdateVelocity(v.x, _rb.velocity.y);
         }
 
         #region Jump
@@ -255,8 +252,8 @@ namespace Cursed.Character
             Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
             Vector2 dir = Vector2.up / 1f + wallDir;
 
-            Jump(_wallJump);
-
+            //Jump(_wallJump);
+            Debug.Log("Wall jump");
         }
 
         /// <summary>
@@ -289,18 +286,29 @@ namespace Cursed.Character
         /// <summary>
         /// Handle the walk
         /// </summary>
-        private void UpdateWalk(float x, float y)
+        private void UpdateWalk(float x)
         {
             //Return if can't move
             if (!_canMove)
                 return;
 
-            //Don't need to walk if wall grabbing
-            if (_wallGrab)
+            //Don't need to walk if wall grabbing of in the air
+            if (_wallGrab || !_coll.OnGround)
                 return;
 
-            Vector2 dir = new Vector2(x, y);
-            Walk(dir);
+            Walk(x);
+        }
+
+        private void UpdateAirControl(float x)
+        {
+            //No air control if on ground or on the wall
+            if (_coll.OnGround || _coll.OnWall)
+                return;
+
+            //Apply x velocity during a wall jump
+            //Wall jump air control
+            Vector2 v = Vector2.Lerp(_currentVelocity, new Vector2(x * _runSpeed, _currentVelocity.y), _airControl * Time.deltaTime);
+            UpdateVelocity(v.x, _rb.velocity.y);
         }
 
         /// <summary>
@@ -326,7 +334,6 @@ namespace Cursed.Character
             {
                 _hasDoubleJumped = true;
                 Jump(_doubleJump);
-                Debug.Log("Double Jump");
             }
 
             //If on wall, wall jump
@@ -359,10 +366,11 @@ namespace Cursed.Character
                     }
                 }
             }
-            else if(_currentVelocity.y <= 0.1f)//Going downward
+            else if (_currentVelocity.y <= 0.1f)//Going downward
             {
                 //Fast fall
                 _currentGravity = _fastFall.Gravity(_runSpeed);
+                //Debug.Log("Fast fall");
             }
 
             ////Wall climb
@@ -430,10 +438,7 @@ namespace Cursed.Character
                 _anim.Flip(_side);
 
                 if (_coll.OnRightWall)
-                {
-                    Vector2 dir = new Vector2(0, y);
-                    Walk(dir);
-                }
+                    Walk(0);
             }
             if (x < 0)
             {
@@ -441,10 +446,7 @@ namespace Cursed.Character
                 _anim.Flip(_side);
 
                 if (_coll.OnLeftWall)
-                {
-                    Vector2 dir = new Vector2(0, y);
-                    Walk(dir);
-                }
+                    Walk(0);
             }
         }
 
@@ -500,7 +502,6 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateVelocity(float Vx, float Vy)
         {
-            _currentVelocity = new Vector2(Vx, Vy);
             _rb.velocity = new Vector2(Vx, Vy);
         }
 

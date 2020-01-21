@@ -28,7 +28,7 @@ namespace Cursed.Character
 
         public Action OnGrounded;
 
-        void Update()
+        private void FixedUpdate()
         {
             //Grounded if there is something of ground layer beneath
             _onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, _groundLayer);
