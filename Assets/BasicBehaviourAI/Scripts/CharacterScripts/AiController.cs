@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AiController : MonoBehaviour
@@ -12,9 +11,9 @@ public class AiController : MonoBehaviour
     ****
     */
 
-    public enum ai_state { none, groundpatrol, pathfinding, chase, attack } /*Add custom AI states here!*/
+    public enum ai_state { none, groundpatrol, chase, attack } /*Add custom AI states here!*/
 
-    public ai_state state = ai_state.pathfinding;
+    public ai_state state = ai_state.groundpatrol;
 
     private Character _characterScript;
     private CharacterController2D _controller;
@@ -23,7 +22,7 @@ public class AiController : MonoBehaviour
     [System.NonSerialized]
     public TextMesh _behaviourText;
 
-    private float _direction = 1;
+    //private float _direction = 1;
 
     public static GameObject player;
     private bool _destroy = false;
@@ -70,7 +69,7 @@ public class AiController : MonoBehaviour
 
     public bool NeedsPathfinding()
     {
-        if (state == ai_state.pathfinding || state == ai_state.chase) { return true; }
+        if (state == ai_state.groundpatrol || state == ai_state.chase) { return true; }
         _pathAgent.CancelPathing();
         return false;
     }
@@ -88,7 +87,7 @@ public class AiController : MonoBehaviour
             default: break;
         }
 
-        if (state == ai_state.pathfinding || state == ai_state.chase)
+        if (state == ai_state.chase || state == ai_state.groundpatrol)
         {
             _pathAgent.AiMovement(ref velocity, ref input, ref jumpRequest);
         }
@@ -105,7 +104,7 @@ public class AiController : MonoBehaviour
     {
         switch (state)
         {
-            case ai_state.pathfinding: _behaviourText.text = ""; break;
+            case ai_state.groundpatrol: _behaviourText.text = ""; break;
             case ai_state.chase: _behaviourText.text = "Chase"; break;
         }
     }
@@ -115,7 +114,7 @@ public class AiController : MonoBehaviour
     {
         switch (state)
         {
-            case ai_state.pathfinding: _behaviourText.text = "Pathfinding"; break;
+            case ai_state.groundpatrol: _behaviourText.text = "GroundPatrol"; break;
             case ai_state.chase: _behaviourText.text = "Chase"; break;
         }
     }
@@ -178,7 +177,7 @@ public class AiController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         _pathAgent.pathfindingTarget = _pathScript.GroundNodes[Random.Range(0, _pathScript.GroundNodes.Count)].gameObject;
         _pathAgent.RequestPath(_pathAgent.pathfindingTarget.transform.position + Vector3.up);
-        Debug.Log(_pathAgent.pathfindingTarget);
+        Debug.Log(_pathAgent.pathfindingTarget.transform.position + Vector3.up);
         _timerChangeTarget = false;
     }
 

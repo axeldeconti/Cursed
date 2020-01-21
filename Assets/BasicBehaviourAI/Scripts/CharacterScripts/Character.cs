@@ -59,7 +59,7 @@ public class Character : MonoBehaviour
         if (target)
         {
             isAiControlled = true; //allow character to be controlled by AI for when we recieve pathfinding
-            _ai.state = AiController.ai_state.pathfinding; //set character AI type to pathfinding
+            _ai.state = AiController.ai_state.groundpatrol; //set character AI type to groundpatrol
             _pathAgent.RequestPath(target.transform.position + Vector3.up);
         }
     }
@@ -69,21 +69,12 @@ public class Character : MonoBehaviour
 
         if (playerControlled)
         {
-
             if (Input.GetKeyDown(KeyCode.Space) && !ledgegrab.ledgeGrabbed)
             {
                     jumped = true;        
             }
-
-
         }
 
-        if (rightClickPathFind && Input.GetMouseButtonDown(1))
-        { //GetKeyDown(KeyCode.C)) {//
-            isAiControlled = true; //allow character to be controlled by AI for when we recieve pathfinding
-            _ai.state = AiController.ai_state.pathfinding; //set character AI type to pathfinding
-            _pathAgent.RequestPath(Camera.main.ScreenToWorldPoint(Input.mousePosition)); //request a path and wait for instructions
-        }
     }
 
     void FixedUpdate()
@@ -228,20 +219,20 @@ public class Character : MonoBehaviour
         public bool ability = true;
 
         [SerializeField]
-        private float maxHeight = 2.5f;
+        private float _maxHeight = 2.5f;
         [SerializeField]
-        private float minHeight = 2.5f;
+        private float _minHeight = 2.5f;
 
         public float maxJumpHeight
         {
-            get { return maxHeight; }
-            set { maxHeight = value; UpdateJumpHeight(); }
+            get { return _maxHeight; }
+            set { _maxHeight = value; UpdateJumpHeight(); }
         }
 
         public float minJumpHeight
         {
-            get { return minHeight; }
-            set { minHeight = value; UpdateJumpHeight(); }
+            get { return _minHeight; }
+            set { _minHeight = value; UpdateJumpHeight(); }
         }
 
         public float timeToApex = 0.435f;
@@ -259,9 +250,9 @@ public class Character : MonoBehaviour
         //If jump height changes during runtime, this must be called to adjust physics.
         public void UpdateJumpHeight()
         {
-            _character.gravity = -(2 * maxHeight) / Mathf.Pow(timeToApex, 2);
+            _character.gravity = -(2 * _maxHeight) / Mathf.Pow(timeToApex, 2);
             maxJumpVelocity = Mathf.Abs(_character.gravity) * timeToApex;
-            minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(_character.gravity) * minHeight);
+            minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(_character.gravity) * _minHeight);
             //print("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
         }
     }

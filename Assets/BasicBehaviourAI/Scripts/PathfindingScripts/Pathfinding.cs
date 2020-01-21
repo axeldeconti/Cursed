@@ -59,34 +59,6 @@ public class Pathfinding : MonoBehaviour
         DeliverPathfindingInstructions();
         MakeThreadDoWork();
 
-        if (Input.GetKey(KeyCode.B))
-        {
-
-            Vector3 temp = (Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Vector2 cPos = new Vector2(temp.x, temp.y);
-            RaycastHit2D hit = Physics2D.Raycast(cPos, Vector2.zero, 0f, groundLayer);
-            if (hit.collider)
-            {
-
-                hit.collider.enabled = false;
-                RefreshAreaAroundBlock(hit.collider.transform.gameObject, true);
-                Destroy(hit.collider.transform.gameObject);
-            }
-        }
-        if (Input.GetKey(KeyCode.T))
-        {
-
-            Vector3 temp = (Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            temp.x = Mathf.FloorToInt(temp.x) + 0.5f;
-            temp.y = Mathf.FloorToInt(temp.y) + 0.5f;
-            Vector2 cPos = new Vector2(temp.x, temp.y);
-            RaycastHit2D hit = Physics2D.Raycast(cPos, Vector2.zero, 0f, groundLayer);
-            if (!hit.collider)
-            {
-
-                CreateBlockCalled(temp);
-            }
-        }
     }
 
     void CreateNodeMap()
