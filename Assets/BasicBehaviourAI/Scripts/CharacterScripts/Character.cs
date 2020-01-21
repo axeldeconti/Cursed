@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
     [System.NonSerialized]
     public Animator _anim;
     Rigidbody2D _body;                        /*Used for collision detection*/
-    PathfindingAgent _pathingAgent;
+    PathfindingAgent _pathAgent;
     CharacterController2D _controller;
 
     public moveStats movement;
@@ -26,7 +26,7 @@ public class Character : MonoBehaviour
     public float gravity;                     /*is calculated automatically inside jump.UpdateJumpHeight, future versions may contain optional jump/gravity/apex customizations*/
     Vector3 velocity;
 
-    private bool facingRight = true;          /*determines the direction character is facing*/
+    private bool _facingRight = true;          /*determines the direction character is facing*/
     public bool jumped = false;              /*used for detecting if jump key was pressed (also used in ai)*/
     public bool isAiControlled = false;      /*allows ai to take control over inputs*/
     public bool playerControlled = false;    /*allows input by player*/
@@ -39,7 +39,7 @@ public class Character : MonoBehaviour
         _controller = GetComponent<CharacterController2D>();
         _body = GetComponent<Rigidbody2D>();
         _box = GetComponent<BoxCollider2D>();
-        _pathingAgent = GetComponent<PathfindingAgent>();
+        _pathAgent = GetComponent<PathfindingAgent>();
         _ai = GetComponent<AiController>();
         _anim = transform.Find("Graphics").GetComponent<Animator>();
         _graphics = transform.Find("Graphics").gameObject; /*useful for preventing things from flipping when character is facing left*/
@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
         {
             isAiControlled = true; //allow character to be controlled by AI for when we recieve pathfinding
             _ai.state = AiController.ai_state.pathfinding; //set character AI type to pathfinding
-            _pathingAgent.RequestPath(target.transform.position + Vector3.up);
+            _pathAgent.RequestPath(target.transform.position + Vector3.up);
         }
     }
 
@@ -82,7 +82,7 @@ public class Character : MonoBehaviour
         { //GetKeyDown(KeyCode.C)) {//
             isAiControlled = true; //allow character to be controlled by AI for when we recieve pathfinding
             _ai.state = AiController.ai_state.pathfinding; //set character AI type to pathfinding
-            _pathingAgent.RequestPath(Camera.main.ScreenToWorldPoint(Input.mousePosition)); //request a path and wait for instructions
+            _pathAgent.RequestPath(Camera.main.ScreenToWorldPoint(Input.mousePosition)); //request a path and wait for instructions
         }
     }
 
@@ -95,7 +95,7 @@ public class Character : MonoBehaviour
         if (playerControlled)
         {
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            if (isAiControlled && (input.x != 0 || input.y != 0)) { if (isAiControlled) { _pathingAgent.CancelPathing(); } isAiControlled = false; _ai._behaviourText.text = ""; } /*turns off Ai control to avoid confusion user error*/
+            if (isAiControlled && (input.x != 0 || input.y != 0)) { if (isAiControlled) { _pathAgent.CancelPathing(); } isAiControlled = false; _ai._behaviourText.text = ""; } /*turns off Ai control to avoid confusion user error*/
         }
         if (isAiControlled)
         {
@@ -106,7 +106,7 @@ public class Character : MonoBehaviour
         //Ledgegrabbing
         if (ledgegrab.ability)
         {
-            if ((input.y == -1 || (facingRight != (input.x == 1) && input.x != 0)) && ledgegrab.ledgeGrabbed)
+            if ((input.y == -1 || (_facingRight != (input.x == 1) && input.x != 0)) && ledgegrab.ledgeGrabbed)
             {
                 ledgegrab.StopLedgeGrab();
             }
@@ -141,11 +141,11 @@ public class Character : MonoBehaviour
         if (!ledgegrab.ledgeGrabbed)
         {
 
-            if (input.x > 0 && !facingRight)
+            if (input.x > 0 && !_facingRight)
             {
                 Flip();
             }
-            else if (input.x < 0 && facingRight)
+            else if (input.x < 0 && _facingRight)
             {
                 Flip();
             }
@@ -189,7 +189,7 @@ public class Character : MonoBehaviour
     private void Flip()
     {
         // Switch the way the player is labelled as facing
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
         // Multiply the player's x local scale by -1
         Vector3 theScale = _graphics.transform.localScale;
         theScale.x *= -1; _graphics.transform.localScale = theScale;
@@ -308,7 +308,7 @@ public class Character : MonoBehaviour
 
             if (!ledgeGrabbed && !_character._controller.collisions.below && _character.velocity.y <= 0 && !ledgeCooldownBool)
             {
-                Vector2 direction = _character.facingRight ? Vector2.right : Vector2.right * -1f;
+                Vector2 direction = _character._facingRight ? Vector2.right : Vector2.right * -1f;
                 Vector3 position = _character.transform.position;
                 position.y += _character.transform.localScale.y * _character._box.size.y * 0.5f + characterYPosition + grabHeight;
 
@@ -344,7 +344,7 @@ public class Character : MonoBehaviour
             if (ledgeGrabbed && ledgeState != 0 && !ledgeCooldownBool)
             {
 
-                Vector2 direction = _character.facingRight ? Vector2.right : Vector2.right * -1f;
+                Vector2 direction = _character._facingRight ? Vector2.right : Vector2.right * -1f;
 
                 if (ledgeState == 1)
                 {

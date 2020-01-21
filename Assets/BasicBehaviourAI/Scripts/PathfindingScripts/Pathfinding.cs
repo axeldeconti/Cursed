@@ -24,15 +24,15 @@ public class Pathfinding : MonoBehaviour
     public float jumpHeightIncrement = 1f;
     public float minimumJump = 1.8f;
 
-    private float groundNodeHeight = 0.01f; //percentage of blockSize (Determines height off ground level for a groundNode)
-    private float groundMaxWidth = 0.35f; //percentage of blockSize (Determines max spacing allowed between two groundNodes)
-    private float fall_X_Spacing = 0.25f; //percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
-    private float fall_Y_GrndDist = 0.02f;
-    private Thread t;
+    private float _groundNodeHeight = 0.01f; //percentage of blockSize (Determines height off ground level for a groundNode)
+    private float _groundMaxWidth = 0.35f; //percentage of blockSize (Determines max spacing allowed between two groundNodes)
+    private float _fall_X_Spacing = 0.25f; //percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
+    private float _fall_Y_GrndDist = 0.02f;
+    private Thread _t;
 
 
-    private List<pathNode> nodes = new List<pathNode>();
-    private List<pathNode> groundNodes = new List<pathNode>();
+    private List<pathNode> _nodes = new List<pathNode>();
+    private List<pathNode> _groundNodes = new List<pathNode>();
 
     public List<threadLock> orders = new List<threadLock>();
     public List<threadLock> readyOrders = new List<threadLock>();
@@ -92,8 +92,8 @@ public class Pathfinding : MonoBehaviour
     void CreateNodeMap()
     {
 
-        nodes = new List<pathNode>();
-        groundNodes = new List<pathNode>();
+        _nodes = new List<pathNode>();
+        _groundNodes = new List<pathNode>();
 
         List<GameObject> groundObjects = new List<GameObject>();
         List<GameObject> onewayObjects = new List<GameObject>();
@@ -114,17 +114,17 @@ public class Pathfinding : MonoBehaviour
         }
 
         FindGroundNodes(groundObjects);
-        Debug.Log(groundNodes.Count);
+        Debug.Log(_groundNodes.Count);
         FindOnewayNodes(onewayObjects);
-        FindFallNodes(groundNodes); //@param list of nodes to search (tiles)
-        FindJumpNodes(groundNodes);
+        FindFallNodes(_groundNodes); //@param list of nodes to search (tiles)
+        FindJumpNodes(_groundNodes);
 
-        GroundNeighbors(groundNodes, groundNodes);
+        GroundNeighbors(_groundNodes, _groundNodes);
 
 
 
-        JumpNeighbors(attachedJumpNodes(groundNodes), groundNodes); //CHANGE this function to find all jump nodes attached to ground nodes **********TODO
-        FallNeighbors(attachedFallNodes(groundNodes), groundNodes);  //CHANGE this function to find all fall nodes attached to ground nodes **********TODO
+        JumpNeighbors(attachedJumpNodes(_groundNodes), _groundNodes); //CHANGE this function to find all jump nodes attached to ground nodes **********TODO
+        FallNeighbors(attachedFallNodes(_groundNodes), _groundNodes);  //CHANGE this function to find all fall nodes attached to ground nodes **********TODO
 
         if (debugTools)
         {
@@ -303,9 +303,9 @@ public class Pathfinding : MonoBehaviour
     private void ResetLists()
     {
 
-        for (int i = 0; i < nodes.Count; i++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
-            nodes[i].parent = null;
+            _nodes[i].parent = null;
         }
     }
 
@@ -317,12 +317,12 @@ public class Pathfinding : MonoBehaviour
         newGameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/ground2", typeof(Sprite)) as Sprite;
         //add the ground node, 
 
-        Vector3 ground = newGameObject.transform.position; ground.y += blockSize * 0.5f + blockSize * groundNodeHeight;
+        Vector3 ground = newGameObject.transform.position; ground.y += blockSize * 0.5f + blockSize * _groundNodeHeight;
         pathNode newGroundNode = new pathNode("walkable", ground);
-        groundNodes.Add(newGroundNode);
+        _groundNodes.Add(newGroundNode);
 
         newGroundNode.c = nodeWeights.GetNodeWeightByString(newGroundNode.type);
-        nodes.Add(newGroundNode);
+        _nodes.Add(newGroundNode);
 
         newGroundNode.gameObject = newGameObject;
 
@@ -344,45 +344,45 @@ public class Pathfinding : MonoBehaviour
         //we remove all node connections related to the destroyed block... if a block needs to be removed...
         if (blockRemoved)
         {
-            for (int i = 0; i < groundNodes.Count; i++)
+            for (int i = 0; i < _groundNodes.Count; i++)
             {
-                if (groundNodes[i].gameObject == go)
+                if (_groundNodes[i].gameObject == go)
                 {
 
-                    while (groundNodes[i].createdJumpNodes.Count > 0)
+                    while (_groundNodes[i].createdJumpNodes.Count > 0)
                     {
 
-                        nodes.Remove(groundNodes[i].createdJumpNodes[0]);
-                        groundNodes[i].createdJumpNodes.RemoveAt(0);
+                        _nodes.Remove(_groundNodes[i].createdJumpNodes[0]);
+                        _groundNodes[i].createdJumpNodes.RemoveAt(0);
                     }
-                    while (groundNodes[i].createdFallNodes.Count > 0)
+                    while (_groundNodes[i].createdFallNodes.Count > 0)
                     {
 
-                        nodes.Remove(groundNodes[i].createdFallNodes[0]);
-                        groundNodes[i].createdFallNodes.RemoveAt(0);
+                        _nodes.Remove(_groundNodes[i].createdFallNodes[0]);
+                        _groundNodes[i].createdFallNodes.RemoveAt(0);
                     }
 
-                    nodes.Remove(groundNodes[i]);
-                    groundNodes.Remove(groundNodes[i]);
+                    _nodes.Remove(_groundNodes[i]);
+                    _groundNodes.Remove(_groundNodes[i]);
                     break;
                 }
             }
         }
 
         //find all nearby blocks based on searchSizes
-        for (int i = 0; i < groundNodes.Count; i++)
+        for (int i = 0; i < _groundNodes.Count; i++)
         {
 
-            if ((groundNodes[i].pos - go.transform.position).magnitude < searchSize)
+            if ((_groundNodes[i].pos - go.transform.position).magnitude < searchSize)
             {
 
-                groundNodes[i].neighbours = new List<pathNode>();
-                collect.Add(groundNodes[i]);
+                _groundNodes[i].neighbours = new List<pathNode>();
+                collect.Add(_groundNodes[i]);
             }
-            if ((groundNodes[i].pos - go.transform.position).magnitude < largerSearchSize ||
-                (Mathf.Abs(groundNodes[i].pos.x - go.transform.position.x) < searchSize && Mathf.Abs(groundNodes[i].pos.y - go.transform.position.y) < 8f))
+            if ((_groundNodes[i].pos - go.transform.position).magnitude < largerSearchSize ||
+                (Mathf.Abs(_groundNodes[i].pos.x - go.transform.position.x) < searchSize && Mathf.Abs(_groundNodes[i].pos.y - go.transform.position.y) < 8f))
             {
-                largerCollect.Add(groundNodes[i]);
+                largerCollect.Add(_groundNodes[i]);
             }
         }
 
@@ -400,13 +400,13 @@ public class Pathfinding : MonoBehaviour
             while (collection[i].createdJumpNodes.Count > 0)
             {
 
-                nodes.Remove(collection[i].createdJumpNodes[0]);
+                _nodes.Remove(collection[i].createdJumpNodes[0]);
                 collection[i].createdJumpNodes.RemoveAt(0);
             }
             while (collection[i].createdFallNodes.Count > 0)
             {
 
-                nodes.Remove(collection[i].createdFallNodes[0]);
+                _nodes.Remove(collection[i].createdFallNodes[0]);
                 collection[i].createdFallNodes.RemoveAt(0);
             }
         }
@@ -437,17 +437,17 @@ public class Pathfinding : MonoBehaviour
 
     private void FindGroundNodes(List<GameObject> objects)
     {
-        nodes = new List<pathNode>();
+        _nodes = new List<pathNode>();
         //GameObject[] objects = GameObject.FindGameObjectsWithTag("ground");
 
         for (int i = 0; i < objects.Count; i++)
         {
-            Vector3 ground = objects[i].transform.position; ground.y += blockSize * 0.5f + blockSize * groundNodeHeight;
+            Vector3 ground = objects[i].transform.position; ground.y += blockSize * 0.5f + blockSize * _groundNodeHeight;
             pathNode newGroundNode = new pathNode("walkable", ground);
-            groundNodes.Add(newGroundNode);
+            _groundNodes.Add(newGroundNode);
 
             newGroundNode.c = nodeWeights.GetNodeWeightByString(newGroundNode.type);
-            nodes.Add(newGroundNode);
+            _nodes.Add(newGroundNode);
 
             newGroundNode.gameObject = objects[i];
         }
@@ -462,12 +462,12 @@ public class Pathfinding : MonoBehaviour
 
         for (int i = 0; i < objects.Count; i++)
         {
-            Vector3 ground = objects[i].transform.position; ground.y += blockSize * 0.5f + blockSize * groundNodeHeight;
+            Vector3 ground = objects[i].transform.position; ground.y += blockSize * 0.5f + blockSize * _groundNodeHeight;
             pathNode newGroundNode = new pathNode("walkable", ground);
-            groundNodes.Add(newGroundNode);
+            _groundNodes.Add(newGroundNode);
 
             newGroundNode.c = nodeWeights.GetNodeWeightByString(newGroundNode.type);
-            nodes.Add(newGroundNode);
+            _nodes.Add(newGroundNode);
 
             newGroundNode.gameObject = objects[i];
         }
@@ -476,7 +476,7 @@ public class Pathfinding : MonoBehaviour
     private void GroundNeighbors(List<pathNode> fromNodes, List<pathNode> toNodes)
     {
         //Distance max distance allowed between two nodes
-        float distanceBetween = blockSize + groundMaxWidth;
+        float distanceBetween = blockSize + _groundMaxWidth;
 
         for (int i = 0; i < fromNodes.Count; i++)
         {
@@ -529,7 +529,7 @@ public class Pathfinding : MonoBehaviour
                         newJumpNode.c = nodeWeights.GetNodeWeightByString(newJumpNode.type);
                         newJumpNode.height = curHeight;
                         newJumpNode.realHeight = curHeight;
-                        nodes.Add(newJumpNode);
+                        _nodes.Add(newJumpNode);
 
                         newJumpNode.spawnedFrom.createdJumpNodes.Add(newJumpNode);
                     }
@@ -549,7 +549,7 @@ public class Pathfinding : MonoBehaviour
                                 newJumpNode.c = nodeWeights.GetNodeWeightByString(newJumpNode.type);
                                 newJumpNode.realHeight = curHeight;
                                 newJumpNode.height = h;
-                                nodes.Add(newJumpNode);
+                                _nodes.Add(newJumpNode);
 
                                 newJumpNode.spawnedFrom.createdJumpNodes.Add(newJumpNode);
                                 break;
@@ -589,18 +589,18 @@ public class Pathfinding : MonoBehaviour
 
 
 
-                if (xDistance < blockSize * maxJumpBlocksX + blockSize + groundMaxWidth) //
+                if (xDistance < blockSize * maxJumpBlocksX + blockSize + _groundMaxWidth) //
                     //the x distance modifier used to be 0.72!
                     if (b != a.spawnedFrom && a.pos.y > b.pos.y + blockSize * 0.5f &&
 
                         a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 0.9f - blockSize * 1f &&
-                          Mathf.Abs(a.pos.x - b.pos.x) < blockSize * 4f + groundMaxWidth)
+                          Mathf.Abs(a.pos.x - b.pos.x) < blockSize * 4f + _groundMaxWidth)
                     { //4.7, 4Xjump, +1Y isnt working
                         if (!Physics2D.Linecast(a.pos, b.pos, groundLayer))
                         {
                             bool hitTest = true;
-                            if ((Mathf.Abs(a.pos.x - b.pos.x) < blockSize + groundMaxWidth && a.spawnedFrom.pos.y == b.pos.y) ||
-                                (a.pos.y - a.spawnedFrom.pos.y + 0.01f < a.height && Mathf.Abs(a.pos.x - b.pos.x) > blockSize + groundMaxWidth))
+                            if ((Mathf.Abs(a.pos.x - b.pos.x) < blockSize + _groundMaxWidth && a.spawnedFrom.pos.y == b.pos.y) ||
+                                (a.pos.y - a.spawnedFrom.pos.y + 0.01f < a.height && Mathf.Abs(a.pos.x - b.pos.x) > blockSize + _groundMaxWidth))
                             {
                                 hitTest = false;
 
@@ -641,20 +641,20 @@ public class Pathfinding : MonoBehaviour
                                 // Debug.DrawLine(lowerMid, b.pos, Color.yellow);
                                 // Debug.DrawLine(b.pos, quarterPastMidPoint, Color.yellow);
                                 //Debug.DrawLine(b.pos, straightUp, Color.yellow);
-                                if (xDistance > blockSize + groundMaxWidth)
+                                if (xDistance > blockSize + _groundMaxWidth)
                                     if (Physics2D.Linecast(origin, quarterPoint, groundLayer) ||
 
-                                        (xDistance > blockSize + groundMaxWidth &&
+                                        (xDistance > blockSize + _groundMaxWidth &&
                                          Physics2D.Linecast(b.pos, quarterPastMidPoint, groundLayer) &&
-                                         a.spawnedFrom.pos.y >= b.pos.y - groundNodeHeight) ||
+                                         a.spawnedFrom.pos.y >= b.pos.y - _groundNodeHeight) ||
 
                                         (Physics2D.Linecast(origin, midPoint, groundLayer)) ||
 
-                                          (xDistance > blockSize + groundMaxWidth &&
-                                         a.spawnedFrom.pos.y >= b.pos.y - groundNodeHeight &&
+                                          (xDistance > blockSize + _groundMaxWidth &&
+                                         a.spawnedFrom.pos.y >= b.pos.y - _groundNodeHeight &&
                                          Physics2D.Linecast(lowerMid, b.pos, groundLayer)) ||
 
-                                            (xDistance > blockSize * 1f + groundMaxWidth &&
+                                            (xDistance > blockSize * 1f + _groundMaxWidth &&
                                          a.spawnedFrom.pos.y >= b.pos.y &&
                                           Physics2D.Linecast(b.pos, straightUp, groundLayer))
                                        )
@@ -683,7 +683,7 @@ public class Pathfinding : MonoBehaviour
 
     private void FindFallNodes(List<pathNode> searchList)
     {
-        float spacing = blockSize * 0.5f + blockSize * fall_X_Spacing;
+        float spacing = blockSize * 0.5f + blockSize * _fall_X_Spacing;
 
         for (int i = 0; i < searchList.Count; i++)
         {
@@ -694,7 +694,7 @@ public class Pathfinding : MonoBehaviour
             if (!Physics2D.Linecast(searchList[i].pos, leftNode, groundLayer))
             {
                 Vector3 colliderCheck = leftNode;
-                colliderCheck.y -= fall_Y_GrndDist;
+                colliderCheck.y -= _fall_Y_GrndDist;
 
                 //raycheck down
                 if (!Physics2D.Linecast(leftNode, colliderCheck, groundLayer))
@@ -705,7 +705,7 @@ public class Pathfinding : MonoBehaviour
                     //fallNodes.Add(newFallNode);
 
                     newFallNode.c = nodeWeights.GetNodeWeightByString(newFallNode.type);
-                    nodes.Add(newFallNode);
+                    _nodes.Add(newFallNode);
 
                     newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
 
@@ -717,7 +717,7 @@ public class Pathfinding : MonoBehaviour
             if (!Physics2D.Linecast(searchList[i].pos, rightNode, groundLayer))
             {
                 Vector3 colliderCheck = rightNode;
-                colliderCheck.y -= fall_Y_GrndDist;
+                colliderCheck.y -= _fall_Y_GrndDist;
 
                 //raycheck down
                 if (!Physics2D.Linecast(rightNode, colliderCheck, groundLayer))
@@ -728,7 +728,7 @@ public class Pathfinding : MonoBehaviour
                     //fallNodes.Add(newFallNode);
 
                     newFallNode.c = nodeWeights.GetNodeWeightByString(newFallNode.type);
-                    nodes.Add(newFallNode);
+                    _nodes.Add(newFallNode);
 
                     newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
 
@@ -758,7 +758,7 @@ public class Pathfinding : MonoBehaviour
                 //FALL NODES REQUIRE TESTING
                 //CHARACTER WIDTH!
                 //probably a similar formula to jumpnode neighbors
-                if ((xDistance < blockSize * 1f + groundMaxWidth && a.pos.y > b.pos.y) || (a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 2.2f + blockSize * 1f && //2.2 + blocksize * 1f
+                if ((xDistance < blockSize * 1f + _groundMaxWidth && a.pos.y > b.pos.y) || (a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 2.2f + blockSize * 1f && //2.2 + blocksize * 1f
                     xDistance < blockSize * 4f))
                 {
                     if (!Physics2D.Linecast(a.pos, b.pos, groundLayer))
@@ -774,7 +774,7 @@ public class Pathfinding : MonoBehaviour
                         Vector3 quarterPointTop = new Vector3(a.pos.x + quarter, a.pos.y, a.pos.z);
                         Vector3 quarterPointBot = new Vector3(b.pos.x - quarter, b.pos.y, b.pos.z);
 
-                        Vector3 corner = new Vector3(b.pos.x, (a.pos.y - blockSize * xDistance - blockSize * 0.5f) - groundNodeHeight, a.pos.z);
+                        Vector3 corner = new Vector3(b.pos.x, (a.pos.y - blockSize * xDistance - blockSize * 0.5f) - _groundNodeHeight, a.pos.z);
 
                         //Debug.DrawLine(middlePointDrop, b.pos, Color.yellow);
                         //Debug.DrawLine (quarterPointTop, b.pos, Color.yellow);
@@ -783,7 +783,7 @@ public class Pathfinding : MonoBehaviour
 
                         if (Physics2D.Linecast(quarterPointTop, b.pos, groundLayer) ||
                             Physics2D.Linecast(middlePointDrop, b.pos, groundLayer) ||
-                            a.pos.y > b.pos.y + blockSize + groundNodeHeight && Physics2D.Linecast(corner, b.pos, groundLayer) ||
+                            a.pos.y > b.pos.y + blockSize + _groundNodeHeight && Physics2D.Linecast(corner, b.pos, groundLayer) ||
                             Physics2D.Linecast(quarterPointBot, a.pos, groundLayer))
                         {
                             hitTest = false;
@@ -810,15 +810,15 @@ public class Pathfinding : MonoBehaviour
         float dist = float.MaxValue;
         pathNode node = null;
 
-        for (int i = 0; i < groundNodes.Count; i++)
+        for (int i = 0; i < _groundNodes.Count; i++)
         {
-            if (groundNodes[i].neighbours.Count > 0 && obj.y > groundNodes[i].pos.y && Mathf.Abs(obj.x - groundNodes[i].pos.x) < blockSize
-                /*only find ground nodes that are within 4f*/&& obj.y - groundNodes[i].pos.y < 4f)
+            if (_groundNodes[i].neighbours.Count > 0 && obj.y > _groundNodes[i].pos.y && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < blockSize
+                /*only find ground nodes that are within 4f*/&& obj.y - _groundNodes[i].pos.y < 4f)
             {
-                float temp = Vector3.Distance(obj, (Vector3)groundNodes[i].pos);
+                float temp = Vector3.Distance(obj, (Vector3)_groundNodes[i].pos);
                 if (dist > temp)
                 {
-                    dist = temp; node = groundNodes[i];
+                    dist = temp; node = _groundNodes[i];
                 }
             }
         }
@@ -831,16 +831,16 @@ public class Pathfinding : MonoBehaviour
         float dist = float.MaxValue;
         pathNode node = null;
 
-        for (int i = 0; i < groundNodes.Count; i++)
+        for (int i = 0; i < _groundNodes.Count; i++)
         {
-            if (groundNodes[i].neighbours.Count > 0)
+            if (_groundNodes[i].neighbours.Count > 0)
             {
-                float temp = Vector3.Distance(obj, (Vector3)groundNodes[i].pos);
+                float temp = Vector3.Distance(obj, (Vector3)_groundNodes[i].pos);
                 if (dist > temp)
                 {
-                    if (obj.y >= groundNodes[i].pos.y && Mathf.Abs(obj.x - groundNodes[i].pos.x) < blockSize)
+                    if (obj.y >= _groundNodes[i].pos.y && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < blockSize)
                     {
-                        dist = temp; node = groundNodes[i];
+                        dist = temp; node = _groundNodes[i];
                     }
                 }
             }
@@ -874,11 +874,11 @@ public class Pathfinding : MonoBehaviour
 
     public void MakeThreadDoWork()
     {
-        if ((orders.Count > 0 && t == null) || (orders.Count > 0 && !t.IsAlive))
+        if ((orders.Count > 0 && _t == null) || (orders.Count > 0 && !_t.IsAlive))
         {
-            t = new Thread(new ParameterizedThreadStart(FindPath));
-            t.IsBackground = true;
-            t.Start(orders[0]);
+            _t = new Thread(new ParameterizedThreadStart(FindPath));
+            _t.IsBackground = true;
+            _t.Start(orders[0]);
             orders.RemoveAt(0);
         }
     }
@@ -888,10 +888,10 @@ public class Pathfinding : MonoBehaviour
         if (debugTools)
         {
 
-            for (int i = 0; i < nodes.Count; i++)
+            for (int i = 0; i < _nodes.Count; i++)
             {
-                Gizmos.color = nodeWeights.GetNodeColorByString(nodes[i].type);
-                Gizmos.DrawSphere(nodes[i].pos, 0.12f);
+                Gizmos.color = nodeWeights.GetNodeColorByString(_nodes[i].type);
+                Gizmos.DrawSphere(_nodes[i].pos, 0.12f);
             }
         }
     }
@@ -952,6 +952,8 @@ public class Pathfinding : MonoBehaviour
             return Color.white;
         }
     }
+
+    public List<pathNode> GroundNodes => _groundNodes;
 }
 
 //Accessible classes from other scripts below

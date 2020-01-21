@@ -19,32 +19,32 @@ public class PathfindingAgent : MonoBehaviour
     public bool endDrawComplete = true;
 
     //Ensures starting position is grounded at the correct location.
-    private bool useStored = false;
-    private Vector3 storePoint;
+    private bool _useStored = false;
+    private Vector3 _storePoint;
     private GameObject storeObject;
 
     //Pathfinding
     public bool repathOnFail = true;
 
-    private LineRenderer pathLineRenderer;
-    private int orderNum = -1;
-    private List<instructions> currentOrders = new List<instructions>();
-    private List<instructions> waitingOrders = null;
-    private Vector3 lastOrder;
-    private bool pathIsDirty = false;
-    private float oldDistance;
-    private int newPathAttempts = 3;
-    private int newPathAttemptCount = 0;
-    private int failAttempts = 3;
-    private float failAttemptCount = 0;
+    private LineRenderer _pathLineRenderer;
+    private int _orderNum = -1;
+    private List<instructions> _currentOrders = new List<instructions>();
+    private List<instructions> _waitingOrders = null;
+    private Vector3 _lastOrder;
+    private bool _pathIsDirty = false;
+    private float _oldDistance;
+    private int _newPathAttempts = 3;
+    private int _newPathAttemptCount = 0;
+    private int _failAttempts = 3;
+    private float _failAttemptCount = 0;
 
     //Timers
     public float followPathTimer = 0.5f;
-    private float fFollowPathTimer;
+    private float _fFollowPathTimer;
     public float pathFailTimer = 0.25f;
-    private float fPathFailTimer;
-    private float oneWayTimer = 0.1f;
-    private float fOneWayTimer;
+    private float _fPathFailTimer;
+    private float _oneWayTimer = 0.1f;
+    private float _fOneWayTimer;
 
     //AI
     [System.NonSerialized]
@@ -56,11 +56,11 @@ public class PathfindingAgent : MonoBehaviour
     [System.NonSerialized]
     public bool isPathFinding = false;
 
-    private bool stopPathing = true;
-    private bool hasLastOrder = false;
-    private bool aiJumped = false;
-    private bool onewayDropDown = false;
-    private bool onewayGrounded = false;
+    private bool _stopPathing = true;
+    private bool _hasLastOrder = false;
+    private bool _aiJumped = false;
+    private bool _onewayDropDown = false;
+    private bool _onewayGrounded = false;
 
     //Get Components
     private void Awake()
@@ -80,12 +80,12 @@ public class PathfindingAgent : MonoBehaviour
     public void CancelPathing()
     {
         if (debugBool) { Debug.Log("path canceled"); }
-        if (endDrawComplete && pathLineRenderer) { pathLineRenderer.positionCount = (1); }
+        if (endDrawComplete && _pathLineRenderer) { _pathLineRenderer.positionCount = (1); }
         //Remove orders && Prevent pathfinding
-        hasLastOrder = false;
-        currentOrders = null;
+        _hasLastOrder = false;
+        _currentOrders = null;
         isPathFinding = false;
-        stopPathing = true;
+        _stopPathing = true;
         //Your Code: OR keep custom AI in the AI-CONTROLLER
     }
 
@@ -95,18 +95,18 @@ public class PathfindingAgent : MonoBehaviour
 
         if (drawPath)
         {
-            if (!pathLineRenderer) { AddLineRenderer(); }
-            pathLineRenderer.startColor = (drawColor);
-            pathLineRenderer.endColor = (drawColor);
-            pathLineRenderer.positionCount = (currentOrders.Count);
-            for (int i = 0; i < currentOrders.Count; i++)
+            if (!_pathLineRenderer) { AddLineRenderer(); }
+            _pathLineRenderer.startColor = (drawColor);
+            _pathLineRenderer.endColor = (drawColor);
+            _pathLineRenderer.positionCount = (_currentOrders.Count);
+            for (int i = 0; i < _currentOrders.Count; i++)
             {
 
-                pathLineRenderer.SetPosition(i, new Vector3(currentOrders[i].pos.x, currentOrders[i].pos.y, 0));
+                _pathLineRenderer.SetPosition(i, new Vector3(_currentOrders[i].pos.x, _currentOrders[i].pos.y, 0));
             }
 
         }
-        if (!drawPath && pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
+        if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
         //Path has started
         //Your Code: OR keep custom AI in the AI-CONTROLLER
 
@@ -117,7 +117,7 @@ public class PathfindingAgent : MonoBehaviour
     private void PathCompleted()
     {
         if (debugBool) { Debug.Log("path completed"); }
-        if (!drawPath && pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
+        if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
         CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
         //Path was completed
         //Your Code: OR keep custom AI in the AI-CONTROLLER
@@ -127,8 +127,8 @@ public class PathfindingAgent : MonoBehaviour
     private void PathNotFound()
     {
         if (debugBool) { Debug.Log("path not found"); }
-        newPathAttemptCount++;
-        if (newPathAttemptCount >= newPathAttempts)
+        _newPathAttemptCount++;
+        if (_newPathAttemptCount >= _newPathAttempts)
         {
             CancelPathing(); if (debugBool) { Debug.Log("newpath attempt limit reached. cancelling path."); }
         }
@@ -141,8 +141,8 @@ public class PathfindingAgent : MonoBehaviour
     //Used for refreshing paths, example: Flee behaviour 
     public int GetNodesFromCompletion()
     {
-        if (currentOrders == null) { return 0; }
-        int r = currentOrders.Count - orderNum;
+        if (_currentOrders == null) { return 0; }
+        int r = _currentOrders.Count - _orderNum;
         return r;
     }
 
@@ -152,10 +152,10 @@ public class PathfindingAgent : MonoBehaviour
 
         if (_controller.collisions.below)
         {
-            useStored = false;
+            _useStored = false;
             if (debugBool) { Debug.Log("requeseting path vector"); }
-            lastOrder = pathVector;
-            _pathfindingManagerScript.RequestPathInstructions(gameObject, lastOrder, _characterScript.jump.maxJumpHeight
+            _lastOrder = pathVector;
+            _pathfindingManagerScript.RequestPathInstructions(gameObject, _lastOrder, _characterScript.jump.maxJumpHeight
                 , _characterScript.movement.ability
                 , _characterScript.jump.ability
                 , _characterScript.FallNodes
@@ -163,8 +163,8 @@ public class PathfindingAgent : MonoBehaviour
         }
         else
         {
-            useStored = true;
-            storePoint = pathVector;
+            _useStored = true;
+            _storePoint = pathVector;
         }
     }
 
@@ -189,80 +189,80 @@ public class PathfindingAgent : MonoBehaviour
 
         //Passed == false means incompleted / failure to reach node destination
         if (!passed) { PathNotFound(); return; }
-        waitingOrders = instr; //Storage for the path until we're ready to use it
+        _waitingOrders = instr; //Storage for the path until we're ready to use it
     }
 
     //AI Movement /*TODO: Cleanup!*/
     public void AiMovement(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
     {
         bool orderComplete = false;
-        if (!stopPathing && currentOrders != null && orderNum < currentOrders.Count)
+        if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
         {
 
             if (_characterScript.ledgegrab.ledgeGrabbed) { _characterScript.ledgegrab.StopLedgeGrab(); } //temporary disable ledgegrabbing for ai
                                                                                                          //find direction to travel
-            if (currentOrders[orderNum].order != "jump") { input.x = transform.position.x > currentOrders[orderNum].pos.x ? -1 : 1; }
-            if (currentOrders[orderNum].order == "climb") { input.y = transform.position.y > currentOrders[orderNum].pos.y ? -1 : 1; }
+            if (_currentOrders[_orderNum].order != "jump") { input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1; }
+            if (_currentOrders[_orderNum].order == "climb") { input.y = transform.position.y > _currentOrders[_orderNum].pos.y ? -1 : 1; }
 
             //prevent overshooting jumps and moving backwards & overcorrecting
-            if (orderNum - 1 > 0 && (currentOrders[orderNum - 1].order == "jump" || currentOrders[orderNum - 1].order == "fall") && transform.position.x + 0.18f > currentOrders[orderNum].pos.x &&
-                transform.position.x - pointAccuracy < currentOrders[orderNum].pos.x)
+            if (_orderNum - 1 > 0 && (_currentOrders[_orderNum - 1].order == "jump" || _currentOrders[_orderNum - 1].order == "fall") && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x &&
+                transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
             {
                 velocity.x = 0f;
-                transform.position = new Vector3(Mathf.Lerp(transform.position.x, currentOrders[orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
+                transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
             }
 
             //climbing
-            if (currentOrders[orderNum].order == "climb" && transform.position.x + pointAccuracy > currentOrders[orderNum].pos.x && transform.position.x - pointAccuracy < currentOrders[orderNum].pos.x)
+            if (_currentOrders[_orderNum].order == "climb" && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
             {
                 //if last node is ground node that was switched to climbing, path completed
-                if (orderNum == currentOrders.Count - 1) { orderComplete = true; }
-                if (transform.position.y + pointAccuracy > currentOrders[orderNum].pos.y && transform.position.y - pointAccuracy < currentOrders[orderNum].pos.y)
+                if (_orderNum == _currentOrders.Count - 1) { orderComplete = true; }
+                if (transform.position.y + pointAccuracy > _currentOrders[_orderNum].pos.y && transform.position.y - pointAccuracy < _currentOrders[_orderNum].pos.y)
                 {
 
-                    if (orderNum == currentOrders.Count - 1) { orderComplete = true; }
+                    if (_orderNum == _currentOrders.Count - 1) { orderComplete = true; }
 
-                    if (orderNum + 1 < currentOrders.Count && currentOrders[orderNum + 1].order == "climb")
+                    if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "climb")
                     {
                         orderComplete = true;
                     }
                 }
-                if (orderNum + 1 < currentOrders.Count && currentOrders[orderNum + 1].order != "climb")
+                if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order != "climb")
                 {
-                    input.y = currentOrders[orderNum + 1].pos.y < currentOrders[orderNum].pos.y ? -1 : 1;
+                    input.y = _currentOrders[_orderNum + 1].pos.y < _currentOrders[_orderNum].pos.y ? -1 : 1;
 
                 }
             }
 
             //match X position of node (Ground, Fall)
-            if (currentOrders[orderNum].order != "jump" && currentOrders[orderNum].order != "climb"
-                && transform.position.x + pointAccuracy > currentOrders[orderNum].pos.x
-                && transform.position.x - pointAccuracy < currentOrders[orderNum].pos.x)
+            if (_currentOrders[_orderNum].order != "jump" && _currentOrders[_orderNum].order != "climb"
+                && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
+                && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
             {
                 input.x = 0f;
-                if (transform.position.y + 0.866f > currentOrders[orderNum].pos.y
-                && transform.position.y - 0.866f < currentOrders[orderNum].pos.y)
+                if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
+                && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
                 {
                     //if next node is a jump, remove velocity.x, and lerp position to point.
-                    if (orderNum + 1 < currentOrders.Count && currentOrders[orderNum + 1].order == "jump")
+                    if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "jump")
                     {
                         velocity.x *= 0.0f;
-                        transform.position = new Vector3(Mathf.Lerp(transform.position.x, currentOrders[orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
+                        transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                     }
                     //if last node was a jump, and next node is a fall, remove velocity.x, and lerp position to point
-                    if (orderNum + 1 < currentOrders.Count && orderNum - 1 > 0 && currentOrders[orderNum + 1].order == "fall" && currentOrders[orderNum + -1].order == "jump")
+                    if (_orderNum + 1 < _currentOrders.Count && _orderNum - 1 > 0 && _currentOrders[_orderNum + 1].order == "fall" && _currentOrders[_orderNum + -1].order == "jump")
                     {
                         velocity.x *= 0.0f;
-                        transform.position = new Vector3(Mathf.Lerp(transform.position.x, currentOrders[orderNum].pos.x, 0.5f), transform.position.y, transform.position.z);
+                        transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.5f), transform.position.y, transform.position.z);
                     }
                     //   ******TEMP FIX FOR fall nodes on oneways
-                    if (currentOrders[orderNum].order == "fall")
+                    if (_currentOrders[_orderNum].order == "fall")
                     {
                         input.y = -1;
                     }
 
 
-                    if (currentOrders[orderNum].order != "jump")
+                    if (_currentOrders[_orderNum].order != "jump")
                     {
                         orderComplete = true;
                     }
@@ -270,34 +270,34 @@ public class PathfindingAgent : MonoBehaviour
                 }
             }
             //Jump
-            if (currentOrders[orderNum].order == "jump" && !aiJumped && _controller.collisions.below)
+            if (_currentOrders[_orderNum].order == "jump" && !_aiJumped && _controller.collisions.below)
             {
                 //velocity.y = characterScript.jumpVelocity;
                 jumpRequest = true;
-                aiJumped = true;
-                if (orderNum + 1 < currentOrders.Count && Mathf.Abs(currentOrders[orderNum + 1].pos.x - currentOrders[orderNum].pos.x) > 1f)
+                _aiJumped = true;
+                if (_orderNum + 1 < _currentOrders.Count && Mathf.Abs(_currentOrders[_orderNum + 1].pos.x - _currentOrders[_orderNum].pos.x) > 1f)
                 {
                     orderComplete = true;
-                    aiJumped = false;
+                    _aiJumped = false;
                 }
             }
-            else if (aiJumped && transform.position.y + 1f > currentOrders[orderNum].pos.y && transform.position.y - 1f < currentOrders[orderNum].pos.y)
+            else if (_aiJumped && transform.position.y + 1f > _currentOrders[_orderNum].pos.y && transform.position.y - 1f < _currentOrders[_orderNum].pos.y)
             {
                 orderComplete = true;
-                aiJumped = false;
+                _aiJumped = false;
             }
 
             //oneway nodes
-            if (orderNum > 0 && (currentOrders[orderNum - 1].order == "fall" || currentOrders[orderNum - 1].order == "jump"))
+            if (_orderNum > 0 && (_currentOrders[_orderNum - 1].order == "fall" || _currentOrders[_orderNum - 1].order == "jump"))
             {
                 if (_controller.collisions.below)
                 {
 
-                    onewayGrounded = true;
-                    if (onewayGrounded && onewayDropDown)
+                    _onewayGrounded = true;
+                    if (_onewayGrounded && _onewayDropDown)
                     {
                         input.y = -1;
-                        onewayGrounded = false;
+                        _onewayGrounded = false;
                     }
 
                 }
@@ -307,18 +307,18 @@ public class PathfindingAgent : MonoBehaviour
             if (orderComplete)
             {
 
-                orderNum++;
+                _orderNum++;
 
-                onewayGrounded = false; //oneway detection
-                onewayDropDown = false;
-                fOneWayTimer = 0;
+                _onewayGrounded = false; //oneway detection
+                _onewayDropDown = false;
+                _fOneWayTimer = 0;
 
-                if (orderNum < currentOrders.Count - 1)
+                if (_orderNum < _currentOrders.Count - 1)
                 { //used for DirtyPath
-                    oldDistance = Vector3.Distance(transform.position, currentOrders[orderNum].pos);
+                    _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
                 }
 
-                if (orderNum >= currentOrders.Count)
+                if (_orderNum >= _currentOrders.Count)
                 {
 
                     velocity.x = 0;
@@ -333,58 +333,58 @@ public class PathfindingAgent : MonoBehaviour
     void Update()
     {
 
-        if (useStored)
+        if (_useStored)
         {
-            RequestPath(storePoint);
+            RequestPath(_storePoint);
         }
 
         //Only recieve orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
-        if (waitingOrders != null && (_controller.collisions.below))
+        if (_waitingOrders != null && (_controller.collisions.below))
         {
             if (_aiControllerScript.NeedsPathfinding())
             {
                 isPathFinding = true;
-                currentOrders = waitingOrders;
-                waitingOrders = null;
+                _currentOrders = _waitingOrders;
+                _waitingOrders = null;
                 pathCompleted = false;
-                stopPathing = false;
+                _stopPathing = false;
                 if (!pathfindingTarget)
                 {
-                    hasLastOrder = true;
+                    _hasLastOrder = true;
                 }
 
-                newPathAttemptCount = 0;
-                orderNum = 0;
+                _newPathAttemptCount = 0;
+                _orderNum = 0;
 
-                failAttemptCount = 0;
-                if (currentOrders != null && orderNum < currentOrders.Count - 1)
+                _failAttemptCount = 0;
+                if (_currentOrders != null && _orderNum < _currentOrders.Count - 1)
                 { //used for DirtyPath
-                    oldDistance = Vector3.Distance(transform.position, currentOrders[orderNum].pos);
+                    _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
                 }
                 //If character is nowhere near starting node, we try to salvage the path by picking the nearest node and setting it as the start.
-                if (Vector3.Distance(transform.position, currentOrders[0].pos) > 2f)
+                if (Vector3.Distance(transform.position, _currentOrders[0].pos) > 2f)
                 {
                     float closest = float.MaxValue;
-                    for (int i = 0; i < currentOrders.Count; i++)
+                    for (int i = 0; i < _currentOrders.Count; i++)
                     {
-                        float distance = Vector3.Distance(currentOrders[i].pos, transform.position);
-                        if ((currentOrders[i].order == "walkable" || currentOrders[i].order == "climb") && distance < closest)
+                        float distance = Vector3.Distance(_currentOrders[i].pos, transform.position);
+                        if ((_currentOrders[i].order == "walkable" || _currentOrders[i].order == "climb") && distance < closest)
                         {
                             closest = distance;
-                            orderNum = i;
+                            _orderNum = i;
                         }
                     }
                 }
                 //If possible, we skip the first node, this prevents that character from walking backwards to first node.
-                if (currentOrders.Count > orderNum + 1 && currentOrders[orderNum].order == currentOrders[orderNum + 1].order &&
-                    (currentOrders[orderNum].order == "walkable" || currentOrders[orderNum].order == "climb"))
+                if (_currentOrders.Count > _orderNum + 1 && _currentOrders[_orderNum].order == _currentOrders[_orderNum + 1].order &&
+                    (_currentOrders[_orderNum].order == "walkable" || _currentOrders[_orderNum].order == "climb"))
                 {
-                    orderNum += 1;
+                    _orderNum += 1;
                 }
                 //Add Random deviation to last node position to stagger paths (Staggers character positions / Looks better.)
-                if (currentOrders.Count - 1 > 0 && currentOrders[currentOrders.Count - 1].order == "walkable")
+                if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order == "walkable")
                 {
-                    currentOrders[currentOrders.Count - 1].pos.x += Random.Range(-1, 1) * lastPointRandomAccuracy;
+                    _currentOrders[_currentOrders.Count - 1].pos.x += Random.Range(-1, 1) * lastPointRandomAccuracy;
                 }
 
                 PathStarted();
@@ -396,28 +396,28 @@ public class PathfindingAgent : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (onewayGrounded)
+        if (_onewayGrounded)
         {
-            fOneWayTimer += Time.deltaTime;
-            if (fOneWayTimer >= oneWayTimer)
+            _fOneWayTimer += Time.deltaTime;
+            if (_fOneWayTimer >= _oneWayTimer)
             {
-                onewayDropDown = true;
-                fOneWayTimer = 0;
+                _onewayDropDown = true;
+                _fOneWayTimer = 0;
             }
         }
 
         //Update Follow/Chase Path
         if (pathfindingTarget)
         {
-            fFollowPathTimer += Time.deltaTime;
-            if (fFollowPathTimer >= followPathTimer)
+            _fFollowPathTimer += Time.deltaTime;
+            if (_fFollowPathTimer >= followPathTimer)
             {
-                fFollowPathTimer = 0f;
-                if ((currentOrders != null && currentOrders.Count > 0 && currentOrders.Count > 0 && Vector3.Distance(currentOrders[currentOrders.Count - 1].pos, pathfindingTarget.transform.position) > followDistance)
-                    || ((currentOrders == null || currentOrders.Count == 0)))
+                _fFollowPathTimer = 0f;
+                if ((_currentOrders != null && _currentOrders.Count > 0 && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, pathfindingTarget.transform.position) > followDistance)
+                    || ((_currentOrders == null || _currentOrders.Count == 0)))
                 {
                     if (Vector3.Distance(transform.position, pathfindingTarget.transform.position) > followDistance + 0.18f)
-                        pathIsDirty = true;
+                        _pathIsDirty = true;
                 }
             }
         }
@@ -425,33 +425,33 @@ public class PathfindingAgent : MonoBehaviour
 
         if (repathOnFail && !pathCompleted)
         {
-            fPathFailTimer += Time.deltaTime;
-            if (fPathFailTimer > pathFailTimer)
+            _fPathFailTimer += Time.deltaTime;
+            if (_fPathFailTimer > pathFailTimer)
             {
 
-                fPathFailTimer = 0;
-                if (currentOrders != null && currentOrders.Count > orderNum)
+                _fPathFailTimer = 0;
+                if (_currentOrders != null && _currentOrders.Count > _orderNum)
                 {
-                    float newDistance = Vector3.Distance(transform.position, currentOrders[orderNum].pos);
-                    if (oldDistance <= newDistance)
+                    float newDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
+                    if (_oldDistance <= newDistance)
                     {
-                        failAttemptCount++;
-                        if (failAttemptCount >= failAttempts && _controller.collisions.below)
+                        _failAttemptCount++;
+                        if (_failAttemptCount >= _failAttempts && _controller.collisions.below)
                         {
-                            failAttemptCount = 0;
-                            pathIsDirty = true;
+                            _failAttemptCount = 0;
+                            _pathIsDirty = true;
                         }
                     }
-                    else { failAttemptCount = 0; }
-                    oldDistance = newDistance;
+                    else { _failAttemptCount = 0; }
+                    _oldDistance = newDistance;
                 }
             }
         }
         //If path is dirty, request new path;
-        if (pathIsDirty)
+        if (_pathIsDirty)
         {
-            pathIsDirty = false;
-            if (pathfindingTarget) { RequestPath(pathfindingTarget); } else if (hasLastOrder) { RequestPath(lastOrder); }
+            _pathIsDirty = false;
+            if (pathfindingTarget) { RequestPath(pathfindingTarget); } else if (_hasLastOrder) { RequestPath(_lastOrder); }
             if (debugBool)
             {
                 Debug.Log("path is dirty");
@@ -462,30 +462,30 @@ public class PathfindingAgent : MonoBehaviour
     //Debugging visuals
     private void OnDrawGizmos()
     {
-        if (currentOrders != null && !pathCompleted && debugBool)
+        if (_currentOrders != null && !pathCompleted && debugBool)
         {
-            for (int i = 0; i < currentOrders.Count; i++)
+            for (int i = 0; i < _currentOrders.Count; i++)
             {
 
-                if (i == orderNum)
+                if (i == _orderNum)
                 {
                     Gizmos.color = Color.cyan;
                 }
                 else
                 {
                     if (i == 0) { Gizmos.color = Color.green; }
-                    else if (i == currentOrders.Count - 1) { Gizmos.color = Color.red; }
+                    else if (i == _currentOrders.Count - 1) { Gizmos.color = Color.red; }
                     else
                     {
                         Gizmos.color = Color.gray;
                     }
                 }
-                Gizmos.DrawSphere(currentOrders[i].pos, 0.11f);
-                if (i + 1 < currentOrders.Count)
+                Gizmos.DrawSphere(_currentOrders[i].pos, 0.11f);
+                if (i + 1 < _currentOrders.Count)
                 {
-                    if (i - 1 == orderNum || i == orderNum) { Gizmos.color = Color.red; } else { Gizmos.color = Color.gray; }
+                    if (i - 1 == _orderNum || i == _orderNum) { Gizmos.color = Color.red; } else { Gizmos.color = Color.gray; }
 
-                    Gizmos.DrawLine(currentOrders[i].pos, currentOrders[i + 1].pos);
+                    Gizmos.DrawLine(_currentOrders[i].pos, _currentOrders[i + 1].pos);
                 }
             }
         }
@@ -496,12 +496,12 @@ public class PathfindingAgent : MonoBehaviour
 
         if (!GetComponent<LineRenderer>())
         {
-            pathLineRenderer = gameObject.AddComponent<LineRenderer>();
-            pathLineRenderer.materials[0] = (Material)Resources.Load("Sprite/Default", typeof(Material));
-            pathLineRenderer.materials[0].shader = Shader.Find("Sprites/Default");
-            pathLineRenderer.positionCount = (1);
-            pathLineRenderer.startWidth = (0.1f);
-            pathLineRenderer.endWidth = (0.1f);
+            _pathLineRenderer = gameObject.AddComponent<LineRenderer>();
+            _pathLineRenderer.materials[0] = (Material)Resources.Load("Sprite/Default", typeof(Material));
+            _pathLineRenderer.materials[0].shader = Shader.Find("Sprites/Default");
+            _pathLineRenderer.positionCount = (1);
+            _pathLineRenderer.startWidth = (0.1f);
+            _pathLineRenderer.endWidth = (0.1f);
         }
     }
 }

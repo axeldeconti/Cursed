@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AiController : MonoBehaviour
@@ -11,7 +12,7 @@ public class AiController : MonoBehaviour
     ****
     */
 
-    public enum ai_state { none, groundpatrol, pathfinding, chase} /*Add custom AI states here!*/
+    public enum ai_state { none, groundpatrol, pathfinding, chase, attack } /*Add custom AI states here!*/
 
     public ai_state state = ai_state.pathfinding;
 
@@ -22,10 +23,12 @@ public class AiController : MonoBehaviour
     [System.NonSerialized]
     public TextMesh _behaviourText;
 
-    private float direction = 1;
+    private float _direction = 1;
 
     public static GameObject player;
-    private bool destroy = false;
+    private bool _destroy = false;
+
+    private bool _timerChangeTarget = false;
 
 
     private void Awake()
@@ -81,6 +84,7 @@ public class AiController : MonoBehaviour
             case ai_state.none: break;
             case ai_state.groundpatrol: GroundPatrol(ref input); break;
             case ai_state.chase: Chase(); break; //add this line in to the GetInput method
+            case ai_state.attack: AttackOnRange(); break;
             default: break;
         }
 
@@ -93,7 +97,7 @@ public class AiController : MonoBehaviour
     /*Destroy object on lateupdate to avoid warning errors of objects not existing*/
     void LateUpdate()
     {
-        if (destroy) { Destroy(gameObject); }
+        if (_destroy) { Destroy(gameObject); }
     }
 
     /*gets called from pathagent when character finishes navigating path*/
@@ -102,7 +106,8 @@ public class AiController : MonoBehaviour
         switch (state)
         {
             case ai_state.pathfinding: _behaviourText.text = ""; break;
-            case ai_state.chase: _behaviourText.text = "Chase"; break;        }
+            case ai_state.chase: _behaviourText.text = "Chase"; break;
+        }
     }
 
     /*gets called from pathagent when character beings navigating path*/
@@ -124,6 +129,13 @@ public class AiController : MonoBehaviour
             return;
 
         }
+        if (PlayerInRange(1f, true)) //Change boolean to true for OnSight aggro
+        {
+            state = ai_state.attack;
+            return;
+
+        }
+
         _pathAgent.pathfindingTarget = player;
         state = ai_state.chase;
         _behaviourText.text = "Chase";
@@ -141,17 +153,43 @@ public class AiController : MonoBehaviour
         }
 
         _behaviourText.text = "Ground Patrol";
-        if (direction == 1 && (_controller.collisions.right || (!_controller.rightGrounded && _controller.collisions.below)))
+        /*if (_direction == 1 && (_controller.collisions.right || (!_controller.rightGrounded && _controller.collisions.below)))
         {
-            direction = -1;
-            Debug.Log("CollisionRight");
+            _direction = -1;
         }
-        else if (direction == -1 && (_controller.collisions.left || (!_controller.leftGrounded && _controller.collisions.below)))
+        else if (_direction == -1 && (_controller.collisions.left || (!_controller.leftGrounded && _controller.collisions.below)))
         {
-            direction = 1;
-            Debug.Log("CollisionLeft");
+            _direction = 1;
         }
-        
-        input.x = direction;
+
+        input.x = _direction;*/
+
+        state = ai_state.groundpatrol;
+
+        if (_timerChangeTarget == false)
+        {
+            StartCoroutine(TimerForSwitchTarget());
+        }
+    }
+
+    IEnumerator TimerForSwitchTarget()
+    {
+        _timerChangeTarget = true;
+        yield return new WaitForSeconds(2f);
+        _pathAgent.pathfindingTarget = _pathScript.GroundNodes[Random.Range(0, _pathScript.GroundNodes.Count)].gameObject;
+        _pathAgent.RequestPath(_pathAgent.pathfindingTarget.transform.position + Vector3.up);
+        Debug.Log(_pathAgent.pathfindingTarget);
+        _timerChangeTarget = false;
+    }
+
+    private void AttackOnRange()
+    {
+        if (!PlayerInRange(1f, true)) //Change boolean to true for OnSight aggro
+        {
+            state = ai_state.chase;
+            return;
+        }
+        Debug.Log("I'm in my attack state");
+        _behaviourText.text = "Attack";
     }
 }
