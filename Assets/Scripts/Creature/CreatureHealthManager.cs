@@ -39,8 +39,19 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            if (_creatureManager.CurrentState == CreatureState.OnCharacter || _creatureManager.CurrentState == CreatureState.OnEnemy)
+            if (_creatureManager.CurrentState == CreatureState.OnEnemy)
                 LaunchTimer();
+
+            else if(_creatureManager.CurrentState == CreatureState.OnCharacter)
+            {
+                if (!_alreadyOnPlayer)
+                {
+                    GiveHealthToPlayer();
+                    _alreadyOnPlayer = true;
+                }
+                LaunchTimer();
+            }
+
             else
                 ResetTimer();
         }
@@ -60,7 +71,10 @@ namespace Cursed.Creature
                 _currentHealth.Value = 0;
 
             if (_currentHealth >= _maxHealth)
+            {
                 _currentHealth.Value = _maxHealth.Value;
+                _creatureManager.CurrentState = CreatureState.OnComeBack;
+            }
 
             if (onHealthUpdate != null)
                 onHealthUpdate.Raise(_currentHealth);
@@ -94,12 +108,6 @@ namespace Cursed.Creature
                 case CreatureState.OnCharacter:
                     if (_currentTimer >= playerAttack.TimeBetweenAttack)
                     {
-                        if (!_alreadyOnPlayer)
-                        {
-                            GiveHealthToPlayer();
-                            _alreadyOnPlayer = true;
-                        }
-
                         playerAttack.InflictDamage(this.gameObject, GameObject.FindGameObjectWithTag("Player"));
                         ResetTimer();
                     }

@@ -271,8 +271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
+  m_SubmitButton: 
+  m_CancelButton: 
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -412,11 +412,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 718762045}
     m_Modifications:
-    - target: {fileID: 2968815927401895953, guid: 9010ee401bf741e47a750194f5f20cd6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8793390707879121952, guid: 9010ee401bf741e47a750194f5f20cd6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1087,6 +1082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1108574366}
   - component: {fileID: 1108574367}
+  - component: {fileID: 1108574368}
   m_Layer: 0
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -1124,6 +1120,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108574365}
   m_CullTransparentMesh: 0
+--- !u!114 &1108574368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108574365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 52d2b35afe5f55f429615d3d030ad2ad, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1108574365}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1174663742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1774,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 246678113}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2023155204
+--- !u!114 &2023155206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1760,22 +1783,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2023155194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ed948f28ee4ac744b2ebd4165c7b487, type: 3}
+  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseStats: {fileID: 11400000, guid: 9fa45251b0514fb41a04c29378dcf6b4, type: 2}
---- !u!114 &2023155205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2023155194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b871ad5b253474782f64c7bfbf749b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 52d2b35afe5f55f429615d3d030ad2ad, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2083836878
 GameObject:
   m_ObjectHideFlags: 0

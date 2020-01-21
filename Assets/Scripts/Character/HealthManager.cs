@@ -113,6 +113,7 @@ namespace Cursed.Character
         private void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
+            onDeath?.Raise();
         }
 
         #endregion
