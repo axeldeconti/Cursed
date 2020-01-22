@@ -15,7 +15,7 @@ namespace Cursed.UI
         private float beforeDamagedBarFillAmount;
         private float _damagedHealthShrinkTimer;
 
-        [SerializeField] private float _shrinkSpeed;
+        [SerializeField] private float _shrinkSpeed = 1f;
 
         private void Awake()
         {
@@ -38,9 +38,9 @@ namespace Cursed.UI
 
         public void LaunchShrink()
         {
-            _shrinkSpeed = (_damageBar.fillAmount - (float)(GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>().CurrentHealth / 100)) * 2;
             _damageBar.fillAmount = _healthBar.fillAmount;
             _damagedHealthShrinkTimer = _damagedHealthShrinkMaxTimer;
+            _shrinkSpeed = (_damageBar.fillAmount - (float)(GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>().CurrentHealth / 100)) * 2;
         }
 
         public void LaunchCut()
