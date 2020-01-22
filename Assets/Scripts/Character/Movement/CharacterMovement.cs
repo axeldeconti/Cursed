@@ -545,6 +545,7 @@ namespace Cursed.Character
         public bool OnGroundTouch => _groundTouch;
         public bool IsGrabing => _wallGrab;
         public bool IsWallRun => _wallRun;
+        public int Side => _side;
 
         public CharacterState State => _state;
 
