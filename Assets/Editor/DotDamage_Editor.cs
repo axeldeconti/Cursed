@@ -17,6 +17,7 @@ namespace Cursed.Combat
             _dotDamage.Name = EditorGUILayout.TextField("Name", _dotDamage.Name);
             _dotDamage.DamagePerSecond = EditorGUILayout.FloatField("Damage Per Second", _dotDamage.DamagePerSecond);
             _dotDamage.Duration = EditorGUILayout.FloatField("Duration", _dotDamage.Duration);
+            EditorUtility.SetDirty(_dotDamage);
         }
     }
 }
