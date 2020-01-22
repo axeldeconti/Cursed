@@ -42,6 +42,7 @@ namespace Cursed.Character
 
             // Input for player attack
             Attack = Input.GetButtonDown("Attack");
+
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Cursed.Combat
             _forkDamage.Name = EditorGUILayout.TextField("Name", _forkDamage.Name);
             _forkDamage.MinDamage = EditorGUILayout.IntField("Min Damage", _forkDamage.MinDamage);
             _forkDamage.MaxDamage = EditorGUILayout.IntField("Max Damage", _forkDamage.MaxDamage);
+            EditorUtility.SetDirty(_forkDamage);
         }
     }
 }

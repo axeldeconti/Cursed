@@ -19,6 +19,7 @@ namespace Cursed.Combat
         {
             _fixedDamage.Name = EditorGUILayout.TextField("Name", _fixedDamage.Name);
             _fixedDamage.Damage = EditorGUILayout.IntField("Damage", _fixedDamage.Damage);
+            EditorUtility.SetDirty(_fixedDamage);
         }
     }
 }
