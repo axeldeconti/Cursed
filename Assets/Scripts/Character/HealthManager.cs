@@ -121,11 +121,7 @@ namespace Cursed.Character
 
         #region Getters
 
-        public int CurrentHealth
-        {
-            get => _currentHealth;
-            set => _currentHealth = value;
-        }
+        public float CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
 
         #endregion

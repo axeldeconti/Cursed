@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Cursed.Character;
 
 namespace Cursed.UI
 {
@@ -13,6 +14,8 @@ namespace Cursed.UI
         [SerializeField] private Image _healthBar;
         private float beforeDamagedBarFillAmount;
         private float _damagedHealthShrinkTimer;
+
+        [SerializeField] private float _shrinkSpeed;
 
         private void Awake()
         {
@@ -28,14 +31,14 @@ namespace Cursed.UI
             {
                 if(_healthBar.fillAmount < _damageBar.fillAmount)
                 {
-                    float shrinkSpeed = 1f;
-                    _damageBar.fillAmount -= shrinkSpeed * Time.deltaTime; 
+                    _damageBar.fillAmount -= _shrinkSpeed * Time.deltaTime; 
                 }
             }
         }
 
         public void LaunchShrink()
         {
+            _shrinkSpeed = (_damageBar.fillAmount - (float)(GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>().CurrentHealth / 100)) * 2;
             _damageBar.fillAmount = _healthBar.fillAmount;
             _damagedHealthShrinkTimer = _damagedHealthShrinkMaxTimer;
         }
