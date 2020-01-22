@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Cursed.Character;
 
-namespace Cursed.Utilities
+namespace Cursed.UI
 {
     public class UpdateIntFilledValue : MonoBehaviour
     {
+        [SerializeField] private bool _lerpValues = true;
+
         private Image _fillImage = null;
 
         [SerializeField] private IntReference _maxValue;
@@ -12,9 +15,16 @@ namespace Cursed.Utilities
         private bool _updateValue;
         private float _currentValue;
 
+        private HealthManager _playerHealth;
+
         private void Awake()
         {
             _fillImage = GetComponent<Image>();
+        }
+
+        private void Start()
+        {
+            _playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>();
         }
 
         private void Update()
@@ -23,13 +33,28 @@ namespace Cursed.Utilities
             {
                 _fillImage.fillAmount = Mathf.Lerp(_fillImage.fillAmount, _currentValue, _lerpSpeed * Time.deltaTime);
             }
+
         }
 
         public void UpdateValue(int value)
         {
             float f = (float)value / (float)_maxValue;
-            _currentValue = f;
-            _updateValue = true;
+
+            if (!_lerpValues)
+                _fillImage.fillAmount = f;
+
+            else
+            {
+                _currentValue = f;
+                _updateValue = true;
+            }
         }
+
+        #region GETTERS
+        public float CurrentAmount => _fillImage.fillAmount;
+        public float TargetAmount => _currentValue;
+        public bool UpdateValues => _updateValue;
+
+        #endregion
     }
 }

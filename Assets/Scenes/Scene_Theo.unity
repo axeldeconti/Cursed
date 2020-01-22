@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63390caf9cbb4148921a9426f59c444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lerpValues: 1
   _maxValue:
     UseConstant: 0
     ConstantValue: 0
@@ -1011,7 +1012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &851401360
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1213,7 +1214,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1108574369}
-        m_MethodName: 
+        m_MethodName: LaunchShrink
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1235,11 +1236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692bf0a453a1aa24ca912b117168b44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _barWidth: 0
   _damageBarTemplate: {fileID: 851401360}
+  _damageBar: {fileID: 851401361}
   _healthBar: {fileID: 2137932904}
-  _damageHealthShrinkTimer: 0
-  onHealthUpdate: {fileID: 11400000, guid: 4859836420cc5c340a2f67959dce997f, type: 2}
 --- !u!1 &1174663742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,6 +2003,8 @@ GameObject:
   - component: {fileID: 2137932904}
   - component: {fileID: 2137932907}
   - component: {fileID: 2137932906}
+  - component: {fileID: 2137932909}
+  - component: {fileID: 2137932908}
   m_Layer: 0
   m_Name: FilledImage
   m_TagString: Untagged
@@ -2053,7 +2054,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.61
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -2093,6 +2094,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2137932909}
+        m_MethodName: ResetToInitial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2137932907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,11 +2117,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63390caf9cbb4148921a9426f59c444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lerpValues: 1
   _maxValue:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 7b75a0f329abf2745b57461432507058, type: 2}
   _lerpSpeed: 5
+--- !u!114 &2137932908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137932902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6db6c90e0c7a762458ac75b5d3717642, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2137932909}
+        m_MethodName: ChangeVisual
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2137932909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137932902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cca0bcca4fd9647a267effc9c89946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healColor: {r: 0.31510323, g: 0.9150943, b: 0.40512797, a: 1}
+  _healSpriteImage: {fileID: 21300000, guid: c6d588d88a4c48d48bc2020bd01742ea, type: 3}
 --- !u!1001 &672938721827946073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2198,6 +2252,12 @@ PrefabInstance:
       propertyPath: enemyAttack
       value: 
       objectReference: {fileID: 11400000, guid: d414f77f91b3a27499df5f0b1b627094,
+        type: 2}
+    - target: {fileID: 8864257907197743972, guid: a5025087565816e4b978203d7292944b,
+        type: 3}
+      propertyPath: onHeal
+      value: 
+      objectReference: {fileID: 11400000, guid: 6db6c90e0c7a762458ac75b5d3717642,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5025087565816e4b978203d7292944b, type: 3}

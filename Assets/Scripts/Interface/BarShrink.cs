@@ -5,18 +5,39 @@ namespace Cursed.UI
 {
     public class BarShrink : MonoBehaviour
     {
-        [SerializeField] private float _barWidth;
-        [SerializeField] private Transform _damageBarTemplate;
-        [SerializeField] private Image _healthBar;
-        [SerializeField] private float _damageHealthShrinkTimer;
-        private float beforeDamagedBarFillAmount;
+        private float _damagedHealthShrinkMaxTimer = .5f;
 
-        public IntEvent onHealthUpdate;
+        private float _barWidth;
+        [SerializeField] private Transform _damageBarTemplate;
+        [SerializeField] private Image _damageBar;
+        [SerializeField] private Image _healthBar;
+        private float beforeDamagedBarFillAmount;
+        private float _damagedHealthShrinkTimer;
 
         private void Awake()
         {
             _barWidth = GetComponent<RectTransform>().sizeDelta.x;
             beforeDamagedBarFillAmount = _healthBar.fillAmount;
+            _damageBar.fillAmount = _healthBar.fillAmount;
+        }
+
+        private void Update()
+        {
+            _damagedHealthShrinkTimer -= Time.deltaTime;
+            if(_damagedHealthShrinkTimer < 0)
+            {
+                if(_healthBar.fillAmount < _damageBar.fillAmount)
+                {
+                    float shrinkSpeed = 1f;
+                    _damageBar.fillAmount -= shrinkSpeed * Time.deltaTime; 
+                }
+            }
+        }
+
+        public void LaunchShrink()
+        {
+            _damageBar.fillAmount = _healthBar.fillAmount;
+            _damagedHealthShrinkTimer = _damagedHealthShrinkMaxTimer;
         }
 
         public void LaunchCut()

@@ -38,12 +38,10 @@ namespace Cursed.Creature
         {
             if (ennemy && Vector3.Distance(ennemy.position, transform.position) < range)
             {
-                Debug.Log(ennemy.position);
                 if (raycastOn)
                 {
                     if (Physics2D.Linecast(transform.position, ennemy.position, _checkLayer).collider.gameObject.layer == ennemy.gameObject.layer)
                     {
-                        Debug.Log("In Range");
                         _enemyHit = ennemy;
                         return true;
                     }

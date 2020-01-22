@@ -15,6 +15,7 @@ namespace Cursed.Creature
 
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
+        public VoidEvent onHeal;
 
         public CreatureAttack playerAttack;
         public CreatureAttack enemyAttack;
@@ -45,7 +46,7 @@ namespace Cursed.Creature
 
             else if(_creatureManager.CurrentState == CreatureState.OnCharacter)
             {
-                if (!_alreadyOnPlayer)
+                if (!_alreadyOnPlayer && _currentHealth.Value > 0)
                 {
                     GiveHealthToPlayer();
                     _alreadyOnPlayer = true;
@@ -133,6 +134,7 @@ namespace Cursed.Creature
         {
             HealthManager playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>();
             playerHealth.AddCurrentHealth(_currentHealth);
+            onHeal.Raise();
             UpdateCurrentHealth(0);
         }
     }
