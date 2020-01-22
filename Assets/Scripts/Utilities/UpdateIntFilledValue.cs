@@ -15,16 +15,10 @@ namespace Cursed.UI
         private bool _updateValue;
         private float _currentValue;
 
-        private HealthManager _playerHealth;
 
         private void Awake()
         {
             _fillImage = GetComponent<Image>();
-        }
-
-        private void Start()
-        {
-            _playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>();
         }
 
         private void Update()
@@ -49,12 +43,5 @@ namespace Cursed.UI
                 _updateValue = true;
             }
         }
-
-        #region GETTERS
-        public float CurrentAmount => _fillImage.fillAmount;
-        public float TargetAmount => _currentValue;
-        public bool UpdateValues => _updateValue;
-
-        #endregion
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1774645476348435594}
   - component: {fileID: 4191044967726581530}
   - component: {fileID: 8864257907197743972}
+  - component: {fileID: 495610366346164372}
   - component: {fileID: 650134762}
   m_Layer: 0
   m_Name: Creature
@@ -138,10 +139,38 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 0
     Variable: {fileID: 0}
+  _currentHealth:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   onHealthUpdate: {fileID: 11400000, guid: 5694e0f8a02932d4ab0746aaaad731b3, type: 2}
-  onMaxHealthUpdate: {fileID: 0}
+  onMaxHealthUpdate: {fileID: 11400000, guid: cfa5c906dd84816439d90bb3dfba15f1, type: 2}
+  onHeal: {fileID: 11400000, guid: 6db6c90e0c7a762458ac75b5d3717642, type: 2}
   playerAttack: {fileID: 11400000, guid: 9d7985057aedb334c8c2d3619f404f9e, type: 2}
-  enemyAttack: {fileID: 0}
+  enemyAttack: {fileID: 11400000, guid: d414f77f91b3a27499df5f0b1b627094, type: 2}
+--- !u!114 &495610366346164372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672938721202977457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a810d13eb0e84dd4ab6ebc41c326d19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxStamina:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _currentStamina:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  OnCurrentStaminaUpdate: {fileID: 11400000, guid: bf045892e4e7db647aa0e98b5825ea58,
+    type: 2}
+  OnMaxStaminaUpdate: {fileID: 11400000, guid: 412c9337c33ec0b4bab3272524d78f14, type: 2}
 --- !u!50 &650134762
 Rigidbody2D:
   serializedVersion: 4
