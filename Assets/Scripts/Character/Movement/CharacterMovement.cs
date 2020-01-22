@@ -143,8 +143,7 @@ namespace Cursed.Character
             UpdateVelocity(0f, 0f);
 
             //Apply new velocity
-            //Vector2 dir = new Vector2(x, y);
-            //_rb.velocity += dir.normalized * (_dashDistance / _dashTime);
+            UpdateVelocity(x * _dashDistance * 100 / _dashTime, _rb.velocity.y);
 
             //Start dash coroutine
             StartCoroutine(DashWait());
@@ -385,14 +384,11 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateDash(float x)
         {
-            if (!_input.Dash && _hasDashed && !_groundTouch && !_dashUnlock)
+            if (!_input.Dash || _hasDashed || !_groundTouch || !_dashUnlock)
                 return;
 
-            //if (x != 0)
-            //    Dash(x, 0);
-
-            if (_invincibilityFrame)
-                Debug.Log("Invincibility Frame");
+            if (x != 0)
+                Dash(x);
         }
 
         /// <summary>
