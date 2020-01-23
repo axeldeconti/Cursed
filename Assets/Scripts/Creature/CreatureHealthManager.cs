@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using Cursed.Combat;
 using Cursed.Character;
 
@@ -23,6 +24,7 @@ namespace Cursed.Creature
         private float _currentTimer;
         private bool _alreadyOnPlayer;
         private bool _giveHealth;
+
 
         private void Awake()
         {
@@ -51,7 +53,9 @@ namespace Cursed.Creature
                     GiveHealthToPlayer();
                     _alreadyOnPlayer = true;
                 }
-                LaunchTimer();  
+
+                if(!_giveHealth)
+                    LaunchTimer();  
             }
 
             else
@@ -136,6 +140,14 @@ namespace Cursed.Creature
             playerHealth.AddCurrentHealth(_currentHealth);
             onHeal.Raise();
             UpdateCurrentHealth(0);
+            _giveHealth = true;
+            StartCoroutine(WaitForUnHealth(2f));
+        }
+
+        private IEnumerator WaitForUnHealth(float timer)
+        {
+            yield return new WaitForSeconds(timer);
+            _giveHealth = false;
         }
     }
 }
