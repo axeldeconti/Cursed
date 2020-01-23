@@ -22,8 +22,6 @@ public class AiController : MonoBehaviour
     [System.NonSerialized]
     public TextMesh _behaviourText;
 
-    //private float _direction = 1;
-
     public static GameObject player;
     private bool _destroy = false;
 
@@ -109,7 +107,7 @@ public class AiController : MonoBehaviour
         }
     }
 
-    /*gets called from pathagent when character beings navigating path*/
+    /*gets called from pathagent when character begins navigating path*/
     public void PathStarted()
     {
         switch (state)
@@ -152,6 +150,8 @@ public class AiController : MonoBehaviour
         }
 
         _behaviourText.text = "Ground Patrol";
+
+        //Patroling on a single platform
         /*if (_direction == 1 && (_controller.collisions.right || (!_controller.rightGrounded && _controller.collisions.below)))
         {
             _direction = -1;
@@ -163,8 +163,7 @@ public class AiController : MonoBehaviour
 
         input.x = _direction;*/
 
-        state = ai_state.groundpatrol;
-
+        //Coroutine for changing targeted platform
         if (_timerChangeTarget == false)
         {
             StartCoroutine(TimerForSwitchTarget());
@@ -174,7 +173,7 @@ public class AiController : MonoBehaviour
     IEnumerator TimerForSwitchTarget()
     {
         _timerChangeTarget = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         _pathAgent.pathfindingTarget = _pathScript.GroundNodes[Random.Range(0, _pathScript.GroundNodes.Count)].gameObject;
         _pathAgent.RequestPath(_pathAgent.pathfindingTarget.transform.position + Vector3.up);
         Debug.Log(_pathAgent.pathfindingTarget.transform.position + Vector3.up);
@@ -190,5 +189,7 @@ public class AiController : MonoBehaviour
         }
         Debug.Log("I'm in my attack state");
         _behaviourText.text = "Attack";
+
+        //Insert attack behavior
     }
 }

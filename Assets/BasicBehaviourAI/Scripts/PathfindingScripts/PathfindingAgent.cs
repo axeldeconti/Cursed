@@ -58,7 +58,7 @@ public class PathfindingAgent : MonoBehaviour
 
     private bool _stopPathing = true;
     private bool _hasLastOrder = false;
-    private bool _aiJumped = false;
+    private bool _aiJumped = false; //Is AI actually in jump
     private bool _onewayDropDown = false;
     private bool _onewayGrounded = false;
 
@@ -76,6 +76,11 @@ public class PathfindingAgent : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        CursedDebugger.Instance.Add("GoTarget", () => pathfindingTarget.ToString());
+        CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
+    }
 
     public void CancelPathing()
     {
@@ -182,7 +187,7 @@ public class PathfindingAgent : MonoBehaviour
                 );
         }
     }
-
+    
     //Callback from Thread with path information
     public void ReceivePathInstructions(List<instructions> instr, bool passed)
     {
@@ -413,7 +418,7 @@ public class PathfindingAgent : MonoBehaviour
             if (_fFollowPathTimer >= followPathTimer)
             {
                 _fFollowPathTimer = 0f;
-                if ((_currentOrders != null && _currentOrders.Count > 0 && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, pathfindingTarget.transform.position) > followDistance)
+                if ((_currentOrders != null && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, pathfindingTarget.transform.position) > followDistance)
                     || ((_currentOrders == null || _currentOrders.Count == 0)))
                 {
                     if (Vector3.Distance(transform.position, pathfindingTarget.transform.position) > followDistance + 0.18f)
@@ -451,7 +456,11 @@ public class PathfindingAgent : MonoBehaviour
         if (_pathIsDirty)
         {
             _pathIsDirty = false;
-            if (pathfindingTarget) { RequestPath(pathfindingTarget); } else if (_hasLastOrder) { RequestPath(_lastOrder); }
+            if (pathfindingTarget && _aiControllerScript.state == AiController.ai_state.chase ) 
+            { RequestPath(pathfindingTarget); } 
+            else if (_hasLastOrder && _aiControllerScript.state == AiController.ai_state.groundpatrol) 
+            { RequestPath(_lastOrder); }
+
             if (debugBool)
             {
                 Debug.Log("path is dirty");
