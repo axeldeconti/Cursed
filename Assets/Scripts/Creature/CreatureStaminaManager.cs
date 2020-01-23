@@ -4,12 +4,14 @@ namespace Cursed.Creature
 {
     public class CreatureStaminaManager : MonoBehaviour
     {
+        [Header ("Settings")]
         [SerializeField] private IntReference _maxStamina;
         [SerializeField] private IntReference _currentStamina;
 
         private CreatureStats _stats;
         private CreatureManager _manager;
 
+        [Header ("Events")]
         public IntEvent OnCurrentStaminaUpdate;
         public IntEvent OnMaxStaminaUpdate;
 

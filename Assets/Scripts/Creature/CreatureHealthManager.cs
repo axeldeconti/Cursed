@@ -7,6 +7,7 @@ namespace Cursed.Creature
 {
     public class CreatureHealthManager : MonoBehaviour
     {
+        [Header ("Settings")]
         [SerializeField] private IntReference _maxHealth;
 
         [SerializeField] private IntReference _currentHealth;
@@ -14,10 +15,13 @@ namespace Cursed.Creature
         private CreatureManager _creatureManager;
         private CreatureSearching _creatureSearching;
 
+        [Header ("Events")]
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onHeal;
+        public VoidEvent onPlayer;
 
+        [Header ("Attacks")]
         public CreatureAttack playerAttack;
         public CreatureAttack enemyAttack;
 
@@ -114,6 +118,7 @@ namespace Cursed.Creature
                 case CreatureState.OnCharacter:
                     if (_currentTimer >= playerAttack.TimeBetweenAttack)
                     {
+                        onPlayer?.Raise();
                         playerAttack.InflictDamage(this.gameObject, GameObject.FindGameObjectWithTag("Player"));
                         ResetTimer();
                     }
