@@ -10,11 +10,12 @@ namespace Cursed.Character
     [RequireComponent(typeof(SpriteRenderer))]
     public class AnimationHandler : MonoBehaviour
     {
-
         private Animator _anim;
         private CharacterMovement _move;
         private CollisionHandler _coll;
         private SpriteRenderer _renderer;
+
+        private static readonly int _hasIsMoving = Animator.StringToHash("MoveSpeedX");
 
         void Start()
         {
@@ -27,13 +28,8 @@ namespace Cursed.Character
         void Update()
         {
             //Update every anim variables
-            _anim.SetBool("onGround", _coll.OnGround);
-            _anim.SetBool("onWall", _coll.OnWall);
-            _anim.SetBool("onRightWall", _coll.OnRightWall);
-            _anim.SetBool("wallGrab", _move.WallGrab);
-            _anim.SetBool("wallSlide", _move.WallSlide);
-            _anim.SetBool("canMove", _move.CanMove);
-            _anim.SetBool("isDashing", _move.IsDashing);
+            _anim.SetFloat(_hasIsMoving, Mathf.Abs(_move.XSpeed));
+
         }
 
         /// <summary>
@@ -44,14 +40,6 @@ namespace Cursed.Character
             _anim.SetFloat("HorizontalAxis", x);
             _anim.SetFloat("VerticalAxis", y);
             _anim.SetFloat("VerticalVelocity", yVel);
-        }
-
-        /// <summary>
-        /// Trigger the animator with the string in parameter
-        /// </summary>
-        public void SetTrigger(string trigger)
-        {
-            _anim.SetTrigger(trigger);
         }
 
         /// <summary>

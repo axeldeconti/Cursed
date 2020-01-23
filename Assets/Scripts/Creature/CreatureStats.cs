@@ -10,6 +10,13 @@ namespace Cursed.Creature
 
         private Dictionary<CreatureStat, float> _statModifier;
 
+        private int _currentEnergy;
+        private float _currentMoveSpeedInAir;
+        private float _currentDrainSpeed;
+        private int _currentMaxHealth;
+        private float _currentMoveSpeedChaseAndComeBack;
+
+
         #region Initializer
 
         private void Start()
@@ -20,6 +27,18 @@ namespace Cursed.Creature
             {
                 _statModifier.Add((CreatureStat)i, 0f);
             }
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            //Init current stats
+            _currentEnergy = baseStats.Energy;
+            _currentMoveSpeedInAir = baseStats.MoveSpeedInAir;
+            _currentDrainSpeed = baseStats.DrainSpeed;
+            _currentMaxHealth = baseStats.MaxHealth;
+            _currentMoveSpeedChaseAndComeBack = baseStats.MoveSpeedChaseAndComeBack;
         }
 
         #endregion
@@ -40,12 +59,19 @@ namespace Cursed.Creature
             switch (stat)
             {
                 case CreatureStat.Energy:
+                    _currentEnergy += (int)amount;
                     break;
-                case CreatureStat.MoveSpeed:
+                case CreatureStat.MoveSpeedInAir:
+                    _currentMoveSpeedInAir += amount;
                     break;
                 case CreatureStat.DrainSpeed:
+                    _currentDrainSpeed += amount;
                     break;
                 case CreatureStat.MaxHealth:
+                    _currentMaxHealth += (int)amount;
+                    break;
+                case CreatureStat.MoveSpeedChaseAndComeBack:
+                    _currentMoveSpeedChaseAndComeBack += amount;
                     break;
                 default:
                     break;
@@ -54,12 +80,18 @@ namespace Cursed.Creature
 
         #endregion
 
-        #region Getters
+        #region Getters & Setters
 
         public float GetStatModifier(CreatureStat stat)
         {
             return _statModifier[stat];
         }
+
+        public float CurrentEnergy => _currentEnergy;
+        public float CurrentMoveSpeedInAir => _currentMoveSpeedInAir;
+        public float CurrentDrainSpeed => _currentDrainSpeed;
+        public float CurrentMaxHealth => _currentMaxHealth;
+        public float CurrentMoveSpeedChaseAndComeBack => _currentMoveSpeedChaseAndComeBack;
 
         #endregion
     }
