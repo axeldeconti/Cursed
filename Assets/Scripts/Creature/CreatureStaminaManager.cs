@@ -13,10 +13,8 @@ namespace Cursed.Creature
         public IntEvent OnCurrentStaminaUpdate;
         public IntEvent OnMaxStaminaUpdate;
 
-        private float _frequencyLoseStaminaTimer = .5f;
         private float _loseStaminaTimer;
 
-        private float _frequencyGainStaminaTimer = .5f;
         private float _gainStaminaTimer;
 
         private void Awake()
@@ -28,9 +26,10 @@ namespace Cursed.Creature
         private void Start()
         {
             if (_stats != null)
-                _maxStamina = _stats.baseStats.Energy;
-            _loseStaminaTimer = _frequencyLoseStaminaTimer;
-            _gainStaminaTimer = _frequencyGainStaminaTimer;
+                _maxStamina.Value = _stats.CurrentEnergy;
+
+            _loseStaminaTimer = _stats.CurrentFrequencyLoseStamina;
+            _gainStaminaTimer = _stats.CurrentFrequencyGainStamina;
             UpdateCurrentStamina(_maxStamina);
         }
 
@@ -38,23 +37,23 @@ namespace Cursed.Creature
         {
             if(_manager.CurrentState != CreatureState.OnCharacter)
             {
-                _gainStaminaTimer = _frequencyGainStaminaTimer;
+                _gainStaminaTimer = _stats.CurrentFrequencyGainStamina;
                 _loseStaminaTimer -= Time.deltaTime;
                 if(_loseStaminaTimer < 0)
                 {
-                    AddCurrentStamina(-5);
-                    _loseStaminaTimer = _frequencyLoseStaminaTimer;
+                    AddCurrentStamina(-(int)_stats.CurrentLoseStaminaAmount);
+                    _loseStaminaTimer = _stats.CurrentFrequencyLoseStamina;
                 }
             }
 
             else
             {
-                _loseStaminaTimer = _frequencyLoseStaminaTimer;
+                _loseStaminaTimer = _stats.CurrentFrequencyLoseStamina;
                 _gainStaminaTimer -= Time.deltaTime;
                 if(_gainStaminaTimer < 0)
                 {
-                    AddCurrentStamina(5);
-                    _gainStaminaTimer = _frequencyGainStaminaTimer;
+                    AddCurrentStamina((int)_stats.CurrentGainStaminaAmount);
+                    _gainStaminaTimer = _stats.CurrentFrequencyGainStamina;
                 }
             }
         }

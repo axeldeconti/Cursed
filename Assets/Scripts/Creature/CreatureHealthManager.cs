@@ -34,7 +34,7 @@ namespace Cursed.Creature
         private void Start()
         {
             if(_stats != null)
-                _maxHealth.Value = _stats.baseStats.MaxHealth;
+                _maxHealth.Value = _stats.CurrentMaxHealth;
 
             UpdateCurrentHealth(0);
         }
@@ -51,7 +51,7 @@ namespace Cursed.Creature
                     GiveHealthToPlayer();
                     _alreadyOnPlayer = true;
                 }
-                LaunchTimer();
+                LaunchTimer();  
             }
 
             else
