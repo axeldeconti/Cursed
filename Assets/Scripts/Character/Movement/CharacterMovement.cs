@@ -38,21 +38,21 @@ namespace Cursed.Character
         [SerializeField] private JumpData _doubleJump = null;
         [SerializeField] private JumpData _wallJump = null;
         [SerializeField] private JumpData _fastFall = null;
-        [Range(0, 5)]
-        [SerializeField] private float _wallJumpLerp;
         [SerializeField] private FloatReference _coyoteTime;
         [SerializeField] private FloatReference _jumpBuffer;
 
         [Space]
         [Header("Booleans")]
         [SerializeField] private bool _canMove = true;
-        [SerializeField] private bool _wallGrab = false;
+        [SerializeField] private bool _isJumping = false;
+        [SerializeField] private bool _hasDoubleJumped = false;
         [SerializeField] private bool _wallJumped = false;
+        [SerializeField] private bool _wallGrab = false;
         [SerializeField] private bool _wallSlide = false;
         [SerializeField] private bool _wallRun = false;
         [SerializeField] private bool _isDashing = false;
-        [SerializeField] private bool _hasDoubleJumped = false;
-        [SerializeField] private bool _isJumping = false;
+        [SerializeField] private bool _canDash = false;
+        [SerializeField] private bool _isInvincible = false;
 
         [Space]
         [Header("Unlocks")]
@@ -62,11 +62,11 @@ namespace Cursed.Character
         [Space]
         private bool _groundTouch;
         private bool _hasDashed;
-        private bool _invincibilityFrame;
         private bool _canEvenJump;
         private bool _jumpWasPressed;
         private int _side;
         private Vector2 _vel = Vector2.zero;
+        private float _timeToNextDash = 0f;
 
         [Space]
         private float _currentGravity = 0f;
@@ -81,6 +81,10 @@ namespace Cursed.Character
             _coll.OnGrounded += ResetIsJumping;
 
             _groundTouch = true;
+
+            CursedDebugger.Instance.Add("Input.Dash", () => _input.Dash.ToString());
+            CursedDebugger.Instance.Add("CanDash", () => _canDash.ToString());
+            CursedDebugger.Instance.Add("GroundTouch", () => _groundTouch.ToString());
         }
 
         private void Update()
@@ -135,52 +139,33 @@ namespace Cursed.Character
         /// <summary>
         /// Dash in the direction in parameter
         /// </summary>
-        private void Dash(float x)
+        private IEnumerator Dash(float x)
         {
-            _hasDashed = true;
-
             //Reset the velocity
             UpdateVelocity(0f, 0f);
 
-            //Apply new velocity
-            UpdateVelocity(x * _dashDistance * 100 / _dashTime, _rb.velocity.y);
-
-            //Start dash coroutine
-            StartCoroutine(DashWait());
-        }
-
-        /// <summary>
-        /// Start cooldown dash and invicibility frame
-        /// </summary>
-        private IEnumerator DashWait()
-        {
-            //Start the ground dash coroutine
-            StartCoroutine(GroundDash());
-
-            //Change the value of the rigidbody drag
-            DOVirtual.Float(14, 0, .2f, RigidbodyDrag);
-
-            //Set values for the dash
-            _wallJumped = true;
+            //Set bools
             _isDashing = true;
-            _invincibilityFrame = true;
+            _isInvincible = true;
 
-            yield return new WaitForSeconds(_dashInvincibilityFrame);
+            float dashTimer = _dashTime;
+            float deltaDist = _side * _dashDistance * 10 * Time.deltaTime / _dashTime;
+            float newX = 0f;
 
-            //Reset values
-            _wallJumped = false;
+            while(dashTimer >= 0)
+            {
+                newX = transform.position.x + deltaDist;
+                transform.position = new Vector2(newX, transform.position.y);
+                dashTimer -= Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+
+            //Reset bools
             _isDashing = false;
-            _invincibilityFrame = false;
-        }
+            _isInvincible = false;
 
-        /// <summary>
-        /// Use to delay a new dash when grounded
-        /// </summary>
-        private IEnumerator GroundDash()
-        {
-            yield return new WaitForSeconds(_dashCooldown);
-            if (_coll.OnGround)
-                _hasDashed = false;
+            //Set dash cooldown
+            _timeToNextDash = Time.time + _dashCooldown;
         }
 
         #endregion
@@ -318,6 +303,9 @@ namespace Cursed.Character
             if (!_input.Jump)
                 return;
 
+            if (_isDashing)
+                return;
+
             _jumpWasPressed = true;
             StartCoroutine(RememberJumpTime(_jumpBuffer));
 
@@ -384,11 +372,13 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateDash(float x)
         {
-            if (!_input.Dash || _hasDashed || !_groundTouch || !_dashUnlock)
+            _canDash = !_isDashing && (Time.time >= _timeToNextDash);
+
+            if (!_input.Dash || !_canDash || !_groundTouch || !_dashUnlock)
                 return;
 
             if (x != 0)
-                Dash(x);
+                StartCoroutine(Dash(x));
         }
 
         /// <summary>

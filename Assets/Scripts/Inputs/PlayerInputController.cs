@@ -16,7 +16,13 @@ namespace Cursed.Character
 
         private bool _hasDashed = false;
 
-        private void Start() => _hasDashed = false;
+        private void Start()
+        {
+            _hasDashed = false;
+
+            //CursedDebugger.Instance.Add("HasDashed", () => _hasDashed.ToString());
+            //CursedDebugger.Instance.Add("Dash", () => Dash.ToString());
+        }
 
         private void Update()
         {
