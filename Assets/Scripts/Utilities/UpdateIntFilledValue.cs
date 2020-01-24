@@ -10,15 +10,17 @@ namespace Cursed.UI
 
         private Image _fillImage = null;
 
-        [SerializeField] private IntReference _maxValue;
         [SerializeField] private float _lerpSpeed = 5f;
         private bool _updateValue;
         private float _currentValue;
+
+        private UpdateMaxBar _updateMaxBar;
 
 
         private void Awake()
         {
             _fillImage = GetComponent<Image>();
+            _updateMaxBar = GetComponentInParent<UpdateMaxBar>();
         }
 
         private void Update()
@@ -32,7 +34,7 @@ namespace Cursed.UI
 
         public void UpdateValue(int value)
         {
-            float f = (float)value / (float)_maxValue;
+            float f = (float)value / (float)_updateMaxBar.LastMaxValue;
 
             if (!_lerpValues)
                 _fillImage.fillAmount = f;

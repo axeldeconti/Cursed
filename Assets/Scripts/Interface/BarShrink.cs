@@ -40,7 +40,7 @@ namespace Cursed.UI
         {
             _damageBar.fillAmount = _healthBar.fillAmount;
             _damagedHealthShrinkTimer = _damagedHealthShrinkMaxTimer;
-            _shrinkSpeed = (_damageBar.fillAmount - (float)(GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>().CurrentHealth / 100)) * 5;
+            _shrinkSpeed = (_damageBar.fillAmount - (float)(GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>().CurrentHealth / GetComponent<UpdateMaxBar>().LastMaxValue)) * 5;
         }
 
         public void LaunchCut()

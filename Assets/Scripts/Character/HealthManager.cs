@@ -31,6 +31,9 @@ namespace Cursed.Character
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.F))
+                _stats.ModifyStat(Stat.Health, -10);
+
             if (Input.GetKeyDown(KeyCode.G))
                 _stats.ModifyStat(Stat.Health, 10);
         }
@@ -91,7 +94,10 @@ namespace Cursed.Character
             if (onMaxHealthUpdate != null)
                 onMaxHealthUpdate.Raise(_maxHealth);
 
-            UpdateCurrentHealth(_currentHealth + amount);
+            if (amount >= 0)
+                AddCurrentHealth(amount);
+            else
+                AddCurrentHealth(0);
         }
 
         public void ApplyDot(float damagePerSecond, float duration)

@@ -9,6 +9,8 @@ namespace Cursed.Creature
         public CreatureStats_SO baseStats;
 
         private Dictionary<CreatureStat, float> _statModifier;
+        private CreatureHealthManager _healthManager;
+        private CreatureStaminaManager _staminaManager;
 
         private IntReference _currentEnergy;
         private FloatReference _currentMoveSpeedInAir;
@@ -29,6 +31,9 @@ namespace Cursed.Creature
 
         private void Start()
         {
+            _healthManager = GetComponent<CreatureHealthManager>();
+            _staminaManager = GetComponent<CreatureStaminaManager>();
+
             //Init modifiers dico
             _statModifier = new Dictionary<CreatureStat, float>();
             for (int i = 0; i < Enum.GetNames(typeof(CreatureStat)).Length; i++)
@@ -69,10 +74,12 @@ namespace Cursed.Creature
             switch (stat)
             {
                 case CreatureStat.MaxHealth:
-                    _currentMaxHealth.Value += (int)amount;
+                    _healthManager.AddMaxHealth((int)amount);
+                    //_currentMaxHealth.Value += (int)amount;
                     break;
                 case CreatureStat.Energy:
-                    _currentEnergy.Value += (int)amount;
+                    _staminaManager.AddMaxStamina((int)amount);
+                    //_currentEnergy.Value += (int)amount;
                     break;
                 case CreatureStat.MoveSpeedInAir:
                     _currentMoveSpeedInAir.Value += amount;

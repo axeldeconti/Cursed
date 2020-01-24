@@ -47,6 +47,11 @@ namespace Cursed.Creature
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.H))
+                _stats.ModifyStat(CreatureStat.MaxHealth, -5);
+            if (Input.GetKeyDown(KeyCode.J))
+                _stats.ModifyStat(CreatureStat.MaxHealth, 5);
+
             if (_creatureManager.CurrentState == CreatureState.OnEnemy)
                 LaunchTimer();
 
@@ -100,7 +105,7 @@ namespace Cursed.Creature
             if (onMaxHealthUpdate != null)
                 onMaxHealthUpdate.Raise(_maxHealth);
 
-            UpdateCurrentHealth(_currentHealth + amount);
+            onHealthUpdate?.Raise(_currentHealth);
         }
 
         private void ResetTimer() => _currentTimer = 0f;

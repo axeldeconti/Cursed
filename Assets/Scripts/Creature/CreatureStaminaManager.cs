@@ -37,7 +37,12 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            if(_manager.CurrentState != CreatureState.OnCharacter)
+            if (Input.GetKeyDown(KeyCode.K))
+                _stats.ModifyStat(CreatureStat.Energy, -5);
+            if (Input.GetKeyDown(KeyCode.L))
+                _stats.ModifyStat(CreatureStat.Energy, 5);
+
+            if (_manager.CurrentState != CreatureState.OnCharacter)
             {
                 _gainStaminaTimer = _stats.CurrentFrequencyGainStamina;
                 _loseStaminaTimer -= Time.deltaTime;
@@ -93,7 +98,10 @@ namespace Cursed.Creature
             _maxStamina.Value += amount;
             OnMaxStaminaUpdate?.Raise(_maxStamina);
 
-            AddCurrentStamina(amount);
+            if (amount >= 0)
+                AddCurrentStamina(amount);
+            else
+                AddCurrentStamina(0);
         }
 
     }

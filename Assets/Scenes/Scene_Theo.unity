@@ -236,10 +236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lerpValues: 1
-  _maxValue:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: ecd1f0268e6df094f89d154aa8cfc81f, type: 2}
   _lerpSpeed: 5
 --- !u!1 &127323500
 GameObject:
@@ -566,6 +562,8 @@ GameObject:
   m_Component:
   - component: {fileID: 384974969}
   - component: {fileID: 384974970}
+  - component: {fileID: 384974971}
+  - component: {fileID: 384974972}
   m_Layer: 0
   m_Name: CreatureStamina
   m_TagString: Untagged
@@ -603,6 +601,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384974968}
   m_CullTransparentMesh: 0
+--- !u!114 &384974971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384974968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b699e592397327a43a64f819d219c5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxValue:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0039e18a36b7d484c8a572c0ce025955, type: 2}
+  _lerpSpeed: 3
+--- !u!114 &384974972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384974968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3774ad7bb3ce45954e93b6293853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 412c9337c33ec0b4bab3272524d78f14, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 384974971}
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &479688525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,6 +1589,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1095002147}
   - component: {fileID: 1095002148}
+  - component: {fileID: 1095002149}
+  - component: {fileID: 1095002150}
   m_Layer: 0
   m_Name: CreatureHealth
   m_TagString: Untagged
@@ -1584,6 +1628,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095002146}
   m_CullTransparentMesh: 0
+--- !u!114 &1095002149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095002146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b699e592397327a43a64f819d219c5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxValue:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: ecd1f0268e6df094f89d154aa8cfc81f, type: 2}
+  _lerpSpeed: 3
+--- !u!114 &1095002150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095002146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3774ad7bb3ce45954e93b6293853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: cfa5c906dd84816439d90bb3dfba15f1, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1095002149}
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1108574365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1783,7 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 7b75a0f329abf2745b57461432507058, type: 2}
+  _lerpSpeed: 3
 --- !u!114 &1108574371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2703,10 +2792,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lerpValues: 1
-  _maxValue:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 0039e18a36b7d484c8a572c0ce025955, type: 2}
   _lerpSpeed: 5
 --- !u!114 &2122678395
 MonoBehaviour:
@@ -2872,10 +2957,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lerpValues: 1
-  _maxValue:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 7b75a0f329abf2745b57461432507058, type: 2}
   _lerpSpeed: 5
 --- !u!114 &2137932908
 MonoBehaviour:
