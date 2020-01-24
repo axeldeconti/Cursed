@@ -29,6 +29,12 @@ namespace Cursed.Character
 
         #endregion
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+                _stats.ModifyStat(Stat.Health, 10);
+        }
+
 
         #region Modifiers
 

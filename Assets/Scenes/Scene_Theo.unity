@@ -337,8 +337,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1095002147}
   - {fileID: 1108574366}
+  - {fileID: 1095002147}
   - {fileID: 384974969}
   m_Father: {fileID: 1022401319}
   m_RootOrder: 0
@@ -1569,7 +1569,7 @@ RectTransform:
   - {fileID: 37704058}
   - {fileID: 479688526}
   m_Father: {fileID: 160517890}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1596,6 +1596,8 @@ GameObject:
   - component: {fileID: 1108574367}
   - component: {fileID: 1108574369}
   - component: {fileID: 1108574368}
+  - component: {fileID: 1108574370}
+  - component: {fileID: 1108574371}
   m_Layer: 0
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -1619,12 +1621,12 @@ RectTransform:
   - {fileID: 2137932903}
   - {fileID: 785264225}
   m_Father: {fileID: 160517890}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 210, y: -70}
-  m_SizeDelta: {x: 369.05, y: 56.13}
+  m_AnchoredPosition: {x: 255, y: -70}
+  m_SizeDelta: {x: 370, y: 56.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1108574367
 CanvasRenderer:
@@ -1677,6 +1679,49 @@ MonoBehaviour:
   _damageBar: {fileID: 851401361}
   _healthBar: {fileID: 2137932904}
   _shrinkSpeed: 1
+--- !u!114 &1108574370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108574365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b699e592397327a43a64f819d219c5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxValue:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 7b75a0f329abf2745b57461432507058, type: 2}
+--- !u!114 &1108574371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108574365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b3774ad7bb3ce45954e93b6293853a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 868fb2563c3987f459bdfd7df0420c6a, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1108574370}
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1174663742
 GameObject:
   m_ObjectHideFlags: 0
