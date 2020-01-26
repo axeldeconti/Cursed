@@ -164,13 +164,13 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 0bb41bf2b1747aa4fa82afb1c999e25f, type: 2}
   _wallClimbMultiplySpeed:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 1.2
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 11eaf115f5dc6b14ca8f2686bc08d333, type: 2}
   _wallSlideSpeed:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 5
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 8b21ceef68a3af449ab9d26673018121, type: 2}
   _walkInertia:
     UseConstant: 0
     ConstantValue: 0
@@ -187,16 +187,11 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0.8
     Variable: {fileID: 11400000, guid: eebfc10f4c92b5840861946e112b6f33, type: 2}
-  _dashInvincibilityFrame:
-    UseConstant: 1
-    ConstantValue: 0.2
-    Variable: {fileID: 0}
   _normalJump: {fileID: 11400000, guid: fc3e26308e6583a48b7890b1249a9e24, type: 2}
   _lightJump: {fileID: 11400000, guid: 236e8dab7a4348b4388bc1d51c3504ef, type: 2}
   _doubleJump: {fileID: 11400000, guid: e06f6de9d57e30d40a0e96e6947c5516, type: 2}
   _wallJump: {fileID: 11400000, guid: 2fb9933ae32c50e4486a2783c3d6fe60, type: 2}
   _fastFall: {fileID: 11400000, guid: f87564077aa248a459a5142a4e0be1a4, type: 2}
-  _wallJumpLerp: 3
   _coyoteTime:
     UseConstant: 0
     ConstantValue: 0
@@ -206,13 +201,15 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 667dfe7192b2e5b40bcd4e8f2e541ed8, type: 2}
   _canMove: 1
-  _wallGrab: 0
+  _isJumping: 0
+  _hasDoubleJumped: 0
   _wallJumped: 0
+  _wallGrab: 0
   _wallSlide: 0
   _wallRun: 0
   _isDashing: 0
-  _hasDoubleJumped: 0
-  _isJumping: 0
+  _canDash: 0
+  _isInvincible: 0
   _dashUnlock: 1
   _doubleJumpUnlock: 1
 --- !u!114 &8498843447298849142

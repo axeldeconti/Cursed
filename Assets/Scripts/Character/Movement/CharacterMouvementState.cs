@@ -1,14 +1,12 @@
 ﻿namespace Cursed.Character
 {
-    public enum CharacterState
+    public enum CharacterMouvementState
     {
         Idle,
         Run,
         Jump,
         Fall,
         WallClimb,
-        WallFall,
-        Attack,
-        RunAttack
+        WallFall
     }
 }

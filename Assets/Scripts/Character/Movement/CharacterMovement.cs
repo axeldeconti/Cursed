@@ -14,7 +14,7 @@ namespace Cursed.Character
         private AnimationHandler _anim = null;
         private IInputController _input = null;
 
-        [SerializeField] private CharacterState _state = CharacterState.Idle;
+        [SerializeField] private CharacterMouvementState _state = CharacterMouvementState.Idle;
 
         [Space]
         [Header("Stats")]
@@ -29,7 +29,6 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _dashDistance;
         [SerializeField] private FloatReference _dashTime;
         [SerializeField] private FloatReference _dashCooldown;
-        [SerializeField] private FloatReference _dashInvincibilityFrame;
 
         [Space]
         [Header("Jump")]
@@ -101,6 +100,8 @@ namespace Cursed.Character
 
             //Set current velocity
             _currentVelocity = _rb.velocity;
+
+            UpdateState();
         }
 
         private void FixedUpdate()
@@ -324,7 +325,7 @@ namespace Cursed.Character
             }
 
             //If on wall, wall jump
-            if (_coll.OnWall && !_coll.OnGround)
+            if (_coll.OnWall && !_coll.OnGround && _wallGrab)
                 WallJump();
         }
 
@@ -386,7 +387,7 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateWallGrab(float x, float y)
         {
-            if (_wallGrab && !_isDashing)
+            if (_wallGrab && !_isDashing && !_isJumping)
             {
                 if ((x > .2f || x < .2f) && !_isJumping)
                     UpdateVelocity(_currentVelocity.x, 0);
@@ -397,8 +398,7 @@ namespace Cursed.Character
                     _wallRun = true;
 
                     //Apply new velocity
-                    if (!_isJumping)
-                        UpdateVelocity(_currentVelocity.x, y * (_runSpeed * _wallClimbMultiplySpeed));
+                    UpdateVelocity(_currentVelocity.x, y * (_runSpeed * _wallClimbMultiplySpeed));
                 }
                 else //Slide on wall
                 {
@@ -445,7 +445,6 @@ namespace Cursed.Character
             if (_coll.OnGround && !_isDashing)
             {
                 _wallJumped = false;
-                //_betterJump.enabled = true;
             }
 
             //If on wall and input Grab hold, wall grab
@@ -496,7 +495,16 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateState()
         {
+            _state = CharacterMouvementState.Idle;
 
+            if (Mathf.Abs(_currentVelocity.x) >= 0.1)
+                _state = CharacterMouvementState.Run;
+
+            if (IsJumping)
+                _state = CharacterMouvementState.Jump;
+
+            if (_currentVelocity.y <= 0.1f)
+                _state = CharacterMouvementState.Fall;
         }
 
         #endregion
@@ -509,14 +517,6 @@ namespace Cursed.Character
             _canMove = false;
             yield return new WaitForSeconds(time);
             _canMove = true;
-        }
-
-        /// <summary>
-        /// Change the drag parameter of the rigidbody
-        /// </summary>
-        private void RigidbodyDrag(float x)
-        {
-            _rb.drag = x;
         }
 
         #region Getters & Setters
@@ -533,7 +533,7 @@ namespace Cursed.Character
         public bool IsWallRun => _wallRun;
         public int Side => _side;
 
-        public CharacterState State => _state;
+        public CharacterMouvementState State => _state;
 
         #endregion
     }
