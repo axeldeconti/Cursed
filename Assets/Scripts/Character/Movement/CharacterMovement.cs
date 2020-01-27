@@ -45,7 +45,7 @@ namespace Cursed.Character
         [SerializeField] private bool _canMove = true;
         [SerializeField] private bool _isJumping = false;
         [SerializeField] private bool _hasDoubleJumped = false;
-        [SerializeField] private bool _wallJumped = false;
+        [SerializeField] private bool _hasWallJumped = false;
         [SerializeField] private bool _wallGrab = false;
         [SerializeField] private bool _wallSlide = false;
         [SerializeField] private bool _wallRun = false;
@@ -81,9 +81,7 @@ namespace Cursed.Character
 
             _groundTouch = true;
 
-            CursedDebugger.Instance.Add("Input.Dash", () => _input.Dash.ToString());
-            CursedDebugger.Instance.Add("CanDash", () => _canDash.ToString());
-            CursedDebugger.Instance.Add("GroundTouch", () => _groundTouch.ToString());
+            CursedDebugger.Instance.Add("State", () => _state.ToString());
         }
 
         private void Update()
@@ -93,10 +91,10 @@ namespace Cursed.Character
             float y = _input.y;
 
             UpdateBools();
+            UpdateWallGrab(x, y);
             UpdateJump();
             UpdateDash(x);
-            UpdateWallGrab(x, y);
-            UpdateFlip(x, y);
+            UpdateFlip(Mathf.Abs(x) <= .1f ? _currentVelocity.x : x);
 
             //Set current velocity
             _currentVelocity = _rb.velocity;
@@ -113,6 +111,9 @@ namespace Cursed.Character
             UpdateGravity();
             UpdateWalk(x);
             UpdateAirControl(x);
+
+            //Clamp y velocity to not to fall to fast
+            UpdateVelocity(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, -60f, 60f));
         }
 
         /// <summary>
@@ -150,7 +151,7 @@ namespace Cursed.Character
             _isInvincible = true;
 
             float dashTimer = _dashTime;
-            float deltaDist = _side * _dashDistance * 10 * Time.deltaTime / _dashTime;
+            float deltaDist = _side * _dashDistance * 10 * (1 / (float)GameSettings.FRAME_RATE) / _dashTime;
             float newX = 0f;
 
             while(dashTimer >= 0)
@@ -220,31 +221,25 @@ namespace Cursed.Character
         /// </summary>
         private void WallJump()
         {
-            _wallJumped = true;
-
-            //Flip the character to face the wall
-            if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
-            {
-                _side *= -1;
-                _anim.Flip(_side);
-            }
+            _hasWallJumped = true;
 
             //Disable movement input
             StopCoroutine(DisableMovement(0));
             StartCoroutine(DisableMovement(.1f));
 
-            //Jump in the right direction
-            Vector2 wallDir = _coll.OnRightWall ? Vector2.left : Vector2.right;
-            Vector2 dir = Vector2.up / 1f + wallDir;
-
-            //Jump(_wallJump);
-            Debug.Log("Wall jump");
+            Jump(_wallJump);
+            UpdateVelocity(-_side * _runSpeed, _rb.velocity.y);
         }
 
         /// <summary>
         /// Reste variable for jump
         /// </summary>
-        private void ResetIsJumping() => _isJumping = false;
+        private void ResetIsJumping()
+        {
+            _isJumping = false;
+            _hasWallJumped = false;
+            _hasDoubleJumped = false;
+        }
 
         /// <summary>
         /// Coyote Time
@@ -287,12 +282,13 @@ namespace Cursed.Character
         private void UpdateAirControl(float x)
         {
             //No air control if on ground or on the wall
-            if (_coll.OnGround || _coll.OnWall)
+            if (_coll.OnGround || _wallGrab || _wallRun)
                 return;
 
             //Apply x velocity during a wall jump
             //Wall jump air control
-            Vector2 v = Vector2.Lerp(_currentVelocity, new Vector2(x * _runSpeed, _currentVelocity.y), _airControl * Time.deltaTime);
+            float X = Mathf.Clamp(_currentVelocity.x + x * _runSpeed, -_runSpeed * .9f, _runSpeed * .9f) ;
+            Vector2 v = Vector2.Lerp(_currentVelocity, new Vector2(X, _currentVelocity.y), _airControl * Time.deltaTime);
             UpdateVelocity(v.x, _rb.velocity.y);
         }
 
@@ -321,6 +317,7 @@ namespace Cursed.Character
             if (!_coll.OnWall && !_coll.OnGround && !_hasDoubleJumped && _doubleJumpUnlock && !_canEvenJump)
             {
                 _hasDoubleJumped = true;
+                _hasWallJumped = false;
                 Jump(_doubleJump);
             }
 
@@ -347,7 +344,13 @@ namespace Cursed.Character
                         //Double jump
                         _currentGravity = _doubleJump.Gravity(_runSpeed);
                     }
-                    else if (!_input.HoldJump)
+                    else if (_hasWallJumped)
+                    {
+                        //Wall jump
+                        _currentGravity = _wallJump.Gravity(_runSpeed);
+                    }
+                    
+                    if (!_input.HoldJump)
                     {
                         //Light jump
                         _currentGravity = _lightJump.Gravity(_runSpeed);
@@ -358,7 +361,6 @@ namespace Cursed.Character
             {
                 //Fast fall
                 _currentGravity = _fastFall.Gravity(_runSpeed);
-                //Debug.Log("Fast fall");
             }
 
             ////Wall climb
@@ -389,8 +391,11 @@ namespace Cursed.Character
         {
             if (_wallGrab && !_isDashing && !_isJumping)
             {
-                if ((x > .2f || x < .2f) && !_isJumping)
+                if (x > .2f || x < .2f)
                     UpdateVelocity(_currentVelocity.x, 0);
+
+                if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
+                    return;
 
                 //Wall climb
                 if (y > .1f)
@@ -412,13 +417,13 @@ namespace Cursed.Character
         /// <summary>
         /// Update the flip side
         /// </summary>
-        private void UpdateFlip(float x, float y)
+        private void UpdateFlip(float x)
         {
             //Return if the character can't flip 
             if (_wallGrab || _wallSlide || !_canMove)
                 return;
 
-            if (x > 0)
+            if (x > .1f)
             {
                 _side = 1;
                 _anim.Flip(_side);
@@ -426,7 +431,7 @@ namespace Cursed.Character
                 if (_coll.OnRightWall)
                     Walk(0);
             }
-            if (x < 0)
+            if (x < -.1f)
             {
                 _side = -1;
                 _anim.Flip(_side);
@@ -444,7 +449,7 @@ namespace Cursed.Character
             //If is on ground, reset values
             if (_coll.OnGround && !_isDashing)
             {
-                _wallJumped = false;
+                _hasWallJumped = false;
             }
 
             //If on wall and input Grab hold, wall grab
@@ -465,6 +470,10 @@ namespace Cursed.Character
             //Reset wall slide
             if (!_coll.OnWall || _coll.OnGround)
                 _wallSlide = false;
+
+            //reset wall run if not on wall or not input grab
+            if (_wallRun && (!_coll.OnWall || !_input.Grab))
+                _wallRun = false;
 
             //Reset double jump
             if (_coll.OnWall || _coll.OnGround)
@@ -497,14 +506,25 @@ namespace Cursed.Character
         {
             _state = CharacterMouvementState.Idle;
 
-            if (Mathf.Abs(_currentVelocity.x) >= 0.1)
+            if (Mathf.Abs(_currentVelocity.x) >= .1)
                 _state = CharacterMouvementState.Run;
 
             if (IsJumping)
                 _state = CharacterMouvementState.Jump;
 
-            if (_currentVelocity.y <= 0.1f)
+            if (IsDashing)
+                _state = CharacterMouvementState.Dash;
+
+            if (_currentVelocity.y <= -.1f)
                 _state = CharacterMouvementState.Fall;
+
+            if (_wallGrab)
+            {
+                if (_currentVelocity.y > 0f)
+                    _state = CharacterMouvementState.WallRun;
+                else
+                    _state = CharacterMouvementState.WallSlide;
+            } 
         }
 
         #endregion

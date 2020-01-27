@@ -4,9 +4,10 @@
     {
         Idle,
         Run,
+        Dash,
         Jump,
         Fall,
-        WallClimb,
-        WallFall
+        WallSlide,
+        WallRun
     }
 }

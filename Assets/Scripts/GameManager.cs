@@ -4,25 +4,16 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public FloatReference test;
-    private bool _cursor = true;
-
     private void Start()
     {
-        ShowMouseCursor();
+        Application.targetFrameRate = GameSettings.FRAME_RATE;
+
+        ShowMouseCursor(false);
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
-    public void ShowMouseCursor()
+    public void ShowMouseCursor(bool visibility)
     {
-        if (_cursor)
-        {
-            Cursor.visible = false;
-            _cursor = false;
-        }
-        else
-        {
-            Cursor.visible = true;
-            _cursor = true;
-        }
+        Cursor.visible = visibility;
     }
 }

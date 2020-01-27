@@ -22,28 +22,28 @@ namespace Cursed.Character
 
         [Space]
         [Header("Collision")]
-        [SerializeField] private float collisionRadius = 0.25f;
-        [SerializeField] private Vector2 bottomOffset, rightOffset, leftOffset;
-        private Color debugCollisionColor = Color.red;
+        [SerializeField] private float _collisionRadius = 0.25f;
+        [SerializeField] private Vector2 _bottomOffset, _rightOffset, _leftOffset;
+        private Color _debugCollisionColor = Color.red;
 
         public Action OnGrounded;
 
         private void FixedUpdate()
         {
             //Grounded if there is something of ground layer beneath
-            _onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, _groundLayer);
+            _onGround = Physics2D.OverlapCircle((Vector2)transform.position + _bottomOffset, _collisionRadius, _groundLayer);
             if (OnGround && !_lastGrounded)
                 OnGrounded?.Invoke();
             _lastGrounded = _onGround;
 
             //On a wall if there is something of ground layer on the right or on the left
-            _onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, _groundLayer) || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, _groundLayer);
+            _onWall = Physics2D.OverlapCircle((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer) || Physics2D.OverlapCircle((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
 
             if (_onWall)
             {
                 //Witch wall 
-                _onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, _groundLayer);
-                _onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, _groundLayer);
+                _onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer);
+                _onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
             }
             else
             {
@@ -57,13 +57,13 @@ namespace Cursed.Character
         void OnDrawGizmos()
         {
             //Draw red circles at the collision locations
-            Gizmos.color = Color.red;
+            Gizmos.color = _debugCollisionColor;
 
-            var positions = new Vector2[] { bottomOffset, rightOffset, leftOffset };
+            var positions = new Vector2[] { _bottomOffset, _rightOffset, _leftOffset };
 
-            Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, collisionRadius);
-            Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
-            Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+            Gizmos.DrawWireSphere((Vector2)transform.position + _bottomOffset, _collisionRadius);
+            Gizmos.DrawWireSphere((Vector2)transform.position + _rightOffset, _collisionRadius);
+            Gizmos.DrawWireSphere((Vector2)transform.position + _leftOffset, _collisionRadius);
         }
 
         #region Getters & Setters 

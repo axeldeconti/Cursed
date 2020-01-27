@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -12,21 +10,20 @@ namespace Cursed.Character
     {
         private Animator _anim;
         private CharacterMovement _move;
-        private CollisionHandler _coll;
         private SpriteRenderer _renderer;
 
-        private static readonly int _hasIsMovingOnX = Animator.StringToHash("MoveSpeedX");
-        private static readonly int _hasJumpVelocity = Animator.StringToHash("JumpVelocity");
-        private static readonly int _hasIsJumping = Animator.StringToHash("IsJumping");
-        private static readonly int _hasGroundTouch = Animator.StringToHash("GroundTouch");
-        private static readonly int _hasIsDashing = Animator.StringToHash("IsDashing");
-        private static readonly int _hasIsGrabing = Animator.StringToHash("GrabWall");
-        private static readonly int _hasIsWallRun = Animator.StringToHash("WallRun");
+        private static readonly int _moveSpeedX = Animator.StringToHash("MoveSpeedX");
+        private static readonly int _moveSpeedY = Animator.StringToHash("MoveSpeedY");
+        private static readonly int _jumpVelocity = Animator.StringToHash("JumpVelocity");
+        private static readonly int _isJumping = Animator.StringToHash("IsJumping");
+        private static readonly int _groundTouch = Animator.StringToHash("GroundTouch");
+        private static readonly int _isDashing = Animator.StringToHash("IsDashing");
+        private static readonly int _isGrabing = Animator.StringToHash("GrabWall");
+        private static readonly int _isWallRun = Animator.StringToHash("WallRun");
 
         void Start()
         {
             _anim = GetComponent<Animator>();
-            _coll = GetComponentInParent<CollisionHandler>();
             _move = GetComponentInParent<CharacterMovement>();
             _renderer = GetComponent<SpriteRenderer>();
         }
@@ -34,23 +31,18 @@ namespace Cursed.Character
         void Update()
         {
             //Update every anim variables
-            _anim.SetFloat(_hasIsMovingOnX, Mathf.Abs(_move.XSpeed));
-            _anim.SetFloat(_hasJumpVelocity, Mathf.Clamp(_move.YSpeed, -15, 15));
-            _anim.SetBool(_hasGroundTouch, _move.OnGroundTouch);
-            _anim.SetBool(_hasIsGrabing, _move.IsGrabing);
-            _anim.SetBool(_hasIsWallRun, _move.IsWallRun);
-            _anim.SetBool(_hasIsJumping, _move.IsJumping);
-            _anim.SetBool(_hasIsDashing, _move.IsDashing);
-        }
+            _anim.SetFloat(_moveSpeedY, _move.YSpeed);
+            _anim.SetFloat(_jumpVelocity, Mathf.Clamp(_move.YSpeed, -15, 15));
+            _anim.SetBool(_groundTouch, _move.OnGroundTouch);
+            _anim.SetBool(_isGrabing, _move.IsGrabing);
+            _anim.SetBool(_isWallRun, _move.IsWallRun);
+            _anim.SetBool(_isJumping, _move.IsJumping);
+            _anim.SetBool(_isDashing, _move.IsDashing);
 
-        /// <summary>
-        /// Set the animator variable for the movement
-        /// </summary>
-        public void SetHorizontalMovement(float x, float y, float yVel)
-        {
-            _anim.SetFloat("HorizontalAxis", x);
-            _anim.SetFloat("VerticalAxis", y);
-            _anim.SetFloat("VerticalVelocity", yVel);
+            if(_move.IsDashing)
+                _anim.SetFloat(_moveSpeedX, 20f);
+            else
+                _anim.SetFloat(_moveSpeedX, Mathf.Abs(_move.XSpeed));
         }
 
         /// <summary>
@@ -70,7 +62,5 @@ namespace Cursed.Character
             bool state = (side == 1) ? false : true;
             _renderer.flipX = state;
         }
-
-        public SpriteRenderer Renderer => _renderer;
     }
 }
