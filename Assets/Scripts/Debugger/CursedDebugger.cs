@@ -15,13 +15,11 @@ public class CursedDebugger : Singleton<CursedDebugger>
         base.Awake();
 
         _debuggerInfoList = new List<DebuggerInfo>();
-        Clear();
+        ClearText();
     }
 
     private void LateUpdate()
     {
-        //Clear();
-
         StringBuilder builder = new StringBuilder();
 
         foreach (var i in _debuggerInfoList)
@@ -33,7 +31,7 @@ public class CursedDebugger : Singleton<CursedDebugger>
         _text.text = builder.ToString();
     }
 
-    public void Clear()
+    public void ClearText()
     {
         _text.ClearMesh();
     }
@@ -46,6 +44,28 @@ public class CursedDebugger : Singleton<CursedDebugger>
     public void Add(string name, Func<string> info, Color color)
     {
         _debuggerInfoList.Add(new DebuggerInfo(name, info, color));
+    }
+
+    public void Remove(string name)
+    {
+        bool hasRemove = false;
+
+        foreach (DebuggerInfo info in _debuggerInfoList)
+        {
+            if (info.name.Equals(name))
+            {
+                _debuggerInfoList.Remove(info);
+                hasRemove = true;
+            } 
+        }
+
+        if (!hasRemove)
+            Debug.LogError(name + "wasn't in the list");
+    }
+
+    public void Clear()
+    {
+        _debuggerInfoList.Clear();
     }
 }
 

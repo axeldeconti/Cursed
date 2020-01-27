@@ -12,8 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed835f2bd41a824daba8acbf0889e70, type: 3}
   m_Name: CreatureBaseStats
   m_EditorClassIdentifier: 
-  _energy: 100
-  _moveSpeedInAir: 5
-  _drainSpeed: 10
-  _maxHealth: 100
-  _moveSpeedChaseAndComeBack: 10
+  _maxHealth:
+    UseConstant: 1
+    ConstantValue: 50
+    Variable: {fileID: 0}
+  _energy:
+    UseConstant: 1
+    ConstantValue: 80
+    Variable: {fileID: 0}
+  _moveSpeedInAir:
+    UseConstant: 1
+    ConstantValue: 7
+    Variable: {fileID: 0}
+  _moveSpeedChaseAndComeBack:
+    UseConstant: 1
+    ConstantValue: 10
+    Variable: {fileID: 0}
+  _loseStaminaAmount:
+    UseConstant: 1
+    ConstantValue: 2
+    Variable: {fileID: 0}
+  _gainStaminaAmount:
+    UseConstant: 1
+    ConstantValue: 4
+    Variable: {fileID: 0}
+  _frequencyLoseStamina:
+    UseConstant: 1
+    ConstantValue: 0.5
+    Variable: {fileID: 0}
+  _frequencyGainStamina:
+    UseConstant: 1
+    ConstantValue: 0.5
+    Variable: {fileID: 0}

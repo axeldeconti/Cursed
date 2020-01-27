@@ -44,14 +44,12 @@ namespace Cursed.Creature
                 else
                 {
                     CurrentState = CreatureState.OnComeBack;
-                    Debug.Log("Come back input");
                 }
             }
         }
 
         private void DeAttachFromPlayer()
         {
-            Debug.Log("Deattach");
             transform.position = _characterMovement.transform.position + new Vector3(1f * _characterMovement.Side, 1.5f, 0f);
 
             _movement.Direction = _characterMovement.Side;
@@ -64,7 +62,6 @@ namespace Cursed.Creature
             for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(active);
-                Debug.Log("Active childs");
             }
         }
 

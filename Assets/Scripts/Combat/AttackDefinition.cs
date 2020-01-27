@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cursed.Character;
 using Cursed.Item;
+using Cursed.Creature;
 
 namespace Cursed.Combat
 {
@@ -29,6 +30,14 @@ namespace Cursed.Combat
                 coreDamage *= _criticalMultiplier;
 
             return new Attack((int)coreDamage, isCritical, _damageType.Effect);
+        }
+
+        public Attack CreateAttack(CreatureStats creatureStats, CharacterStats defenserStats)
+        {
+            float coreDamage = 0f;
+            coreDamage += _damageType.GetDamages();
+
+            return new Attack((int)coreDamage, false, null);
         }
 
         public float Cooldown { get => _cooldown; set => _cooldown.Value = value; }

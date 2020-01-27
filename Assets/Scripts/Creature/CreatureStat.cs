@@ -2,10 +2,13 @@
 {
     public enum CreatureStat
     {
-        Energy = 0,
-        MoveSpeedInAir = 1,
-        DrainSpeed = 2,
-        MaxHealth = 3,
-        MoveSpeedChaseAndComeBack = 4
+        MaxHealth = 0,
+        Energy = 1,
+        MoveSpeedInAir = 2,
+        MoveSpeedChaseAndComeBack = 3,
+        LoseStaminaAmount = 4,
+        GainStaminaAmount = 5,
+        FrequencyLoseStamina = 6,
+        FrequencyGainStamina = 7
     }
 }
