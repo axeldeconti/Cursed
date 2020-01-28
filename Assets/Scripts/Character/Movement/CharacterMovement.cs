@@ -14,7 +14,7 @@ namespace Cursed.Character
         private AnimationHandler _anim = null;
         private IInputController _input = null;
 
-        [SerializeField] private CharacterMouvementState _state = CharacterMouvementState.Idle;
+        [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
 
         [Space]
         [Header("Stats")]
@@ -38,7 +38,6 @@ namespace Cursed.Character
         [SerializeField] private JumpData _wallJump = null;
         [SerializeField] private JumpData _fastFall = null;
         [SerializeField] private FloatReference _coyoteTime;
-        [SerializeField] private FloatReference _jumpBuffer;
 
         [Space]
         [Header("Booleans")]
@@ -61,11 +60,12 @@ namespace Cursed.Character
         [Space]
         private bool _groundTouch;
         private bool _hasDashed;
-        private bool _canEvenJump;
+        private bool _canStillJump;
         private bool _jumpWasPressed;
         private int _side;
         private Vector2 _vel = Vector2.zero;
         private float _timeToNextDash = 0f;
+        private bool _isCoyoteTime;
 
         [Space]
         private float _currentGravity = 0f;
@@ -80,8 +80,10 @@ namespace Cursed.Character
             _coll.OnGrounded += ResetIsJumping;
 
             _groundTouch = true;
+            _canStillJump = true;
 
             CursedDebugger.Instance.Add("State", () => _state.ToString());
+            CursedDebugger.Instance.Add("Can still jump", () => _canStillJump.ToString());
         }
 
         private void Update()
@@ -125,15 +127,13 @@ namespace Cursed.Character
             _groundTouch = true;
             _hasDashed = false;
             _isDashing = false;
-            _canEvenJump = true;
+            _canStillJump = true;
+            _hasDoubleJumped = false;
+            _hasWallJumped = false;
+            _canStillJump = true;
 
-            //_side = 1;
-
-            if (_jumpWasPressed)
-            {
-                Jump(_normalJump);
-                _canEvenJump = false;
-            }
+            StopCoroutine("CoyoteTime");
+            _isCoyoteTime = false;
         }
 
         #region Dash
@@ -156,6 +156,9 @@ namespace Cursed.Character
 
             while(dashTimer >= 0)
             {
+                if (!CheckIfCanDash())
+                    break;
+
                 newX = transform.position.x + deltaDist;
                 transform.position = new Vector2(newX, transform.position.y);
                 dashTimer -= Time.deltaTime;
@@ -168,6 +171,15 @@ namespace Cursed.Character
 
             //Set dash cooldown
             _timeToNextDash = Time.time + _dashCooldown;
+        }
+
+        private bool CheckIfCanDash()
+        {
+            int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position, _side * Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
+
+            bool canDash = i == 0;
+
+            return canDash;
         }
 
         #endregion
@@ -211,6 +223,7 @@ namespace Cursed.Character
         private void Jump(JumpData jump)
         {
             _isJumping = true;
+            _input.Jump.Reset();
 
             //Apply jump velocity
             UpdateVelocity(_currentVelocity.x, jump.InitialVelocity(_runSpeed));
@@ -222,6 +235,7 @@ namespace Cursed.Character
         private void WallJump()
         {
             _hasWallJumped = true;
+            _canStillJump = false;
 
             //Disable movement input
             StopCoroutine(DisableMovement(0));
@@ -244,19 +258,20 @@ namespace Cursed.Character
         /// <summary>
         /// Coyote Time
         /// </summary>
-        private IEnumerator CoyoteTimeForJump(float time)
+        private IEnumerator CoyoteTime(float time)
         {
-            yield return new WaitForSeconds(time);
-            _canEvenJump = false;
-        }
+            _isCoyoteTime = true;
 
-        /// <summary>
-        /// Input buffer jump
-        /// </summary>
-        private IEnumerator RememberJumpTime(float time)
-        {
-            yield return new WaitForSeconds(time);
-            _jumpWasPressed = false;
+            float timer = time;
+
+            while(_isCoyoteTime || (timer >= 0f))
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+            
+            _canStillJump = false;
+            _isCoyoteTime = false;
         }
 
         #endregion
@@ -297,28 +312,29 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateJump()
         {
-            if (!_input.Jump)
+            if (!_input.Jump.Value)
                 return;
 
             if (_isDashing)
                 return;
 
             _jumpWasPressed = true;
-            StartCoroutine(RememberJumpTime(_jumpBuffer));
-
-            //If on ground, jump
-            if (_coll.OnGround || _canEvenJump)
-            {
-                _canEvenJump = false;
-                Jump(_normalJump);
-            }
 
             //If in air, double jump
-            if (!_coll.OnWall && !_coll.OnGround && !_hasDoubleJumped && _doubleJumpUnlock && !_canEvenJump)
+            if (!_coll.OnWall && !_coll.OnGround && !_hasDoubleJumped && _doubleJumpUnlock && !_canStillJump)
             {
                 _hasDoubleJumped = true;
                 _hasWallJumped = false;
                 Jump(_doubleJump);
+            }
+
+            //If on ground, jump
+            if ((_coll.OnGround || _canStillJump) && !_wallGrab)
+            {
+                _canStillJump = false;
+                StopCoroutine("CoyoteTime");
+                _isCoyoteTime = false;
+                Jump(_normalJump);
             }
 
             //If on wall, wall jump
@@ -377,7 +393,10 @@ namespace Cursed.Character
         {
             _canDash = !_isDashing && (Time.time >= _timeToNextDash);
 
-            if (!_input.Dash || !_canDash || !_groundTouch || !_dashUnlock)
+            if (!CheckIfCanDash())
+                return;
+
+            if (!_input.Dash.Value || !_canDash || !_groundTouch || !_dashUnlock)
                 return;
 
             if (x != 0)
@@ -446,12 +465,6 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateBools()
         {
-            //If is on ground, reset values
-            if (_coll.OnGround && !_isDashing)
-            {
-                _hasWallJumped = false;
-            }
-
             //If on wall and input Grab hold, wall grab
             if (_coll.OnWall && _input.Grab && _canMove)
             {
@@ -487,7 +500,16 @@ namespace Cursed.Character
             if (!_coll.OnGround && _groundTouch)
             {
                 _groundTouch = false;
-                StartCoroutine(CoyoteTimeForJump(_coyoteTime));
+
+                //Start coyote time if falling from a cliff
+                if(!_isJumping)
+                    StartCoroutine(CoyoteTime(_coyoteTime));
+            }
+
+            //Reset can still jump when on the ground
+            if (_coll.OnGround && !_canStillJump && !_isJumping)
+            {
+                _canStillJump = true;
             }
         }
 
@@ -504,26 +526,26 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateState()
         {
-            _state = CharacterMouvementState.Idle;
+            _state = CharacterMovementState.Idle;
 
             if (Mathf.Abs(_currentVelocity.x) >= .1)
-                _state = CharacterMouvementState.Run;
+                _state = CharacterMovementState.Run;
 
             if (IsJumping)
-                _state = CharacterMouvementState.Jump;
+                _state = CharacterMovementState.Jump;
 
             if (IsDashing)
-                _state = CharacterMouvementState.Dash;
+                _state = CharacterMovementState.Dash;
 
             if (_currentVelocity.y <= -.1f)
-                _state = CharacterMouvementState.Fall;
+                _state = CharacterMovementState.Fall;
 
             if (_wallGrab)
             {
                 if (_currentVelocity.y > 0f)
-                    _state = CharacterMouvementState.WallRun;
+                    _state = CharacterMovementState.WallRun;
                 else
-                    _state = CharacterMouvementState.WallSlide;
+                    _state = CharacterMovementState.WallSlide;
             } 
         }
 
@@ -551,10 +573,17 @@ namespace Cursed.Character
         public bool OnGroundTouch => _groundTouch;
         public bool IsGrabing => _wallGrab;
         public bool IsWallRun => _wallRun;
+        public bool IsInvincible => _isInvincible;
         public int Side => _side;
 
-        public CharacterMouvementState State => _state;
+        public CharacterMovementState State => _state;
 
         #endregion
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(new Vector3(0, 1.5f, 0f) + transform.position, new Vector3(_side * 3f, 1.5f, 0f) + transform.position);
+        }
     }
 }

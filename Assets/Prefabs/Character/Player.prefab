@@ -142,6 +142,14 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 35f7f5a3fb7cefc4fa8d1ca46c8da04f, type: 2}
+  _jumpInputBufferTimer:
+    UseConstant: 1
+    ConstantValue: 0.1
+    Variable: {fileID: 0}
+  _dashInputBufferTimer:
+    UseConstant: 1
+    ConstantValue: 0.1
+    Variable: {fileID: 0}
 --- !u!114 &8498843447298849032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,10 +204,6 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 4b95ae61f64283b48b807a0adff6adff, type: 2}
-  _jumpBuffer:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 667dfe7192b2e5b40bcd4e8f2e541ed8, type: 2}
   _canMove: 1
   _isJumping: 0
   _hasDoubleJumped: 0
