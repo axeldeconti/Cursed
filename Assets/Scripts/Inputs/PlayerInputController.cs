@@ -25,9 +25,6 @@ namespace Cursed.Character
 
             Jump = new BoolBuffer(_jumpInputBufferTimer);
             Dash = new BoolBuffer(_dashInputBufferTimer);
-
-            //CursedDebugger.Instance.Add("HasDashed", () => _hasDashed.ToString());
-            //CursedDebugger.Instance.Add("Dash", () => Dash.ToString());
         }
 
         private void Update()
