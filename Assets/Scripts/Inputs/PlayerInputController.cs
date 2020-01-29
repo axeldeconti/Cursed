@@ -11,7 +11,7 @@ namespace Cursed.Character
         public BoolBuffer Jump { get; private set; }
         public bool HoldJump { get; private set; }
         public BoolBuffer Dash { get; private set; }
-        public bool Grab { get; private set; }
+        public bool HoldRightTrigger { get; private set; }
         public bool Attack { get; private set; }
 
         private bool _hasDashed = false;
@@ -42,12 +42,13 @@ namespace Cursed.Character
                 Jump.Trigger();
 
             HoldJump = Input.GetButton("Jump");
-            Grab = Input.GetAxis("Dash&Grab") > 0.5f ? true : false;
 
-            if (Input.GetAxis("Dash&Grab") < 0.5f && _hasDashed)
+            HoldRightTrigger = Input.GetAxis("RightTrigger") > 0.5f ? true : false;
+
+            if (Input.GetAxis("RightTrigger") < 0.5f && _hasDashed)
                 _hasDashed = false;
 
-            if (Input.GetAxis("Dash&Grab") > 0.5f && !Dash.Value && !_hasDashed)
+            if (Input.GetAxis("RightTrigger") > 0.5f && !Dash.Value && !_hasDashed)
             {
                 Dash.Trigger();
                 _hasDashed = true;

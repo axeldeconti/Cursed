@@ -16,6 +16,7 @@ namespace Cursed.Character
         [SerializeField] private bool _onRightWall = false;
         [SerializeField] private bool _onLeftWall = false;
         private bool _lastGrounded = false;
+        private bool _lastWalled = false;
 
         [Space]
         [SerializeField] private int _wallSide;
@@ -27,6 +28,7 @@ namespace Cursed.Character
         private Color _debugCollisionColor = Color.red;
 
         public Action OnGrounded;
+        public Action OnWalled;
 
         private void FixedUpdate()
         {
@@ -38,6 +40,9 @@ namespace Cursed.Character
 
             //On a wall if there is something of ground layer on the right or on the left
             _onWall = Physics2D.OverlapCircle((Vector2)transform.position + _rightOffset, _collisionRadius, _groundLayer) || Physics2D.OverlapCircle((Vector2)transform.position + _leftOffset, _collisionRadius, _groundLayer);
+            if (OnWall && !_lastWalled)
+                OnWalled?.Invoke();
+            _lastWalled = _onWall;
 
             if (_onWall)
             {

@@ -466,7 +466,7 @@ namespace Cursed.Character
         private void UpdateBools()
         {
             //If on wall and input Grab hold, wall grab
-            if (_coll.OnWall && _input.Grab && _canMove)
+            if (_coll.OnWall && _input.HoldRightTrigger && _canMove)
             {
                 _wallGrab = true;
                 _wallSlide = false;
@@ -474,7 +474,7 @@ namespace Cursed.Character
             }
 
             //Reset wall grab and fall
-            if (!_input.Grab || !_coll.OnWall || !_canMove)
+            if (!_input.HoldRightTrigger || !_coll.OnWall || !_canMove)
             {
                 _wallGrab = false;
                 _wallSlide = false;
@@ -485,7 +485,7 @@ namespace Cursed.Character
                 _wallSlide = false;
 
             //reset wall run if not on wall or not input grab
-            if (_wallRun && (!_coll.OnWall || !_input.Grab))
+            if (_wallRun && (!_coll.OnWall || !_input.HoldRightTrigger))
                 _wallRun = false;
 
             //Reset double jump

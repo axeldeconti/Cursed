@@ -63,6 +63,7 @@ namespace Cursed.Character
         private bool _hasDashed;
         private bool _canStillJump;
         private bool _jumpWasPressed;
+        private bool _wasOnWall;
         private int _side;
         private Vector2 _vel = Vector2.zero;
         private float _timeToNextDash = 0f;
@@ -79,11 +80,15 @@ namespace Cursed.Character
             _anim = GetComponentInChildren<AnimationHandler>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
+            _coll.OnWalled += ResetIsJumping;
 
             _groundTouch = true;
             _canStillJump = true;
+            _wasOnWall = false;
 
             CursedDebugger.Instance.Add("State", () => _state.ToString());
+            CursedDebugger.Instance.Add("wall grab", () => CheckForWallGrab().ToString());
+            CursedDebugger.Instance.Add("jump", () => CheckIfWallGrabDuringJump().ToString());
         }
 
         private void Update()
@@ -130,7 +135,6 @@ namespace Cursed.Character
             _canStillJump = true;
             _hasDoubleJumped = false;
             _hasWallJumped = false;
-            _canStillJump = true;
 
             StopCoroutine("CoyoteTime");
             _isCoyoteTime = false;
@@ -275,13 +279,12 @@ namespace Cursed.Character
         private IEnumerator CoyoteTime(float time)
         {
             _isCoyoteTime = true;
-
             float timer = time;
 
-            while(_isCoyoteTime || (timer >= 0f))
+            while(_isCoyoteTime && (timer >= 0f))
             {
                 timer -= Time.deltaTime;
-                yield return null;
+                yield return new WaitForEndOfFrame();
             }
             
             _canStillJump = false;
@@ -308,6 +311,9 @@ namespace Cursed.Character
             Walk(x);
         }
 
+        /// <summary>
+        /// Handle the air control
+        /// </summary>
         private void UpdateAirControl(float x)
         {
             //No air control if on ground or on the wall
@@ -316,7 +322,7 @@ namespace Cursed.Character
 
             //Apply x velocity during a wall jump
             //Wall jump air control
-            float X = Mathf.Clamp(_currentVelocity.x + x * _runSpeed, -_runSpeed * .9f, _runSpeed * .9f) ;
+            float X = Mathf.Clamp(_currentVelocity.x + x * _runSpeed, -_runSpeed * 1.2f, _runSpeed * 1.2f) ;
             Vector2 v = Vector2.Lerp(_currentVelocity, new Vector2(X, _currentVelocity.y), _airControl * Time.deltaTime);
             UpdateVelocity(v.x, _rb.velocity.y);
         }
@@ -332,7 +338,7 @@ namespace Cursed.Character
             _jumpWasPressed = true;
 
             //If in air, double jump
-            if (!_coll.OnWall && !_coll.OnGround && !_hasDoubleJumped && _doubleJumpUnlock && !_canStillJump)
+            if (!CheckForWallGrab() && !_coll.OnGround && !_hasDoubleJumped && _doubleJumpUnlock && !_canStillJump && !_wasOnWall)
             {
                 _hasDoubleJumped = true;
                 _hasWallJumped = false;
@@ -340,7 +346,7 @@ namespace Cursed.Character
             }
 
             //If on ground, jump
-            if ((_coll.OnGround || _canStillJump) && !_wallGrab)
+            if (_coll.OnGround || _canStillJump)
             {
                 _canStillJump = false;
                 StopCoroutine("CoyoteTime");
@@ -353,7 +359,7 @@ namespace Cursed.Character
             }
 
             //If on wall, wall jump
-            if (_coll.OnWall && !_coll.OnGround && _wallGrab)
+            if ((_coll.OnWall && !_coll.OnGround && _wallGrab) || _wasOnWall)
                 WallJump();
         }
 
@@ -423,7 +429,7 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateWallGrab(float x, float y)
         {
-            if (_wallGrab && !_isDashing && !_isJumping)
+            if (_wallGrab && !_isDashing && CheckIfWallGrabDuringJump())
             {
                 if (x > .2f || x < .2f)
                     UpdateVelocity(_currentVelocity.x, 0);
@@ -431,15 +437,18 @@ namespace Cursed.Character
                 if ((_side == 1 && _coll.OnRightWall) || (_side == -1 && !_coll.OnRightWall))
                     return;
 
-                //Wall climb
-                if (y > .1f)
+                //Wall run
+                if (_input.HoldRightTrigger)
                 {
                     _wallRun = true;
 
+                    if (_isJumping)
+                        ResetIsJumping();
+
                     //Apply new velocity
-                    UpdateVelocity(_currentVelocity.x, y * (_runSpeed * _wallClimbMultiplySpeed));
+                    UpdateVelocity(_currentVelocity.x, _runSpeed * _wallClimbMultiplySpeed);
                 }
-                else //Slide on wall
+                else if (!_coll.OnGround) //Slide on wall
                 {
                     _wallRun = false;
                     _wallSlide = true;
@@ -481,31 +490,32 @@ namespace Cursed.Character
         private void UpdateBools()
         {
             //If on wall and input Grab hold, wall grab
-            if (_coll.OnWall && _input.Grab && _canMove)
+            if (_coll.OnWall && CheckForWallGrab() && _canMove && CheckIfWallGrabDuringJump())
             {
                 _wallGrab = true;
                 _wallSlide = false;
-                ResetIsJumping();
             }
 
             //Reset wall grab and fall
-            if (!_input.Grab || !_coll.OnWall || !_canMove)
+            if ((!CheckForWallGrab() || !_coll.OnWall || !_canMove) && (_wallGrab || _wallSlide))
             {
                 _wallGrab = false;
                 _wallSlide = false;
+                _wasOnWall = true;
+                StartCoroutine("ResetWasOnWall");
             }
 
             //Reset wall slide
             if (!_coll.OnWall || _coll.OnGround)
                 _wallSlide = false;
 
-            //reset wall run if not on wall or not input grab
-            if (_wallRun && (!_coll.OnWall || !_input.Grab))
+            //Reset wall run if not on wall or not input grab
+            if (_wallRun && (!_coll.OnWall || !CheckForWallGrab()))
                 _wallRun = false;
 
             //Reset double jump
-            if (_coll.OnWall || _coll.OnGround)
-                _hasDoubleJumped = false;
+            //if (_coll.OnWall || _coll.OnGround)
+            //    _hasDoubleJumped = false;
 
             //Just touch ground
             if (_coll.OnGround && !_groundTouch)
@@ -563,6 +573,34 @@ namespace Cursed.Character
         }
 
         #endregion
+
+        /// <summary>
+        /// Check if wall grabbing with the joystick
+        /// </summary>
+        private bool CheckForWallGrab()
+        {
+            return (_input.x < -.1f && _coll.OnRightWall && _side < -.1f) || (_input.x > .1f && _coll.OnLeftWall && _side > .1f);
+        }
+
+        private bool CheckIfWallGrabDuringJump()
+        {
+            if (_isJumping)
+            {
+                if (_rb.velocity.y > .1f)
+                    return false;
+                else
+                    return true;
+            }
+
+            return true;
+        }
+
+        private IEnumerator ResetWasOnWall()
+        {
+            yield return new WaitForSeconds(.1f);
+
+            _wasOnWall = false;
+        }
 
         /// <summary>
         /// Disable the movement input for the duration in parameter
