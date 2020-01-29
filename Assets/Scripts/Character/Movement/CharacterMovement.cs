@@ -20,6 +20,7 @@ namespace Cursed.Character
         [Header("Stats")]
         [SerializeField] private FloatReference _runSpeed;
         [SerializeField] private FloatReference _airControl;
+        [SerializeField] private FloatReference _rationRunAirSpeed;
         [SerializeField] private FloatReference _wallClimbMultiplySpeed;
         [SerializeField] private FloatReference _wallSlideSpeed;
         [SerializeField] private FloatReference _walkInertia;
@@ -87,8 +88,6 @@ namespace Cursed.Character
             _wasOnWall = false;
 
             CursedDebugger.Instance.Add("State", () => _state.ToString());
-            CursedDebugger.Instance.Add("wall grab", () => CheckForWallGrab().ToString());
-            CursedDebugger.Instance.Add("jump", () => CheckIfWallGrabDuringJump().ToString());
         }
 
         private void Update()
@@ -322,7 +321,8 @@ namespace Cursed.Character
 
             //Apply x velocity during a wall jump
             //Wall jump air control
-            float X = Mathf.Clamp(_currentVelocity.x + x * _runSpeed, -_runSpeed * 1.2f, _runSpeed * 1.2f) ;
+            float clamp = (_isJumping && _rb.velocity.y > .1f) ? _runSpeed * _rationRunAirSpeed : _runSpeed;
+            float X = Mathf.Clamp(_currentVelocity.x + x * _runSpeed, -clamp, clamp);
             Vector2 v = Vector2.Lerp(_currentVelocity, new Vector2(X, _currentVelocity.y), _airControl * Time.deltaTime);
             UpdateVelocity(v.x, _rb.velocity.y);
         }
@@ -342,6 +342,7 @@ namespace Cursed.Character
             {
                 _hasDoubleJumped = true;
                 _hasWallJumped = false;
+                UpdateVelocity(0f, -_rb.velocity.y);
                 Jump(_doubleJump);
             }
 
@@ -563,7 +564,7 @@ namespace Cursed.Character
             if (_currentVelocity.y <= -.1f)
                 _state = CharacterMovementState.Fall;
 
-            if (_wallGrab)
+            if (_wallGrab && !_coll.OnGround)
             {
                 if (_currentVelocity.y > 0f)
                     _state = CharacterMovementState.WallRun;
