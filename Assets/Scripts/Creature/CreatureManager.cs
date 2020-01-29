@@ -50,7 +50,7 @@ namespace Cursed.Creature
 
         private void DeAttachFromPlayer()
         {
-            transform.position = _characterMovement.transform.position + new Vector3(1f * _characterMovement.Side, 1.5f, 0f);
+            transform.position = _characterMovement.transform.position + new Vector3(2f * _characterMovement.Side, 1.5f, 0f);
 
             _movement.Direction = _characterMovement.Side;
             CurrentState = CreatureState.Moving;
