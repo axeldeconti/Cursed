@@ -92,6 +92,7 @@ namespace Cursed.Creature
                     case CreatureState.OnComeBack:
                         // Launch movement to player
                         ToggleChilds(true);
+                        _animator.SetTrigger("Wall");
                         _animator.SetBool("Moving", true);
                         break;
                 
