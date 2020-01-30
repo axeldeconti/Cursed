@@ -8,16 +8,17 @@ namespace Cursed.VisualEffect
         [SerializeField] FloatReference _duration;
 
         private bool _isFrozen = false;
-        private float _pendingFreezeDuration = 0f;
+        private bool _pendingFreeze = false;
+        private float _timeLerp = 1f;
 
         private void Update()
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
                 Freeze();
-            }
-
-            if (_pendingFreezeDuration > 0f && !_isFrozen)
+            }           
+            
+            if (_pendingFreeze && !_isFrozen)
             {
                 StartCoroutine(DoFreeze());
             }
@@ -25,21 +26,20 @@ namespace Cursed.VisualEffect
 
         public void Freeze ()
         {
-            _pendingFreezeDuration = _duration;
+            _pendingFreeze = true;
         }
 
         private IEnumerator DoFreeze ()
         {
             _isFrozen = true;
-            float _original = Time.timeScale;
-            Time.timeScale = 0f;
+            Time.timeScale = 0;
             Debug.Log("Freeze");
 
             yield return new WaitForSecondsRealtime (_duration);
 
-            Time.timeScale = _original;
-            _pendingFreezeDuration = 0f;
-            _isFrozen = false;
+            _isFrozen = false;            
+            Time.timeScale = 1;
+            _pendingFreeze = false;
             Debug.Log("Not Freeze");
         }
     }

@@ -8,10 +8,8 @@ namespace Cursed.VisualEffect
     public class CameraShake : MonoBehaviour
     {
         private CinemachineImpulseSource _impulseSource;
-
         private int _randomVec;
-        [SerializeField] FloatReference _amplitudeGain;
-        [SerializeField] FloatReference _frequencyGain;
+
 
         private void Awake()
         {
@@ -22,11 +20,11 @@ namespace Cursed.VisualEffect
         {
             if(Input.GetKeyDown(KeyCode.G))
             {
-                Shake();
+                Shake(4, 100);
             }
         }
 
-        private void Shake ()
+        private void Shake (float _amplitudeGain, float _frequencyGain)
         {
             Debug.Log("Shake");
            
