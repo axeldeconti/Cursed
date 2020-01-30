@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Cursed.Character
@@ -15,6 +14,7 @@ namespace Cursed.Character
         private IInputController _input = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
+        [SerializeField] private bool _showDebug = true;
 
         [Space]
         [Header("Stats")]
@@ -87,7 +87,11 @@ namespace Cursed.Character
             _canStillJump = true;
             _wasOnWall = false;
 
-            CursedDebugger.Instance.Add("State", () => _state.ToString());
+            if (_showDebug)
+            {
+                CursedDebugger.Instance.Add("State", () => _state.ToString());
+
+            }
         }
 
         private void Update()
