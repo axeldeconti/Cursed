@@ -5,25 +5,44 @@ namespace Cursed.Creature
 {
     public class CreatureJoystickDirection : MonoBehaviour
     {
-        private Transform _target;
-        private float _directionX, _directionY;
+        [Header("Referencies")]
+        public GameObject TargetObject;
 
-        private void Start()
+        private GameObject _target;
+        private Vector2 _direction;
+        private CreatureManager _creature;
+        private CreatureInputController _input;
+
+        private void Awake()
         {
-            _directionX = Input.GetAxis("HorizontalRight");
-            _directionY = Input.GetAxis("VerticalRight");
-            _target = transform.GetChild(0);
+            _creature = GetComponent<CreatureManager>();
+            _input = GetComponent<CreatureInputController>();
         }
 
         private void Update()
         {
-            Vector2 dir = new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight"));
-            UpdateTargetPosition(dir);
+            if (_creature.CurrentState == CreatureState.OnCharacter)
+            {
+                _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
+                if (_direction != Vector2.zero && _target == null && _input.ButtonTriggered)
+                    _target = Instantiate(TargetObject, _direction, Quaternion.identity, this.transform);
+
+                else if (_direction == Vector2.zero && _target != null)
+                    Destroy(_target);
+
+
+                if (_target != null && _input.ButtonTriggered)
+                    UpdateTargetPosition(_direction);
+            }
+            else
+                Destroy(_target);
         }
 
         private void UpdateTargetPosition(Vector2 dir)
         {
-            _target.position = new Vector3(dir.x, dir.y, this.transform.position.z);
+            _target.transform.position = new Vector3(this.transform.position.x + dir.x * 2, this.transform.position.y + dir.y * 2, this.transform.position.z);
         }
+
+        public Vector2 Direction => _direction;
     }
 }

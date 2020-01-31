@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3107878127329163702}
   - component: {fileID: -554001416410741243}
   - component: {fileID: 3107878127329163697}
-  - component: {fileID: 804165271082879287}
+  - component: {fileID: 6706182808242089502}
   m_Layer: 0
   m_Name: CreatureOnCharacter
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3107878127329163696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.077173, y: 0.03798743, z: -52.381874}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4997467023289238710}
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0f2bbf3e32da5c043881e5d0be011b08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: c6d588d88a4c48d48bc2020bd01742ea, type: 3}
-  m_Color: {r: 0.8584906, g: 0.19032574, b: 0.19032574, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 23a4b613f6e62194fa9890a89292faf9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,18 +96,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e45d99d0d321ad4981388f80d760492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &804165271082879287
-MonoBehaviour:
+--- !u!111 &6706182808242089502
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3107878127329163696}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d0c45e94fe52d4d8546c5814ddbef9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: b978b9ee839d767488b9b691339b8f15, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: b978b9ee839d767488b9b691339b8f15, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4156220724157988559
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4997467023289238710
 Transform:
   m_ObjectHideFlags: 0

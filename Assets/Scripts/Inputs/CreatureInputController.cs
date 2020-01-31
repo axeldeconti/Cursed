@@ -25,5 +25,7 @@ namespace Cursed.Creature
                 hasCalled = false;
             }
         }
+
+        public bool ButtonTriggered => hasCalled;
     }
 }

@@ -240,7 +240,7 @@ float4 frag (v2f i) : COLOR
 float2 DistortionUV_2 = DistortionUV(i.texcoord,17.641,20.594,0.238,0.104,0.262);
 float2 _SpriteSheetUVAnimPack_1 = SpriteSheetUVAnimPack(DistortionUV_2,SpriteSheetUVAnimPack_1,_SpriteSheetUVAnimPack_Size_1,_SpriteSheetUVAnimPack_Frame1_1,_SpriteSheetUVAnimPack_Frame2_1,_SpriteSheetUVAnimPack_Blend_1);
 _SpriteSheetUVAnimPack_1 = FixSidesUV(_SpriteSheetUVAnimPack_1, i.texcoord);
-float2 ZoomUV_1 = ZoomUV(i.texcoord,3.267,0.5,0.5);
+float2 ZoomUV_1 = ZoomUV(i.texcoord,0.467,0.5,0.5);
 float2 DistortionUV_1 = DistortionUV(ZoomUV_1,24.616,45.95,0.333,0.423,0.408);
 float2 ResizeUV_1 = ResizeUV(DistortionUV_1,0,0.195,1,0.673);
 float2 AnimatedMouvementUV_1 = AnimatedMouvementUV(ResizeUV_1,0,0.241,0.038);

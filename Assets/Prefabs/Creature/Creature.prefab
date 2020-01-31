@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 4191044967726581530}
   - component: {fileID: 8864257907197743972}
   - component: {fileID: 495610366346164372}
-  - component: {fileID: 8370584615315947070}
   - component: {fileID: 650134762}
   - component: {fileID: 672938721827946075}
+  - component: {fileID: 6328481751874571964}
   m_Layer: 0
   m_Name: Creature
   m_TagString: Untagged
@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 672938721202977457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.6, y: 1.09, z: 0.5}
-  m_LocalScale: {x: 3, y: 3, z: 0.5}
+  m_LocalScale: {x: 2, y: 2, z: 0.5}
   m_Children:
   - {fileID: 4416345157102534476}
   - {fileID: 6494810293441498829}
@@ -174,18 +174,6 @@ MonoBehaviour:
   OnCurrentStaminaUpdate: {fileID: 11400000, guid: bf045892e4e7db647aa0e98b5825ea58,
     type: 2}
   OnMaxStaminaUpdate: {fileID: 11400000, guid: 412c9337c33ec0b4bab3272524d78f14, type: 2}
---- !u!114 &8370584615315947070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672938721202977457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d0c45e94fe52d4d8546c5814ddbef9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &650134762
 Rigidbody2D:
   serializedVersion: 4
@@ -226,6 +214,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6328481751874571964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672938721202977457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d0c45e94fe52d4d8546c5814ddbef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4132217360804632334
 GameObject:
   m_ObjectHideFlags: 0

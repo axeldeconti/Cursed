@@ -30,7 +30,7 @@ namespace Cursed.Creature
                 else if (collider.gameObject.CompareTag("Enemy"))
                     _creatureManager.CurrentState = CreatureState.OnEnemy;
 
-                Instantiate(CreatureOnCharacter, collider.transform.position, Quaternion.identity, collider.transform);
+                Instantiate(CreatureOnCharacter, collider.transform.position + new Vector3(0f, 0f, 0f), Quaternion.identity, collider.transform);
             }
         }
     }

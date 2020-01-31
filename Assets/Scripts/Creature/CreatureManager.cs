@@ -34,6 +34,8 @@ namespace Cursed.Creature
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
+
+            CursedDebugger.Instance.Add("State : ",() => CurrentState.ToString());
         }
 
 

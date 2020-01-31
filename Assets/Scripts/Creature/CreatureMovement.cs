@@ -12,6 +12,7 @@ namespace Cursed.Creature
         private Rigidbody2D _rb;
         private CreatureManager _creatureManager;
         private CreatureSearching _creatureSearching;
+        private CreatureJoystickDirection _joystick;
         private int _direction;
 
         private void Start()
@@ -21,22 +22,37 @@ namespace Cursed.Creature
             _rb = GetComponent<Rigidbody2D>();
             _creatureManager = GetComponent<CreatureManager>();
             _creatureSearching = GetComponent<CreatureSearching>();
+            _joystick = GetComponent<CreatureJoystickDirection>();
         }
 
         private void Update()
         {
             if(_creatureManager.CurrentState == CreatureState.OnComeBack) 
                 MoveToTarget(playerPosition.GetChild(0));
-            if(_creatureManager.CurrentState == CreatureState.Moving) 
-                MoveToDirection(_direction);
+
+            if (_creatureManager.CurrentState == CreatureState.Moving)
+                if (_joystick.Direction != Vector2.zero)
+                    MoveToDirection(_joystick.Direction);
+                else
+                    MoveToDirection(_direction);
+
             if(_creatureManager.CurrentState == CreatureState.Chasing)
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0));
+
+            if (_creatureManager.CurrentState == CreatureState.OnCharacter)
+                MoveToTarget(playerPosition.GetChild(0));
+
+        }
+
+        public void MoveToDirection(Vector2 direction)
+        {
+            _rb.velocity = direction * _creatureStats.CurrentMoveSpeedInAir;
+            //RotateToTarget(_creatureManager._characterMovement.transform);
         }
 
         public void MoveToDirection(int direction)
         {
             _rb.velocity = new Vector2(direction * _creatureStats.CurrentMoveSpeedInAir, _rb.velocity.y);
-            //transform.position += (Vector3.right * _creatureStats.CurrentMoveSpeed * direction);
         }
 
         public void MoveToTarget(Transform target)
