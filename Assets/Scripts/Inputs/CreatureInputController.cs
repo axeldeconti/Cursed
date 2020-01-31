@@ -13,16 +13,17 @@ namespace Cursed.Creature
         {
             //Creature = Input.GetAxis("Creature") > .5f ? true : false;
 
-            if(Input.GetAxis("Creature") > .5f && !Creature && !hasCalled)
-            {
-                Creature = true;
+            if (Input.GetAxis("Creature") > .5f && !Creature && !hasCalled)
                 hasCalled = true;
-            }
-            else 
+
+            else
                 Creature = false;
 
-            if(Input.GetAxis("Creature") < .5f)
+            if (Input.GetAxis("Creature") < .5f && hasCalled)
+            {
+                Creature = true;
                 hasCalled = false;
+            }
         }
     }
 }

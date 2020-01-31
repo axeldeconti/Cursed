@@ -19,6 +19,7 @@ namespace Cursed.Creature
         [SerializeField] private CreatureState _creatureState;
         private CreatureMovement _movement;
         private CreatureInputController _input;
+        private Animator _animator;
 
         public event System.Action OnChangingState;
 
@@ -29,6 +30,7 @@ namespace Cursed.Creature
             //Init referencies
             _movement = GetComponent<CreatureMovement>();
             _input = GetComponent<CreatureInputController>();
+            _animator = GetComponent<Animator>();
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
@@ -50,7 +52,7 @@ namespace Cursed.Creature
 
         private void DeAttachFromPlayer()
         {
-            transform.position = _characterMovement.transform.position + new Vector3(1f * _characterMovement.Side, 1.5f, 0f);
+            transform.position = _characterMovement.transform.position + new Vector3(2f * _characterMovement.Side, 1.5f, 0f);
 
             _movement.Direction = _characterMovement.Side;
             CurrentState = CreatureState.Moving;
@@ -76,23 +78,34 @@ namespace Cursed.Creature
                 {
                     case CreatureState.Moving:
                         ToggleChilds(true);
+                        _animator.SetBool("GoToCharacter", false);
+                        _animator.SetBool("Moving", true);
                         //_movement.MoveInTheAir = true;
                         break;
                 
                     case CreatureState.OnCharacter:
-                        ToggleChilds(false);
+                        //ToggleChilds(false);
+                        _animator.SetBool("GoToCharacter", true);
+                        _animator.SetBool("Moving", false);
                         break;
                 
                     case CreatureState.OnComeBack:
                         // Launch movement to player
                         ToggleChilds(true);
+                        _animator.SetTrigger("Wall");
+                        _animator.SetBool("Moving", true);
                         break;
                 
                     case CreatureState.OnEnemy:
-                        ToggleChilds(false);
+                        //ToggleChilds(false);
+                        _animator.SetBool("GoToCharacter", true);
+                        _animator.SetBool("Moving", false);
+                        _animator.SetBool("Chasing", false);
                         break;
 
                     case CreatureState.Chasing:
+                        _animator.SetBool("GoToCharacter", false);
+                        _animator.SetBool("Chasing", true);
                         break;
                     
                     case CreatureState.OnPausing:
