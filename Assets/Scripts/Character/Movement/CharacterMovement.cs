@@ -12,6 +12,7 @@ namespace Cursed.Character
         private Rigidbody2D _rb = null;
         private AnimationHandler _anim = null;
         private IInputController _input = null;
+        private HealthManager _healthManager = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
         [SerializeField] private bool _showDebug = true;
@@ -24,6 +25,7 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _wallClimbMultiplySpeed;
         [SerializeField] private FloatReference _wallSlideSpeed;
         [SerializeField] private FloatReference _walkInertia;
+        [SerializeField] private FloatReference _dashInvincibilityTime;
 
         [Space]
         [Header("Dash")]
@@ -79,6 +81,7 @@ namespace Cursed.Character
             _coll = GetComponent<CollisionHandler>();
             _rb = GetComponent<Rigidbody2D>();
             _anim = GetComponentInChildren<AnimationHandler>();
+            _healthManager = GetComponent<HealthManager>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
             _coll.OnWalled += ResetIsJumping;
@@ -90,7 +93,6 @@ namespace Cursed.Character
             if (_showDebug)
             {
                 CursedDebugger.Instance.Add("State", () => _state.ToString());
-
             }
         }
 
@@ -156,6 +158,8 @@ namespace Cursed.Character
             //Set bools
             _isDashing = true;
             _isInvincible = true;
+            if (_healthManager)
+                _healthManager.StartInvincibility(_dashInvincibilityTime);
 
             float dashTimer = _dashTime;
             float deltaDist = _side * _dashDistance * 10 * (1 / (float)GameSettings.FRAME_RATE) / _dashTime;
