@@ -1,6 +1,6 @@
 ﻿namespace Cursed.Character
 {
-    public enum CharacterMouvementState
+    public enum CharacterMovementState
     {
         Idle,
         Run,

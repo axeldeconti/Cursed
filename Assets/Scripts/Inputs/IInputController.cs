@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Cursed.Character
+﻿namespace Cursed.Character
 {
     /// <summary>
     /// Interface Input Controller
@@ -9,10 +7,10 @@ namespace Cursed.Character
     {
         float x { get; }
         float y { get; }
-        bool Jump { get; }
+        BoolBuffer Jump { get; }
         bool HoldJump { get; }
-        bool Dash { get; }
-        bool Grab { get; }
+        BoolBuffer Dash { get; }
+        bool HoldRightTrigger { get; }
         bool Attack { get; }
     }
 }
