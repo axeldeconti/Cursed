@@ -5,8 +5,11 @@ namespace Cursed.Creature
 {
     public class CreatureJoystickDirection : MonoBehaviour
     {
+        [Header("Settings")]
+        [SerializeField] private float _distanceToPlayer = 4f;
+
         [Header("Referencies")]
-        public GameObject TargetObject;
+        [SerializeField] private GameObject TargetObject;
 
         private GameObject _target;
         private Vector2 _direction;
@@ -40,9 +43,10 @@ namespace Cursed.Creature
 
         private void UpdateTargetPosition(Vector2 dir)
         {
-            _target.transform.position = new Vector3(this.transform.position.x + dir.x * 2, this.transform.position.y + dir.y * 2, this.transform.position.z);
+            _target.transform.position = new Vector3(this.transform.position.x + dir.x * _distanceToPlayer, this.transform.position.y + dir.y * _distanceToPlayer, this.transform.position.z);
         }
 
         public Vector2 Direction => _direction;
+        public Transform Target => _target.transform;
     }
 }

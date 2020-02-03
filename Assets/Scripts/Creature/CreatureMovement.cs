@@ -47,12 +47,13 @@ namespace Cursed.Creature
         public void MoveToDirection(Vector2 direction)
         {
             _rb.velocity = direction * _creatureStats.CurrentMoveSpeedInAir;
-            //RotateToTarget(_creatureManager._characterMovement.transform);
+            RotateToDirection(direction);
         }
 
         public void MoveToDirection(int direction)
         {
             _rb.velocity = new Vector2(direction * _creatureStats.CurrentMoveSpeedInAir, _rb.velocity.y);
+            RotateToDirection(direction);
         }
 
         public void MoveToTarget(Transform target)
@@ -60,6 +61,20 @@ namespace Cursed.Creature
             _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, _creatureStats.CurrentMoveSpeedChaseAndComeBack * Time.deltaTime);
             RotateToTarget(target);
+        }
+
+        private void RotateToDirection(Vector2 direction)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+        private void RotateToDirection(int direction)
+        {
+            if (direction == 1)
+                transform.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
+            else if (direction == -1)
+                transform.rotation = Quaternion.AngleAxis(180f, Vector3.forward);
         }
 
         private void RotateToTarget(Transform target)

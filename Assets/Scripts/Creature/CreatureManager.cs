@@ -19,6 +19,7 @@ namespace Cursed.Creature
         [SerializeField] private CreatureState _creatureState;
         private CreatureMovement _movement;
         private CreatureInputController _input;
+        private CreatureJoystickDirection _joystick;
         private Animator _animator;
 
         public event System.Action OnChangingState;
@@ -31,6 +32,7 @@ namespace Cursed.Creature
             _movement = GetComponent<CreatureMovement>();
             _input = GetComponent<CreatureInputController>();
             _animator = GetComponent<Animator>();
+            _joystick = GetComponent<CreatureJoystickDirection>();
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
@@ -54,9 +56,13 @@ namespace Cursed.Creature
 
         private void DeAttachFromPlayer()
         {
-            transform.position = _characterMovement.transform.position + new Vector3(2f * _characterMovement.Side, 1.5f, 0f);
-
             _movement.Direction = _characterMovement.Side;
+
+            if (_joystick.Direction != Vector2.zero)
+                transform.position = _joystick.Target.position;
+            else
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(5f * _movement.Direction, 0f);
+
             CurrentState = CreatureState.Moving;
         }
 
@@ -79,7 +85,7 @@ namespace Cursed.Creature
                 switch(_creatureState)
                 {
                     case CreatureState.Moving:
-                        ToggleChilds(true);
+                        //ToggleChilds(true);
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("Moving", true);
                         //_movement.MoveInTheAir = true;
