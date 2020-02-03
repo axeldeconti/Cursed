@@ -9,18 +9,31 @@ namespace Cursed.Creature
         public CreatureStats_SO baseStats;
 
         private Dictionary<CreatureStat, float> _statModifier;
+        private CreatureHealthManager _healthManager;
+        private CreatureStaminaManager _staminaManager;
 
-        private int _currentEnergy;
-        private float _currentMoveSpeedInAir;
-        private float _currentDrainSpeed;
-        private int _currentMaxHealth;
-        private float _currentMoveSpeedChaseAndComeBack;
+        private IntReference _currentEnergy;
+        private FloatReference _currentMoveSpeedInAir;
+        private FloatReference _currentLoseStaminaAmount;
+        private IntReference _currentMaxHealth;
+        private FloatReference _currentMoveSpeedChaseAndComeBack;
+        private FloatReference _currentGainStaminaAmount;
+        private FloatReference _currentFrequencyLoseStamina;
+        private FloatReference _currentFrequencyGainStamina;
 
 
         #region Initializer
 
+        private void Awake()
+        {
+            Initialize();
+        }
+
         private void Start()
         {
+            _healthManager = GetComponent<CreatureHealthManager>();
+            _staminaManager = GetComponent<CreatureStaminaManager>();
+
             //Init modifiers dico
             _statModifier = new Dictionary<CreatureStat, float>();
             for (int i = 0; i < Enum.GetNames(typeof(CreatureStat)).Length; i++)
@@ -28,7 +41,6 @@ namespace Cursed.Creature
                 _statModifier.Add((CreatureStat)i, 0f);
             }
 
-            Initialize();
         }
 
         private void Initialize()
@@ -36,9 +48,12 @@ namespace Cursed.Creature
             //Init current stats
             _currentEnergy = baseStats.Energy;
             _currentMoveSpeedInAir = baseStats.MoveSpeedInAir;
-            _currentDrainSpeed = baseStats.DrainSpeed;
+            _currentLoseStaminaAmount = baseStats.LoseStaminaAmount;
             _currentMaxHealth = baseStats.MaxHealth;
             _currentMoveSpeedChaseAndComeBack = baseStats.MoveSpeedChaseAndComeBack;
+            _currentGainStaminaAmount = baseStats.GainStaminaAmount;
+            _currentFrequencyLoseStamina = baseStats.FrequencyLoseStamina;
+            _currentFrequencyGainStamina = baseStats.FrequencyGainStamina;
         }
 
         #endregion
@@ -58,20 +73,31 @@ namespace Cursed.Creature
             //Allows to do specific action depending on the stat changing
             switch (stat)
             {
+                case CreatureStat.MaxHealth:
+                    _healthManager.AddMaxHealth((int)amount);
+                    //_currentMaxHealth.Value += (int)amount;
+                    break;
                 case CreatureStat.Energy:
-                    _currentEnergy += (int)amount;
+                    _staminaManager.AddMaxStamina((int)amount);
+                    //_currentEnergy.Value += (int)amount;
                     break;
                 case CreatureStat.MoveSpeedInAir:
-                    _currentMoveSpeedInAir += amount;
-                    break;
-                case CreatureStat.DrainSpeed:
-                    _currentDrainSpeed += amount;
-                    break;
-                case CreatureStat.MaxHealth:
-                    _currentMaxHealth += (int)amount;
+                    _currentMoveSpeedInAir.Value += amount;
                     break;
                 case CreatureStat.MoveSpeedChaseAndComeBack:
-                    _currentMoveSpeedChaseAndComeBack += amount;
+                    _currentMoveSpeedChaseAndComeBack.Value += amount;
+                    break;
+                case CreatureStat.LoseStaminaAmount:
+                    _currentLoseStaminaAmount.Value += amount;
+                    break;
+                case CreatureStat.GainStaminaAmount:
+                    _currentGainStaminaAmount.Value += amount;
+                    break;
+                case CreatureStat.FrequencyLoseStamina:
+                    _currentFrequencyLoseStamina.Value += amount;
+                    break;
+                case CreatureStat.FrequencyGainStamina:
+                    _currentFrequencyGainStamina.Value += amount;
                     break;
                 default:
                     break;
@@ -87,12 +113,18 @@ namespace Cursed.Creature
             return _statModifier[stat];
         }
 
-        public float CurrentEnergy => _currentEnergy;
+        public int CurrentMaxHealth
+        {
+            get => _currentMaxHealth;
+            set => _currentMaxHealth.Value = value;
+        }
+        public int CurrentEnergy => _currentEnergy;
         public float CurrentMoveSpeedInAir => _currentMoveSpeedInAir;
-        public float CurrentDrainSpeed => _currentDrainSpeed;
-        public float CurrentMaxHealth => _currentMaxHealth;
         public float CurrentMoveSpeedChaseAndComeBack => _currentMoveSpeedChaseAndComeBack;
-
+        public float CurrentLoseStaminaAmount => _currentLoseStaminaAmount;
+        public float CurrentGainStaminaAmount => _currentGainStaminaAmount;
+        public float CurrentFrequencyLoseStamina => _currentFrequencyLoseStamina;
+        public float CurrentFrequencyGainStamina => _currentFrequencyGainStamina;
         #endregion
     }
 }
