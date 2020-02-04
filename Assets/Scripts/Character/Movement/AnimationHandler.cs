@@ -68,7 +68,7 @@ namespace Cursed.Character
             bool state = (side == 1) ? false : true;
             _renderer.flipX = state;
 
-            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 20)
+            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 4)
                 _anim.SetTrigger(_decelerationTrigger);
         }
     }
