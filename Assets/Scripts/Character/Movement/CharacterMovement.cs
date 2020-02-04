@@ -146,7 +146,7 @@ namespace Cursed.Character
             _hasDoubleJumped = false;
             _hasWallJumped = false;
 
-            _vfx.SpawnVfx(_vfx._vfxFall, transform.position);
+            _vfx.SpawnVfx(_vfx.VfxFall, transform.position);
 
             StopCoroutine("CoyoteTime");
             _isCoyoteTime = false;
@@ -361,7 +361,7 @@ namespace Cursed.Character
                 _hasWallJumped = false;
                 UpdateVelocity(0f, -_rb.velocity.y);
                 Jump(_doubleJump);
-                _vfx.SpawnVfx(_vfx._vfxDoubleJump, transform.position);
+                _vfx.SpawnVfx(_vfx.VfxDoubleJump, transform.position);
             }
 
             //If on ground, jump
@@ -374,12 +374,10 @@ namespace Cursed.Character
                 if (_isDashing)
                 {
                     Jump(_dashJump);
-                    _vfx.SpawnVfx(_vfx._vfxJump, transform.position);
                 }
                 else
                 {
                     Jump(_normalJump);
-                    _vfx.SpawnVfx(_vfx._vfxJump, transform.position);
                 }
             }
 
@@ -497,7 +495,6 @@ namespace Cursed.Character
             {
                 _side = 1;
                 _anim.Flip(_side);
-                _vfx.FlipRun(0);
 
 
                 if (_coll.OnRightWall)
@@ -507,7 +504,6 @@ namespace Cursed.Character
             {
                 _side = -1;
                 _anim.Flip(_side);
-                _vfx.FlipRun(1);
 
 
                 if (_coll.OnLeftWall)

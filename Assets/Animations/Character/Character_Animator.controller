@@ -867,6 +867,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: GrabWall
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsJumping
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -568556829401580673}
   m_Solo: 0
@@ -902,7 +905,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 105358750389ba84697cb1fc1941f27c, type: 2}
+  m_Motion: {fileID: 7400000, guid: 179ef29e7b39646478895999e33efcd3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1244,7 +1247,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.5
+  m_ExitTime: 1
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
