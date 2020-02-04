@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cursed.Character;
+using Cursed.Utilities;
 
 namespace Cursed.Creature
 {
@@ -44,14 +45,21 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            if(_input.Creature || Input.GetButtonDown("Creature"))
+            if (_creatureState == CreatureState.OnCharacter)
+            {
+                if (_input.ButtonTriggered)
+                    CameraZoomController.Instance.Zoom(false);
+            }
+            else if(!_input.ButtonTriggered)
+                CameraZoomController.Instance.Zoom(true);
+
+
+            if (_input.Creature || Input.GetButtonDown("Creature"))
             {
                 if(_creatureState == CreatureState.OnCharacter) 
                     DeAttachFromPlayer();
                 else
-                {
                     CurrentState = CreatureState.OnComeBack;
-                }
             }
         }
 

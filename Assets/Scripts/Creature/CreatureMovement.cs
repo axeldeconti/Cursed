@@ -31,7 +31,7 @@ namespace Cursed.Creature
         private void Update()
         {
             if(_creatureManager.CurrentState == CreatureState.OnComeBack) 
-                MoveToTarget(playerPosition.GetChild(0));
+                MoveToTarget(playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
 
             if (_creatureManager.CurrentState == CreatureState.Moving)
                 if (_joystick.Direction != Vector2.zero)
@@ -48,10 +48,10 @@ namespace Cursed.Creature
                 }
 
             if(_creatureManager.CurrentState == CreatureState.Chasing)
-                MoveToTarget(_creatureSearching.Enemy.GetChild(0));
+                MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
 
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
-                MoveToTarget(playerPosition.GetChild(0));
+                MoveToTarget(playerPosition.GetChild(0), 50f);
 
         }
 
@@ -67,10 +67,10 @@ namespace Cursed.Creature
             RotateToDirection(direction);
         }
 
-        public void MoveToTarget(Transform target)
+        public void MoveToTarget(Transform target, float speed)
         {
             _rb.velocity = new Vector2(0f,0f);
-            transform.position = Vector3.MoveTowards(this.transform.position, target.position, _creatureStats.CurrentMoveSpeedChaseAndComeBack * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
             RotateToTarget(target);
         }
 
