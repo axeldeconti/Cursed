@@ -12,6 +12,7 @@ namespace Cursed.Character
         private CollisionHandler _coll = null;
         private Rigidbody2D _rb = null;
         private AnimationHandler _anim = null;
+        private VfxHandler _vfx = null;
         private IInputController _input = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
@@ -73,11 +74,14 @@ namespace Cursed.Character
         private float _currentGravity = 0f;
         private Vector2 _currentVelocity = Vector2.zero;
 
+        //private GameObject _dashReference;
+
         void Start()
         {
             _coll = GetComponent<CollisionHandler>();
             _rb = GetComponent<Rigidbody2D>();
             _anim = GetComponentInChildren<AnimationHandler>();
+            _vfx = GetComponentInChildren<VfxHandler>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
             _coll.OnWalled += ResetIsJumping;
@@ -174,6 +178,8 @@ namespace Cursed.Character
 
             //Set dash cooldown
             _timeToNextDash = Time.time + _dashCooldown;
+
+            //Destroy(_dashReference);
         }
 
         private bool CheckIfCanDash()
@@ -309,6 +315,7 @@ namespace Cursed.Character
                 return;
 
             Walk(x);
+            //_vfx.SpawnVfx();
         }
 
         /// <summary>
@@ -422,6 +429,8 @@ namespace Cursed.Character
 
             if (x != 0)
                 StartCoroutine(Dash(x));
+
+            //_dashReference = _vfx.SpawnVfx();
         }
 
         /// <summary>

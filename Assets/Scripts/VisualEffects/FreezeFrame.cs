@@ -5,8 +5,6 @@ namespace Cursed.VisualEffect
 {
     public class FreezeFrame : MonoBehaviour
     {
-        [SerializeField] FloatReference _duration;
-
         private bool _isFrozen = false;
         private bool _pendingFreeze = false;
         private float _timeLerp = 1f;
@@ -20,7 +18,7 @@ namespace Cursed.VisualEffect
             
             if (_pendingFreeze && !_isFrozen)
             {
-                StartCoroutine(DoFreeze());
+                StartCoroutine(DoFreeze(0.2f));
             }
         }
 
@@ -29,7 +27,7 @@ namespace Cursed.VisualEffect
             _pendingFreeze = true;
         }
 
-        private IEnumerator DoFreeze ()
+        private IEnumerator DoFreeze (float _duration)
         {
             _isFrozen = true;
             Time.timeScale = 0;
