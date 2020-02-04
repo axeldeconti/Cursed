@@ -6,6 +6,7 @@ namespace Cursed.Character
     [RequireComponent(typeof(CollisionHandler))]
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(AnimationHandler))]
+    [RequireComponent(typeof(HealthManager))]
     public class CharacterMovement : MonoBehaviour
     {
         private CollisionHandler _coll = null;
