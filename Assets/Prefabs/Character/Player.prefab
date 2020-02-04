@@ -146,13 +146,13 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 35f7f5a3fb7cefc4fa8d1ca46c8da04f, type: 2}
   _jumpInputBufferTimer:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 0.1
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 667dfe7192b2e5b40bcd4e8f2e541ed8, type: 2}
   _dashInputBufferTimer:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 0.1
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 795e928226313924b844f42dd6d841f9, type: 2}
 --- !u!114 &8498843447298849032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 0
+  _showDebug: 0
   _runSpeed:
     UseConstant: 0
     ConstantValue: 4
@@ -174,6 +175,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 0bb41bf2b1747aa4fa82afb1c999e25f, type: 2}
+  _rationRunAirSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e52a2e3fda4afce4c9abee091dbc35f5, type: 2}
   _wallClimbMultiplySpeed:
     UseConstant: 0
     ConstantValue: 1.2
@@ -186,6 +191,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 4f1ce59bf17e0c44191035c1c4740b4a, type: 2}
+  _dashInvincibilityTime:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 64ee82e327d16574fb88e6ae258aa6cc, type: 2}
   _dashDistance:
     UseConstant: 0
     ConstantValue: 0

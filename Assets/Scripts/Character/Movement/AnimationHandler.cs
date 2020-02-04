@@ -20,12 +20,16 @@ namespace Cursed.Character
         private static readonly int _isDashing = Animator.StringToHash("IsDashing");
         private static readonly int _isGrabing = Animator.StringToHash("GrabWall");
         private static readonly int _isWallRun = Animator.StringToHash("WallRun");
+        private static readonly int _isWallSliding = Animator.StringToHash("IsWallSliding");
+        private static readonly int _decelerationTrigger = Animator.StringToHash("DecelerationTrigger");
 
         void Start()
         {
             _anim = GetComponent<Animator>();
             _move = GetComponentInParent<CharacterMovement>();
             _renderer = GetComponent<SpriteRenderer>();
+
+            GetComponent<CollisionHandler>().OnGrounded += () => { _anim.ResetTrigger(_decelerationTrigger); };
         }
 
         void Update()
@@ -38,6 +42,7 @@ namespace Cursed.Character
             _anim.SetBool(_isWallRun, _move.IsWallRun);
             _anim.SetBool(_isJumping, _move.IsJumping);
             _anim.SetBool(_isDashing, _move.IsDashing);
+            _anim.SetBool(_isWallSliding, _move.WallSlide);
 
             if(_move.IsDashing)
                 _anim.SetFloat(_moveSpeedX, 20f);
@@ -59,8 +64,12 @@ namespace Cursed.Character
                     return;
             }
 
+            bool prevState = _renderer.flipX;
             bool state = (side == 1) ? false : true;
             _renderer.flipX = state;
+
+            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 20)
+                _anim.SetTrigger(_decelerationTrigger);
         }
     }
 }

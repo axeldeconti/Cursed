@@ -17,7 +17,7 @@ namespace Cursed.LevelEditor
         {
             if (GUILayout.Button("Generate Level"))
             {
-                _gen.GenerateLevel();
+                _gen.GenerateLevel(1);
             }
 
             base.OnInspectorGUI();

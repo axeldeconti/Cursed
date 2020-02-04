@@ -7,9 +7,12 @@ namespace Cursed.Character
     public class HealthManager : MonoBehaviour, IAttackable
     {
         [SerializeField] private IntReference _maxHealth;
+        [SerializeField] private FloatReference _invincibleTime;
 
-        [SerializeField] private int _currentHealth = 0;
         private CharacterStats _stats = null;
+        private int _currentHealth = 0;
+        private bool _isInvincible = false;
+        private float _timeInvincibleLeft = 0f;
 
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
@@ -25,6 +28,9 @@ namespace Cursed.Character
                 _maxHealth.Value = _stats.BaseStats.MaxHealth;
 
             UpdateCurrentHealth(_maxHealth);
+
+            _isInvincible = false;
+            _timeInvincibleLeft = 0f;
         }
 
         #endregion
@@ -36,6 +42,16 @@ namespace Cursed.Character
 
             if (Input.GetKeyDown(KeyCode.G))
                 _stats.ModifyStat(Stat.Health, 10);
+ 
+            if(_timeInvincibleLeft > 0f)
+            {
+                _timeInvincibleLeft -= Time.deltaTime;
+            }
+            else if (_isInvincible)
+            {
+                //End invincibility
+                _isInvincible = false;
+            }
         }
 
 
@@ -43,15 +59,25 @@ namespace Cursed.Character
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            //Update health
-            UpdateCurrentHealth(_currentHealth - attack.Damage);
+            if (_isInvincible)
+            {
+                //Do something if invincible
+            }
+            else
+            {
+                //Update health
+                UpdateCurrentHealth(_currentHealth - attack.Damage);
 
-            //Apply the effect of the attack
-            if (attack.Effect != null && _stats != null)
-                attack.Effect.Invoke(_stats);
+                //Apply the effect of the attack
+                if (attack.Effect != null && _stats != null)
+                    attack.Effect.Invoke(_stats);
 
-            //Play sound, vfx and animation
-            //Do something if critical
+                //Become invincible
+                StartInvincibility(_invincibleTime);
+
+                //Play sound, vfx and animation
+                //Do something if critical
+            }
         }
 
         public void UpdateCurrentHealth(int health)
@@ -74,11 +100,7 @@ namespace Cursed.Character
         {
             _currentHealth += amount;
 
-            if (_currentHealth < 0)
-                _currentHealth = 0;
-
-            if (_currentHealth >= MaxHealth)
-                _currentHealth = MaxHealth;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
 
             if (onHealthUpdate != null)
                 onHealthUpdate.Raise(_currentHealth);
@@ -107,7 +129,7 @@ namespace Cursed.Character
 
         private IEnumerator ApplyDotCoroutine(float damagePerSecond, float duration)
         {
-            //Aplly dot
+            //Apply dot
             float timeLeft = duration;
 
             while(timeLeft > 0)
@@ -117,6 +139,18 @@ namespace Cursed.Character
             }
 
             //End dot
+        }
+
+        #endregion
+
+        #region Invincibility
+
+        public void StartInvincibility(float time)
+        {
+            if (time > _timeInvincibleLeft)
+                _timeInvincibleLeft = time;
+
+            _isInvincible = true;
         }
 
         #endregion
