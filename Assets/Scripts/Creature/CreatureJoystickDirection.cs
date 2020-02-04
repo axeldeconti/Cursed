@@ -28,14 +28,24 @@ namespace Cursed.Creature
             {
                 _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
                 if (_direction != Vector2.zero && _target == null && _input.ButtonTriggered)
+                {
                     _target = Instantiate(TargetObject, _direction, Quaternion.identity, this.transform);
-
+                    _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                    UpdateTargetPosition(_direction);
+                }
                 else if (_direction == Vector2.zero && _target != null)
-                    Destroy(_target);
+                    _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
 
 
                 if (_target != null && _input.ButtonTriggered)
-                    UpdateTargetPosition(_direction);
+                {
+                    Debug.Log(_direction);
+                    if (_direction != Vector2.zero)
+                    {
+                        _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                        UpdateTargetRotation(_direction);
+                    }
+                }
             }
             else
                 Destroy(_target);
@@ -43,7 +53,13 @@ namespace Cursed.Creature
 
         private void UpdateTargetPosition(Vector2 dir)
         {
-            _target.transform.position = new Vector3(this.transform.position.x + dir.x * _distanceToPlayer, this.transform.position.y + dir.y * _distanceToPlayer, this.transform.position.z);
+            _target.transform.position = new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y, this.transform.position.z);
+        }
+
+        private void UpdateTargetRotation(Vector2 direction)
+        {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            _target.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
         public Vector2 Direction => _direction;

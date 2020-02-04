@@ -13,6 +13,7 @@ namespace Cursed.Creature
         private CreatureManager _creatureManager;
         private CreatureSearching _creatureSearching;
         private CreatureJoystickDirection _joystick;
+        private Animator _animator;
         private int _direction;
 
         private void Start()
@@ -23,6 +24,7 @@ namespace Cursed.Creature
             _creatureManager = GetComponent<CreatureManager>();
             _creatureSearching = GetComponent<CreatureSearching>();
             _joystick = GetComponent<CreatureJoystickDirection>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -32,9 +34,17 @@ namespace Cursed.Creature
 
             if (_creatureManager.CurrentState == CreatureState.Moving)
                 if (_joystick.Direction != Vector2.zero)
-                    MoveToDirection(_joystick.Direction);
+                {
+                    RotateToDirection(_joystick.Direction);
+                    if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                        MoveToDirection(_joystick.Direction);
+                }
                 else
-                    MoveToDirection(_direction);
+                {
+                    RotateToDirection(_direction);
+                    if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                        MoveToDirection(_direction);
+                }
 
             if(_creatureManager.CurrentState == CreatureState.Chasing)
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0));
@@ -82,7 +92,7 @@ namespace Cursed.Creature
             Vector2 direction = target.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 10f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
         }
 
         // GETTERS & SETTERS

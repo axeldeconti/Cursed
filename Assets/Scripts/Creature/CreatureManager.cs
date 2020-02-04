@@ -59,9 +59,9 @@ namespace Cursed.Creature
             _movement.Direction = _characterMovement.Side;
 
             if (_joystick.Direction != Vector2.zero)
-                transform.position = _joystick.Target.position;
+                transform.position = _joystick.Target.GetChild(0).position;
             else
-                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(5f * _movement.Direction, 0f);
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(4f * _movement.Direction, 0f);
 
             CurrentState = CreatureState.Moving;
         }
