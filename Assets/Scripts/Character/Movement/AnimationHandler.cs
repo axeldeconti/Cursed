@@ -28,6 +28,8 @@ namespace Cursed.Character
             _anim = GetComponent<Animator>();
             _move = GetComponentInParent<CharacterMovement>();
             _renderer = GetComponent<SpriteRenderer>();
+
+            GetComponent<CollisionHandler>().OnGrounded += () => { _anim.ResetTrigger(_decelerationTrigger); };
         }
 
         void Update()
@@ -66,7 +68,7 @@ namespace Cursed.Character
             bool state = (side == 1) ? false : true;
             _renderer.flipX = state;
 
-            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 1)
+            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 20)
                 _anim.SetTrigger(_decelerationTrigger);
         }
     }
