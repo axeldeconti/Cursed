@@ -6,7 +6,7 @@ namespace Cursed.Creature
 {
     public class CreatureMovement : MonoBehaviour
     {
-        public Transform playerPosition;
+        private Transform playerPosition;
 
         private CreatureStats _creatureStats;
         private Rigidbody2D _rb;
@@ -19,6 +19,7 @@ namespace Cursed.Creature
         private void Start()
         {
             //Init referencies
+            playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
             _creatureStats = GetComponent<CreatureStats>();
             _rb = GetComponent<Rigidbody2D>();
             _creatureManager = GetComponent<CreatureManager>();

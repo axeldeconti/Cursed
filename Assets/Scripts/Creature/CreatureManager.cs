@@ -15,7 +15,7 @@ namespace Cursed.Creature
 
     public class CreatureManager : MonoBehaviour
     {
-        public CharacterMovement _characterMovement;
+        private CharacterMovement _characterMovement;
         [SerializeField] private CreatureState _creatureState;
         private CreatureMovement _movement;
         private CreatureInputController _input;
@@ -29,6 +29,7 @@ namespace Cursed.Creature
         private void Initialize()
         {
             //Init referencies
+            _characterMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
             _movement = GetComponent<CreatureMovement>();
             _input = GetComponent<CreatureInputController>();
             _animator = GetComponent<Animator>();
