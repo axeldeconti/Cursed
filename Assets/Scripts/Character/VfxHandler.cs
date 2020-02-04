@@ -6,11 +6,25 @@ namespace Cursed.Character
 {
     public class VfxHandler : MonoBehaviour
     {
-        public GameObject _vfxRunDust;
+        public GameObject _vfxRun;
+        public GameObject _vfxJump;
+        public GameObject _vfxDoubleJump;
+        public GameObject _vfxFall;
 
-        public GameObject SpawnVfx (GameObject vfx, Transform position )
+        public void SpawnVfx (GameObject vfx, Vector3 position)
         {
-            return vfx;
+            Instantiate(vfx, position, Quaternion.identity);
+        }
+
+        public void RunVfx ()
+        {
+            Instantiate(_vfxRun, transform.position, Quaternion.identity);
+        }
+
+        public void FlipRun (int _flipVfx)
+        {
+            ParticleSystemRenderer particleRenderer = _vfxRun.GetComponent<ParticleSystemRenderer>();
+            particleRenderer.flip = new Vector3(_flipVfx, 0, 0);
         }
     }
 }

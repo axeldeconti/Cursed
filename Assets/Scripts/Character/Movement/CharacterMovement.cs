@@ -81,7 +81,7 @@ namespace Cursed.Character
             _coll = GetComponent<CollisionHandler>();
             _rb = GetComponent<Rigidbody2D>();
             _anim = GetComponentInChildren<AnimationHandler>();
-            _vfx = GetComponentInChildren<VfxHandler>();
+            _vfx = GetComponent<VfxHandler>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
             _coll.OnWalled += ResetIsJumping;
@@ -139,6 +139,8 @@ namespace Cursed.Character
             _canStillJump = true;
             _hasDoubleJumped = false;
             _hasWallJumped = false;
+
+            _vfx.SpawnVfx(_vfx._vfxFall, transform.position);
 
             StopCoroutine("CoyoteTime");
             _isCoyoteTime = false;
@@ -314,8 +316,7 @@ namespace Cursed.Character
             if (_wallGrab || !_coll.OnGround)
                 return;
 
-            Walk(x);
-            //_vfx.SpawnVfx();
+            Walk(x);           
         }
 
         /// <summary>
@@ -350,6 +351,7 @@ namespace Cursed.Character
                 _hasDoubleJumped = true;
                 _hasWallJumped = false;
                 Jump(_doubleJump);
+                _vfx.SpawnVfx(_vfx._vfxDoubleJump, transform.position);
             }
 
             //If on ground, jump
@@ -360,9 +362,15 @@ namespace Cursed.Character
                 _isCoyoteTime = false;
 
                 if (_isDashing)
+                {
                     Jump(_dashJump);
+                    _vfx.SpawnVfx(_vfx._vfxJump, transform.position);
+                }
                 else
+                {
                     Jump(_normalJump);
+                    _vfx.SpawnVfx(_vfx._vfxJump, transform.position);
+                }
             }
 
             //If on wall, wall jump
@@ -479,6 +487,8 @@ namespace Cursed.Character
             {
                 _side = 1;
                 _anim.Flip(_side);
+                _vfx.FlipRun(0);
+
 
                 if (_coll.OnRightWall)
                     Walk(0);
@@ -487,6 +497,8 @@ namespace Cursed.Character
             {
                 _side = -1;
                 _anim.Flip(_side);
+                _vfx.FlipRun(1);
+
 
                 if (_coll.OnLeftWall)
                     Walk(0);
