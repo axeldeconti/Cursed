@@ -29,11 +29,11 @@ namespace Cursed.Creature
                 _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
                 if (_direction != Vector2.zero && _target == null && _input.ButtonTriggered)
                 {
-                    _target = Instantiate(TargetObject, _direction, Quaternion.identity, this.transform);
+                    _target = Instantiate(TargetObject, this.transform.position, Quaternion.identity, this.transform);
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     UpdateTargetPosition(_direction);
                 }
-                else if (_direction == Vector2.zero && _target != null)
+                else if (_direction == Vector2.zero && _target != null && _input.CreatureInAir)
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
 
 

@@ -125,7 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daf308c54bd8c44390386642aab8ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeBeforeComeBack: 5
+  TimeBeforeComeBack:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: ca04ddcada2e8ee4db0e6a53403b21ce, type: 2}
   _timer: 0
 --- !u!114 &8864257907197743972
 MonoBehaviour:
@@ -184,7 +187,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672938721202977457}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -358,7 +361,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.12814364, y: 0.005588755}
+  m_Offset: {x: 0.22191069, y: 0.0010358542}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -369,7 +372,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.46803272, y: 0.23173532}
+  m_Size: {x: 0.24044281, y: 0.14249834}
   m_EdgeRadius: 0
 --- !u!114 &5145673111556155876
 MonoBehaviour:

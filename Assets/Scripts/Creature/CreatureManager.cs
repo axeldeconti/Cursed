@@ -64,6 +64,12 @@ namespace Cursed.Creature
             else if(!_input.ButtonTriggered)
                 CameraZoomController.Instance.Zoom(true);
 
+            else
+            {
+                CameraZoomController.Instance.Zoom(true);
+
+            }
+
 
             if (_input.CreatureOnCharacter || Input.GetButtonDown("Creature"))
             {

@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Cursed.Utilities;
 
 namespace Cursed.Creature
 {
@@ -15,6 +14,8 @@ namespace Cursed.Creature
         private CreatureJoystickDirection _joystick;
         private Animator _animator;
         private int _direction;
+        private float _impulseTimer;
+        private bool _alreadyImpulse;
 
         private void Start()
         {
@@ -38,20 +39,40 @@ namespace Cursed.Creature
                 {
                     RotateToDirection(_joystick.Direction);
                     if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                    {
                         MoveToDirection(_joystick.Direction);
+                    }
                 }
                 else
                 {
                     RotateToDirection(_direction);
-                    if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                    if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                    {
+                        _rb.AddForce(Vector2.left * _direction);
                         MoveToDirection(_direction);
+                    }
                 }
 
             if(_creatureManager.CurrentState == CreatureState.Chasing)
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
 
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
-                MoveToTarget(playerPosition.GetChild(0), 50f);
+                MoveToTarget(playerPosition.GetChild(0), 150f);
+
+        }
+
+        private void Impulse()
+        {
+            if (!_alreadyImpulse)
+            {
+                _rb.AddForce(_joystick.Direction * 50f, ForceMode2D.Impulse);
+                _alreadyImpulse = true;
+            }
+            else
+            {
+                _rb.velocity = Vector2.zero;
+                MoveToDirection(_joystick.Direction);
+            }
 
         }
 

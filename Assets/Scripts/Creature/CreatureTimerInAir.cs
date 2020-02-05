@@ -6,7 +6,7 @@ namespace Cursed.Creature
 {
     public class CreatureTimerInAir : MonoBehaviour
     {
-        public float TimeBeforeComeBack = 3f;
+        [SerializeField] private FloatReference TimeBeforeComeBack;
         [SerializeField] private float _timer;
 
         private CreatureManager _creature;
@@ -14,7 +14,7 @@ namespace Cursed.Creature
         void Start()
         {
             _creature = GetComponent<CreatureManager>();
-            _timer = TimeBeforeComeBack;
+            _timer = TimeBeforeComeBack.Value;
 
         }
         void Update()
@@ -48,7 +48,7 @@ namespace Cursed.Creature
 
         private void ResetTimer()
         {
-            _timer = TimeBeforeComeBack;
+            _timer = TimeBeforeComeBack.Value;
         }
     }
 }
