@@ -17,11 +17,11 @@ namespace Cursed.Creature
 
         void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            /*if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 _creatureManager.CurrentState = CreatureState.OnComeBack;
                 GameObject go = Instantiate(CreatureOnWall, this.transform.position, Quaternion.identity, collider.transform);
-            }
+            }*/
 
             if (collider.transform.GetComponent<CharacterMovement>())
             {
@@ -30,7 +30,15 @@ namespace Cursed.Creature
                 else if (collider.gameObject.CompareTag("Enemy"))
                     _creatureManager.CurrentState = CreatureState.OnEnemy;
 
-                Instantiate(CreatureOnCharacter, collider.transform.position, Quaternion.identity, collider.transform);
+                Instantiate(CreatureOnCharacter, collider.transform.position + new Vector3(0f, 0f, 0f), Quaternion.identity, collider.transform);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                GameObject go = Instantiate(CreatureOnWall, this.transform.position, Quaternion.identity, collision.transform);
             }
         }
     }

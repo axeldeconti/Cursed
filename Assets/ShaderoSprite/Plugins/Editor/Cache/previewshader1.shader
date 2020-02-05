@@ -10,6 +10,12 @@ Shader "Shadero Previews/PreviewXATXQ1"
 Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
+DistortionUV_WaveX_1("DistortionUV_WaveX_1", Range(0, 128)) = 24.204
+DistortionUV_WaveY_1("DistortionUV_WaveY_1", Range(0, 128)) = 11.862
+DistortionUV_DistanceX_1("DistortionUV_DistanceX_1", Range(0, 1)) = 0.3
+DistortionUV_DistanceY_1("DistortionUV_DistanceY_1", Range(0, 1)) = 0.154
+DistortionUV_Speed_1("DistortionUV_Speed_1", Range(-2, 2)) = 0.767
+_NewTex_1("NewTex_1(RGB)", 2D) = "white" { }
 _SpriteFade("SpriteFade", Range(0, 1)) = 1.0
 
 // required for UI.Mask
@@ -26,7 +32,7 @@ SubShader
 {
 
 Tags {"Queue" = "Transparent" "IgnoreProjector" = "true" "RenderType" = "Transparent" "PreviewType"="Plane" "CanUseSpriteAtlas"="True" }
-ZWrite Off Blend SrcAlpha OneMinusSrcAlpha Cull Off
+ZWrite Off Blend SrcAlpha OneMinusSrcAlpha Cull Off 
 
 // required for UI.Mask
 Stencil
@@ -62,6 +68,12 @@ float4 color    : COLOR;
 
 sampler2D _MainTex;
 float _SpriteFade;
+float DistortionUV_WaveX_1;
+float DistortionUV_WaveY_1;
+float DistortionUV_DistanceX_1;
+float DistortionUV_DistanceY_1;
+float DistortionUV_Speed_1;
+sampler2D _NewTex_1;
 
 v2f vert(appdata_t IN)
 {
@@ -73,22 +85,18 @@ return OUT;
 }
 
 
-float4 GhostFX(float4 txt, float2 uv, float smooth, float up, float down, float left, float right)
+float2 DistortionUV(float2 p, float WaveX, float WaveY, float DistanceX, float DistanceY, float Speed)
 {
-float a = txt.a;
-float c1 = 1;
-float noffset = smooth;
-if (uv.y > up)      c1 = saturate(((1 + noffset) / (1 - up))*(1 - uv.y) - noffset);
-if (uv.y < 1 - down) c1 *= saturate(((1 + noffset) / (1 - down))*uv.y - noffset);
-if (uv.x > right)  c1 *= saturate(((1 + noffset) / (1 - right))*(1 - uv.x) - noffset);
-if (uv.x < 1 - left) c1 *= saturate(((1 + noffset) / (1 - left))*uv.x - noffset);
-txt.a = a*c1;
-return txt;
+Speed *=_Time*100;
+p.x= p.x+sin(p.y*WaveX + Speed)*DistanceX*0.05;
+p.y= p.y+cos(p.x*WaveY + Speed)*DistanceY*0.05;
+return p;
 }
 float4 frag (v2f i) : COLOR
 {
-float4 _MainTex_2 = tex2D(_MainTex, i.texcoord);
-float4 FinalResult = _MainTex_2;
+float2 DistortionUV_1 = DistortionUV(i.texcoord,DistortionUV_WaveX_1,DistortionUV_WaveY_1,DistortionUV_DistanceX_1,DistortionUV_DistanceY_1,DistortionUV_Speed_1);
+float4 NewTex_1 = tex2D(_NewTex_1,DistortionUV_1);
+float4 FinalResult = NewTex_1;
 FinalResult.rgb *= i.color.rgb;
 FinalResult.a = FinalResult.a * _SpriteFade * i.color.a;
 return FinalResult;
