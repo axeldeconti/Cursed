@@ -25,6 +25,9 @@ namespace Cursed.Creature
 
         public event System.Action OnChangingState;
 
+        [SerializeField] private FloatReference _triggeredTimer;
+        private float _currentTriggeredTimer;
+
         private void Start() => Initialize();
 
         private void Initialize()
@@ -48,18 +51,28 @@ namespace Cursed.Creature
             if (_creatureState == CreatureState.OnCharacter)
             {
                 if (_input.ButtonTriggered)
+                {
                     CameraZoomController.Instance.Zoom(false);
+                    _currentTriggeredTimer += Time.deltaTime;
+                    if(_currentTriggeredTimer >= _triggeredTimer.Value)
+                    {
+                        _currentTriggeredTimer = 0f;
+                        DeAttachFromPlayer();
+                    }
+                }
             }
             else if(!_input.ButtonTriggered)
                 CameraZoomController.Instance.Zoom(true);
 
 
-            if (_input.Creature || Input.GetButtonDown("Creature"))
+            if (_input.CreatureOnCharacter || Input.GetButtonDown("Creature"))
             {
                 if(_creatureState == CreatureState.OnCharacter) 
                     DeAttachFromPlayer();
-                else
-                    CurrentState = CreatureState.OnComeBack;
+            }
+            if(_input.CreatureInAir && _creatureState != CreatureState.OnCharacter)
+            {
+                CurrentState = CreatureState.OnComeBack;
             }
         }
 
