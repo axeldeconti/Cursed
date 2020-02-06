@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cursed.Character;
 using Cursed.Utilities;
+using CodeMonkey.Utils; 
 
 namespace Cursed.Creature
 {
@@ -17,6 +18,7 @@ namespace Cursed.Creature
     public class CreatureManager : MonoBehaviour
     {
         private CharacterMovement _characterMovement;
+        [SerializeField] private CreatureIndicator _indicator;
         [SerializeField] private CreatureState _creatureState;
         private CreatureMovement _movement;
         private CreatureInputController _input;
@@ -43,6 +45,21 @@ namespace Cursed.Creature
             CurrentState = CreatureState.OnComeBack;
 
             CursedDebugger.Instance.Add("State : ",() => CurrentState.ToString());
+
+
+            // INDICATOR
+            /*_indicator.
+            FunctionUpdater.Create(() =>
+            {
+                if (Vector3.Distance(Camera.main.transform.position, this.transform.position) < 5)
+                {
+                    _indicator.Hide();
+                }
+                else
+                {
+                    _indicator.Show(this.transform.position);
+                }
+            });*/
         }
 
 
@@ -86,7 +103,7 @@ namespace Cursed.Creature
         {
             _movement.Direction = _characterMovement.Side;
 
-            if (_joystick.Direction != Vector2.zero)
+            if (_joystick.Direction != Vector2.zero && _joystick.Target != null)
                 transform.position = _joystick.Target.GetChild(0).position;
             else
                 transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(4f * _movement.Direction, 0f);
