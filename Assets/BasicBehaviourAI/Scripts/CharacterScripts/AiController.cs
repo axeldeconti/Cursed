@@ -3,19 +3,11 @@ using UnityEngine;
 
 public class AiController : MonoBehaviour
 {
-    /*
-    ****
-    ****
-    /**** This script is subject to change in future versions and more than likely users will want to rewrite it or change it to fit their needs.
-    ****
-    ****
-    */
 
     public enum ai_state { none, groundpatrol, chase, attack } /*Add custom AI states here!*/
 
     public ai_state state = ai_state.groundpatrol;
 
-    private Character _characterScript;
     private CharacterController2D _controller;
     private PathfindingAgent _pathAgent;
     public static Pathfinding _pathScript;
@@ -35,7 +27,6 @@ public class AiController : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         _controller = GetComponent<CharacterController2D>();
-        _characterScript = GetComponent<Character>();
         _pathAgent = GetComponent<PathfindingAgent>();
 
         if (_pathScript == null) { _pathScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<Pathfinding>(); }
@@ -74,7 +65,6 @@ public class AiController : MonoBehaviour
 
     public void GetInput(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
     {
-        if (_characterScript.ledgegrab.ledgeGrabbed) { _characterScript.ledgegrab.StopLedgeGrab(); }
 
         switch (state)
         {
@@ -151,17 +141,6 @@ public class AiController : MonoBehaviour
 
         _behaviourText.text = "Ground Patrol";
 
-        //Patroling on a single platform
-        /*if (_direction == 1 && (_controller.collisions.right || (!_controller.rightGrounded && _controller.collisions.below)))
-        {
-            _direction = -1;
-        }
-        else if (_direction == -1 && (_controller.collisions.left || (!_controller.leftGrounded && _controller.collisions.below)))
-        {
-            _direction = 1;
-        }
-
-        input.x = _direction;*/
 
         //Coroutine for changing targeted platform
         if (_timerChangeTarget == false)
@@ -187,7 +166,7 @@ public class AiController : MonoBehaviour
             state = ai_state.chase;
             return;
         }
-        Debug.Log("I'm in my attack state");
+        //Debug.Log("I'm in my attack state");
         _behaviourText.text = "Attack";
 
         //Insert attack behavior

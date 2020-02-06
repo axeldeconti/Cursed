@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CharacterController2D : RaycastController {
 
@@ -10,16 +9,10 @@ public class CharacterController2D : RaycastController {
     [HideInInspector]
     public Vector2 playerInput;
 
-    //Added on
-    [System.NonSerialized]
-    public bool leftGrounded = false;
-    [System.NonSerialized]
-    public bool rightGrounded = false;
 
     public override void Start() {
         base.Start();
         collisions.faceDir = 1;
-
     }
 
     public void Move(Vector3 velocity, bool standingOnPlatform) {
@@ -30,11 +23,6 @@ public class CharacterController2D : RaycastController {
         UpdateRaycastOrigins();
         collisions.Reset();
 
-        //Added on
-        leftGrounded = false;
-        rightGrounded = false;
-
-        collisions.velocityOld = velocity;
         playerInput = input;
 
         if (velocity.x != 0) {
@@ -57,28 +45,6 @@ public class CharacterController2D : RaycastController {
         }
     }
 
-    //might not be needed
-    public void Test(Vector3 velocity) {
-        UpdateRaycastOrigins();
-        collisions.Reset();
-
-        collisions.velocityOld = velocity;
-
-        if (velocity.x != 0) {
-            collisions.faceDir = (int)Mathf.Sign(velocity.x);
-        }
-
-        if (velocity.y < 0) {
-            DescendSlope(ref velocity);
-        }
-
-        HorizontalCollisions(ref velocity);
-        if (velocity.y != 0) {
-            VerticalCollisions(ref velocity);
-        }
-
-    }
-
     void HorizontalCollisions(ref Vector3 velocity) {
         float directionX = collisions.faceDir;
         float rayLength = Mathf.Abs(velocity.x) + skinWidth;
@@ -96,16 +62,12 @@ public class CharacterController2D : RaycastController {
 
             if (hit && hit.collider.tag != "oneway") {
 
-                //if (hit.distance == 0) {
-                   // continue;
-                //}
 
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
                 if (i == 0 && slopeAngle <= maxClimbAngle) {
                     if (collisions.descendingSlope) {
                         collisions.descendingSlope = false;
-                        velocity = collisions.velocityOld;
                     }
                     float distanceToSlopeStart = 0;
                     if (slopeAngle != collisions.slopeAngleOld) {
@@ -150,28 +112,11 @@ public class CharacterController2D : RaycastController {
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
-            //Left/RightDetection
-            if (directionY == -1) {
-                if (i == 0 && hit) {
-                    leftGrounded = true;
-                }
-                if (i == verticalRayCount - 1 && hit) {
-                    rightGrounded = true;
-                }
-            }
 
             if (hit) {
                 //by tag
                 if (oneway.value == 1 << hit.transform.gameObject.layer) {
                     if (directionY == 1 || hit.distance == 0) {
-                        continue;
-                    }
-                    if (collisions.fallingThroughPlatform) {
-                        continue;
-                    }
-                    if (playerInput.y == -1) {
-                        collisions.fallingThroughPlatform = true;
-                        Invoke("ResetFallingThroughPlatform", .2f);
                         continue;
                     }
                 }
@@ -242,9 +187,6 @@ public class CharacterController2D : RaycastController {
         }
     }
 
-    void ResetFallingThroughPlatform() {
-        collisions.fallingThroughPlatform = false;
-    }
 
     public struct CollisionInfo {
         public bool above, below;
@@ -253,9 +195,7 @@ public class CharacterController2D : RaycastController {
         public bool climbingSlope;
         public bool descendingSlope;
         public float slopeAngle, slopeAngleOld;
-        public Vector3 velocityOld;
         public int faceDir;
-        public bool fallingThroughPlatform;
 
         public void Reset() {
             above = below = false;

@@ -21,7 +21,6 @@ public class PathfindingAgent : MonoBehaviour
     //Ensures starting position is grounded at the correct location.
     private bool _useStored = false;
     private Vector3 _storePoint;
-    private GameObject storeObject;
 
     //Pathfinding
     public bool repathOnFail = true;
@@ -91,7 +90,6 @@ public class PathfindingAgent : MonoBehaviour
         _currentOrders = null;
         isPathFinding = false;
         _stopPathing = true;
-        //Your Code: OR keep custom AI in the AI-CONTROLLER
     }
 
     private void PathStarted()
@@ -112,8 +110,6 @@ public class PathfindingAgent : MonoBehaviour
 
         }
         if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
-        //Path has started
-        //Your Code: OR keep custom AI in the AI-CONTROLLER
 
         _aiControllerScript.PathStarted();
     }
@@ -124,8 +120,6 @@ public class PathfindingAgent : MonoBehaviour
         if (debugBool) { Debug.Log("path completed"); }
         if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
         CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
-        //Path was completed
-        //Your Code: OR keep custom AI in the AI-CONTROLLER
         _aiControllerScript.PathCompleted();
     }
 
@@ -137,10 +131,6 @@ public class PathfindingAgent : MonoBehaviour
         {
             CancelPathing(); if (debugBool) { Debug.Log("newpath attempt limit reached. cancelling path."); }
         }
-        //TODO: Attempt to get as close as possible to our goal even though no path was found?
-
-        //No Path Found
-        //Your Code: OR keep custom AI in the AI-CONTROLLER
     }
 
     //Used for refreshing paths, example: Flee behaviour 
@@ -197,15 +187,12 @@ public class PathfindingAgent : MonoBehaviour
         _waitingOrders = instr; //Storage for the path until we're ready to use it
     }
 
-    //AI Movement /*TODO: Cleanup!*/
     public void AiMovement(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
     {
         bool orderComplete = false;
         if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
         {
 
-            if (_characterScript.ledgegrab.ledgeGrabbed) { _characterScript.ledgegrab.StopLedgeGrab(); } //temporary disable ledgegrabbing for ai
-                                                                                                         //find direction to travel
             if (_currentOrders[_orderNum].order != "jump") { input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1; }
             if (_currentOrders[_orderNum].order == "climb") { input.y = transform.position.y > _currentOrders[_orderNum].pos.y ? -1 : 1; }
 
@@ -426,8 +413,8 @@ public class PathfindingAgent : MonoBehaviour
                 }
             }
         }
-        //Unable to make progress on current path, Update Path
 
+        //Unable to make progress on current path, Update Path
         if (repathOnFail && !pathCompleted)
         {
             _fPathFailTimer += Time.deltaTime;
@@ -452,6 +439,7 @@ public class PathfindingAgent : MonoBehaviour
                 }
             }
         }
+
         //If path is dirty, request new path;
         if (_pathIsDirty)
         {

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using Cursed.Character;
 
 [RequireComponent(typeof(CharacterController2D))]
 [RequireComponent(typeof(Rigidbody2D))]       /*Used for collision detection*/
 public class Character : MonoBehaviour
 {
-    public GameObject target;
 
     [System.NonSerialized]
     public GameObject _graphics;
@@ -17,20 +16,19 @@ public class Character : MonoBehaviour
     Rigidbody2D _body;                        /*Used for collision detection*/
     PathfindingAgent _pathAgent;
     CharacterController2D _controller;
+    private IInputController _input;
 
     public moveStats movement;
     public jumpStats jump;
-    public ledgeGrabStats ledgegrab;
 
     [System.NonSerialized]
     public float gravity;                     /*is calculated automatically inside jump.UpdateJumpHeight, future versions may contain optional jump/gravity/apex customizations*/
     Vector3 velocity;
 
-    private bool _facingRight = true;          /*determines the direction character is facing*/
+    private bool _facingRight = true;        /*determines the direction character is facing*/
     public bool jumped = false;              /*used for detecting if jump key was pressed (also used in ai)*/
     public bool isAiControlled = false;      /*allows ai to take control over inputs*/
     public bool playerControlled = false;    /*allows input by player*/
-    public bool rightClickPathFind = false;  /*allows player to search for path by left click*/
     public bool FallNodes = true;            /*true-- Allows the pathfinding agent to use 'fall' nodes*/
 
 
@@ -43,9 +41,10 @@ public class Character : MonoBehaviour
         _ai = GetComponent<AiController>();
         _anim = transform.Find("Graphics").GetComponent<Animator>();
         _graphics = transform.Find("Graphics").gameObject; /*useful for preventing things from flipping when character is facing left*/
+        _input = GetComponent<IInputController>();
+
 
         /*allow movement abilities to access character script*/
-        ledgegrab.SetCharacter(this);
         jump.SetCharacter(this);
 
         _body.isKinematic = true;
@@ -55,13 +54,6 @@ public class Character : MonoBehaviour
     void Start()
     {
         jump.UpdateJumpHeight();
-
-        if (target)
-        {
-            isAiControlled = true; //allow character to be controlled by AI for when we recieve pathfinding
-            _ai.state = AiController.ai_state.groundpatrol; //set character AI type to groundpatrol
-            _pathAgent.RequestPath(target.transform.position + Vector3.up);
-        }
     }
 
     void Update()
@@ -69,18 +61,16 @@ public class Character : MonoBehaviour
 
         if (playerControlled)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && !ledgegrab.ledgeGrabbed)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                     jumped = true;        
             }
         }
-
+        
     }
 
     void FixedUpdate()
     {
-
-        CooldownTicks();
 
         Vector2 input = Vector2.zero;
         if (playerControlled)
@@ -91,24 +81,22 @@ public class Character : MonoBehaviour
         if (isAiControlled)
         {
             _ai.GetInput(ref velocity, ref input, ref jumped);
-        }
 
 
-        //Ledgegrabbing
-        if (ledgegrab.ability)
-        {
-            if ((input.y == -1 || (_facingRight != (input.x == 1) && input.x != 0)) && ledgegrab.ledgeGrabbed)
+            //A changer
+            /*if (jumped)
+                _input.Jump.Trigger();
+
+            if (input.x != 0)
             {
-                ledgegrab.StopLedgeGrab();
+                ;
             }
-            if ((input.y == 1 || Input.GetKey(KeyCode.Space)) && ledgegrab.ledgeGrabbed && ledgegrab.ledgeState == 0)
+            if (input.y != 0)
             {
-
-                //start climb process, in fixed, we raycast in the direction we're facing and climbing upwards until no collision, then
-                //we move towards direction we're looking until we have ground collision
-                ledgegrab.ledgeState = 1;
-            }
-            if (input.y != -1 && !_controller.collisions.fallingThroughPlatform) { ledgegrab.LedgeGrabState(); }
+                ;
+            }*/
+            //........
+            //........
         }
 
 
@@ -129,31 +117,28 @@ public class Character : MonoBehaviour
         }
 
 
-        if (!ledgegrab.ledgeGrabbed)
+        if (input.x > 0 && !_facingRight)
         {
-
-            if (input.x > 0 && !_facingRight)
-            {
-                Flip();
-            }
-            else if (input.x < 0 && _facingRight)
-            {
-                Flip();
-            }
-
-            //Movement-x
-            if (movement.ability)
-            { //If character has the ability of moving
-                float targetVelocityX = input.x * movement.moveSpeed;
-                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref movement.velocityXSmoothing, (_controller.collisions.below) ? movement.accelerationTimeGrounded : jump.accelerationTimeAirborne);
-            }
-            //Gravity
-            if (velocity.y > -jump.maxFallVelocity)
-            {
-                velocity.y += gravity * Time.deltaTime;
-            }
-            _controller.Move(velocity * Time.deltaTime, input);
+             Flip();
         }
+        else if (input.x < 0 && _facingRight)
+        {
+             Flip();
+        }
+
+        //Movement-x
+        if (movement.ability)
+        { //If character has the ability of moving
+             float targetVelocityX = input.x * movement.moveSpeed;
+             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref movement.velocityXSmoothing, (_controller.collisions.below) ? movement.accelerationTimeGrounded : jump.accelerationTimeAirborne);
+        }
+        //Gravity
+        if (velocity.y > -jump.maxFallVelocity)
+        {
+             velocity.y += gravity * Time.deltaTime;
+        }
+        _controller.Move(velocity * Time.deltaTime, input);
+
 
         //animation
         _anim.SetFloat("speed", input.x != 0 ? 1f : 0f);
@@ -186,25 +171,10 @@ public class Character : MonoBehaviour
         theScale.x *= -1; _graphics.transform.localScale = theScale;
     }
 
-    //keep all timers that must be called in fixed update
-    private void CooldownTicks()
-    {
-
-        if (ledgegrab.ledgeCooldownBool)
-        {
-            ledgegrab.fLedgeCooldown += Time.deltaTime;
-            if (ledgegrab.fLedgeCooldown >= ledgegrab.ledgeCooldown)
-            {
-                ledgegrab.fLedgeCooldown = 0f;
-                ledgegrab.ledgeCooldownBool = false;
-            }
-        }
-
-    }
-
     //Movement Class Abilities
     public class movementEssentials
-    {         /*gets inherited by movement abilities*/
+    {         
+        /*gets inherited by movement abilities*/
         [System.NonSerialized]
         public Character _character;
         public void SetCharacter(Character c)
@@ -212,6 +182,7 @@ public class Character : MonoBehaviour
             _character = c;
         }
     }
+
     [System.Serializable]
     public class jumpStats : movementEssentials
     {
@@ -253,9 +224,9 @@ public class Character : MonoBehaviour
             _character.gravity = -(2 * _maxHeight) / Mathf.Pow(timeToApex, 2);
             maxJumpVelocity = Mathf.Abs(_character.gravity) * timeToApex;
             minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(_character.gravity) * _minHeight);
-            //print("Gravity: " + gravity + "  Jump Velocity: " + maxJumpVelocity);
         }
     }
+
     [System.Serializable]
     public class moveStats
     {
@@ -265,144 +236,6 @@ public class Character : MonoBehaviour
         public float moveSpeed = 4.87f;
         [System.NonSerialized]
         public float velocityXSmoothing;
-    }
-
-
-    [System.Serializable]
-    public class ledgeGrabStats : movementEssentials
-    {
-
-        public bool ability = true;
-        public float grabHeight = 0.2f;
-        public float characterYPosition = -0.15f;
-        public float ledgeClimbSpeed = 0.05f;
-        public float ledgeMoveDistance = 0.35f;
-        public float ledgeGrabCooldown = 0.3f;
-        public float ledgeGrabDistance = 0.12f;
-        public float ledgeCooldown = 0.8f;
-        public bool ledgeGrabbed = false;
-
-        [System.NonSerialized]
-        public Vector2 grabbedCorner = Vector2.zero;
-        [System.NonSerialized]
-        public bool ledgeCooldownBool = false;
-        [System.NonSerialized]
-        public float fLedgeGrabCooldown;
-        [System.NonSerialized]
-        public float fLedgeCooldown;
-        [System.NonSerialized]
-        public int ledgeState = 0;
-
-
-        public void LedgeGrabState()
-        {
-
-            if (!ledgeGrabbed && !_character._controller.collisions.below && _character.velocity.y <= 0 && !ledgeCooldownBool)
-            {
-                Vector2 direction = _character._facingRight ? Vector2.right : Vector2.right * -1f;
-                Vector3 position = _character.transform.position;
-                position.y += _character.transform.localScale.y * _character._box.size.y * 0.5f + characterYPosition + grabHeight;
-
-                /*check collision (if no collision, the next collision check will determine if it can be grabbed)*/
-                if (!Physics2D.Raycast(position, direction, ledgeGrabDistance + _character.transform.localScale.x * _character._box.size.x * 0.5f, _character._controller.collisionMask))
-                {
-
-                    RaycastHit2D hit = Physics2D.Raycast(_character.transform.position, direction, ledgeGrabDistance + _character.transform.localScale.x * _character._box.size.x * 0.5f, _character._controller.collisionMask);
-                    if (hit && hit.collider.tag != "oneway")
-                    { /*check collision beside character, if its oneway, ignore*/
-
-                        RaycastHit2D vertHit = Physics2D.Raycast(_character.transform.position, Vector2.up, _character.transform.localScale.y * _character._box.size.y, _character._controller.collisionMask);
-                        if (!vertHit || vertHit.collider.tag == "oneway")
-                        { /*check collision above character, if its oneway, ignore*/
-
-                            Vector3 reposition = Vector3.zero;
-                            reposition.x = hit.point.x - (direction.x * _character.transform.localScale.x * _character._box.size.x * 0.5f + 0.01f);
-                            reposition.y = hit.collider.transform.position.y + hit.collider.transform.localScale.y * _character._box.size.y * 0.5f;
-                            grabbedCorner = new Vector2(hit.point.x, reposition.y);
-                            reposition.y -= (characterYPosition + _character.transform.localScale.y * _character._box.size.y * 0.5f);
-                            ledgeGrabbed = true;
-                            _character._anim.SetBool("ledge", true);
-                            _character.transform.position = reposition;
-
-                            Debug.DrawRay(position, direction, Color.red, 2f);
-                            Debug.DrawRay(_character.transform.position, Vector2.up, Color.red, 2f);
-                        }
-                    }
-                }
-
-            }
-
-            if (ledgeGrabbed && ledgeState != 0 && !ledgeCooldownBool)
-            {
-
-                Vector2 direction = _character._facingRight ? Vector2.right : Vector2.right * -1f;
-
-                if (ledgeState == 1)
-                {
-                    _character._anim.SetBool("ledgeClimbing", true);
-
-                    _character._controller.Test(new Vector3(0.0001f, 0.001f, 0f));
-                    if (_character._controller.collisions.above)
-                    {
-
-                        StopLedgeGrab();
-                    }
-                    if (_character.transform.position.y - _character.transform.localScale.y * _character._box.size.y * 0.5f < grabbedCorner.y)
-                    {
-                        Vector3 newPos = _character.transform.position;
-                        newPos.y += ledgeClimbSpeed;
-                        _character.transform.position = newPos;
-                    }
-                    else
-                    {
-                        ledgeState = 2;
-                    }
-
-                }
-                if (ledgeState == 2)
-                {
-
-                    Vector3 newPos = _character.transform.position;
-                    newPos.x += direction.x * ledgeClimbSpeed;
-                    _character.transform.position = newPos;
-
-
-                    _character._controller.Test(new Vector3(direction.x * 0.01f, 0, 0f));
-                    if (direction.x == 1)
-                    {
-                        if (_character._controller.collisions.right || (_character.transform.position.x - _character.transform.localScale.x * _character._box.size.x * 0.5f) > grabbedCorner.x)
-                        {
-
-                            StopLedgeGrab();
-                        }
-                    }
-                    if (direction.x == -1)
-                    {
-                        if (_character._controller.collisions.left || (_character.transform.position.x + _character.transform.localScale.x * _character._box.size.x * 0.5f) < grabbedCorner.x)
-                        {
-
-                            StopLedgeGrab();
-                        }
-                    }
-
-                }
-            }
-        }
-
-        public void StopLedgeGrab()
-        {
-            if (ledgeGrabbed)
-            {
-                ledgeGrabbed = false;
-                ledgeState = 0;
-                _character._anim.SetBool("ledge", false);
-                _character._anim.SetBool("ledgeClimbing", false);
-                ledgeCooldownBool = true;
-                _character.velocity.x = 0;
-                _character.velocity.y = 0;
-            }
-        }
-
     }
     
 }

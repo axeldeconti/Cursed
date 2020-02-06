@@ -5,14 +5,6 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
 
-    /*
-    ****
-    ****
-    /**** This script is subject to change in future versions. There are definitely some areas in this script that need to be edited for your game and it's pretty sloppy.
-    ****
-    ****
-    */
-
     LayerMask groundLayer;
     LayerMask onewayLayer;
 
@@ -50,7 +42,6 @@ public class Pathfinding : MonoBehaviour
 
     void Start()
     {
-        //Debug tools do not work in awake!
         CreateNodeMap();
     }
 
@@ -70,11 +61,9 @@ public class Pathfinding : MonoBehaviour
         List<GameObject> groundObjects = new List<GameObject>();
         List<GameObject> onewayObjects = new List<GameObject>();
 
-        //oneway.value == 1 << hit.transform.gameObject.layer
         //Find all children of tile parent
         foreach (Transform child in _currentMap.transform)
         {
-            // Debug.Log(child.gameObject.layer + " " + (1 << LayerMask.NameToLayer("ground")));
             if (1 << child.gameObject.layer == groundLayer.value)
             {
                 groundObjects.Add(child.gameObject);
@@ -126,8 +115,7 @@ public class Pathfinding : MonoBehaviour
     }
 
     public void FindPath(object threadLocker)
-    {//GameObject character, Vector3 location) {
-
+    {
         threadLock a = (threadLock)threadLocker;
         Vector3 character = a.charPos;
         Vector3 location = a.end;
@@ -149,12 +137,10 @@ public class Pathfinding : MonoBehaviour
         /*if a point couldnt be found or if character can't move cancel path*/
         if (endNode == null || startNode == null || !a.canMove)
         {
-            //Debug.Log("endpoint: " + endNode + ", startpoint: " + startNode);
             a.passed = false;
             a.instr = instr;
             readyOrders.Add(a);
             return;
-            //purgeCurrentPath();
         }
 
         startNode.g = 0;
@@ -162,7 +148,6 @@ public class Pathfinding : MonoBehaviour
 
         openNodes.Add(startNode);
 
-        //evaluateNode (startNode);
 
         pathNode currentNode = new pathNode("0", Vector3.zero);
         while (openNodes.Count > 0)
@@ -232,8 +217,6 @@ public class Pathfinding : MonoBehaviour
 
         if (pathNodes[0] != endNode)
         {
-            //Debug.Log ("s node == e node, null instructions OR find closest h node and travel to it");
-            //might also want to include an option for h node must be less than end node
             a.passed = false;
         }
         else { a.passed = true; }
@@ -261,11 +244,6 @@ public class Pathfinding : MonoBehaviour
                 if (readyOrders[i].character.transform.GetComponent<PathfindingAgent>() != null)
                 {
                     readyOrders[i].character.transform.GetComponent<PathfindingAgent>().ReceivePathInstructions(readyOrders[i].instr, readyOrders[i].passed);
-                }
-                else
-                {
-                    //this is a temporary fix for rigidbody pathfinding
-                    //orders[i].character.transform.GetComponent<rigidCharacter> ().receivePathInstructions (orders[i].instr);
                 }
             }
         }
@@ -358,14 +336,12 @@ public class Pathfinding : MonoBehaviour
             }
         }
 
-        //Debug.Log(collect.Count);
         UpdateNodes(collect, largerCollect);
     }
 
     public void UpdateNodes(List<pathNode> collection, List<pathNode> largerCollection)
     {
 
-        //resetAllLists();
         for (int i = 0; i < collection.Count; i++)
         {
 
@@ -389,28 +365,17 @@ public class Pathfinding : MonoBehaviour
 
         GroundNeighbors(collection, largerCollection);
 
-
-
-        //WE NEED TO REMAKE ALL JUMP/FALL NODES FROM THE TILES 
-
-
         JumpNeighbors(attachedJumpNodes(collection), largerCollection);
         FallNeighbors(attachedFallNodes(collection), largerCollection);
-
-
 
         if (Input.GetKey(KeyCode.LeftShift)) { Debug.Break(); } //make node neighbor mesh visible
     }
 
 
 
-
-
-
     private void FindGroundNodes(List<GameObject> objects)
     {
         _nodes = new List<pathNode>();
-        //GameObject[] objects = GameObject.FindGameObjectsWithTag("ground");
 
         for (int i = 0; i < objects.Count; i++)
         {
@@ -423,12 +388,8 @@ public class Pathfinding : MonoBehaviour
 
             newGroundNode.gameObject = objects[i];
         }
-
-        /*TEMP FOR ONEWAY PLATFORMS*/
-        // objects = GameObject.FindGameObjectsWithTag("oneway");
-
-
     }
+
     private void FindOnewayNodes(List<GameObject> objects)
     {
 
@@ -556,9 +517,7 @@ public class Pathfinding : MonoBehaviour
                     Debug.DrawLine(a.pos, a.spawnedFrom.pos, Color.red);
                 }
 
-                //float realJumpHeight = a.pos.y - a.spawnedFrom.pos.y;
                 float xDistance = Mathf.Abs(a.pos.x - b.pos.x);
-
 
 
                 if (xDistance < blockSize * maxJumpBlocksX + blockSize + _groundMaxWidth) //
@@ -594,8 +553,6 @@ public class Pathfinding : MonoBehaviour
 
                             if (hitTest)
                             {
-                                // if (xDistance < blockSize + groundMaxWidth) {
-                                //if (a.spawnedFrom.pos.y >= b.pos.y) {
                                 float middle = -(a.pos.x - b.pos.x) / 2f;
                                 float quarter = middle / 2f;
 
@@ -607,12 +564,6 @@ public class Pathfinding : MonoBehaviour
                                 Vector3 lowerMid = new Vector3(a.pos.x + middle, a.pos.y - blockSize, a.pos.z);
                                 Vector3 straightUp = new Vector3(b.pos.x, a.pos.y - blockSize, a.pos.z);
 
-                                //Debug.DrawLine(origin, quarterPoint, Color.yellow);
-                                //Debug.DrawLine(origin, midPoint, Color.yellow);
-
-                                // Debug.DrawLine(lowerMid, b.pos, Color.yellow);
-                                // Debug.DrawLine(b.pos, quarterPastMidPoint, Color.yellow);
-                                //Debug.DrawLine(b.pos, straightUp, Color.yellow);
                                 if (xDistance > blockSize + _groundMaxWidth)
                                     if (Physics2D.Linecast(origin, quarterPoint, groundLayer) ||
 
@@ -633,8 +584,7 @@ public class Pathfinding : MonoBehaviour
                                     {
                                         hitTest = false;
                                     }
-                                //}
-                                //}
+
                             }
 
                             if (hitTest)
@@ -680,8 +630,6 @@ public class Pathfinding : MonoBehaviour
                     _nodes.Add(newFallNode);
 
                     newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
-
-                    //Debug.DrawLine(nodes[i].pos, temp.pos, Color.red);
                 }
             }
 
@@ -697,14 +645,11 @@ public class Pathfinding : MonoBehaviour
                     pathNode newFallNode = new pathNode("fall", rightNode);
 
                     newFallNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
-                    //fallNodes.Add(newFallNode);
 
                     newFallNode.c = nodeWeights.GetNodeWeightByString(newFallNode.type);
                     _nodes.Add(newFallNode);
 
                     newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
-
-                    //Debug.DrawLine(nodes[i].pos, temp.pos, Color.red);
                 }
             }
         }
@@ -747,11 +692,6 @@ public class Pathfinding : MonoBehaviour
                         Vector3 quarterPointBot = new Vector3(b.pos.x - quarter, b.pos.y, b.pos.z);
 
                         Vector3 corner = new Vector3(b.pos.x, (a.pos.y - blockSize * xDistance - blockSize * 0.5f) - _groundNodeHeight, a.pos.z);
-
-                        //Debug.DrawLine(middlePointDrop, b.pos, Color.yellow);
-                        //Debug.DrawLine (quarterPointTop, b.pos, Color.yellow);
-                        //Debug.DrawLine (quarterPointBot, a.pos, Color.yellow);
-                        //Debug.DrawLine (corner, b.pos, Color.yellow);
 
                         if (Physics2D.Linecast(quarterPointTop, b.pos, groundLayer) ||
                             Physics2D.Linecast(middlePointDrop, b.pos, groundLayer) ||
