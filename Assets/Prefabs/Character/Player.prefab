@@ -18,8 +18,8 @@ GameObject:
   - component: {fileID: 8498843447298849025}
   - component: {fileID: 8498843447298849038}
   - component: {fileID: 891322274}
-  - component: {fileID: 891322275}
   - component: {fileID: 891322282}
+  - component: {fileID: 891322275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -167,6 +167,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _state: 0
   _showDebug: 0
+  _camShake: {fileID: 0}
+  _amplGain:
+    UseConstant: 1
+    ConstantValue: 4
+    Variable: {fileID: 0}
+  _freqGain:
+    UseConstant: 1
+    ConstantValue: 100
+    Variable: {fileID: 0}
   _runSpeed:
     UseConstant: 0
     ConstantValue: 4
@@ -296,6 +305,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b820d366cc49574596056431eec54e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &891322282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dac45918b5f1149994c223b251ef79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &891322275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,15 +338,7 @@ MonoBehaviour:
     type: 3}
   _vfxFall: {fileID: 4818869912900407256, guid: d13a1e741451391419329692836b7849,
     type: 3}
---- !u!114 &891322282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8498843447298849143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91dac45918b5f1149994c223b251ef79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _vfxWallSlide: {fileID: 1103421733211284317, guid: 5228ec6b0f834d9499da7f23cb56e81a,
+    type: 3}
+  _vfxDashSpeed: {fileID: 2633979679782619797, guid: 1a76eaf0e4bd6c645bfb5f72bd8d71c4,
+    type: 3}

@@ -24,7 +24,7 @@ namespace Cursed.VisualEffect
             }
         }
 
-        private void Shake (float _amplitudeGain, float _frequencyGain)
+        public void Shake (float _amplitudeGain, float _frequencyGain)
         {
             Debug.Log("Shake");
            

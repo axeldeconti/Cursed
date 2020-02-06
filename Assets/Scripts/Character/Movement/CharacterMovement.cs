@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Cursed.VisualEffect;
 
 namespace Cursed.Character
 {
@@ -12,12 +13,18 @@ namespace Cursed.Character
         private CollisionHandler _coll = null;
         private Rigidbody2D _rb = null;
         private AnimationHandler _anim = null;
-        private VfxHandler _vfx = null;
-        private IInputController _input = null;
+        private VfxHandler _vfx = null;       
         private HealthManager _healthManager = null;
+        private IInputController _input = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
         [SerializeField] private bool _showDebug = true;
+        [SerializeField] private CameraShake _camShake = null;
+
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private FloatReference _amplGain;
+        [SerializeField] private FloatReference _freqGain;
 
         [Space]
         [Header("Stats")]
@@ -78,7 +85,9 @@ namespace Cursed.Character
         private float _currentGravity = 0f;
         private Vector2 _currentVelocity = Vector2.zero;
 
-        //private GameObject _dashReference;
+        [Space]
+        private GameObject _refDashSpeedVfx;
+        private GameObject _refWallSlideVfx;
 
         void Start()
         {
@@ -147,6 +156,7 @@ namespace Cursed.Character
             _hasWallJumped = false;
 
             _vfx.SpawnVfx(_vfx.VfxFall, transform.position);
+            Destroy(_refWallSlideVfx);
 
             StopCoroutine("CoyoteTime");
             _isCoyoteTime = false;
@@ -165,6 +175,7 @@ namespace Cursed.Character
             //Set bools
             _isDashing = true;
             _isInvincible = true;
+
             if (_healthManager)
                 _healthManager.StartInvincibility(_dashInvincibilityTime);
 
@@ -188,8 +199,7 @@ namespace Cursed.Character
 
             //Set dash cooldown
             _timeToNextDash = Time.time + _dashCooldown;
-
-            //Destroy(_dashReference);
+            Destroy(_refDashSpeedVfx);
         }
 
         private bool CheckIfCanDash()
@@ -444,9 +454,11 @@ namespace Cursed.Character
                 return;
 
             if (x != 0)
+            {
                 StartCoroutine(Dash(x));
-
-            //_dashReference = _vfx.SpawnVfx();
+                _camShake.Shake(_amplGain, _freqGain);
+                _refDashSpeedVfx = _vfx.DashVfx();
+            }
         }
 
         /// <summary>
@@ -472,12 +484,16 @@ namespace Cursed.Character
 
                     //Apply new velocity
                     UpdateVelocity(_currentVelocity.x, _runSpeed * _wallClimbMultiplySpeed);
+                    Destroy(_refWallSlideVfx);
                 }
                 else if (!_coll.OnGround) //Slide on wall
                 {
                     _wallRun = false;
                     _wallSlide = true;
                     SlideOnWall();
+
+                    if (_refWallSlideVfx == null)
+                        _refWallSlideVfx = _vfx.WallSlideVfx();
                 }
             }
         }
@@ -530,6 +546,7 @@ namespace Cursed.Character
                 _wallSlide = false;
                 _wasOnWall = true;
                 StartCoroutine("ResetWasOnWall");
+                Destroy(_refWallSlideVfx);
             }
 
             //Reset wall slide
