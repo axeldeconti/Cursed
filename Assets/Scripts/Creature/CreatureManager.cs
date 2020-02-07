@@ -12,7 +12,8 @@ namespace Cursed.Creature
         OnEnemy,
         OnComeBack,
         Chasing,
-        OnPausing
+        OnPausing,
+        GoFromCharacter
     }
 
     public class CreatureManager : MonoBehaviour
@@ -103,7 +104,7 @@ namespace Cursed.Creature
         {
             _movement.Direction = _characterMovement.Side;
 
-            if (_joystick.Direction != Vector2.zero && _joystick.Target != null)
+            if (_joystick.Direction != Vector3.zero && _joystick.Target != null)
                 transform.position = _joystick.Target.GetChild(0).position;
             else
                 transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(4f * _movement.Direction, 0f);
@@ -162,6 +163,9 @@ namespace Cursed.Creature
                         break;
                     
                     case CreatureState.OnPausing:
+                        break;
+
+                    case CreatureState.GoFromCharacter:
                         break;
                 }
             }

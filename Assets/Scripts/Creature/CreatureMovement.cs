@@ -5,7 +5,7 @@ namespace Cursed.Creature
 {
     public class CreatureMovement : MonoBehaviour
     {
-        private Transform playerPosition;
+        private Transform _playerPosition;
 
         private CreatureStats _creatureStats;
         private Rigidbody2D _rb;
@@ -20,7 +20,7 @@ namespace Cursed.Creature
         private void Start()
         {
             //Init referencies
-            playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+            _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
             _creatureStats = GetComponent<CreatureStats>();
             _rb = GetComponent<Rigidbody2D>();
             _creatureManager = GetComponent<CreatureManager>();
@@ -31,16 +31,24 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            if(_creatureManager.CurrentState == CreatureState.OnComeBack) 
-                MoveToTarget(playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+            if (_creatureManager.CurrentState == CreatureState.OnComeBack)
+            {
+                MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                _joystick.Direction = Vector2.zero;
+            }
 
             if (_creatureManager.CurrentState == CreatureState.Moving)
-                if (_joystick.Direction != Vector2.zero)
+                if (_joystick.Direction != Vector3.zero)
                 {
                     RotateToDirection(_joystick.Direction);
                     if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
                     {
                         MoveToDirection(_joystick.Direction);
+                    }
+                    else
+                    {
+                        Debug.Log("Deattach from player");
+                        MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
                 else
@@ -48,16 +56,21 @@ namespace Cursed.Creature
                     RotateToDirection(_direction);
                     if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
                     {
-                        _rb.AddForce(Vector2.left * _direction);
+                        //_rb.AddForce(Vector2.left * _direction);
                         MoveToDirection(_direction);
+                    }
+                    else
+                    {
+                        Debug.Log("Deattach from player");
+                        MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
 
             if(_creatureManager.CurrentState == CreatureState.Chasing)
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
 
-            if (_creatureManager.CurrentState == CreatureState.OnCharacter)
-                MoveToTarget(playerPosition.GetChild(0), 150f);
+            if (_creatureManager.CurrentState == CreatureState.OnCharacter || _creatureManager.CurrentState == CreatureState.GoFromCharacter)
+                MoveToTarget(_playerPosition.GetChild(0), 150f);
 
         }
 

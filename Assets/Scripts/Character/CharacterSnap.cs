@@ -6,6 +6,7 @@ namespace Cursed.Character
     {
         private CharacterMovement _character;
 
+
         private void Awake()
         {
             _character = GetComponentInParent<CharacterMovement>();

@@ -26,7 +26,10 @@ namespace Cursed.Creature
         {
             if (_creature.CurrentState == CreatureState.OnCharacter)
             {
-                _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
+                float mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")).magnitude);
+                if (mag > .9f)
+                    _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
+
                 if (_direction != Vector2.zero && _target == null && _input.ButtonTriggered)
                 {
                     _target = Instantiate(TargetObject, this.transform.position, Quaternion.identity, this.transform);
@@ -47,7 +50,9 @@ namespace Cursed.Creature
                 }
             }
             else
+            {
                 Destroy(_target);
+            }
         }
 
         private void UpdateTargetPosition(Vector2 dir)
@@ -61,7 +66,11 @@ namespace Cursed.Creature
             _target.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
-        public Vector2 Direction => _direction;
+        public Vector3 Direction
+        {
+            get => _direction;
+            set => _direction = value;
+        }
         public Transform Target => _target.transform;
     }
 }
