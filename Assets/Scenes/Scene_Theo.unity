@@ -2026,6 +2026,7 @@ GameObject:
   - component: {fileID: 57903340}
   - component: {fileID: 57903339}
   - component: {fileID: 57903338}
+  - component: {fileID: 57903341}
   m_Layer: 5
   m_Name: CreatureIndicator
   m_TagString: Untagged
@@ -2086,8 +2087,20 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 75}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &57903341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57903337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c2be60cb9ba2154d86714f0e38541bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &58723281
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14506,22 +14519,6 @@ PrefabInstance:
       propertyPath: _indicator
       value: 
       objectReference: {fileID: 1929112809}
-    - target: {fileID: 4416345157102534476, guid: a5025087565816e4b978203d7292944b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6494810293441498829, guid: a5025087565816e4b978203d7292944b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8869791747354272466, guid: a5025087565816e4b978203d7292944b,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -5772121265439924288, guid: 774ca8ec8e33c5d41aeeaa96ce9c3605,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5025087565816e4b978203d7292944b, type: 3}
 --- !u!1001 &398521819

@@ -34,6 +34,8 @@ namespace Cursed.Creature
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
                 MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                RotateToTarget(_playerPosition.GetChild(0));
+
                 _joystick.Direction = Vector2.zero;
             }
 
@@ -47,7 +49,7 @@ namespace Cursed.Creature
                     }
                     else
                     {
-                        Debug.Log("Deattach from player");
+                        RotateToDirection(_joystick.Direction);
                         MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
@@ -61,15 +63,18 @@ namespace Cursed.Creature
                     }
                     else
                     {
-                        Debug.Log("Deattach from player");
+                        RotateToDirection(_direction);
                         MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
 
-            if(_creatureManager.CurrentState == CreatureState.Chasing)
+            if (_creatureManager.CurrentState == CreatureState.Chasing)
+            {
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                RotateToTarget(_creatureSearching.Enemy.GetChild(0));
+            }
 
-            if (_creatureManager.CurrentState == CreatureState.OnCharacter || _creatureManager.CurrentState == CreatureState.GoFromCharacter)
+            if (_creatureManager.CurrentState == CreatureState.OnCharacter)
                 MoveToTarget(_playerPosition.GetChild(0), 150f);
 
         }
@@ -105,7 +110,6 @@ namespace Cursed.Creature
         {
             _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
-            RotateToTarget(target);
         }
 
         private void RotateToDirection(Vector2 direction)
@@ -116,9 +120,10 @@ namespace Cursed.Creature
 
         private void RotateToDirection(int direction)
         {
+            Debug.Log("Rotation");
             if (direction == 1)
                 transform.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
-            else if (direction == -1)
+            else if (direction == -1)   
                 transform.rotation = Quaternion.AngleAxis(180f, Vector3.forward);
         }
 
