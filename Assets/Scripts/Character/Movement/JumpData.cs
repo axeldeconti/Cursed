@@ -2,7 +2,7 @@
 
 namespace Cursed.Character
 {
-    //[CreateAssetMenu(fileName = "New JumpData", menuName = "Character/Jump Data")]
+    [CreateAssetMenu(fileName = "New JumpData", menuName = "Character/Jump Data")]
     public class JumpData : ScriptableObject
     {
         [SerializeField] private float _height = 0f;
