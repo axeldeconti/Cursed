@@ -10,8 +10,10 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxJump;
         [SerializeField] private GameObject _vfxDoubleJump;
         [SerializeField] private GameObject _vfxFall;
-        [SerializeField] private GameObject _vfxWallSlide;
+        [SerializeField] private GameObject _vfxWallSlideSpark;
+        [SerializeField] private GameObject _vfxWallSlideDust;
         [SerializeField] private GameObject _vfxDashSpeed;
+        [SerializeField] private GameObject _vfxDashDust;
 
         private CollisionHandler _coll;
         private CharacterMovement _move;
@@ -66,7 +68,7 @@ namespace Cursed.Character
                 particle.startRotation = 0f;
         }
 
-        public GameObject WallSlideVfx()
+        public GameObject WallSlideSparkVfx()
         {
             Vector3 VfxPosition = transform.position;
             int side = _coll.OnLeftWall ? -20 : 20;
@@ -76,13 +78,31 @@ namespace Cursed.Character
             else
                 VfxPosition += new Vector3(-1.05f, 4.8f, 0f);
 
-            GameObject particle = Instantiate(_vfxWallSlide, VfxPosition, Quaternion.identity, transform);
+            GameObject particle = Instantiate(_vfxWallSlideSpark, VfxPosition, Quaternion.identity, transform);
             ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
             shapeParticle.rotation = new Vector3(0, side, 0);
 
             return particle;
         }
-        public GameObject DashVfx()
+
+        public GameObject WallSlideDustVfx()
+        {
+            Vector3 VfxPosition = transform.position;
+            int side = _coll.OnLeftWall ? 0 : 1;
+
+            if (side == 0)
+                VfxPosition += new Vector3(0.4f, 2.8f, 0f);
+            else
+                VfxPosition += new Vector3(0.4f, 2.8f, 0f);
+
+            GameObject particle = Instantiate(_vfxWallSlideDust, VfxPosition, Quaternion.identity, transform);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, 0, 0);
+
+            return particle;
+        }
+
+        public GameObject DashSpeedVfx()
         {
             Vector3 VfxPosition = transform.position;
             int side = _move.Side == 1 ? 0 : 180;
@@ -92,7 +112,6 @@ namespace Cursed.Character
             else
                 VfxPosition += new Vector3(2f, 1f, 0f);
 
-
             GameObject particle = Instantiate(_vfxDashSpeed, VfxPosition, Quaternion.identity, transform);
             ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
             shapeParticle.rotation = new Vector3(side, -90, 0);
@@ -100,10 +119,26 @@ namespace Cursed.Character
             return particle;
         }
 
+        public GameObject DashDustVfx()
+        {
+            Vector3 VfxPosition = transform.position;
+            int side = _move.Side == 1 ? 0 : 1;
+
+            if (side == 0)
+                VfxPosition += new Vector3(0f, 1.5f, 0f);
+            else
+                VfxPosition += new Vector3(0f, 1.5f, 0f);
+
+            GameObject particle = Instantiate(_vfxDashDust, VfxPosition, Quaternion.identity, transform);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, 0, 0);
+
+            return particle;
+        }
+
         #region Getters & Setters
         public GameObject VfxDoubleJump => _vfxDoubleJump;
         public GameObject VfxFall => _vfxFall;
-        public GameObject VfxWallSlide => _vfxWallSlide;
         #endregion
     }
 }

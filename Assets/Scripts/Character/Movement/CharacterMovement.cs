@@ -23,8 +23,7 @@ namespace Cursed.Character
 
         [Space]
         [Header("Stats Camera Shake")]
-        [SerializeField] private FloatReference _amplGain;
-        [SerializeField] private FloatReference _freqGain;
+        [SerializeField] private ShakeData _shakeDash = null;
 
         [Space]
         [Header("Stats")]
@@ -87,7 +86,9 @@ namespace Cursed.Character
 
         [Space]
         private GameObject _refDashSpeedVfx;
-        private GameObject _refWallSlideVfx;
+        private GameObject _refDashDustVfx;
+        private GameObject _refWallSlideSparkVfx;
+        private GameObject _refWallSlideDustVfx;
 
         void Start()
         {
@@ -156,7 +157,8 @@ namespace Cursed.Character
             _hasWallJumped = false;
 
             _vfx.SpawnVfx(_vfx.VfxFall, transform.position);
-            Destroy(_refWallSlideVfx);
+            Destroy(_refWallSlideSparkVfx);
+            Destroy(_refWallSlideDustVfx);
 
             StopCoroutine("CoyoteTime");
             _isCoyoteTime = false;
@@ -200,6 +202,7 @@ namespace Cursed.Character
             //Set dash cooldown
             _timeToNextDash = Time.time + _dashCooldown;
             Destroy(_refDashSpeedVfx);
+            Destroy(_refDashDustVfx);
         }
 
         private bool CheckIfCanDash()
@@ -456,8 +459,9 @@ namespace Cursed.Character
             if (x != 0)
             {
                 StartCoroutine(Dash(x));
-                _camShake.Shake(_amplGain, _freqGain);
-                _refDashSpeedVfx = _vfx.DashVfx();
+                _camShake.Shake(_shakeDash);
+                _refDashSpeedVfx = _vfx.DashSpeedVfx();
+                _refDashDustVfx = _vfx.DashDustVfx();
             }
         }
 
@@ -484,7 +488,8 @@ namespace Cursed.Character
 
                     //Apply new velocity
                     UpdateVelocity(_currentVelocity.x, _runSpeed * _wallClimbMultiplySpeed);
-                    Destroy(_refWallSlideVfx);
+                    Destroy(_refWallSlideSparkVfx);
+                    Destroy(_refWallSlideDustVfx);
                 }
                 else if (!_coll.OnGround) //Slide on wall
                 {
@@ -492,8 +497,11 @@ namespace Cursed.Character
                     _wallSlide = true;
                     SlideOnWall();
 
-                    if (_refWallSlideVfx == null)
-                        _refWallSlideVfx = _vfx.WallSlideVfx();
+                    if (_refWallSlideSparkVfx == null)
+                        _refWallSlideSparkVfx = _vfx.WallSlideSparkVfx();
+
+                    if (_refWallSlideDustVfx == null)
+                        _refWallSlideDustVfx = _vfx.WallSlideDustVfx();
                 }
             }
         }
@@ -546,7 +554,8 @@ namespace Cursed.Character
                 _wallSlide = false;
                 _wasOnWall = true;
                 StartCoroutine("ResetWasOnWall");
-                Destroy(_refWallSlideVfx);
+                Destroy(_refWallSlideSparkVfx);
+                Destroy(_refWallSlideDustVfx);
             }
 
             //Reset wall slide

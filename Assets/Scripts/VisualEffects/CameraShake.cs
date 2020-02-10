@@ -8,41 +8,22 @@ namespace Cursed.VisualEffect
     public class CameraShake : MonoBehaviour
     {
         private CinemachineImpulseSource _impulseSource;
-        private int _randomVec;
-
 
         private void Awake()
         {
             _impulseSource = GetComponent<CinemachineImpulseSource>();
         }
 
-        void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.G))
-            {
-                Shake(4, 100);
-            }
-        }
-
-        public void Shake (float _amplitudeGain, float _frequencyGain)
+        public void Shake (ShakeData shake)
         {
             Debug.Log("Shake");
-           
-            _randomVec = Random.Range(0, 4);
-            _impulseSource.m_ImpulseDefinition.m_AmplitudeGain = _amplitudeGain;
-            _impulseSource.m_ImpulseDefinition.m_FrequencyGain = _frequencyGain;
 
-            if (_randomVec == 0)
-                _impulseSource.GenerateImpulse(Vector3.up);
+            Vector2 v = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
-            else if (_randomVec == 1)
-                _impulseSource.GenerateImpulse(Vector3.right);
+            _impulseSource.m_ImpulseDefinition.m_AmplitudeGain = shake.AmplitudeGain;
+            _impulseSource.m_ImpulseDefinition.m_FrequencyGain = shake.FrequenceGain;
 
-            else if (_randomVec == 2)
-                _impulseSource.GenerateImpulse(Vector3.down);
-
-            else
-                _impulseSource.GenerateImpulse(Vector3.left);
+            _impulseSource.GenerateImpulse(v);
         }
     }
 }
