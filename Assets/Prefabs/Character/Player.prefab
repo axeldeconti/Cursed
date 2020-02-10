@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5651502876748441792
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7540581594693465452}
-  m_Layer: 0
-  m_Name: SnapPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7540581594693465452
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5651502876748441792}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8498843447298849036}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8498843447298849143
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +17,9 @@ GameObject:
   - component: {fileID: 8498843447298849142}
   - component: {fileID: 8498843447298849025}
   - component: {fileID: 8498843447298849038}
-  - component: {fileID: 7008826730641601197}
+  - component: {fileID: 891322274}
+  - component: {fileID: 891322282}
+  - component: {fileID: 891322275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -65,8 +37,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.27, y: -1.26, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
-  m_Children:
-  - {fileID: 7540581594693465452}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -196,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _state: 0
   _showDebug: 0
+  _shakeDash: {fileID: 11400000, guid: bf5d963f01a03224e9bf031a0001bdc3, type: 2}
+  _onCamShake: {fileID: 11400000, guid: 8a79bf79c1417ee438404cab95d4a731, type: 2}
   _runSpeed:
     UseConstant: 0
     ConstantValue: 4
@@ -313,7 +286,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7008826730641601197
+--- !u!114 &891322274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,17 +295,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 8498843447298849143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd40fd21f91096742ad813a1c3e8cd51, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b820d366cc49574596056431eec54e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 7b75a0f329abf2745b57461432507058, type: 2}
-  _invincibleTime:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  onHealthUpdate: {fileID: 11400000, guid: 4859836420cc5c340a2f67959dce997f, type: 2}
-  onMaxHealthUpdate: {fileID: 11400000, guid: 868fb2563c3987f459bdfd7df0420c6a, type: 2}
-  onDeath: {fileID: 11400000, guid: 52d2b35afe5f55f429615d3d030ad2ad, type: 2}
+--- !u!114 &891322282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91dac45918b5f1149994c223b251ef79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &891322275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06054137b2264a409d06bfd8e87b01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxRun: {fileID: 4088965895379082687, guid: 727c1b55582a73042ad3f1c8678b1043, type: 3}
+  _vfxWallRun: {fileID: 8180102943743448197, guid: a65dc3963cc161945b173e2fdc6f949f,
+    type: 3}
+  _vfxJump: {fileID: 5318427770110259264, guid: 5d4b9bc7bd53e3b41b2e58c16034489a,
+    type: 3}
+  _vfxDoubleJump: {fileID: 8114406786386643903, guid: c7442787a6f372c488cf3572676630c8,
+    type: 3}
+  _vfxFall: {fileID: 4818869912900407256, guid: d13a1e741451391419329692836b7849,
+    type: 3}
+  _vfxWallSlideSpark: {fileID: 1103421733211284317, guid: 5228ec6b0f834d9499da7f23cb56e81a,
+    type: 3}
+  _vfxWallSlideDust: {fileID: 3776477047226201451, guid: b43103f85b340d743a7311e3ad390fc9,
+    type: 3}
+  _vfxDashSpeed: {fileID: 2633979679782619797, guid: 1a76eaf0e4bd6c645bfb5f72bd8d71c4,
+    type: 3}
+  _vfxDashDust: {fileID: 1907876244288169627, guid: 2c78562846af4c748ba44602c2f571e8,
+    type: 3}
