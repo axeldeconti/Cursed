@@ -12,25 +12,30 @@ namespace Cursed.Creature
         private CreatureManager _creatureManager;
         private CreatureSearching _creatureSearching;
         private CreatureJoystickDirection _joystick;
+        private CreatureCollision _collision;
         private Animator _animator;
         private int _direction;
         private float _impulseTimer;
         private bool _alreadyImpulse;
 
+        #region INIT
         private void Start()
         {
-            //Init referencies
+
             _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
             _creatureStats = GetComponent<CreatureStats>();
             _rb = GetComponent<Rigidbody2D>();
             _creatureManager = GetComponent<CreatureManager>();
             _creatureSearching = GetComponent<CreatureSearching>();
             _joystick = GetComponent<CreatureJoystickDirection>();
+            _collision = GetComponentInChildren<CreatureCollision>();
             _animator = GetComponent<Animator>();
         }
+        #endregion
 
         private void Update()
         {
+            #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
                 MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
@@ -38,8 +43,11 @@ namespace Cursed.Creature
 
                 _joystick.Direction = Vector2.zero;
             }
+            #endregion
 
+            #region MOVING
             if (_creatureManager.CurrentState == CreatureState.Moving)
+            {
                 if (_joystick.Direction != Vector3.zero)
                 {
                     RotateToDirection(_joystick.Direction);
@@ -67,33 +75,29 @@ namespace Cursed.Creature
                         MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
+                if(_collision.OnWall)
+                {
+                    Debug.Log("Stop velocity");
+                    _rb.velocity = Vector2.zero;
+                }
+            }
+            #endregion
 
+            #region CHASING
             if (_creatureManager.CurrentState == CreatureState.Chasing)
             {
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
                 RotateToTarget(_creatureSearching.Enemy.GetChild(0));
             }
+            #endregion
 
+            #region ON CHARACTER
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
                 MoveToTarget(_playerPosition.GetChild(0), 150f);
-
+            #endregion
         }
 
-        private void Impulse()
-        {
-            if (!_alreadyImpulse)
-            {
-                _rb.AddForce(_joystick.Direction * 50f, ForceMode2D.Impulse);
-                _alreadyImpulse = true;
-            }
-            else
-            {
-                _rb.velocity = Vector2.zero;
-                MoveToDirection(_joystick.Direction);
-            }
-
-        }
-
+        #region MOVE FUNCTIONS
         public void MoveToDirection(Vector2 direction)
         {
             _rb.velocity = direction * _creatureStats.CurrentMoveSpeedInAir;
@@ -111,7 +115,9 @@ namespace Cursed.Creature
             _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
         }
+        #endregion
 
+        #region ROTATE FUNCTIONS
         private void RotateToDirection(Vector2 direction)
         {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -120,7 +126,6 @@ namespace Cursed.Creature
 
         private void RotateToDirection(int direction)
         {
-            Debug.Log("Rotation");
             if (direction == 1)
                 transform.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
             else if (direction == -1)   
@@ -135,11 +140,20 @@ namespace Cursed.Creature
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
         }
 
-        // GETTERS & SETTERS
+        public void RotateToAngle(float angle)
+        {
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
+        }
+        #endregion
+
+        #region GETTERS & SETTERS
         public int Direction 
         {
             get => _direction;
             set => _direction = value;
         }
+
+        #endregion
     }
 }

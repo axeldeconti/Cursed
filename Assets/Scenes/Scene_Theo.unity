@@ -14457,17 +14457,17 @@ PrefabInstance:
     - target: {fileID: 672938721202977456, guid: a5025087565816e4b978203d7292944b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.3
+      value: -23.67
       objectReference: {fileID: 0}
     - target: {fileID: 672938721202977456, guid: a5025087565816e4b978203d7292944b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 55.94
+      value: 46.03
       objectReference: {fileID: 0}
     - target: {fileID: 672938721202977456, guid: a5025087565816e4b978203d7292944b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672938721202977456, guid: a5025087565816e4b978203d7292944b,
         type: 3}
@@ -14516,9 +14516,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 672938721202977462, guid: a5025087565816e4b978203d7292944b,
         type: 3}
-      propertyPath: _indicator
+      propertyPath: _creatureState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766293629249864647, guid: a5025087565816e4b978203d7292944b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869791747354272466, guid: a5025087565816e4b978203d7292944b,
+        type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1929112809}
+      objectReference: {fileID: -5772121265439924288, guid: 774ca8ec8e33c5d41aeeaa96ce9c3605,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5025087565816e4b978203d7292944b, type: 3}
 --- !u!1001 &398521819
@@ -15101,6 +15112,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 89301675}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &416331569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 672938721202977457, guid: a5025087565816e4b978203d7292944b,
+    type: 3}
+  m_PrefabInstance: {fileID: 396414943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &416331581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416331569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 47b6c4323fd1f79429efc0bb0ac068da, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &416588492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22845,6 +22878,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ProtoPlateform (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 673344929796855633, guid: 04e680f537762714d913d7d428402cdb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e680f537762714d913d7d428402cdb, type: 3}
@@ -44324,12 +44362,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 673344929796855639, guid: 04e680f537762714d913d7d428402cdb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 04e680f537762714d913d7d428402cdb, type: 3}
---- !u!4 &1243250248 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 672938721202977456, guid: a5025087565816e4b978203d7292944b,
-    type: 3}
-  m_PrefabInstance: {fileID: 396414943}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1244589264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 673344929796855632, guid: 04e680f537762714d913d7d428402cdb,
@@ -67709,7 +67741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indicator: {fileID: 21300000, guid: dc7a40d8d7e12ae4591d87c41b05624a, type: 3}
-  targetPosition: {fileID: 1243250248}
   pointerRectTransform: {fileID: 57903340}
 --- !u!1001 &1929673155
 PrefabInstance:
@@ -70068,6 +70099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ProtoPlateform (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 673344929796855633, guid: 04e680f537762714d913d7d428402cdb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e680f537762714d913d7d428402cdb, type: 3}
@@ -74872,6 +74908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ProtoPlateform (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 673344929796855633, guid: 04e680f537762714d913d7d428402cdb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e680f537762714d913d7d428402cdb, type: 3}

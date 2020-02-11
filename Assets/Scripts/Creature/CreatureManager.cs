@@ -13,13 +13,12 @@ namespace Cursed.Creature
         OnComeBack,
         Chasing,
         OnPausing,
-        GoFromCharacter
+        OnWall
     }
 
     public class CreatureManager : MonoBehaviour
     {
         private CharacterMovement _characterMovement;
-        [SerializeField] private CreatureIndicator _indicator;
         [SerializeField] private CreatureState _creatureState;
         private CreatureMovement _movement;
         private CreatureInputController _input;
@@ -46,21 +45,6 @@ namespace Cursed.Creature
             CurrentState = CreatureState.OnComeBack;
 
             CursedDebugger.Instance.Add("State : ",() => CurrentState.ToString());
-
-
-            // INDICATOR
-            /*_indicator.
-            FunctionUpdater.Create(() =>
-            {
-                if (Vector3.Distance(Camera.main.transform.position, this.transform.position) < 5)
-                {
-                    _indicator.Hide();
-                }
-                else
-                {
-                    _indicator.Show(this.transform.position);
-                }
-            });*/
         }
 
 
@@ -91,13 +75,20 @@ namespace Cursed.Creature
 
             if (_input.CreatureOnCharacter || Input.GetButtonDown("Creature"))
             {
-                if(_creatureState == CreatureState.OnCharacter) 
+                if (_creatureState == CreatureState.OnCharacter)
+                {
                     DeAttachFromPlayer();
+                }
             }
-            if(_input.CreatureInAir && _creatureState != CreatureState.OnCharacter)
+            if(_input.CreatureInAir && _creatureState != CreatureState.OnCharacter && _creatureState != CreatureState.OnComeBack && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
                 CurrentState = CreatureState.OnComeBack;
             }
+        }
+
+        public void StopMovement()
+        {
+            
         }
 
         private void DeAttachFromPlayer()
@@ -146,7 +137,7 @@ namespace Cursed.Creature
                     case CreatureState.OnComeBack:
                         // Launch movement to player
                         ToggleChilds(true);
-                        _animator.SetTrigger("Wall");
+                        //_animator.SetTrigger("Wall");
                         _animator.SetBool("Moving", true);
                         break;
                 
@@ -165,7 +156,7 @@ namespace Cursed.Creature
                     case CreatureState.OnPausing:
                         break;
 
-                    case CreatureState.GoFromCharacter:
+                    case CreatureState.OnWall:
                         break;
                 }
             }

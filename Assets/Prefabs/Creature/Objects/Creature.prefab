@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71d4794a96ad5044a8b7e0c95bb8704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _indicator: {fileID: 0}
   _creatureState: 0
   _triggeredTimer:
     UseConstant: 0
@@ -304,7 +303,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: -5772121265439924288, guid: 774ca8ec8e33c5d41aeeaa96ce9c3605,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -387,7 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3d824df53da3642b76cd425d19427b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreatureOnCharacter: {fileID: 3107878127329163696, guid: 2ab846ad64418874cb5097b1b50df5d7,
+  _creatureOnCharacter: {fileID: 3107878127329163696, guid: 2ab846ad64418874cb5097b1b50df5d7,
     type: 3}
-  CreatureOnWall: {fileID: 3164817021948877361, guid: 8af913c0c0ee85a49b150a7555053c63,
+  _creaturePart: {fileID: 3164817021948877361, guid: 8af913c0c0ee85a49b150a7555053c63,
     type: 3}
+  _onWall: {fileID: 11400000, guid: 47b6c4323fd1f79429efc0bb0ac068da, type: 2}

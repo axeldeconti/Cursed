@@ -36,11 +36,12 @@ namespace Cursed.Creature
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     UpdateTargetPosition(_direction);
                 }
-                else if (_direction == Vector2.zero && _target != null)
-                    _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
+                /*else if (_direction == Vector2.zero && _target != null)
+                    _target.GetComponent<CreatureJoystickLine>().LerpSize(true);*/
 
 
                 if (_target != null && _input.ButtonTriggered)
+               
                 {
                     if (_direction != Vector2.zero)
                     {

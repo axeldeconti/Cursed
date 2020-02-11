@@ -9,8 +9,7 @@ namespace Cursed.Creature
     public class CreatureIndicator : MonoBehaviour
     {
         [SerializeField] private Sprite _indicator;
-
-        [SerializeField] private Transform targetPosition;
+        private Transform targetPosition;
         [SerializeField] private RectTransform pointerRectTransform;
         private Image pointerImage;
 
@@ -20,6 +19,7 @@ namespace Cursed.Creature
 
             //pointerRectTransform = GetComponentInChildren<RectTransform>();
             pointerImage = GetComponentInChildren<Image>();
+            targetPosition = GameObject.FindGameObjectWithTag("Creature").transform;
         }
 
         private void Update()
@@ -30,7 +30,6 @@ namespace Cursed.Creature
 
             if (isOffScreen)
             {
-                Debug.Log("Is Offscreen");
                 RotatePointerTowardsTargetPosition();
 
                 pointerImage.color = new Color(pointerImage.color.r, pointerImage.color.g, pointerImage.color.b, 1f);
@@ -73,11 +72,6 @@ namespace Cursed.Creature
         public void Hide()
         {
             gameObject.SetActive(false);
-        }
-
-        public void Show()
-        {
-            gameObject.SetActive(true);
         }
 
         public void Show(Vector3 targetPosition)
