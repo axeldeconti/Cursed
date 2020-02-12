@@ -11,6 +11,8 @@ namespace Cursed.Creature
         private bool _onWall;
         private Vector2 _ricochetDirection;
         private CreatureManager _creatureManager;
+        private Transform _wallCollision;
+        private Vector2 _wallDirection;
 
         void Start()
         {
@@ -65,8 +67,6 @@ namespace Cursed.Creature
                 _onWall = true;
                 //_creatureManager.CurrentState = CreatureState.OnWall;
             }
-            else
-                _onWall = false;
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -92,17 +92,36 @@ namespace Cursed.Creature
 
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
             {
+                _wallDirection = collision.contacts[0].normal;
                 _onWall = true;
-                /*Vector2 v = Vector2.Reflect(transform.right, collision.contacts[0].normal);
-                _ricochetDirection = v;*/
+
+                //_ricochetDirection = v;
+            }
+            else
+                _onWall = false;
+        }
+/*
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+            {
+                _onWall = true;
+                //_creatureManager.CurrentState = CreatureState.OnWall;
             }
         }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            _onWall = false;
+        }*/
 
         #endregion
 
         #region GETTERS
         public bool OnWall => _onWall;
         public Vector2 RicochetDirection => _ricochetDirection;
+        public Transform WallCollision => _wallCollision;
+        public Vector2 WallDirection => _wallDirection;
 
         #endregion
     }

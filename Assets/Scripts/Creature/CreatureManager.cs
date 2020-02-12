@@ -124,6 +124,7 @@ namespace Cursed.Creature
                     case CreatureState.Moving:
                         //ToggleChilds(true);
                         _animator.SetBool("GoToCharacter", false);
+                        _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
                         //_movement.MoveInTheAir = true;
                         break;
@@ -131,13 +132,14 @@ namespace Cursed.Creature
                     case CreatureState.OnCharacter:
                         //ToggleChilds(false);
                         _animator.SetBool("GoToCharacter", true);
+                        _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);
                         break;
                 
                     case CreatureState.OnComeBack:
-                        // Launch movement to player
                         ToggleChilds(true);
                         //_animator.SetTrigger("Wall");
+                        _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
                         break;
                 
@@ -145,11 +147,13 @@ namespace Cursed.Creature
                         //ToggleChilds(false);
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("Moving", false);
+                        _animator.SetBool("OnWall", false);
                         _animator.SetBool("Chasing", false);
                         break;
 
                     case CreatureState.Chasing:
                         _animator.SetBool("GoToCharacter", false);
+                        _animator.SetBool("OnWall", false);
                         _animator.SetBool("Chasing", true);
                         break;
                     
@@ -157,9 +161,19 @@ namespace Cursed.Creature
                         break;
 
                     case CreatureState.OnWall:
+                        _animator.SetBool("OnWall", true);
+                        _animator.SetBool("Moving", false);
+                        _animator.SetBool("Chasing", false);
                         break;
                 }
             }
         }
+
+        #region GETTERS & SETTERS
+
+        public Vector2 DirectionVector => _joystick.Direction;
+        public int DirectionInt => _movement.Direction;
+
+        #endregion
     }
 }

@@ -77,8 +77,10 @@ namespace Cursed.Creature
                 }
                 if(_collision.OnWall)
                 {
-                    Debug.Log("Stop velocity");
+                    RotateToDirection(-_collision.WallDirection);
                     _rb.velocity = Vector2.zero;
+                    _rb.angularVelocity = 0f;
+                    _creatureManager.CurrentState = CreatureState.OnWall;
                 }
             }
             #endregion
