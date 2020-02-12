@@ -19,7 +19,7 @@ namespace Cursed.Creature
         }
         void Update()
         {
-            if (_creature.CurrentState == CreatureState.Moving)
+            if (_creature.CurrentState == CreatureState.Moving  || _creature.CurrentState == CreatureState.OnWall)
                 LaunchTimer();
             else
                 ResetTimer();
