@@ -66,7 +66,8 @@ namespace Cursed.Creature
         private void UpdateTargetRotation(Vector2 direction)
         {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            _target.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _target.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
 
         public Vector3 Direction

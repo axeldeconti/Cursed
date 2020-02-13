@@ -91,7 +91,13 @@ namespace Cursed.Creature
 
             #region ON CHARACTER
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
+            {
                 MoveToTarget(_playerPosition.GetChild(0), 150f);
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else
+                _rb.constraints = RigidbodyConstraints2D.None;
+
             #endregion
         }
 
@@ -127,15 +133,16 @@ namespace Cursed.Creature
         private void RotateToDirection(Vector2 direction)
         {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
 
         private void RotateToDirection(int direction)
         {
             if (direction == 1)
-                transform.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
-            else if (direction == -1)   
-                transform.rotation = Quaternion.AngleAxis(180f, Vector3.forward);
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            else if (direction == -1)
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
 
         private void RotateToTarget(Transform target, bool lerp)
