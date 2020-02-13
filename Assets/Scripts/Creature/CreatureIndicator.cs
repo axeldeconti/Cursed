@@ -24,7 +24,7 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            float borderSize = 100f;
+            float borderSize = 65f;
             Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
             bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
 

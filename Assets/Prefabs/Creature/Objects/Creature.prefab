@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 650134762}
   - component: {fileID: 672938721827946075}
   - component: {fileID: 6328481751874571964}
-  - component: {fileID: 416331581}
   m_Layer: 0
   m_Name: Creature
   m_TagString: Creature
@@ -236,22 +235,6 @@ MonoBehaviour:
   _distanceToPlayer: 2.5
   TargetObject: {fileID: 3240978989420767358, guid: 28b501c1decd287469c88989c6aab8c5,
     type: 3}
---- !u!114 &416331581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672938721202977457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 47b6c4323fd1f79429efc0bb0ac068da, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2123114873831934485
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123114873831934485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6261, y: 0.0231, z: 0}
+  m_LocalPosition: {x: 0.611, y: 0.0231, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 672938721202977456}
@@ -297,10 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.651
+  m_FalloffIntensity: 0.682
   m_Color: {r: 0.6509434, g: 0.095185116, b: 0.48884732, a: 1}
   m_Intensity: 1.84
-  m_LightVolumeOpacity: 0.287
+  m_LightVolumeOpacity: 0.181
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
@@ -311,7 +294,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 0.73
+  m_PointLightOuterRadius: 0.55
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

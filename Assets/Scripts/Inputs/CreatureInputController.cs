@@ -6,35 +6,39 @@ namespace Cursed.Creature
 {
     public class CreatureInputController : MonoBehaviour
     {
-        public bool CreatureOnCharacter { get; private set; }
-        public bool CreatureInAir { get; private set; }
-        private bool hasCalled;
-        private bool _canRecall;
+        private bool _hasCalled;
+        public bool Down { get; private set; }
+        public bool Up { get; private set; }
+        public bool Holding { get; private set; }
 
         void Update()
         {
-
-            if (Input.GetAxis("Creature") > .5f && !CreatureOnCharacter && !hasCalled)
+            if (_hasCalled)
             {
-                hasCalled = true;
-                CreatureInAir = true;
+                Down = false;
             }
 
+            if (Input.GetAxis("Creature") > .5f && !_hasCalled)
+            {
+                Down = true;
+                Holding = true;
+                _hasCalled = true;
+                Up = false;
+            }
             else
             {
-                CreatureOnCharacter = false;
-                CreatureInAir = false;
+                Up = false;
+                Down = false;
             }
 
-
-            if (Input.GetAxis("Creature") < .5f && hasCalled)
+            if(Input.GetAxis("Creature") < .5f && _hasCalled)
             {
-                CreatureOnCharacter = true;
-                hasCalled = false;
-                CreatureInAir = false;
+                Down = false;
+                Holding = false;
+                Up = true;
+                _hasCalled = false;
             }
-        }
 
-        public bool ButtonTriggered => hasCalled;
+        }
     }
 }

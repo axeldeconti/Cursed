@@ -38,11 +38,9 @@ namespace Cursed.Creature
             #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
-                    MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
-                    RotateToTarget(_playerPosition.GetChild(0));
-
-                    _joystick.Direction = Vector2.zero;
-                
+                MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                RotateToTarget(_playerPosition.GetChild(0), false);
+                _joystick.Direction = Vector2.zero;
             }
             #endregion
 
@@ -87,7 +85,7 @@ namespace Cursed.Creature
             if (_creatureManager.CurrentState == CreatureState.Chasing)
             {
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
-                RotateToTarget(_creatureSearching.Enemy.GetChild(0));
+                RotateToTarget(_creatureSearching.Enemy.GetChild(0), false);
             }
             #endregion
 
@@ -140,12 +138,15 @@ namespace Cursed.Creature
                 transform.rotation = Quaternion.AngleAxis(180f, Vector3.forward);
         }
 
-        private void RotateToTarget(Transform target)
+        private void RotateToTarget(Transform target, bool lerp)
         {
             Vector2 direction = target.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
+            if (lerp)
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
+            else
+                transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
 
         public void RotateToAngle(float angle)
