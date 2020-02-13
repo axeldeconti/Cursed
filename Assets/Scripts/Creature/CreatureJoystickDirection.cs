@@ -26,29 +26,36 @@ namespace Cursed.Creature
         {
             if (_creature.CurrentState == CreatureState.OnCharacter)
             {
-                _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
-                if (_direction != Vector2.zero && _target == null && _input.ButtonTriggered)
+                float mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")).magnitude);
+                if (mag > .9f)
+                    _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
+
+                if (_direction != Vector2.zero && _target == null && _input.Holding && !_creature.Recall)
                 {
-                    _target = Instantiate(TargetObject, _direction, Quaternion.identity, this.transform);
+                    _target = Instantiate(TargetObject, this.transform.position, Quaternion.identity, this.transform);
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     UpdateTargetPosition(_direction);
                 }
-                else if (_direction == Vector2.zero && _target != null)
-                    _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
+                /*else if (_direction == Vector2.zero && _target != null)
+                    _target.GetComponent<CreatureJoystickLine>().LerpSize(true);*/
 
 
-                if (_target != null && _input.ButtonTriggered)
+                if (_target != null && _input.Holding)
+
                 {
-                    Debug.Log(_direction);
                     if (_direction != Vector2.zero)
                     {
                         _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                         UpdateTargetRotation(_direction);
                     }
                 }
+                else if (!_input.Holding)
+                    Destroy(_target);
             }
             else
+            {
                 Destroy(_target);
+            }
         }
 
         private void UpdateTargetPosition(Vector2 dir)
@@ -59,10 +66,15 @@ namespace Cursed.Creature
         private void UpdateTargetRotation(Vector2 direction)
         {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            _target.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _target.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
 
-        public Vector2 Direction => _direction;
+        public Vector3 Direction
+        {
+            get => _direction;
+            set => _direction = value;
+        }
         public Transform Target => _target.transform;
     }
 }

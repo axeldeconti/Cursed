@@ -18,7 +18,7 @@ namespace Cursed.Creature
 
         void Update()
         {
-            if(_creatureManager.CurrentState == CreatureState.Moving)
+            if(_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.OnWall)
             {
                 RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, _radius, new Vector2(0f,0f));
                 foreach (RaycastHit2D hit in obj)
