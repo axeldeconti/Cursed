@@ -1,60 +1,107 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Cursed.Utilities;
 
 namespace Cursed.Creature
 {
     public class CreatureMovement : MonoBehaviour
     {
-        private Transform playerPosition;
+        private Transform _playerPosition;
 
         private CreatureStats _creatureStats;
         private Rigidbody2D _rb;
         private CreatureManager _creatureManager;
         private CreatureSearching _creatureSearching;
         private CreatureJoystickDirection _joystick;
+        private CreatureCollision _collision;
         private Animator _animator;
         private int _direction;
+        private float _impulseTimer;
+        private bool _alreadyImpulse;
 
+        #region INIT
         private void Start()
         {
-            //Init referencies
-            playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+
+            _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
             _creatureStats = GetComponent<CreatureStats>();
             _rb = GetComponent<Rigidbody2D>();
             _creatureManager = GetComponent<CreatureManager>();
             _creatureSearching = GetComponent<CreatureSearching>();
             _joystick = GetComponent<CreatureJoystickDirection>();
+            _collision = GetComponentInChildren<CreatureCollision>();
             _animator = GetComponent<Animator>();
         }
+        #endregion
 
         private void Update()
         {
-            if(_creatureManager.CurrentState == CreatureState.OnComeBack) 
-                MoveToTarget(playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+            #region COME BACK
+            if (_creatureManager.CurrentState == CreatureState.OnComeBack)
+            {
+                MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                RotateToTarget(_playerPosition.GetChild(0), false);
+                _joystick.Direction = Vector2.zero;
+            }
+            #endregion
 
+            #region MOVING
             if (_creatureManager.CurrentState == CreatureState.Moving)
-                if (_joystick.Direction != Vector2.zero)
+            {
+                if (_joystick.Direction != Vector3.zero)
                 {
                     RotateToDirection(_joystick.Direction);
                     if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                    {
                         MoveToDirection(_joystick.Direction);
+                    }
+                    else
+                    {
+                        RotateToDirection(_joystick.Direction);
+                        MoveToTarget(_playerPosition.GetChild(0), 150f);
+                    }
                 }
                 else
                 {
                     RotateToDirection(_direction);
-                    if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                    if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                    {
+                        //_rb.AddForce(Vector2.left * _direction);
                         MoveToDirection(_direction);
+                    }
+                    else
+                    {
+                        RotateToDirection(_direction);
+                        MoveToTarget(_playerPosition.GetChild(0), 150f);
+                    }
                 }
+                if(_collision.OnWall)
+                {
+                    StuckOnWall();
+                }
+            }
+            #endregion
 
-            if(_creatureManager.CurrentState == CreatureState.Chasing)
+            #region CHASING
+            if (_creatureManager.CurrentState == CreatureState.Chasing)
+            {
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                RotateToTarget(_creatureSearching.Enemy.GetChild(0), false);
+            }
+            #endregion
 
+            #region ON CHARACTER
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
-                MoveToTarget(playerPosition.GetChild(0), 50f);
+            {
+                MoveToTarget(_playerPosition.GetChild(0), 150f);
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else
+                _rb.constraints = RigidbodyConstraints2D.None;
 
+            #endregion
         }
 
+        #region MOVE FUNCTIONS
         public void MoveToDirection(Vector2 direction)
         {
             _rb.velocity = direction * _creatureStats.CurrentMoveSpeedInAir;
@@ -71,36 +118,58 @@ namespace Cursed.Creature
         {
             _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
-            RotateToTarget(target);
         }
 
+        public void StuckOnWall()
+        {
+            RotateToDirection(-_collision.WallDirection);
+            _rb.velocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
+            _creatureManager.CurrentState = CreatureState.OnWall;
+        }
+        #endregion
+
+        #region ROTATE FUNCTIONS
         private void RotateToDirection(Vector2 direction)
         {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
 
         private void RotateToDirection(int direction)
         {
             if (direction == 1)
-                transform.rotation = Quaternion.AngleAxis(0f, Vector3.forward);
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             else if (direction == -1)
-                transform.rotation = Quaternion.AngleAxis(180f, Vector3.forward);
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
 
-        private void RotateToTarget(Transform target)
+        private void RotateToTarget(Transform target, bool lerp)
         {
             Vector2 direction = target.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
+            if (lerp)
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
+            else
+                transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
 
-        // GETTERS & SETTERS
+        public void RotateToAngle(float angle)
+        {
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 20f * Time.deltaTime);
+        }
+        #endregion
+
+        #region GETTERS & SETTERS
         public int Direction 
         {
             get => _direction;
             set => _direction = value;
         }
+
+        #endregion
     }
 }

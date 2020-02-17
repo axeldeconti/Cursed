@@ -9,7 +9,7 @@ namespace Cursed.Utilities
 
         private CinemachineVirtualCamera _camera;
         private float _initialZoom;
-        [SerializeField] private float _maxZoom = 18f;
+        [SerializeField] private float _maxZoom = 22f;
         [SerializeField] private float _zoomInSpeed = 1f;
         [SerializeField] private float _zoomOutSpeed = .5f;
 
