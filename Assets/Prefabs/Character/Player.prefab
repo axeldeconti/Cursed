@@ -64,6 +64,9 @@ GameObject:
   - component: {fileID: 891322282}
   - component: {fileID: 891322275}
   - component: {fileID: 6372599424827532057}
+  - component: {fileID: 6224252028330842599}
+  - component: {fileID: 8422201119635614642}
+  - component: {fileID: 8905784529217091692}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -407,3 +410,43 @@ MonoBehaviour:
   onHealthUpdate: {fileID: 11400000, guid: 4859836420cc5c340a2f67959dce997f, type: 2}
   onMaxHealthUpdate: {fileID: 11400000, guid: 868fb2563c3987f459bdfd7df0420c6a, type: 2}
   onDeath: {fileID: 11400000, guid: 52d2b35afe5f55f429615d3d030ad2ad, type: 2}
+--- !u!114 &6224252028330842599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed948f28ee4ac744b2ebd4165c7b487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseStats: {fileID: 11400000, guid: 9fa45251b0514fb41a04c29378dcf6b4, type: 2}
+--- !u!114 &8422201119635614642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1908b359be6614e955e1422d077989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapon1: {fileID: 0}
+  _weapon2: {fileID: 0}
+--- !u!114 &8905784529217091692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decb69cc63ab5e74ba5fd584a92b7876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _divekickAttack: {fileID: 0}

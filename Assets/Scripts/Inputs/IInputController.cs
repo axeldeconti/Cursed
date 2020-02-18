@@ -11,6 +11,7 @@
         bool HoldJump { get; }
         BoolBuffer Dash { get; }
         bool HoldRightTrigger { get; }
-        bool Attack { get; }
+        bool Attack_1 { get; }
+        bool Attack_2 { get; }
     }
 }

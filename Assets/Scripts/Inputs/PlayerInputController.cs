@@ -12,7 +12,8 @@ namespace Cursed.Character
         public bool HoldJump { get; private set; }
         public BoolBuffer Dash { get; private set; }
         public bool HoldRightTrigger { get; private set; }
-        public bool Attack { get; private set; }
+        public bool Attack_1 { get; private set; }
+        public bool Attack_2 { get; private set; }
 
         private bool _hasDashed = false;
 
@@ -55,7 +56,8 @@ namespace Cursed.Character
             }
 
             //Input for player attack
-            Attack = Input.GetButtonDown("Attack");
+            Attack_1 = Input.GetButtonDown("Attack_1");
+            Attack_2 = Input.GetButtonDown("Attack_2");
 
         }
     }

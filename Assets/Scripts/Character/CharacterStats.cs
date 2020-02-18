@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cursed.Item;
-using Cursed.Combat;
 
 namespace Cursed.Character
 {
-    [RequireComponent(typeof(HealthManager)), RequireComponent(typeof(Inventory))]
+    [RequireComponent(typeof(HealthManager))]
     public class CharacterStats : MonoBehaviour
     {
         [SerializeField] private CharacterStats_SO _baseStats = null;

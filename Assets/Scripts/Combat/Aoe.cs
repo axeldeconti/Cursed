@@ -30,9 +30,8 @@ namespace Cursed.Combat
 
                 // create attack and send it to the attackable behaviors of our collision
                 var casterStats = Caster.GetComponent<CharacterStats>();
-                var collisionStats = collisionGo.GetComponent<CharacterStats>();
 
-                var attack = CreateAttack(casterStats, collisionStats);
+                var attack = CreateAttack(casterStats);
 
                 var attackables = collisionGo.GetComponentsInChildren(typeof(IAttackable));
                 foreach (IAttackable a in attackables)
