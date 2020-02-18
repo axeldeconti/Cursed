@@ -16,9 +16,14 @@ namespace Cursed.Character
         private void Update()
         {
             if(_character.Side == 1)
-                this.transform.position = new Vector3(this.transform.position.x + .1f, this.transform.position.y, this.transform.position.z);
+                this.transform.localPosition = new Vector3(.15f, this.transform.localPosition.y, this.transform.localPosition.z);
             else if(_character.Side == -1)
-                this.transform.position = new Vector3(this.transform.position.x - .1f, this.transform.position.y, this.transform.position.z);
+                this.transform.localPosition = new Vector3(-.15f, this.transform.localPosition.y, this.transform.localPosition.z);
+            
+            if(_character.State == CharacterMovementState.Idle)
+                this.transform.localPosition = new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z);
+
+
         }
 
     }
