@@ -54,7 +54,7 @@ namespace Cursed.Character
             _anim.SetBool(_isWallSliding, _move.WallSlide);
             _anim.SetBool(_isAttacking, _atttack.IsAttacking);
 
-            if (_move.IsDashing)
+            if(_move.IsDashing)
                 _anim.SetFloat(_moveSpeedX, 20f);
             else
                 _anim.SetFloat(_moveSpeedX, Mathf.Abs(_move.XSpeed));
@@ -78,7 +78,7 @@ namespace Cursed.Character
             bool state = (side == 1) ? false : true;
             _renderer.flipX = state;
 
-            if (state == !prevState && Mathf.Abs(_move.XSpeed) > 4)
+            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 4)
                 _anim.SetTrigger(_decelerationTrigger);
         }
 
@@ -88,7 +88,7 @@ namespace Cursed.Character
         /// <param name="weapon">Weapon name to attack with</param>
         public void LaunchAttack(int weaponType)
         {
-            _anim.SetInteger(_weaponType, weaponType);
+            _anim.SetFloat(_weaponType, weaponType);
         }
     }
 }

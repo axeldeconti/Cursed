@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Cursed.Combat;
+using System;
 using UnityEngine;
 
 namespace Cursed.Character
 {
     public class CollisionHandler : MonoBehaviour
     {
+        private CharacterAttackManager _attack;
+
         [Space]
         [Header("Layers")]
         [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private LayerMask _ennemyLayer;
 
         [Space]
         [Header("Booleans")]
@@ -27,8 +31,11 @@ namespace Cursed.Character
         [SerializeField] private Vector2 _bottomOffset, _rightOffset, _leftOffset;
         private Color _debugCollisionColor = Color.red;
 
+
         public Action OnGrounded;
         public Action OnWalled;
+
+        private void Start() => _attack = GetComponent<CharacterAttackManager>();
 
         private void FixedUpdate()
         {
@@ -59,7 +66,18 @@ namespace Cursed.Character
             _wallSide = _onRightWall ? -1 : 1;
         }
 
-        void OnDrawGizmos()
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(!_onGround && !_onWall && _attack.IsDiveKicking)
+            {
+                var attackables = collision.gameObject.GetComponentInChildren<IAttackable>();
+
+                if (attackables != null)
+                    _attack.DiveKickAttack(collision.gameObject);
+            }
+        }
+
+        private void OnDrawGizmos()
         {
             //Draw red circles at the collision locations
             Gizmos.color = _debugCollisionColor;

@@ -75,6 +75,8 @@ namespace Cursed.Character
                 //Become invincible
                 StartInvincibility(_invincibleTime);
 
+                Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
+
                 //Play sound, vfx and animation
                 //Do something if critical
             }

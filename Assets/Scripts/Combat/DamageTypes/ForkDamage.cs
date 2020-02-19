@@ -18,7 +18,7 @@ namespace Cursed.Combat
 
         public override int GetDamages()
         {
-            return Random.Range(_minDamage, _maxDamage);
+            return Random.Range(_minDamage, _maxDamage + 1);
         }
 
         public int MinDamage { get => _minDamage; set => _minDamage.Value = value; }
