@@ -8,6 +8,7 @@ namespace Cursed.Character
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(AnimationHandler))]
     [RequireComponent(typeof(HealthManager))]
+    [RequireComponent(typeof(CharacterAttackManager))]
     public class CharacterMovement : MonoBehaviour
     {
         private CollisionHandler _coll = null;
@@ -15,6 +16,7 @@ namespace Cursed.Character
         private AnimationHandler _anim = null;
         private VfxHandler _vfx = null;       
         private HealthManager _healthManager = null;
+        private CharacterAttackManager _attackManager = null;
         private IInputController _input = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
@@ -52,6 +54,11 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _coyoteTime;
 
         [Space]
+        [Header("Dive kick")]
+        [SerializeField] private Vector2 _diveKickDirection = Vector2.zero;
+        [SerializeField] private FloatReference _diveKickSpeed = null;
+
+        [Space]
         [Header("Booleans")]
         [SerializeField] private bool _canMove = true;
         [SerializeField] private bool _isJumping = false;
@@ -62,6 +69,7 @@ namespace Cursed.Character
         [SerializeField] private bool _wallRun = false;
         [SerializeField] private bool _isDashing = false;
         [SerializeField] private bool _canDash = false;
+        [SerializeField] private bool _isDiveKicking = false;
         [SerializeField] private bool _isInvincible = false;
 
         [Space]
@@ -79,6 +87,7 @@ namespace Cursed.Character
         private Vector2 _vel = Vector2.zero;
         private float _timeToNextDash = 0f;
         private bool _isCoyoteTime;
+        private float _lastX;
 
         [Space]
         private float _currentGravity = 0f;
@@ -90,13 +99,15 @@ namespace Cursed.Character
         private GameObject _refWallSlideSparkVfx;
         private GameObject _refWallSlideDustVfx;
 
-        void Start()
+        private void Start()
         {
             _coll = GetComponent<CollisionHandler>();
             _rb = GetComponent<Rigidbody2D>();
+            _anim = GetComponent<AnimationHandler>();
             _anim = GetComponentInChildren<AnimationHandler>();
             _vfx = GetComponent<VfxHandler>();
             _healthManager = GetComponent<HealthManager>();
+            _attackManager = GetComponent<CharacterAttackManager>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
             _coll.OnWalled += ResetIsJumping;
@@ -114,25 +125,28 @@ namespace Cursed.Character
         private void Update()
         {
             //Get input
-            float x = _input.x;
+            float x = _isDiveKicking ? _lastX : _input.x;
             float y = _input.y;
 
             UpdateBools();
             UpdateWallGrab(x, y);
             UpdateJump();
             UpdateDash(x);
+            UpdateDiveKick();
             UpdateFlip(Mathf.Abs(x) <= .1f ? _currentVelocity.x : x);
 
             //Set current velocity
             _currentVelocity = _rb.velocity;
 
             UpdateState();
+
+            _lastX = x;
         }
 
         private void FixedUpdate()
         {
             //Get input
-            float x = _input.x;
+            float x = _isDiveKicking ? _lastX : _input.x;
             float y = _input.y;
 
             UpdateGravity();
@@ -337,6 +351,10 @@ namespace Cursed.Character
             if (_wallGrab || !_coll.OnGround)
                 return;
 
+            //Don't need to walk if wall attacking
+            if (_attackManager.IsAttacking)
+                return;
+
             Walk(x);           
         }
 
@@ -363,6 +381,9 @@ namespace Cursed.Character
         private void UpdateJump()
         {
             if (!_input.Jump.Value)
+                return;
+
+            if (_attackManager.IsAttacking)
                 return;
 
             _jumpWasPressed = true;
@@ -434,6 +455,10 @@ namespace Cursed.Character
             {
                 //Fast fall
                 _currentGravity = _fastFall.Gravity(_runSpeed);
+
+                //No gravity  when dive kicking
+                if (_isDiveKicking)
+                    _currentGravity = 0;
             }
 
             ////Wall climb
@@ -451,6 +476,9 @@ namespace Cursed.Character
             _canDash = !_isDashing && (Time.time >= _timeToNextDash);
 
             if (!CheckIfCanDash())
+                return;
+
+            if (_attackManager.IsAttacking)
                 return;
 
             if (!_input.Dash.Value || !_canDash || !_groundTouch || !_dashUnlock)
@@ -533,6 +561,17 @@ namespace Cursed.Character
                 if (_coll.OnLeftWall)
                     Walk(0);
             }
+        }
+
+        private void UpdateDiveKick()
+        {
+            if(_attackManager.IsDiveKicking && !_isDiveKicking)
+            {
+                //Just dive kick
+                UpdateVelocity(_diveKickDirection.x * _side * _diveKickSpeed, _diveKickDirection.y * _diveKickSpeed);
+            }
+
+            _isDiveKicking = _attackManager.IsDiveKicking;
         }
 
         /// <summary>

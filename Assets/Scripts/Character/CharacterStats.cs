@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Cursed.Item;
 
 namespace Cursed.Character
 {
@@ -11,7 +10,6 @@ namespace Cursed.Character
         [SerializeField] private CharacterStats_SO _baseStats = null;
 
         private HealthManager _healthMgr  = null;
-        private Inventory _inventory = null;
         private Dictionary<Stat, float> _statModifier = null;
 
         #region Initializer
@@ -19,7 +17,6 @@ namespace Cursed.Character
         private void Start()
         {
             _healthMgr = GetComponent<HealthManager>();
-            _inventory = GetComponent<Inventory>();
 
             //Init modifiers dico
             _statModifier = new Dictionary<Stat, float>();

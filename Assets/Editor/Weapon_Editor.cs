@@ -31,6 +31,7 @@ namespace Cursed.Combat
             //Attack definition
             GUILayout.Space(10);
             GUILayout.Label("Data", EditorStyles.boldLabel);
+            _weapon.WeaponType = (WeaponType)EditorGUILayout.EnumPopup("Type", _weapon.WeaponType);
             _weapon.Cooldown = EditorGUILayout.FloatField("Cooldown", _weapon.Cooldown);
 
             GUILayout.Space(10);
@@ -51,6 +52,7 @@ namespace Cursed.Combat
             _weapon.CriticalMultiplier = EditorGUILayout.FloatField("Critical Multiplier", _weapon.CriticalMultiplier);
             _weapon.CriticalChance = EditorGUILayout.FloatField("Critical Chance", _weapon.CriticalChance);
 
+            EditorUtility.SetDirty(_weapon);
             _object.ApplyModifiedProperties();
         }
     }

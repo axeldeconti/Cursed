@@ -10,13 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1acab9fe115fa48a37e6be5436b40e, type: 3}
-  m_Name: TestWeapon
+  m_Name: TestWeapon02
   m_EditorClassIdentifier: 
-  _name: New Item
+  _name: Test Weapon 02
   _type: 0
   _spawnChanceWeight: 0
-  _cooldown: 1
-  _damageType: {fileID: 11400000, guid: f8577b8c7e86f714f9317aa7b7580334, type: 2}
-  _criticalMultiplier: 1.5
-  _criticalChance: 0.1
+  _cooldown:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _damageType: {fileID: 11400000, guid: 7887d58858e194f4fa7d6f75c4f14ab1, type: 2}
+  _criticalMultiplier:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _criticalChance:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   _weaponPrefab: {fileID: 0}
+  _weaponType: 2
