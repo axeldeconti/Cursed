@@ -38,9 +38,18 @@ namespace Cursed.Creature
             #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
-                MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
-                RotateToTarget(_playerPosition.GetChild(0), false);
-                _joystick.Direction = Vector2.zero;
+                if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromWall")
+                {
+                    RotateToTarget(_playerPosition.GetChild(0), false);
+                    MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                    _joystick.Direction = Vector2.zero;
+                }
+                else
+                {
+                    RotateToDirection(_collision.WallDirection);
+                    _rb.velocity = Vector2.zero;
+                    _rb.angularVelocity = 0f;
+                }
             }
             #endregion
 
