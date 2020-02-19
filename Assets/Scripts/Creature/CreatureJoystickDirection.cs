@@ -44,7 +44,7 @@ namespace Cursed.Creature
                     }
                 }
 
-                if (_direction != Vector2.zero && _target == null && _input.Holding && !_creature.Recall)
+                if (_direction != Vector2.zero && _target == null && !_creature.Recall)
                 {
                     _target = Instantiate(TargetObject, this.transform.position, Quaternion.identity, this.transform);
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
@@ -54,7 +54,7 @@ namespace Cursed.Creature
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(true);*/
 
 
-                if (_target != null && _input.Holding)
+                if (_target != null)
 
                 {
                     if (_direction != Vector2.zero)
@@ -63,8 +63,8 @@ namespace Cursed.Creature
                         UpdateTargetRotation(_direction);
                     }
                 }
-                else if (!_input.Holding)
-                    Destroy(_target);
+                /*else if (!_input.Holding)
+                    Destroy(_target);*/
             }
             else
             {

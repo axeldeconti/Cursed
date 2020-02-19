@@ -60,7 +60,7 @@ namespace Cursed.Creature
         private void UpdateInput()
         {
             #region LAUNCH & RECALL
-            if (_input.Up)
+            if (_input.Down)
             {
                 if (_recall)
                     _recall = false;
@@ -77,7 +77,7 @@ namespace Cursed.Creature
 
             #region HOLDING CAMERA ZOOM
 
-            if (_input.Holding)
+            /*if (_input.Holding)
             {
                 if (_creatureState == CreatureState.OnCharacter)
                 {
@@ -96,7 +96,7 @@ namespace Cursed.Creature
                     CameraZoomController.Instance.Zoom(true);
             }
             else
-                CameraZoomController.Instance.Zoom(true);
+                CameraZoomController.Instance.Zoom(true);*/
             #endregion
         }
 
