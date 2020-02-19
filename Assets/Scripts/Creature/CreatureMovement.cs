@@ -92,7 +92,7 @@ namespace Cursed.Creature
             #region ON CHARACTER
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
             {
-                MoveToTarget(_playerPosition.GetChild(0), 150f);
+                MoveToTargetPosition(_playerPosition.position + new Vector3(0f, 2.5f, 0f), 150f);
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
             else
@@ -118,6 +118,12 @@ namespace Cursed.Creature
         {
             _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
+        }
+
+        public void MoveToTargetPosition(Vector3 target, float speed)
+        {
+            _rb.velocity = new Vector2(0f, 0f);
+            transform.position = Vector3.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
         }
 
         public void StuckOnWall()

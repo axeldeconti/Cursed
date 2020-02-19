@@ -27,11 +27,10 @@ namespace Cursed.Creature
 
         public event System.Action OnChangingState;
 
-        [SerializeField] private FloatReference _triggeredTimer;
-        private float _currentTriggeredTimer;
+        [SerializeField] private FloatReference _timeBeforeZoom;
+        private float _currentTimerBeforeZoom;
 
         private bool _canRecall = false;
-        [SerializeField] private bool _recall = false;
 
         private void Start() => Initialize();
 
@@ -54,50 +53,49 @@ namespace Cursed.Creature
         private void Update()
         {
             UpdateInput();
-            
+            CameraZoom();
         }
 
         private void UpdateInput()
         {
             #region LAUNCH & RECALL
             if (_input.Down)
-            {
-                if (_recall)
-                    _recall = false;
-                else
-                    DeAttachFromPlayer();
-            }
+                DeAttachFromPlayer();
 
             if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
-            {
                 CurrentState = CreatureState.OnComeBack;
-                _recall = true;
-            }
             #endregion
+        }
 
-            #region HOLDING CAMERA ZOOM
-
-            /*if (_input.Holding)
+        private void CameraZoom()
+        {
+            if (_creatureState == CreatureState.OnCharacter)
             {
-                if (_creatureState == CreatureState.OnCharacter)
+
+                if (_characterMovement.State == CharacterMovementState.Idle)
                 {
-                    if (!_recall)
+                    if (_joystick.Direction != Vector3.zero)
                     {
-                        CameraZoomController.Instance.Zoom(false);
-                        _currentTriggeredTimer += Time.deltaTime;
-                        if (_currentTriggeredTimer >= _triggeredTimer.Value)
+                        _currentTimerBeforeZoom += Time.deltaTime;
+                        if (_currentTimerBeforeZoom >= _timeBeforeZoom)
                         {
-                            _currentTriggeredTimer = 0f;
-                            DeAttachFromPlayer();
+                            CameraZoomController.Instance.Zoom(false);
                         }
                     }
+                    else
+                        ResetZoom();
                 }
                 else
-                    CameraZoomController.Instance.Zoom(true);
+                    ResetZoom();
             }
             else
-                CameraZoomController.Instance.Zoom(true);*/
-            #endregion
+                ResetZoom();
+        }
+
+        private void ResetZoom()
+        {
+            _currentTimerBeforeZoom = 0f;
+            CameraZoomController.Instance.Zoom(true);
         }
 
         private void DeAttachFromPlayer()
@@ -200,7 +198,6 @@ namespace Cursed.Creature
 
         public Vector2 DirectionVector => _joystick.Direction;
         public int DirectionInt => _movement.Direction;
-        public bool Recall => _recall;
 
         #endregion
     }
