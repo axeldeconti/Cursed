@@ -82,8 +82,6 @@ namespace Cursed.Character
             //Draw red circles at the collision locations
             Gizmos.color = _debugCollisionColor;
 
-            var positions = new Vector2[] { _bottomOffset, _rightOffset, _leftOffset };
-
             Gizmos.DrawWireSphere((Vector2)transform.position + _bottomOffset, _collisionRadius);
             Gizmos.DrawWireSphere((Vector2)transform.position + _rightOffset, _collisionRadius);
             Gizmos.DrawWireSphere((Vector2)transform.position + _leftOffset, _collisionRadius);

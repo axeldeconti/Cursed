@@ -9,6 +9,7 @@ namespace Cursed.Character
     [RequireComponent(typeof(AnimationHandler))]
     [RequireComponent(typeof(HealthManager))]
     [RequireComponent(typeof(CharacterAttackManager))]
+    [RequireComponent(typeof(CapsuleCollider2D))]
     public class CharacterMovement : MonoBehaviour
     {
         private CollisionHandler _coll = null;
@@ -17,6 +18,7 @@ namespace Cursed.Character
         private VfxHandler _vfx = null;       
         private HealthManager _healthManager = null;
         private CharacterAttackManager _attackManager = null;
+        private CapsuleCollider2D _capsuleCollider = null;
         private IInputController _input = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
@@ -42,6 +44,8 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _dashDistance;
         [SerializeField] private FloatReference _dashTime;
         [SerializeField] private FloatReference _dashCooldown;
+        [SerializeField] private Vector2 _upFrontRaycastOffset = Vector2.zero;
+        [SerializeField] private Vector2 _upBackRaycastOffset = Vector2.zero;
 
         [Space]
         [Header("Jump")]
@@ -108,6 +112,7 @@ namespace Cursed.Character
             _vfx = GetComponent<VfxHandler>();
             _healthManager = GetComponent<HealthManager>();
             _attackManager = GetComponent<CharacterAttackManager>();
+            _capsuleCollider = GetComponent<CapsuleCollider2D>();
             _input = GetComponent<IInputController>();
             _coll.OnGrounded += ResetIsJumping;
             _coll.OnWalled += ResetIsJumping;
@@ -115,6 +120,7 @@ namespace Cursed.Character
             _groundTouch = true;
             _canStillJump = true;
             _wasOnWall = false;
+            _side = 1;
 
             if (_showDebug)
             {
@@ -195,23 +201,36 @@ namespace Cursed.Character
             if (_healthManager)
                 _healthManager.StartInvincibility(_dashInvincibilityTime);
 
-            float dashTimer = _dashTime;
-            float deltaDist = _side * _dashDistance * 10 * (1 / (float)GameSettings.FRAME_RATE) / _dashTime;
-            float newX = 0f;
+            //Change capsule collider values
+            Vector2 capsuleOffset = _capsuleCollider.offset;
+            Vector2 capsuleSize = _capsuleCollider.size;
+            _capsuleCollider.offset = new Vector2(_capsuleCollider.offset.x, 0.16f);
+            _capsuleCollider.size = new Vector2(_capsuleCollider.size.x, 0.31f);
 
-            while(dashTimer >= 0)
+            //Create variables for the dash
+            float dashTimer = _dashTime;
+            float deltaDist = 0;
+            float newX = 0f;
+            bool forceToContinu = false;
+            int side = _side;
+
+            while (dashTimer >= 0 || forceToContinu)
             {
                 if (!CheckIfCanDash())
                     break;
 
+                deltaDist = side * _dashDistance * 10 * (1 / (float)GameManager.FPS) / _dashTime;
                 newX = transform.position.x + deltaDist;
                 transform.position = new Vector2(newX, transform.position.y);
                 dashTimer -= Time.deltaTime;
+                UpdateForceToContinu(ref forceToContinu);
                 yield return new WaitForEndOfFrame();
             }
 
-            //Reset bools
+            //Reset values
             StartCoroutine("ResetValuesOnAfterDash");
+            _capsuleCollider.offset = capsuleOffset;
+            _capsuleCollider.size = capsuleSize;
 
             //Set dash cooldown
             _timeToNextDash = Time.time + _dashCooldown;
@@ -219,9 +238,17 @@ namespace Cursed.Character
             Destroy(_refDashDustVfx);
         }
 
+        private void UpdateForceToContinu(ref bool forceToContinu)
+        {
+            int i = Physics2D.RaycastAll(_upFrontRaycastOffset + (Vector2)transform.position, Vector2.up, 3f, LayerMask.GetMask("Ground")).Length;
+            int j = Physics2D.RaycastAll(_upBackRaycastOffset + (Vector2)transform.position, Vector2.up, 3f, LayerMask.GetMask("Ground")).Length;
+
+            forceToContinu = (i + j) != 0;
+        }
+
         private bool CheckIfCanDash()
         {
-            int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position, _side * Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
+            int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position,Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
 
             bool canDash = i == 0;
 
@@ -347,8 +374,8 @@ namespace Cursed.Character
             if (!_canMove)
                 return;
 
-            //Don't need to walk if wall grabbing of in the air
-            if (_wallGrab || !_coll.OnGround)
+            //Don't need to walk if wall grabbing or in the air of dashing
+            if (_wallGrab || !_coll.OnGround || _isDashing)
                 return;
 
             //Don't need to walk if wall attacking
@@ -484,9 +511,11 @@ namespace Cursed.Character
             if (!_input.Dash.Value || !_canDash || !_groundTouch || !_dashUnlock)
                 return;
 
-            if (x != 0)
+            float dir = x > 0.2f ? x : _side;
+
+            if (dir != 0)
             {
-                StartCoroutine(Dash(x));
+                StartCoroutine(Dash(dir));
                 _onCamShake?.Raise(_shakeDash);
                 _refDashSpeedVfx = _vfx.DashSpeedVfx();
                 _refDashDustVfx = _vfx.DashDustVfx();
@@ -540,7 +569,7 @@ namespace Cursed.Character
         private void UpdateFlip(float x)
         {
             //Return if the character can't flip 
-            if (_wallGrab || _wallSlide || !_canMove)
+            if (_wallGrab || _wallSlide || !_canMove || _isDashing)
                 return;
 
             if (x > .1f)
@@ -702,6 +731,16 @@ namespace Cursed.Character
             _canMove = false;
             yield return new WaitForSeconds(time);
             _canMove = true;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!_showDebug)
+                return;
+
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine((Vector2)transform.position + _upFrontRaycastOffset, (Vector2)transform.position + _upFrontRaycastOffset + Vector2.up * 3);
+            Gizmos.DrawLine((Vector2)transform.position + _upBackRaycastOffset, (Vector2)transform.position + _upBackRaycastOffset + Vector2.up * 3);
         }
 
         #region Getters & Setters

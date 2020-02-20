@@ -97,7 +97,6 @@ namespace Cursed.Character
         /// </summary>
         private void RunAttack()
         {
-            Debug.Log("Run attack");
             _isAttacking = true;
         }
 
@@ -106,7 +105,6 @@ namespace Cursed.Character
         /// </summary>
         private void DiveKick()
         {
-            Debug.Log("Dive Kicku");
             _isAttacking = true;
             _isDiveKicking = true;
         }
