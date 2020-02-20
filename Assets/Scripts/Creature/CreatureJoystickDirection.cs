@@ -37,10 +37,10 @@ namespace Cursed.Creature
 
                     if (_playerCollision.OnGround)
                     {
-                        if (angle < -90f && angle > -165)
-                            _direction = new Vector2(Mathf.Cos(-165 * Mathf.Deg2Rad), Mathf.Sin(-165 * Mathf.Deg2Rad));
-                        else if (angle < -15 && angle >= -90f)
-                            _direction = new Vector2(Mathf.Cos(-15 * Mathf.Deg2Rad), Mathf.Sin(-15 * Mathf.Deg2Rad));
+                        if (angle < -90f)
+                            _direction = -Vector2.right;
+                        else if (angle < 0 && angle >= -90f)
+                            _direction = Vector2.right;
                     }
                 }
                 else

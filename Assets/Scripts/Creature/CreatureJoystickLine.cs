@@ -9,9 +9,12 @@ namespace Cursed.Creature
         private bool _launchLerp;
         private bool _typeOfLerp;
 
+        private ParticleSystem _particles;
+
         private void Awake()
         {
             transform.localScale = new Vector3(0f, 1f);
+            _particles = GetComponentInChildren<ParticleSystem>();
         }
 
         // Update is called once per frame
@@ -33,6 +36,7 @@ namespace Cursed.Creature
             {
                 if (transform.localScale.x < 1)
                 {
+                    _particles.Play();
                     Vector3 currentScale = new Vector3(Mathf.MoveTowards(transform.localScale.x, 1, _lerpSpeed * Time.deltaTime), transform.localScale.y, transform.localScale.z);
                     transform.localScale = currentScale;
                 }
@@ -43,6 +47,7 @@ namespace Cursed.Creature
             {
                 if (transform.localScale.x > 0)
                 {
+                    _particles.Stop();
                     Vector3 currentScale = new Vector3(Mathf.MoveTowards(transform.localScale.x, 0, _lerpSpeed * Time.deltaTime), transform.localScale.y, transform.localScale.z);
                     transform.localScale = currentScale;
                 }
