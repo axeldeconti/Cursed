@@ -16,8 +16,6 @@ namespace Cursed.VisualEffect
 
         public void Shake (ShakeData shake)
         {
-            Debug.Log("Shake");
-
             Vector2 v = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
 
             _impulseSource.m_ImpulseDefinition.m_AmplitudeGain = shake.AmplitudeGain;

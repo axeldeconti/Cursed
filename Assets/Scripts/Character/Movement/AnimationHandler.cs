@@ -29,6 +29,8 @@ namespace Cursed.Character
         private static readonly int _isAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int _weaponType = Animator.StringToHash("WeaponType");
 
+        private bool _previousFlipState = false;
+
         private void Start()
         {
             _anim = GetComponent<Animator>();
@@ -36,6 +38,8 @@ namespace Cursed.Character
             _coll = GetComponentInParent<CollisionHandler>();
             _renderer = GetComponent<SpriteRenderer>();
             _atttack = GetComponent<CharacterAttackManager>();
+
+            _previousFlipState = _move.Side == 1 ? false : true;
 
             GetComponent<CollisionHandler>().OnGrounded += () => { _anim.ResetTrigger(_decelerationTrigger); };
         }
@@ -67,19 +71,22 @@ namespace Cursed.Character
         {
             if (_move.WallGrab || _move.WallSlide)
             {
-                if (side == -1 && _renderer.flipX)
+                if (side == -1 && _previousFlipState)
                     return;
 
-                if (side == 1 && !_renderer.flipX)
+                if (side == 1 && !_previousFlipState)
                     return;
             }
 
-            bool prevState = _renderer.flipX;
             bool state = (side == 1) ? false : true;
-            _renderer.flipX = state;
 
-            if(state == !prevState && Mathf.Abs(_move.XSpeed) > 4)
+            if ((state && transform.localScale.x > 0) || (!state && transform.localScale.x < 0))
+                transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+            if(state == !_previousFlipState && Mathf.Abs(_move.XSpeed) > 4)
                 _anim.SetTrigger(_decelerationTrigger);
+
+            _previousFlipState = (side == 1) ? false : true;
         }
 
         /// <summary>
