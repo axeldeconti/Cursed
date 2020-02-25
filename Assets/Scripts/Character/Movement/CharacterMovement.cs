@@ -240,15 +240,17 @@ namespace Cursed.Character
 
         private void UpdateForceToContinu(ref bool forceToContinu)
         {
-            int i = Physics2D.RaycastAll(_upFrontRaycastOffset + (Vector2)transform.position, Vector2.up, 3f, LayerMask.GetMask("Ground")).Length;
-            int j = Physics2D.RaycastAll(_upBackRaycastOffset + (Vector2)transform.position, Vector2.up, 3f, LayerMask.GetMask("Ground")).Length;
+            Vector2 frontOffset = new Vector2(_side * _upFrontRaycastOffset.x, _upFrontRaycastOffset.y);
+            Vector2 backOffset = new Vector2(_side * _upBackRaycastOffset.x, _upBackRaycastOffset.y);
+            int i = Physics2D.RaycastAll(frontOffset + (Vector2)transform.position, Vector2.up, 3f, LayerMask.GetMask("Ground")).Length;
+            int j = Physics2D.RaycastAll(backOffset + (Vector2)transform.position, Vector2.up, 3f, LayerMask.GetMask("Ground")).Length;
 
             forceToContinu = (i + j) != 0;
         }
 
         private bool CheckIfCanDash()
         {
-            int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position,Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
+            int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position, _side * Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
 
             bool canDash = i == 0;
 
@@ -577,7 +579,6 @@ namespace Cursed.Character
                 _side = 1;
                 _anim.Flip(_side);
 
-
                 if (_coll.OnRightWall)
                     Walk(0);
             }
@@ -585,7 +586,6 @@ namespace Cursed.Character
             {
                 _side = -1;
                 _anim.Flip(_side);
-
 
                 if (_coll.OnLeftWall)
                     Walk(0);
@@ -739,8 +739,10 @@ namespace Cursed.Character
                 return;
 
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine((Vector2)transform.position + _upFrontRaycastOffset, (Vector2)transform.position + _upFrontRaycastOffset + Vector2.up * 3);
-            Gizmos.DrawLine((Vector2)transform.position + _upBackRaycastOffset, (Vector2)transform.position + _upBackRaycastOffset + Vector2.up * 3);
+            Vector2 frontOffset = new Vector2(_side * _upFrontRaycastOffset.x, _upFrontRaycastOffset.y);
+            Vector2 backOffset = new Vector2(_side * _upBackRaycastOffset.x, _upBackRaycastOffset.y);
+            Gizmos.DrawLine((Vector2)transform.position + frontOffset, (Vector2)transform.position + frontOffset + Vector2.up * 3);
+            Gizmos.DrawLine((Vector2)transform.position + backOffset, (Vector2)transform.position + backOffset + Vector2.up * 3);
         }
 
         #region Getters & Setters
