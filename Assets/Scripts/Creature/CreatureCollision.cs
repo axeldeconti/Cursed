@@ -87,12 +87,13 @@ namespace Cursed.Creature
                     _creatureManager.CurrentState = CreatureState.OnEnemy;
                 }
 
-                Instantiate(_creatureOnCharacter, collision.transform.position + new Vector3(0f, 0f, 0f), Quaternion.identity, collision.transform);
+                Instantiate(_creatureOnCharacter, collision.transform.position, Quaternion.identity, collision.transform);
             }
 
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
             {
                 _wallDirection = collision.contacts[0].normal;
+                _wallCollision = collision.transform;
                 _onWall = true;
 
                 //_ricochetDirection = v;

@@ -30,7 +30,7 @@ namespace Cursed.Creature
             if (_creature.CurrentState == CreatureState.OnCharacter)
             {
                 float mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")).magnitude);
-                if (mag > .9f)
+                if (mag > .85f)
                 {
                     _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
                     float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
@@ -39,23 +39,27 @@ namespace Cursed.Creature
                     {
                         if (angle < -90f)
                             _direction = -Vector2.right;
-                        else if (angle < 0f && angle >= -90f)
+                        else if (angle < 0 && angle >= -90f)
                             _direction = Vector2.right;
                     }
                 }
+                else
+                {
+                    _direction = Vector2.zero;
+                    if (_target != null)
+                        _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
+                }
 
-                if (_direction != Vector2.zero && _target == null && !_creature.Recall)
+
+                if (_direction != Vector2.zero && _target == null)
                 {
                     _target = Instantiate(TargetObject, this.transform.position, Quaternion.identity, this.transform);
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     UpdateTargetPosition(_direction);
                 }
-                /*else if (_direction == Vector2.zero && _target != null)
-                    _target.GetComponent<CreatureJoystickLine>().LerpSize(true);*/
 
 
                 if (_target != null)
-
                 {
                     if (_direction != Vector2.zero)
                     {
@@ -63,8 +67,6 @@ namespace Cursed.Creature
                         UpdateTargetRotation(_direction);
                     }
                 }
-                /*else if (!_input.Holding)
-                    Destroy(_target);*/
             }
             else
             {

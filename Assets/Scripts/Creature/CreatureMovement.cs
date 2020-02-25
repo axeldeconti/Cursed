@@ -38,9 +38,18 @@ namespace Cursed.Creature
             #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
-                MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
-                RotateToTarget(_playerPosition.GetChild(0), false);
-                _joystick.Direction = Vector2.zero;
+                if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromWall")
+                {
+                    RotateToTarget(_playerPosition.GetChild(0), false);
+                    MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                    _joystick.Direction = Vector2.zero;
+                }
+                else
+                {
+                    RotateToDirection(_collision.WallDirection);
+                    _rb.velocity = Vector2.zero;
+                    _rb.angularVelocity = 0f;
+                }
             }
             #endregion
 
@@ -92,7 +101,7 @@ namespace Cursed.Creature
             #region ON CHARACTER
             if (_creatureManager.CurrentState == CreatureState.OnCharacter)
             {
-                MoveToTarget(_playerPosition.GetChild(0), 150f);
+                MoveToTargetPosition(_playerPosition.position + new Vector3(0f, 2.5f, 0f), 150f);
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
             else
@@ -118,6 +127,12 @@ namespace Cursed.Creature
         {
             _rb.velocity = new Vector2(0f,0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
+        }
+
+        public void MoveToTargetPosition(Vector3 target, float speed)
+        {
+            _rb.velocity = new Vector2(0f, 0f);
+            transform.position = Vector3.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
         }
 
         public void StuckOnWall()
