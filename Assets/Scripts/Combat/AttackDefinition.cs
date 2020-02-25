@@ -18,6 +18,18 @@ namespace Cursed.Combat
         [SerializeField] private FloatReference _criticalMultiplier;
         [SerializeField] private FloatReference _criticalChance;
 
+        public Attack CreateAttack()
+        {
+            float coreDamage = 0f;
+            coreDamage += _damageType.GetDamages();
+
+            bool isCritical = Random.value < _criticalChance;
+            if (isCritical)
+                coreDamage *= _criticalMultiplier;
+
+            return new Attack((int)coreDamage, isCritical, _damageType.Effect);
+        }
+
         public Attack CreateAttack(CharacterStats attackerStats)
         {
             float coreDamage = 0f;
