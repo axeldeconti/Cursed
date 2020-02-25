@@ -33,7 +33,7 @@ namespace Cursed.Creature
         void Update()
         {
             UpdateSpriteMask();
-            UpdateFlip();
+            //UpdateFlip();
 
             if(_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.OnComeBack)
             {
