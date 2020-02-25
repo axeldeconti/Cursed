@@ -7,7 +7,8 @@ namespace Cursed.Traps
     [RequireComponent(typeof(Rigidbody2D))]
     public class Trap : MonoBehaviour
     {
-        [SerializeField] private AttackDefinition _attack = null;
+        [Header("Attack")]
+        [SerializeField] protected AttackDefinition _attack = null;
 
         /// <summary>
         /// Inflict damages to all attackable that enter in the trap
