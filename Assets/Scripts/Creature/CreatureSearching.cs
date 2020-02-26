@@ -10,15 +10,17 @@ namespace Cursed.Creature
         [SerializeField] private LayerMask _checkLayer;
         private Transform _enemyHit;
         private CreatureManager _creatureManager;
+        private Animator _animator;
 
         void Start()
         {
             _creatureManager = GetComponent<CreatureManager>();
+            _animator = GetComponent<Animator>();
         }
 
         void Update()
         {
-            if(_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.OnWall)
+            if((_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.OnWall) && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
                 RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, _radius, new Vector2(0f,0f));
                 foreach (RaycastHit2D hit in obj)
