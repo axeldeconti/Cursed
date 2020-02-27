@@ -8,10 +8,6 @@ public class RaycastController : MonoBehaviour {
 
     [System.NonSerialized]
     public LayerMask collisionMask;
-    [System.NonSerialized]
-    public LayerMask groundAndOneway;
-    [System.NonSerialized]
-    public LayerMask oneway;
 
     public const float skinWidth = .015f;
     public int horizontalRayCount = 4;
@@ -26,15 +22,9 @@ public class RaycastController : MonoBehaviour {
     public BoxCollider2D _collider;
     public RaycastOrigins raycastOrigins;
 
-    public virtual void Awake() {
-        
-
-    }
-
     public virtual void Start() {
         _collider = GetComponent<BoxCollider2D>();
         collisionMask = LayerManager.instance.groundLayer;//1 << LayerMask.NameToLayer("ground");
-        groundAndOneway = LayerManager.instance.groundLayer;
         CalculateRaySpacing();
     }
 

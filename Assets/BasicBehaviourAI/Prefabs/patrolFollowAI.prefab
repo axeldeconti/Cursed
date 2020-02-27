@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 143194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 409260}
   m_RootOrder: 0
@@ -224,8 +224,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.06, y: -32.34, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 444408}
   - {fileID: 441446}
@@ -244,34 +244,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92904840e3620284494841f00a765382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   movement:
     ability: 1
     accelerationTimeGrounded: 0.06
     moveSpeed: 4.87
   jump:
     ability: 1
-    maxHeight: 3.8
-    minHeight: 3.8
+    _maxHeight: 2.5
+    _minHeight: 2.5
     timeToApex: 0.435
     accelerationTimeAirborne: 0.09
     maxFallVelocity: 25
     maxJumps: 1
-  ledgegrab:
-    ability: 1
-    grabHeight: 0.2
-    characterYPosition: -0.15
-    ledgeClimbSpeed: 0.022
-    ledgeMoveDistance: 0.35
-    ledgeGrabCooldown: 0.3
-    ledgeGrabDistance: 0.12
-    ledgeCooldown: 0.8
-    ledgeGrabbed: 0
   jumped: 0
   isAiControlled: 1
   playerControlled: 0
-  rightClickPathFind: 0
-  FallNodes: 1
+  fallNodes: 1
 --- !u!114 &11426854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,8 +290,6 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   _collider: {fileID: 0}
-  maxClimbAngle: 80
-  maxDescendAngle: 80
   playerInput: {x: 0, y: 0}
 --- !u!114 &11427328
 MonoBehaviour:
@@ -323,7 +309,6 @@ MonoBehaviour:
   drawPath: 0
   drawColor: {r: 1, g: 0, b: 0, a: 1}
   endDrawComplete: 1
-  repathOnFail: 1
   followPathTimer: 0.5
   pathFailTimer: 0.5
 --- !u!61 &6111162
