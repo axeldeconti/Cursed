@@ -38,6 +38,7 @@ namespace Cursed.Creature
             #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
+                // ON WALL
                 if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromWall")
                 {
                     RotateToTarget(_playerPosition.GetChild(0), false);
@@ -50,6 +51,23 @@ namespace Cursed.Creature
                     _rb.velocity = Vector2.zero;
                     _rb.angularVelocity = 0f;
                 }
+
+                // ON ENEMY
+                if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                {
+                    RotateToTarget(_playerPosition.GetChild(0), false);
+                    MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                    _joystick.Direction = Vector2.zero;
+                }
+                else
+                {
+                    RotateToTarget(_playerPosition.GetChild(0), false);
+                    MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
+                }
+
+                // CHECK IF CREATURE IS ON PLAYER
+                if (this.transform.position == _playerPosition.GetChild(0).position)
+                    _collision.CollideWithCharacter(CreatureState.OnCharacter, _playerPosition);
             }
             #endregion
 
@@ -95,6 +113,9 @@ namespace Cursed.Creature
             {
                 MoveToTarget(_creatureSearching.Enemy.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
                 RotateToTarget(_creatureSearching.Enemy.GetChild(0), false);
+
+                /*if (this.transform.position == _creatureSearching.Enemy.GetChild(0).position)
+                    _collision.CollideWithCharacter(CreatureState.OnEnemy, _creatureSearching.Enemy);*/
             }
             #endregion
 
@@ -107,6 +128,16 @@ namespace Cursed.Creature
             else
                 _rb.constraints = RigidbodyConstraints2D.None;
 
+            #endregion
+
+            #region ON ENEMY
+            if(_creatureManager.CurrentState == CreatureState.OnEnemy)
+            {
+                MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else
+                _rb.constraints = RigidbodyConstraints2D.None;
             #endregion
         }
 

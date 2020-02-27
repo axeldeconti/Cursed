@@ -162,8 +162,9 @@ namespace Cursed.Creature
                         break;
 
                     case CreatureState.OnComeBack:
-                        ToggleChilds(true);
+                        //ToggleChilds(true);
                         //_animator.SetTrigger("Wall");
+                        _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
                         break;
