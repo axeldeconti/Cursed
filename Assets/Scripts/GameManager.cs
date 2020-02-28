@@ -37,6 +37,11 @@ public class GameManager : Singleton<GameManager>
 
     private void InstatiateSystemPrefabs()
     {
+        _instancedSystemPrefabs = new List<GameObject>();
+        
+        if (_systemPrefabs.Length == 0)
+            return;
+
         GameObject instancePrefab = null;
 
         foreach (GameObject prefab in _systemPrefabs)
@@ -99,6 +104,9 @@ public class GameManager : Singleton<GameManager>
     protected override void OnDestroy()
     {
         base.OnDestroy();
+
+        if (_instancedSystemPrefabs.Count == 0)
+            return;
 
         for (int i = 0; i < _instancedSystemPrefabs.Count; i++)
         {
