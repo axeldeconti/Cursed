@@ -18,7 +18,6 @@ namespace AK
         static const AkUniqueID PLAY_CREATURE_HITWALL = 1251478039U;
         static const AkUniqueID PLAY_CREATURE_LAUNCH = 3361186193U;
         static const AkUniqueID PLAY_DASH = 2211787386U;
-        static const AkUniqueID PLAY_DOUBLEJUMP = 595748461U;
         static const AkUniqueID PLAY_LANDING = 2323405115U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
         static const AkUniqueID PLAYR_CREATURE_GRABBING = 1749552368U;

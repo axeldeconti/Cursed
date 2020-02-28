@@ -196,8 +196,8 @@ using Cursed.Character;
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
                     input.x = 0f;
-                    if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
-                    && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
+                    if (transform.position.y + 0.866f*4 > _currentOrders[_orderNum].pos.y
+                    && transform.position.y - 0.866f*4 < _currentOrders[_orderNum].pos.y)
                     {
                         //if next node is a jump, remove velocity.x, and lerp position to point.
                         if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "jump")

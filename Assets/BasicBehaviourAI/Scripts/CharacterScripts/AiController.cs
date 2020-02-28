@@ -17,7 +17,6 @@ using Cursed.Character;
 
         public static GameObject player;
         private bool _destroy = false;
-
         private bool _timerChangeTarget = false;
 
 
