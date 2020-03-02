@@ -79,7 +79,7 @@
 				</Folder>
 				<Folder Name="Run" ID="{68854AD1-0487-4C6D-9843-88261A734818}" ShortID="1001758039">
 					<ChildrenList>
-						<RandomSequenceContainer Name="Run" ID="{3876757B-BEA7-46B2-8154-703637183A8B}" ShortID="1001962563">
+						<RandomSequenceContainer Name="Random_Run" ID="{3876757B-BEA7-46B2-8154-703637183A8B}" ShortID="1001962563">
 							<Comment>Playing randomly one of the run footsteps SFX</Comment>
 							<PropertyList>
 								<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
@@ -619,7 +619,10 @@
 				</Folder>
 				<Folder Name="WallSlide" ID="{C8692C41-2FFA-4E66-923E-FEBA3F8DB3E7}" ShortID="755976540">
 					<ChildrenList>
-						<Sound Name="WallSlide_End" ID="{4A66DF46-EBBE-4194-ABEF-CD837425ADD8}" ShortID="324422698">
+						<RandomSequenceContainer Name="Sequence_WallSlide" ID="{0FAB5E80-7CD3-4D8A-8DD2-B9EE47DB0A5E}" ShortID="295943718">
+							<PropertyList>
+								<Property Name="RandomOrSequence" Type="int16" Value="0"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -629,62 +632,89 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="WallSlide_End" ID="{91BEE36A-F7EA-4D2D-864F-F9449372DEE7}">
-									<Language>SFX</Language>
-									<AudioFile>WallSlide\WallSlide_End.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="227638095"/>
-									</MediaIDList>
-								</AudioFileSource>
+								<RandomSequenceContainer Name="Random_WallSlide" ID="{249051DC-16F4-4F43-80D4-15A2026EB5C9}" ShortID="217937664">
+									<PropertyList>
+										<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="WallSlide_Loop" ID="{6C179C3C-2044-46DB-8744-5799351474E0}" ShortID="730289643">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="WallSlide_Loop" ID="{347F5E32-C31E-4961-8AE4-7D1D0FFE6CA5}">
+													<Language>SFX</Language>
+													<AudioFile>WallSlide\WallSlide_Loop.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="693717888"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="WallSlide_Loop" ID="{347F5E32-C31E-4961-8AE4-7D1D0FFE6CA5}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<Sound Name="WallSlide_Main" ID="{D9882053-14A8-4596-BEB5-5E785D69CC33}" ShortID="107976899">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="WallSlide_Main" ID="{6E9DD2E3-82B0-4A21-A2F0-B411FF050417}">
+											<Language>SFX</Language>
+											<AudioFile>WallSlide\WallSlide_Main.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="543310690"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="WallSlide_Main" ID="{6E9DD2E3-82B0-4A21-A2F0-B411FF050417}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="WallSlide_End" ID="{4A66DF46-EBBE-4194-ABEF-CD837425ADD8}" ShortID="324422698">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="WallSlide_End" ID="{91BEE36A-F7EA-4D2D-864F-F9449372DEE7}">
+											<Language>SFX</Language>
+											<AudioFile>WallSlide\WallSlide_End.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="227638095"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="WallSlide_End" ID="{91BEE36A-F7EA-4D2D-864F-F9449372DEE7}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="WallSlide_End" ID="{91BEE36A-F7EA-4D2D-864F-F9449372DEE7}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="WallSlide_Loop" ID="{6C179C3C-2044-46DB-8744-5799351474E0}" ShortID="730289643">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="WallSlide_Loop" ID="{347F5E32-C31E-4961-8AE4-7D1D0FFE6CA5}">
-									<Language>SFX</Language>
-									<AudioFile>WallSlide\WallSlide_Loop.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="693717888"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="WallSlide_Loop" ID="{347F5E32-C31E-4961-8AE4-7D1D0FFE6CA5}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="WallSlide_Main" ID="{D9882053-14A8-4596-BEB5-5E785D69CC33}" ShortID="107976899">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="WallSlide_Main" ID="{6E9DD2E3-82B0-4A21-A2F0-B411FF050417}">
-									<Language>SFX</Language>
-									<AudioFile>WallSlide\WallSlide_Main.wav</AudioFile>
-									<MediaIDList>
-										<MediaID ID="543310690"/>
-									</MediaIDList>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="WallSlide_Main" ID="{6E9DD2E3-82B0-4A21-A2F0-B411FF050417}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
+						</RandomSequenceContainer>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Weapon" ID="{1780F4BA-9308-49D6-AA2D-5FC8473AFADF}" ShortID="921406717">
