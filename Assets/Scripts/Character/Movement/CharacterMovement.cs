@@ -177,7 +177,6 @@ namespace Cursed.Character
             _hasWallJumped = false;
 
             _vfx.SpawnVfx(_vfx.VfxFall, transform.position);
-            AkSoundEngine.PostEvent("Play_Landing", gameObject);
             Destroy(_refWallSlideSparkVfx);
             Destroy(_refWallSlideDustVfx);
 
@@ -287,6 +286,7 @@ namespace Cursed.Character
             if ((_currentVelocity.x > 0 && _coll.OnRightWall) || (_currentVelocity.x < 0 && _coll.OnLeftWall))
             {
                 pushingWall = true;
+                AkSoundEngine.PostEvent("Play_Main_WallSlide", gameObject);
             }
             float push = pushingWall ? 0 : _currentVelocity.x;
 

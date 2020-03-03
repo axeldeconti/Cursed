@@ -17,14 +17,14 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 1670697613dda2419016f537a3137412
     GuidInternal: 
-    m_lastTime: -8586187868248901387
+    m_lastTime: -8586184653362760943
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 4799e45544d55a4892fe138223275588
     GuidInternal: 
-    m_lastTime: -8586187868250290640
+    m_lastTime: -8586184653366295120
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -40,7 +40,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586187272250652487
+    m_lastTime: -8586183575785812168
     List:
     - name: Characters
       guid: 7cd07edfa3d31d43b7738d06e66fb061
@@ -56,17 +56,61 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586187273092987064
+    m_lastTime: -8586183575785752329
     List:
+    - name: Character
+      guid: 585ff683837f4f46a064a1de8ef06026
+      id: 436743010
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Character
+        ObjectType: 3
+      Path: Default Work Unit\Character\Character
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Attack_Axe_FirstSlice
+      guid: da7d491151a1784dbd90eb4546a5b703
+      id: 1312214966
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Play_Attack_Axe_FirstSlice
+        ObjectType: 3
+      Path: Default Work Unit\Character\Play_Attack_Axe_FirstSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Attack_Sword_FirstSlice
+      guid: 26c6111f9f6b9542b7ef7ac85fcec1fe
+      id: 2804287435
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Play_Attack_Sword_FirstSlice
+        ObjectType: 3
+      Path: Default Work Unit\Character\Play_Attack_Sword_FirstSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_BasicJump
       guid: 7a8b71391b31bc4493755856f2fbe211
       id: 2216073360
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
       - ElementName: Play_BasicJump
         ObjectType: 3
-      Path: Default Work Unit\Play_BasicJump
+      Path: Default Work Unit\Character\Play_BasicJump
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -79,6 +123,18 @@ MonoBehaviour:
       - ElementName: Play_Creature_Call
         ObjectType: 3
       Path: Default Work Unit\Play_Creature_Call
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Creature_Grabbing
+      guid: 3a0c837e787423448cd2af07196e41da
+      id: 3373431376
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Creature_Grabbing
+        ObjectType: 3
+      Path: Default Work Unit\Play_Creature_Grabbing
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -112,21 +168,41 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
       - ElementName: Play_Dash
         ObjectType: 3
-      Path: Default Work Unit\Play_Dash
+      Path: Default Work Unit\Character\Play_Dash
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
     - name: Play_DoubleJump
-      guid: 301e71d4966129488406d74523bcd594
+      guid: 75ebc8e35810dc4796bdb9c9933b39ba
       id: 595748461
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
       - ElementName: Play_DoubleJump
         ObjectType: 3
-      Path: Default Work Unit\Play_DoubleJump
+      Path: Default Work Unit\Character\Play_DoubleJump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_End_WallSlide
+      guid: 83549f6edf2d7e41bff4ddeabcaf6be3
+      id: 2912867303
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Play_End_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Character\WallSlide\Play_End_WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -136,9 +212,27 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
       - ElementName: Play_Landing
         ObjectType: 3
-      Path: Default Work Unit\Play_Landing
+      Path: Default Work Unit\Character\Play_Landing
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Main_WallSlide
+      guid: ea1cc26ff5d6844ba14ed8b7b03cb94e
+      id: 3033462115
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Play_Main_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Character\WallSlide\Play_Main_WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -148,33 +242,43 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
       - ElementName: Play_Run
         ObjectType: 3
-      Path: Default Work Unit\Play_Run
+      Path: Default Work Unit\Character\Play_Run
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_WallSlide
-      guid: dc62b42274fbfe46aa0711bcf65d42c8
-      id: 322431801
+    - name: Stop_Main_Play_Loop_WallSlide
+      guid: 2e891f58f7e3bc498b9b07d2b638425a
+      id: 3156285719
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_WallSlide
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Stop_Main_Play_Loop_WallSlide
         ObjectType: 3
-      Path: Default Work Unit\Play_WallSlide
+      Path: Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Playr_Creature_Grabbing
-      guid: 3a0c837e787423448cd2af07196e41da
-      id: 1749552368
+    - name: WallSlide
+      guid: 75dd7b53ed9edf4dae2030c5d45cb485
+      id: 682663092
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Playr_Creature_Grabbing
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: WallSlide
         ObjectType: 3
-      Path: Default Work Unit\Playr_Creature_Grabbing
+      Path: Default Work Unit\Character\WallSlide\WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -183,34 +287,32 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: a1889d9b1db7f9469431a8f1a6a2a35d
     GuidInternal: 
-    m_lastTime: -8586187868250519588
+    m_lastTime: -8586184653366664445
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 276595bab354574f9d2d883a3a1b3010
     GuidInternal: 
-    m_lastTime: -8586187868248941281
+    m_lastTime: -8586184653362801236
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 2031ed91eb5c0f4d9b90b219b5c5e946
     GuidInternal: 
-    m_lastTime: -8586187868248921334
+    m_lastTime: -8586184653362791257
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 9411a18d3810e043ad340fbe3f4473cb
     GuidInternal: 
-    m_lastTime: -8586187868248910950
+    m_lastTime: -8586184653362771314
     List: []
   ExpandedItems:
   - /Cursed_WwiseProject
-  - /Cursed_WwiseProject/Auxiliary Busses
   - /Cursed_WwiseProject/Events
-  - /Cursed_WwiseProject/SoundBanks
-  - /Cursed_WwiseProject/SoundBanks/Default Work Unit
+  - /Cursed_WwiseProject/Events/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
