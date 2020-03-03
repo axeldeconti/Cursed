@@ -6,6 +6,7 @@ namespace Cursed.Traps
     {
         private ParticleSystem _particles;
         [SerializeField] private Transform _end;
+        [SerializeField] private bool _horizontal;
 
         private void Awake()
         {
@@ -14,7 +15,11 @@ namespace Cursed.Traps
 
         private void Start()
         {
-            _particles.startLifetime = (_end.localPosition.y) / 100; 
+            if(!_horizontal)
+                _particles.startLifetime = (_end.localPosition.y) / 100; 
+            else
+                _particles.startLifetime = (_end.localPosition.x) / 100;
+
         }
     }
 }
