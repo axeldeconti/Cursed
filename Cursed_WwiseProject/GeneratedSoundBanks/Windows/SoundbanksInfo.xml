@@ -21,7 +21,23 @@
 			<ShortName>Characters</ShortName>
 			<Path>Characters.bnk</Path>
 			<IncludedEvents>
-				<Event Id="2216073360" Name="Play_BasicJump" ObjectPath="\Events\Default Work Unit\Play_BasicJump" DurationType="OneShot" DurationMin="0.230500" DurationMax="0.230500">
+				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+					<IncludedMemoryFiles>
+						<File Id="390725724" Language="SFX">
+							<ShortName>Weapon_FirstSlice.wav</ShortName>
+							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2804287435" Name="Play_Attack_Sword_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Play_Attack_Sword_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+					<IncludedMemoryFiles>
+						<File Id="390725724" Language="SFX">
+							<ShortName>Weapon_FirstSlice.wav</ShortName>
+							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2216073360" Name="Play_BasicJump" ObjectPath="\Events\Default Work Unit\Character\Play_BasicJump" DurationType="OneShot" DurationMin="0.230500" DurationMax="0.230500">
 					<IncludedMemoryFiles>
 						<File Id="172115659" Language="SFX">
 							<ShortName>Jumps\BasicJump.wav</ShortName>
@@ -61,7 +77,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
+				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Character\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
 					<IncludedMemoryFiles>
 						<File Id="135575679" Language="SFX">
 							<ShortName>Dash\Dash.wav</ShortName>
@@ -69,7 +85,23 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2323405115" Name="Play_Landing" ObjectPath="\Events\Default Work Unit\Play_Landing" DurationType="OneShot" DurationMin="0.436961" DurationMax="0.436961">
+				<Event Id="595748461" Name="Play_DoubleJump" ObjectPath="\Events\Default Work Unit\Character\Play_DoubleJump" DurationType="OneShot" DurationMin="0.440083" DurationMax="0.440083">
+					<IncludedMemoryFiles>
+						<File Id="699165359" Language="SFX">
+							<ShortName>DoubleJump.wav</ShortName>
+							<Path>SFX\DoubleJump_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2912867303" Name="Play_End_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_End_WallSlide" DurationType="OneShot" DurationMin="0.338594" DurationMax="0.338594">
+					<IncludedMemoryFiles>
+						<File Id="227638095" Language="SFX">
+							<ShortName>WallSlide\WallSlide_End.wav</ShortName>
+							<Path>SFX\WallSlide\WallSlide_End_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2323405115" Name="Play_Landing" ObjectPath="\Events\Default Work Unit\Character\Play_Landing" DurationType="OneShot" DurationMin="0.436961" DurationMax="0.436961">
 					<IncludedMemoryFiles>
 						<File Id="307684995" Language="SFX">
 							<ShortName>Landing\Landing.wav</ShortName>
@@ -77,7 +109,15 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Play_Run" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295">
+				<Event Id="3033462115" Name="Play_Main_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_Main_WallSlide" DurationType="OneShot" DurationMin="4.840521" DurationMax="4.840521">
+					<IncludedMemoryFiles>
+						<File Id="543310690" Language="SFX">
+							<ShortName>WallSlide\WallSlide_Main.wav</ShortName>
+							<Path>SFX\WallSlide\WallSlide_Main_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Character\Play_Run" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295">
 					<IncludedMemoryFiles>
 						<File Id="108996717" Language="SFX">
 							<ShortName>Run\Run01.wav</ShortName>
@@ -102,6 +142,22 @@
 						<File Id="992813343" Language="SFX">
 							<ShortName>Run\Run03.wav</ShortName>
 							<Path>SFX\Run\Run03_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3156285719" Name="Stop_Main_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide" DurationType="OneShot" DurationMin="0.689501" DurationMax="1.403900">
+					<IncludedMemoryFiles>
+						<File Id="142199507" Language="SFX">
+							<ShortName>WallSlide_Loop_02.wav</ShortName>
+							<Path>SFX\WallSlide_Loop_02_10C4C929.wem</Path>
+						</File>
+						<File Id="307420797" Language="SFX">
+							<ShortName>WallSlide_Loop_01.wav</ShortName>
+							<Path>SFX\WallSlide_Loop_01_10C4C929.wem</Path>
+						</File>
+						<File Id="733050369" Language="SFX">
+							<ShortName>WallSlide_Loop_03.wav</ShortName>
+							<Path>SFX\WallSlide_Loop_03_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

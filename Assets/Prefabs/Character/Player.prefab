@@ -186,6 +186,8 @@ GameObject:
   - component: {fileID: 7314641780241306975}
   - component: {fileID: 9199825870346543018}
   - component: {fileID: 3774113181429521657}
+  - component: {fileID: 27705134}
+  - component: {fileID: 27705149}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -570,3 +572,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStats: {fileID: 11400000, guid: 9fa45251b0514fb41a04c29378dcf6b4, type: 2}
+--- !u!114 &27705134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace0cd82365bcf14f836bebce97915e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 784b0a376c599314abb8c86b811cf9ea,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 
+  bankNameInternal: 
+  valueGuidInternal: 
+--- !u!114 &27705149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f395b4231886f7d48ad9802781c8c5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
