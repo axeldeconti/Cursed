@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 8498843447298849038}
   - component: {fileID: 891322282}
   - component: {fileID: 891322275}
+  - component: {fileID: 3300097278112753336}
   - component: {fileID: 6341393546893377053}
   - component: {fileID: 7314641780241306975}
   - component: {fileID: 9199825870346543018}
@@ -507,6 +508,27 @@ MonoBehaviour:
     type: 3}
   _vfxDashDust: {fileID: 1907876244288169627, guid: 2c78562846af4c748ba44602c2f571e8,
     type: 3}
+--- !u!114 &3300097278112753336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5ff1f7c0a3e1f4c8d0fb0f0f80111c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ghost: {fileID: 1914275734890146451, guid: d50533610e0052f438c81fbc71afefda, type: 3}
+  _ghostDelayInterval:
+    UseConstant: 1
+    ConstantValue: 0.05
+    Variable: {fileID: 0}
+  _timeGhostVisible:
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 0}
 --- !u!114 &6341393546893377053
 MonoBehaviour:
   m_ObjectHideFlags: 0

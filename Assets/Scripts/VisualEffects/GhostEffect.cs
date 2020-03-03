@@ -6,12 +6,13 @@ namespace Cursed.VisualEffect
     {
         public GameObject _ghost;
 
-        [SerializeField] private FloatReference _ghostDelay;
+        [SerializeField] private FloatReference _ghostDelayInterval;
+        [SerializeField] private FloatReference _timeGhostVisible;
         private float _ghostDelaySeconde;
 
         private void Start()
         {
-            _ghostDelaySeconde = _ghostDelay;
+            _ghostDelaySeconde = _ghostDelayInterval;
         }
         public void GhostDashEffect()
         {
@@ -26,8 +27,8 @@ namespace Cursed.VisualEffect
                 Sprite currentSprite = GetComponent<SpriteRenderer>().sprite;
                 currentGhost.transform.localScale = this.transform.localScale;
                 currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
-                _ghostDelaySeconde = _ghostDelay;
-                Destroy(currentGhost, 0.5f);
+                _ghostDelaySeconde = _ghostDelayInterval;
+                Destroy(currentGhost, _timeGhostVisible);
             }
         }
     }

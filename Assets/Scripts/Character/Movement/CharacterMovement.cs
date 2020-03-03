@@ -15,7 +15,8 @@ namespace Cursed.Character
         private CollisionHandler _coll = null;
         private Rigidbody2D _rb = null;
         private AnimationHandler _anim = null;
-        private VfxHandler _vfx = null;       
+        private VfxHandler _vfx = null;
+        private GhostEffect _ghost = null;
         private HealthManager _healthManager = null;
         private CharacterAttackManager _attackManager = null;
         private CapsuleCollider2D _capsuleCollider = null;
@@ -110,6 +111,7 @@ namespace Cursed.Character
             _anim = GetComponent<AnimationHandler>();
             _anim = GetComponentInChildren<AnimationHandler>();
             _vfx = GetComponent<VfxHandler>();
+            _ghost = GetComponent<GhostEffect>();
             _healthManager = GetComponent<HealthManager>();
             _attackManager = GetComponent<CharacterAttackManager>();
             _capsuleCollider = GetComponent<CapsuleCollider2D>();
@@ -225,6 +227,7 @@ namespace Cursed.Character
                 transform.position = new Vector2(newX, transform.position.y);
                 dashTimer -= Time.deltaTime;
                 UpdateForceToContinu(ref forceToContinu);
+                _ghost.GhostDashEffect();
                 yield return new WaitForEndOfFrame();
             }
 
@@ -519,6 +522,7 @@ namespace Cursed.Character
             {
                 StartCoroutine(Dash(dir));
                 _onCamShake?.Raise(_shakeDash);
+                
                 _refDashSpeedVfx = _vfx.DashSpeedVfx();
                 _refDashDustVfx = _vfx.DashDustVfx();
             }
