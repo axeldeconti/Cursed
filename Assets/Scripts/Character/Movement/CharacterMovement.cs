@@ -286,7 +286,6 @@ namespace Cursed.Character
             if ((_currentVelocity.x > 0 && _coll.OnRightWall) || (_currentVelocity.x < 0 && _coll.OnLeftWall))
             {
                 pushingWall = true;
-                AkSoundEngine.PostEvent("Play_Main_WallSlide", gameObject);
             }
             float push = pushingWall ? 0 : _currentVelocity.x;
 
