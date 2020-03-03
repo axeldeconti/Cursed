@@ -59,11 +59,15 @@ namespace Cursed.Creature
         private void UpdateInput()
         {
             #region LAUNCH & RECALL
-            if (_input.Down)
+            if (_input.Down) {
                 DeAttachFromPlayer();
-
-            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
+            }
+            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall) { 
                 CurrentState = CreatureState.OnComeBack;
+                AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
+            }
+
+
             #endregion
         }
 
@@ -102,6 +106,8 @@ namespace Cursed.Creature
         {
             if (_creatureState != CreatureState.OnCharacter)
                 return;
+
+            AkSoundEngine.PostEvent("Play_Creature_Launch", gameObject);
 
             StartCoroutine(WaitForRecallReady());
 
