@@ -9,7 +9,6 @@ public class CharacterController2D : RaycastController
     public override void Start() {
         base.Start();
         collisions.faceDir = 1;
-        AkSoundEngine.PostEvent("Play_Run", gameObject);
     }
 
     public void Move(Vector3 velocity, Vector2 input, bool standingOnPlatform = false) {

@@ -13,7 +13,6 @@ using Cursed.Character;
         BoxCollider2D _box;
         [System.NonSerialized]
         //public Animator _anim;
-        Rigidbody2D _body;                        /*Used for collision detection*/
         PathfindingAgent _pathAgent;
         CharacterController2D _controller;
         private IInputController _input;
@@ -34,7 +33,6 @@ using Cursed.Character;
         void Awake()
         {
             _controller = GetComponent<CharacterController2D>();
-            _body = GetComponent<Rigidbody2D>();
             _box = GetComponent<BoxCollider2D>();
             _pathAgent = GetComponent<PathfindingAgent>();
             _ai = GetComponent<AiController>();
@@ -44,8 +42,6 @@ using Cursed.Character;
 
             /*allow movement abilities to access character script*/
             jump.SetCharacter(this);
-
-            _body.isKinematic = true;
         }
 
         void Start()
