@@ -6,12 +6,10 @@ using Cursed.Character;
 public class SFXHandler : MonoBehaviour
 {
     private Animator _anim = null;
-    //private CharacterMovement _char = null;
 
     private void Start()
     {
         _anim = GetComponent<Animator>();
-        //_char = GetComponent<CharacterMovement>();
     }
 
     #region Character
