@@ -4730,7 +4730,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_RenderMode: 1
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4926,7 +4926,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -4999,8 +4999,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _start: {fileID: 6822036367087453406}
   _end: {fileID: 6822036367104137532}
-  _changeX: 1
-  _changeY: 1
 --- !u!1 &6822036367087453405
 GameObject:
   m_ObjectHideFlags: 0
@@ -9770,6 +9768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _end: {fileID: 6822036367104137532}
+  _horizontal: 0
 --- !u!1 &6822036367104137507
 GameObject:
   m_ObjectHideFlags: 0
