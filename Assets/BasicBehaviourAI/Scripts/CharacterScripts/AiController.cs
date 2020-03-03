@@ -10,14 +10,13 @@ using Cursed.Character;
 
         public ai_state state = ai_state.groundpatrol;
 
-        private CharacterController2D _controller;
+        private RaycastController _ray;
         private PathfindingAgent _pathAgent;
         public static Pathfinding _pathScript;
         [System.NonSerialized]
 
         public static GameObject player;
         private bool _destroy = false;
-
         private bool _timerChangeTarget = false;
 
 
@@ -27,7 +26,7 @@ using Cursed.Character;
             {
                 player = GameObject.FindGameObjectWithTag("Player");
             }
-            _controller = GetComponent<CharacterController2D>();
+            _ray = GetComponent<CharacterController2D>();
             _pathAgent = GetComponent<PathfindingAgent>();
 
             if (_pathScript == null) { _pathScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<Pathfinding>(); }
@@ -37,7 +36,7 @@ using Cursed.Character;
         {
             if (player && Vector3.Distance(player.transform.position, transform.position) < range)
             {
-                if (raycastOn && !Physics2D.Linecast(transform.position, player.transform.position, _controller.collisionMask))
+                if (raycastOn && !Physics2D.Linecast(transform.position, player.transform.position, _ray.collisionMask))
                 {
                     return true;
                 }

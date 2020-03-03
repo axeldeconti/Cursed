@@ -12,8 +12,7 @@ using Cursed.Character;
         public AiController _ai;
         BoxCollider2D _box;
         [System.NonSerialized]
-        public Animator _anim;
-        Rigidbody2D _body;                        /*Used for collision detection*/
+        //public Animator _anim;
         PathfindingAgent _pathAgent;
         CharacterController2D _controller;
         private IInputController _input;
@@ -34,18 +33,15 @@ using Cursed.Character;
         void Awake()
         {
             _controller = GetComponent<CharacterController2D>();
-            _body = GetComponent<Rigidbody2D>();
             _box = GetComponent<BoxCollider2D>();
             _pathAgent = GetComponent<PathfindingAgent>();
             _ai = GetComponent<AiController>();
-            _anim = transform.Find("Graphics").GetComponent<Animator>();
+            //_anim = transform.Find("Graphics").GetComponent<Animator>();
             _graphics = transform.Find("Graphics").gameObject; /*useful for preventing things from flipping when character is facing left*/
             _input = GetComponent<IInputController>();
 
             /*allow movement abilities to access character script*/
             jump.SetCharacter(this);
-
-            _body.isKinematic = true;
         }
 
         void Start()
@@ -121,7 +117,7 @@ using Cursed.Character;
             if (movement.ability)
             { //If character has the ability of moving
                 float targetVelocityX = input.x * movement.moveSpeed;
-                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref movement.velocityXSmoothing, 0);
+                velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref movement.velocityXSmoothing, 0);                
             }
             //Gravity
             if (velocity.y > -jump.maxFallVelocity)
@@ -131,8 +127,8 @@ using Cursed.Character;
             _controller.Move(velocity * Time.deltaTime, input);
 
             //animation
-            _anim.SetFloat("speed", input.x != 0 ? 1f : 0f);
-            _anim.SetBool("grounded", _controller.collisions.below);
+            //_anim.SetFloat("speed", input.x != 0 ? 1f : 0f);
+            //_anim.SetBool("grounded", _controller.collisions.below);
 
             //Grounded + Jump reset
             if (_controller.collisions.below)

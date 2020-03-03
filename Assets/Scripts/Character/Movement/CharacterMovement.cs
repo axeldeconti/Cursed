@@ -177,6 +177,7 @@ namespace Cursed.Character
             _hasWallJumped = false;
 
             _vfx.SpawnVfx(_vfx.VfxFall, transform.position);
+            AkSoundEngine.PostEvent("Play_Landing", gameObject);
             Destroy(_refWallSlideSparkVfx);
             Destroy(_refWallSlideDustVfx);
 
@@ -423,6 +424,7 @@ namespace Cursed.Character
                 UpdateVelocity(0f, -_rb.velocity.y);
                 Jump(_doubleJump);
                 _vfx.SpawnVfx(_vfx.VfxDoubleJump, transform.position);
+                AkSoundEngine.PostEvent("Play_DoubleJump", gameObject);
             }
 
             //If on ground, jump

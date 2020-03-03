@@ -7,8 +7,8 @@ using Cursed.Character;
     {
         [System.NonSerialized]
         public static Pathfinding _pathfindingManagerScript;
-        private Character _characterScript;
         private CharacterController2D _controller;
+        private CollisionHandler _coll = null;
         private AiController _aiControllerScript;
 
         public GameObject pathfindingTarget; //Following / Chasing
@@ -49,8 +49,6 @@ using Cursed.Character;
 
         [System.NonSerialized]
         public bool pathCompleted = true;
-        [System.NonSerialized]
-        public bool isPathFinding = false;
 
         private bool _stopPathing = true;
         private bool _hasLastOrder = false;
@@ -61,7 +59,6 @@ using Cursed.Character;
         {
             if (_pathfindingManagerScript == null) { _pathfindingManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<Pathfinding>(); }
             _aiControllerScript = GetComponent<AiController>();
-            _characterScript = GetComponent<Character>();
             _controller = GetComponent<CharacterController2D>();
             if (drawPath)
             {
@@ -82,7 +79,6 @@ using Cursed.Character;
             //Remove orders && Prevent pathfinding
             _hasLastOrder = false;
             _currentOrders = null;
-            isPathFinding = false;
             _stopPathing = true;
         }
 
@@ -138,10 +134,10 @@ using Cursed.Character;
                 _useStored = false;
                 if (debugBool) { Debug.Log("requeseting path vector"); }
                 _lastOrder = pathVector;
-                _pathfindingManagerScript.RequestPathInstructions(gameObject, _lastOrder, _characterScript.jump.maxJumpHeight
-                    , _characterScript.movement.ability
-                    , _characterScript.jump.ability
-                    , _characterScript.fallNodes
+                _pathfindingManagerScript.RequestPathInstructions(gameObject, _lastOrder, 20f //JumpHeight
+                    , true //Booleans tells if AI can use the capacity
+                    , true
+                    , true
                     );
             }
             else
@@ -158,10 +154,10 @@ using Cursed.Character;
             if (_controller.collisions.below)
             {
                 if (debugBool) { Debug.Log("requesting path target"); }
-                _pathfindingManagerScript.RequestPathInstructions(gameObject, pathfindingTarget.transform.position, _characterScript.jump.maxJumpHeight
-                    , _characterScript.movement.ability
-                    , _characterScript.jump.ability
-                    , _characterScript.fallNodes
+                _pathfindingManagerScript.RequestPathInstructions(gameObject, pathfindingTarget.transform.position, 20f //JumpHeight
+                    , true //Booleans tells if AI can use the capacity
+                    , true
+                    , true
                     );
             }
         }
@@ -268,7 +264,6 @@ using Cursed.Character;
             {
                 if (_aiControllerScript.NeedsPathfinding())
                 {
-                    isPathFinding = true;
                     _currentOrders = _waitingOrders;
                     _waitingOrders = null;
                     pathCompleted = false;
@@ -354,8 +349,7 @@ using Cursed.Character;
                         if (_failAttemptCount >= _failAttempts && _controller.collisions.below)
                         {
                             _failAttemptCount = 0;
-                            _pathIsDirty = true;
-                            Debug.Log("Pb là");
+                            _pathIsDirty = true;                            
                         }
                     }
                     else { _failAttemptCount = 0; }

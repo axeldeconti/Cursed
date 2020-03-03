@@ -36,17 +36,6 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="Play_DoubleJump" ID="{D4711E30-6196-4829-8406-D74523BCD594}">
-					<ChildrenList>
-						<Action Name="" ID="{1DDDBE17-C3C9-46AB-B9D7-597B53B14F01}" ShortID="433085860">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="DoubleJump" ID="{63C3DAEC-D770-4684-9F2C-7B05C4FB5683}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Event Name="Play_Creature_Launch" ID="{BE7E044D-78B5-4B4A-BD30-94CF252F2CDB}">
 					<ChildrenList>
 						<Action Name="" ID="{D5027B63-F2BB-416E-9164-1A814A43CF12}" ShortID="11301290">
@@ -97,6 +86,17 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="Landing" ID="{AAB21DB5-01F7-4F3C-AE27-1443747194C4}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_DoubleJump" ID="{E3C8EB75-1058-47DC-96BD-B9C9933B39BA}">
+					<ChildrenList>
+						<Action Name="" ID="{90FF425F-A731-43B7-B1C1-A6535A30F032}" ShortID="730702873">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DoubleJump" ID="{CBCD5BD8-AEE3-4BE3-8383-95374F3D2AD2}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
