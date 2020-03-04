@@ -103,6 +103,7 @@ namespace Cursed.Character
         private GameObject _refDashDustVfx;
         private GameObject _refWallSlideSparkVfx;
         private GameObject _refWallSlideDustVfx;
+        private GameObject _refTrailDivekickVfx;
 
         private void Start()
         {
@@ -163,6 +164,11 @@ namespace Cursed.Character
 
             //Clamp y velocity to not to fall to fast
             UpdateVelocity(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, -60f, 60f));
+
+            if(_coll.OnWall == true)
+            {
+                Destroy(_refTrailDivekickVfx);
+            }
         }
 
         /// <summary>
@@ -182,6 +188,7 @@ namespace Cursed.Character
             AkSoundEngine.PostEvent("Play_Landing", gameObject);
             Destroy(_refWallSlideSparkVfx);
             Destroy(_refWallSlideDustVfx);
+            Destroy(_refTrailDivekickVfx);
 
             StopCoroutine("CoyoteTime");
             _isCoyoteTime = false;
@@ -604,6 +611,7 @@ namespace Cursed.Character
             {
                 //Just dive kick
                 UpdateVelocity(_diveKickDirection.x * _side * _diveKickSpeed, _diveKickDirection.y * _diveKickSpeed);
+                _refTrailDivekickVfx = _vfx.TrailDivekickEffect();
             }
 
             _isDiveKicking = _attackManager.IsDiveKicking;
@@ -639,10 +647,6 @@ namespace Cursed.Character
             //Reset wall run if not on wall or not input grab
             if (_wallRun && (!_coll.OnWall || !CheckForWallGrab()))
                 _wallRun = false;
-
-            //Reset double jump
-            //if (_coll.OnWall || _coll.OnGround)
-            //    _hasDoubleJumped = false;
 
             //Just touch ground
             if (_coll.OnGround && !_groundTouch)

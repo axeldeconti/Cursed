@@ -4,31 +4,53 @@ namespace Cursed.VisualEffect
 {
     public class GhostEffect : MonoBehaviour
     {
-        public GameObject _ghost;
+        public GameObject _ghostDash;
+        public GameObject _ghostDivekick;
 
         [SerializeField] private FloatReference _ghostDelayInterval;
-        [SerializeField] private FloatReference _timeGhostVisible;
-        private float _ghostDelaySeconde;
+        [SerializeField] private FloatReference _timeGhostDashVisible;
+        [SerializeField] private FloatReference _timeGhostDivekickVisible;
+        private float _ghostDashDelaySeconde;
+        private float _ghostDivekickDelaySeconde;
 
         private void Start()
         {
-            _ghostDelaySeconde = _ghostDelayInterval;
+            _ghostDashDelaySeconde = _ghostDelayInterval;
+            _ghostDivekickDelaySeconde = _ghostDelayInterval;
         }
         public void GhostDashEffect()
         {
-            if (_ghostDelaySeconde > 0)
+            if (_ghostDashDelaySeconde > 0)
             {
-                _ghostDelaySeconde -= Time.deltaTime;
+                _ghostDashDelaySeconde -= Time.deltaTime;
             }
             else
             {
                 //Generate a ghost
-                GameObject currentGhost = Instantiate(_ghost, transform.position, transform.rotation);
+                GameObject currentGhost = Instantiate(_ghostDash, transform.position, transform.rotation);
                 Sprite currentSprite = GetComponent<SpriteRenderer>().sprite;
                 currentGhost.transform.localScale = this.transform.localScale;
                 currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
-                _ghostDelaySeconde = _ghostDelayInterval;
-                Destroy(currentGhost, _timeGhostVisible);
+                _ghostDashDelaySeconde = _ghostDelayInterval;
+                Destroy(currentGhost, _timeGhostDashVisible);
+            }
+        }
+
+        public void GhostDivekickEffect()
+        {
+            if (_ghostDivekickDelaySeconde > 0)
+            {
+                _ghostDivekickDelaySeconde -= Time.deltaTime;
+            }
+            else
+            {
+                //Generate a ghost
+                GameObject currentGhost = Instantiate(_ghostDivekick, transform.position, transform.rotation);
+                Sprite currentSprite = GetComponent<SpriteRenderer>().sprite;
+                currentGhost.transform.localScale = this.transform.localScale;
+                currentGhost.GetComponent<SpriteRenderer>().sprite = currentSprite;
+                _ghostDivekickDelaySeconde = _ghostDelayInterval;
+                Destroy(currentGhost, _timeGhostDivekickVisible);
             }
         }
     }

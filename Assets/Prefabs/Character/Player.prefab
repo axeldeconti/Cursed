@@ -508,6 +508,8 @@ MonoBehaviour:
     type: 3}
   _vfxDashDust: {fileID: 1907876244288169627, guid: 2c78562846af4c748ba44602c2f571e8,
     type: 3}
+  _vfxTrailDivekick: {fileID: 8884033203457709585, guid: 15ee19c5730bee643b83861944c6e78b,
+    type: 3}
 --- !u!114 &3300097278112753336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,14 +522,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5ff1f7c0a3e1f4c8d0fb0f0f80111c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ghost: {fileID: 1914275734890146451, guid: d50533610e0052f438c81fbc71afefda, type: 3}
+  _ghostDash: {fileID: 1914275734890146451, guid: d50533610e0052f438c81fbc71afefda,
+    type: 3}
+  _ghostDivekick: {fileID: 4796411183293776234, guid: f133d0bb7e555e34594fccb0607241d1,
+    type: 3}
   _ghostDelayInterval:
     UseConstant: 1
     ConstantValue: 0.05
     Variable: {fileID: 0}
-  _timeGhostVisible:
+  _timeGhostDashVisible:
     UseConstant: 1
-    ConstantValue: 1
+    ConstantValue: 0.8
+    Variable: {fileID: 0}
+  _timeGhostDivekickVisible:
+    UseConstant: 1
+    ConstantValue: 0.4
     Variable: {fileID: 0}
 --- !u!114 &6341393546893377053
 MonoBehaviour:

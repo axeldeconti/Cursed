@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &729851208916980883
+--- !u!1 &8884033203457709585
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 729851208916980880}
-  - component: {fileID: 729851208916980881}
+  - component: {fileID: 8884033203457709586}
+  - component: {fileID: 8884033203457709587}
   m_Layer: 0
-  m_Name: TrailCreatureEffect
+  m_Name: TrailDivekickEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &729851208916980880
+--- !u!4 &8884033203457709586
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729851208916980883}
+  m_GameObject: {fileID: 8884033203457709585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.2506, y: -0.0101, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,14 +31,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &729851208916980881
+--- !u!96 &8884033203457709587
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729851208916980883}
+  m_GameObject: {fileID: 8884033203457709585}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -72,7 +72,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Time: 1.2
+  m_Time: 2
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -81,7 +81,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2391339
+        value: 0.51624113
         inSlope: -1.7672161
         outSlope: -1.7672161
         tangentMode: 0
@@ -89,8 +89,8 @@ TrailRenderer:
         inWeight: 0.15873015
         outWeight: 0.4807189
       - serializedVersion: 3
-        time: 0.20471984
-        value: 0.10246284
+        time: 0.156174
+        value: 0.36752325
         inSlope: -0.22774148
         outSlope: -0.22774148
         tangentMode: 0
@@ -98,8 +98,8 @@ TrailRenderer:
         inWeight: 0.62258524
         outWeight: 0.2348036
       - serializedVersion: 3
-        time: 0.88848335
-        value: 0.045837708
+        time: 0.8350776
+        value: 0.33499175
         inSlope: -0.027067378
         outSlope: -0.027067378
         tangentMode: 0
@@ -120,9 +120,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.3018868, g: 0.07831969, b: 0.13279875, a: 0.78431374}
-      key1: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0}
-      key2: {r: 1, g: 1, b: 1, a: 0}
+      key0: {r: 0.41176474, g: 0.89019614, b: 0.97647065, a: 0.78431374}
+      key1: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0.78431374}
+      key2: {r: 0, g: 0.9017174, b: 1, a: 0}
       key3: {r: 1, g: 1, b: 1, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -137,7 +137,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
+      atime1: 19661
       atime2: 65535
       atime3: 65535
       atime4: 0
@@ -146,13 +146,13 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 1
   m_Autodestruct: 0
   m_Emitting: 1

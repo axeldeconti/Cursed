@@ -14,6 +14,7 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxWallSlideDust;
         [SerializeField] private GameObject _vfxDashSpeed;
         [SerializeField] private GameObject _vfxDashDust;
+        [SerializeField] private GameObject _vfxTrailDivekick;
 
         private CollisionHandler _coll;
         private CharacterMovement _move;
@@ -112,9 +113,9 @@ namespace Cursed.Character
             int side = _move.Side == 1 ? 0 : 180;
 
             if (side == 0)
-                VfxPosition += new Vector3(-2f, 1f, 0f);
+                VfxPosition += new Vector3(-1f, 1f, 0f);
             else
-                VfxPosition += new Vector3(2f, 1f, 0f);
+                VfxPosition += new Vector3(1f, 1f, 0f);
 
             GameObject particle = Instantiate(_vfxDashSpeed, VfxPosition, Quaternion.identity, transform);
             ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
@@ -137,6 +138,14 @@ namespace Cursed.Character
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
             rendererParticle.flip = new Vector3(side, 0, 0);
 
+            return particle;
+        }
+
+        public GameObject TrailDivekickEffect()
+        {
+            Vector3 VfxPosition = transform.position;
+            VfxPosition += new Vector3(0f, 3f, 0f);
+            GameObject particle = Instantiate(_vfxTrailDivekick, VfxPosition, Quaternion.identity, transform);
             return particle;
         }
 
