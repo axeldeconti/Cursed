@@ -29,6 +29,22 @@ namespace AK
         static const AkUniqueID STOP_MAIN_PLAY_LOOP_WALLSLIDE = 3156285719U;
     } // namespace EVENTS
 
+    namespace SWITCHES
+    {
+        namespace SWITCHGROUP_WALLSLIDE
+        {
+            static const AkUniqueID GROUP = 3560252704U;
+
+            namespace SWITCH
+            {
+                static const AkUniqueID SWITCH_WALLSLIDE_END = 865320709U;
+                static const AkUniqueID SWITCH_WALLSLIDE_LOOP = 969489392U;
+                static const AkUniqueID SWITCH_WALLSLIDE_MAIN = 2820367257U;
+            } // namespace SWITCH
+        } // namespace SWITCHGROUP_WALLSLIDE
+
+    } // namespace SWITCHES
+
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
