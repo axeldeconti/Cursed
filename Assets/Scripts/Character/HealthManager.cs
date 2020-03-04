@@ -78,6 +78,7 @@ namespace Cursed.Character
                 Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
+                //AkSoundEngine.PostEvent("Play_Damage_Enemy", gameObject);
                 //Do something if critical
             }
         }
@@ -162,6 +163,7 @@ namespace Cursed.Character
         private void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
+            //AkSoundEngine.PostEvent("Play_Death_Enemy", gameObject);
             onDeath?.Raise();
         }
 
