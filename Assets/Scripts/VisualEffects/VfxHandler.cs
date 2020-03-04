@@ -15,6 +15,7 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxDashSpeed;
         [SerializeField] private GameObject _vfxDashDust;
         [SerializeField] private GameObject _vfxTrailDivekick;
+        [SerializeField] private GameObject _vfxTouchImpact;
 
         private CollisionHandler _coll;
         private CharacterMovement _move;
@@ -147,6 +148,12 @@ namespace Cursed.Character
             VfxPosition += new Vector3(0f, 3f, 0f);
             GameObject particle = Instantiate(_vfxTrailDivekick, VfxPosition, Quaternion.identity, transform);
             return particle;
+        }
+
+        public void TouchImpactVfx (Vector3 VfxPosition)
+        {
+            Debug.Log("blbl");
+            ParticleSystemRenderer particle = Instantiate(_vfxTouchImpact, VfxPosition += new Vector3 (0,3,0), Quaternion.identity).GetComponent<ParticleSystemRenderer>();
         }
 
         #region Getters & Setters

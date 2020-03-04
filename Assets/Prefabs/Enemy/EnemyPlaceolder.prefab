@@ -42,8 +42,10 @@ GameObject:
   - component: {fileID: 1173220226897173406}
   - component: {fileID: 1899463608251850967}
   - component: {fileID: 5815484244200846283}
+  - component: {fileID: -6666290636415760227}
+  - component: {fileID: 2073999563192726122}
   m_Layer: 9
-  m_Name: EnnemyPlaceolder
+  m_Name: EnemyPlaceolder
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,3 +154,59 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &-6666290636415760227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977757608220281282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd40fd21f91096742ad813a1c3e8cd51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth:
+    UseConstant: 1
+    ConstantValue: 100
+    Variable: {fileID: 0}
+  _invincibleTime:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  onHealthUpdate: {fileID: 0}
+  onMaxHealthUpdate: {fileID: 0}
+  onDeath: {fileID: 0}
+--- !u!114 &2073999563192726122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977757608220281282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06054137b2264a409d06bfd8e87b01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxRun: {fileID: 4088965895379082687, guid: 727c1b55582a73042ad3f1c8678b1043, type: 3}
+  _vfxWallRun: {fileID: 8180102943743448197, guid: a65dc3963cc161945b173e2fdc6f949f,
+    type: 3}
+  _vfxJump: {fileID: 5318427770110259264, guid: 5d4b9bc7bd53e3b41b2e58c16034489a,
+    type: 3}
+  _vfxDoubleJump: {fileID: 8114406786386643903, guid: c7442787a6f372c488cf3572676630c8,
+    type: 3}
+  _vfxFall: {fileID: 4818869912900407256, guid: d13a1e741451391419329692836b7849,
+    type: 3}
+  _vfxWallSlideSpark: {fileID: 1103421733211284317, guid: 5228ec6b0f834d9499da7f23cb56e81a,
+    type: 3}
+  _vfxWallSlideDust: {fileID: 3776477047226201451, guid: b43103f85b340d743a7311e3ad390fc9,
+    type: 3}
+  _vfxDashSpeed: {fileID: 2633979679782619797, guid: 1a76eaf0e4bd6c645bfb5f72bd8d71c4,
+    type: 3}
+  _vfxDashDust: {fileID: 1907876244288169627, guid: 2c78562846af4c748ba44602c2f571e8,
+    type: 3}
+  _vfxTrailDivekick: {fileID: 4796411183293776234, guid: f133d0bb7e555e34594fccb0607241d1,
+    type: 3}
+  _vfxTouchImpact: {fileID: 5301960944918152120, guid: b64f89874e8a5d34681612ecf941c345,
+    type: 3}

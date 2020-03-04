@@ -18,10 +18,14 @@ namespace Cursed.Character
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
 
+        private VfxHandler _vfx = null;
+
         #region Initalizer
 
         private void Start()
         {
+            _vfx = GetComponent<VfxHandler>();
+
             //Set to an eventual base number
             _stats = GetComponent<CharacterStats>();
             if (_stats != null)
@@ -78,6 +82,10 @@ namespace Cursed.Character
                 Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
+                if (gameObject.tag.Equals("Enemy"))
+                {
+                    _vfx.TouchImpactVfx(gameObject.transform.position);
+                }
                 //Do something if critical
             }
         }
