@@ -18,7 +18,7 @@ namespace Cursed.Creature
         {
             _creatureManager = GetComponent<CreatureManager>();
             _animator = GetComponent<Animator>();
-            _rayStartTransform = GetComponentInChildren<Collider2D>().transform;
+            _rayStartTransform = GetComponentInChildren<Collider2D>().transform.GetChild(0);
         }
 
         void Update()
@@ -32,15 +32,28 @@ namespace Cursed.Creature
             if (_creatureManager.CurrentState == CreatureState.Moving && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
                 RaycastHit2D[] obj = Physics2D.CircleCastAll(_rayStartTransform.position, _inAirRadius, new Vector2(0f, 0f));
+                float distance = Mathf.Infinity;
+                Transform enemyTransform = null;
                 foreach (RaycastHit2D hit in obj)
                 {
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        if (EnemyInRange(hit.collider.transform, _inAirRadius, true))
+                        Debug.Log("Hit enemy");
+                        
+                        if (EnemyInRange(hit.point, hit.collider.transform, _inAirRadius, true))
                         {
-                            _creatureManager.CurrentState = CreatureState.Chasing;
+                            if (Vector2.Distance(hit.point, _rayStartTransform.position) < distance)
+                            {
+                                distance = Vector2.Distance(hit.point, _rayStartTransform.position);
+                                enemyTransform = hit.collider.transform;
+                            }
                         }
                     }
+                }
+                if(enemyTransform != null)
+                {
+                    _enemyHit = enemyTransform;
+                    _creatureManager.CurrentState = CreatureState.Chasing;
                 }
             }
             #endregion
@@ -48,39 +61,48 @@ namespace Cursed.Creature
             #region ON WALL
             if (_creatureManager.CurrentState == CreatureState.OnWall && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoToWall")
             {
-                RaycastHit2D[] obj = Physics2D.CircleCastAll(_rayStartTransform.position, _onWallRadius, new Vector2(0f, 0f));
+                RaycastHit2D[] obj = Physics2D.CircleCastAll(transform.position, _onWallRadius, new Vector2(0f, 0f));
+                float distance = Mathf.Infinity;
+                Transform enemyTransform = null;
                 foreach (RaycastHit2D hit in obj)
                 {
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        if (EnemyInRange(hit.collider.transform, _onWallRadius, true))
+                        Debug.Log("Hit enemy");
+                        if (EnemyInRange(hit.point, hit.collider.transform, _onWallRadius, true))
                         {
-                            _creatureManager.CurrentState = CreatureState.Chasing;
+                            Debug.Log("Enemy in range");
+                            if (Vector2.Distance(hit.point, _rayStartTransform.position) < distance)
+                            {
+                                distance = Vector2.Distance(hit.point, _rayStartTransform.position);
+                                Debug.Log("Distance : " + distance);
+                                enemyTransform = hit.collider.transform;
+                            }
                         }
                     }
+                }
+                if(enemyTransform != null)
+                {
+                    _enemyHit = enemyTransform;
+                    _creatureManager.CurrentState = CreatureState.Chasing;
                 }
             }
             #endregion
         }
 
-        private bool EnemyInRange(Transform ennemy, float range, bool raycastOn)
+        private bool EnemyInRange(Vector2 hit, Transform ennemy, float range, bool raycastOn)
         {
-            if (ennemy && Vector3.Distance(ennemy.position, _rayStartTransform.position) < range)
+            if (ennemy && Vector2.Distance(hit, _rayStartTransform.position) < range)
             {
                 if (raycastOn)
                 {
-                    if (Physics2D.Linecast(transform.position, ennemy.position, _checkLayer).collider.gameObject.layer == ennemy.gameObject.layer)
-                    {
-                        _enemyHit = ennemy;
+                    if (Physics2D.Linecast(_rayStartTransform.position, hit, _checkLayer).collider.gameObject.layer == ennemy.gameObject.layer)
                         return true;
-                    }
                     else
                         return false;
                 }
                 else if (!raycastOn)
-                {
                     return true;
-                }
             }
             return false;
         }
@@ -91,7 +113,7 @@ namespace Cursed.Creature
             if(_rayStartTransform != null && _creatureManager.CurrentState == CreatureState.Moving)
                 Gizmos.DrawWireSphere(_rayStartTransform.position, _inAirRadius);
             if (_rayStartTransform != null && _creatureManager.CurrentState == CreatureState.OnWall)
-                Gizmos.DrawWireSphere(_rayStartTransform.position, _onWallRadius);
+                Gizmos.DrawWireSphere(transform.position, _onWallRadius);
         } 
 
 

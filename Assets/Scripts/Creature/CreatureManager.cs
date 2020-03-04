@@ -116,7 +116,7 @@ namespace Cursed.Creature
                     transform.position = _joystick.Target.GetChild(0).position;
             }
             else
-                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(4f * _movement.Direction, 0f);
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(.5f * _movement.Direction, 0f);
 
             CurrentState = CreatureState.Moving;
         }

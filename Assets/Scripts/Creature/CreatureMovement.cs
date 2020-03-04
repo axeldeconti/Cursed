@@ -101,11 +101,19 @@ namespace Cursed.Creature
                         MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
-                if(_collision.OnWall)
+                /*if(_collision.OnWall)
                 {
                     StuckOnWall();
-                }
+                }*/
             }
+            #endregion
+
+            #region ON WALL
+            if(_creatureManager.CurrentState == CreatureState.OnWall)
+            {
+                StuckOnWall();
+            }
+
             #endregion
 
             #region CHASING
