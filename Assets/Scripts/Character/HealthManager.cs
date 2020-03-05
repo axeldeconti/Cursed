@@ -82,7 +82,7 @@ namespace Cursed.Character
                 Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
-                if (gameObject.tag.Equals("Enemy"))
+                if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
                 {
                     _vfx.TouchImpactVfx(gameObject.transform.position);
                 }
