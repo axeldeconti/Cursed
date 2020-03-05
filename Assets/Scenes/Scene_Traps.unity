@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -645,6 +645,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1410609302}
     m_Modifications:
+    - target: {fileID: 6470206079673675995, guid: 94b4b09ad5527b8498cfea2b09097da2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470206080042550796, guid: 94b4b09ad5527b8498cfea2b09097da2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6470206080584126988, guid: 94b4b09ad5527b8498cfea2b09097da2,
         type: 3}
       propertyPath: m_Name
@@ -800,15 +810,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1410609302}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ShapeModule.radius.value
+      value: 0.36
+      objectReference: {fileID: 0}
     - target: {fileID: 4416420776115337665, guid: d84c3793bcf6c074084afd693a6f23ce,
         type: 3}
       propertyPath: m_Offset.y
-      value: 1.79
+      value: 5.06
       objectReference: {fileID: 0}
     - target: {fileID: 4416420776115337665, guid: d84c3793bcf6c074084afd693a6f23ce,
         type: 3}
       propertyPath: m_Size.y
-      value: 10.24
+      value: 10.12
       objectReference: {fileID: 0}
     - target: {fileID: 6822036365946996676, guid: d84c3793bcf6c074084afd693a6f23ce,
         type: 3}
@@ -823,7 +837,7 @@ PrefabInstance:
     - target: {fileID: 6822036365946996677, guid: d84c3793bcf6c074084afd693a6f23ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6776391
+      value: -4.89
       objectReference: {fileID: 0}
     - target: {fileID: 6822036365946996677, guid: d84c3793bcf6c074084afd693a6f23ce,
         type: 3}
@@ -870,12 +884,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6822036367081881865, guid: d84c3793bcf6c074084afd693a6f23ce,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6822036367104137532, guid: d84c3793bcf6c074084afd693a6f23ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.91
+      value: 10.12
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6822036367087453407, guid: d84c3793bcf6c074084afd693a6f23ce, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d84c3793bcf6c074084afd693a6f23ce, type: 3}
 --- !u!4 &6822036367265635661 stripped
 Transform:
