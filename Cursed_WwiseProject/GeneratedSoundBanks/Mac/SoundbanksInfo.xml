@@ -45,43 +45,23 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1776683280" Name="Play_Creature_Call" ObjectPath="\Events\Default Work Unit\Play_Creature_Call" DurationType="OneShot" DurationMin="0.291701" DurationMax="0.291701">
-					<IncludedMemoryFiles>
-						<File Id="352268105" Language="SFX">
-							<ShortName>Creature\Creature_Call.wav</ShortName>
-							<Path>SFX\Creature\Creature_Call_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="3373431376" Name="Play_Creature_Grabbing" ObjectPath="\Events\Default Work Unit\Play_Creature_Grabbing" DurationType="OneShot" DurationMin="1.338957" DurationMax="1.338957">
-					<IncludedMemoryFiles>
-						<File Id="782575791" Language="SFX">
-							<ShortName>Creature\Creature_Grabbing.wav</ShortName>
-							<Path>SFX\Creature\Creature_Grabbing_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1251478039" Name="Play_Creature_HitWall" ObjectPath="\Events\Default Work Unit\Play_Creature_HitWall" DurationType="OneShot" DurationMin="0.518866" DurationMax="0.518866">
-					<IncludedMemoryFiles>
-						<File Id="1064949676" Language="SFX">
-							<ShortName>Creature\Creature_HitWall.wav</ShortName>
-							<Path>SFX\Creature\Creature_HitWall_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="3361186193" Name="Play_Creature_Launch" ObjectPath="\Events\Default Work Unit\Play_Creature_Launch" DurationType="OneShot" DurationMin="0.453687" DurationMax="0.453687">
-					<IncludedMemoryFiles>
-						<File Id="1810840" Language="SFX">
-							<ShortName>Creature\Creature_Launch.wav</ShortName>
-							<Path>SFX\Creature\Creature_Launch_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Character\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
 					<IncludedMemoryFiles>
 						<File Id="135575679" Language="SFX">
 							<ShortName>Dash\Dash.wav</ShortName>
 							<Path>SFX\Dash\Dash_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1735873294" Name="Play_Divekick" ObjectPath="\Events\Default Work Unit\Character\Play_Divekick" DurationType="OneShot" DurationMin="0.322472" DurationMax="0.352789">
+					<IncludedMemoryFiles>
+						<File Id="92819270" Language="SFX">
+							<ShortName>Divekick\Divekick_02.wav</ShortName>
+							<Path>SFX\Divekick\Divekick_02_10C4C929.wem</Path>
+						</File>
+						<File Id="1033079340" Language="SFX">
+							<ShortName>Divekick\Divekick_01.wav</ShortName>
+							<Path>SFX\Divekick\Divekick_01_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -158,6 +138,60 @@
 						<File Id="733050369" Language="SFX">
 							<ShortName>WallSlide_Loop_03.wav</ShortName>
 							<Path>SFX\WallSlide_Loop_03_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+		</SoundBank>
+		<SoundBank Id="2661483290" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Creature</ObjectPath>
+			<ShortName>Creature</ShortName>
+			<Path>Creature.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1776683280" Name="Play_Creature_Call" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Call" DurationType="OneShot" DurationMin="0.291701" DurationMax="0.291701">
+					<IncludedMemoryFiles>
+						<File Id="352268105" Language="SFX">
+							<ShortName>Creature\Creature_Call.wav</ShortName>
+							<Path>SFX\Creature\Creature_Call_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3373431376" Name="Play_Creature_Grabbing" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Grabbing" DurationType="OneShot" DurationMin="0.662222" DurationMax="0.662222">
+					<IncludedMemoryFiles>
+						<File Id="99906037" Language="SFX">
+							<ShortName>Creature_Grabbing.wav</ShortName>
+							<Path>SFX\Creature_Grabbing_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1251478039" Name="Play_Creature_HitWall" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_HitWall" DurationType="OneShot" DurationMin="0.518866" DurationMax="0.518866">
+					<IncludedMemoryFiles>
+						<File Id="1064949676" Language="SFX">
+							<ShortName>Creature\Creature_HitWall.wav</ShortName>
+							<Path>SFX\Creature\Creature_HitWall_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3361186193" Name="Play_Creature_Launch" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Launch" DurationType="OneShot" DurationMin="0.453687" DurationMax="0.453687">
+					<IncludedMemoryFiles>
+						<File Id="1810840" Language="SFX">
+							<ShortName>Creature\Creature_Launch.wav</ShortName>
+							<Path>SFX\Creature\Creature_Launch_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+		</SoundBank>
+		<SoundBank Id="2767400001" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Spatialized</ObjectPath>
+			<ShortName>Spatialized</ShortName>
+			<Path>Spatialized.bnk</Path>
+			<IncludedEvents>
+				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="738182096" Language="SFX">
+							<ShortName>Laser.wav</ShortName>
+							<Path>SFX\Laser_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
