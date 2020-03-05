@@ -84,7 +84,7 @@ namespace Cursed.Character
                 //Play sound, vfx and animation
                 if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
                 {
-                    _vfx.TouchImpactVfx(gameObject.transform.position);
+                    _vfx.TouchImpactSwordVfx(gameObject.transform.position);
                 }
                 //Do something if critical
             }

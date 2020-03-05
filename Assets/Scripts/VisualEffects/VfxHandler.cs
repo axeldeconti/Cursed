@@ -15,11 +15,11 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxDashSpeed;
         [SerializeField] private GameObject _vfxDashDust;
         [SerializeField] private GameObject _vfxTrailDivekick;
-        [SerializeField] private GameObject _vfxTouchImpact1;
-        [SerializeField] private GameObject _vfxTouchImpact2;
-        [SerializeField] private GameObject _vfxTouchImpact3;
-        [SerializeField] private GameObject _vfxTouchImpact4;
-        [SerializeField] private GameObject _vfxTouchImpact5;
+        [SerializeField] private GameObject _vfxTouchImpactSword1;
+        [SerializeField] private GameObject _vfxTouchImpactSword2;
+        [SerializeField] private GameObject _vfxTouchImpactSword3;
+        [SerializeField] private GameObject _vfxTouchImpactSword4;
+        [SerializeField] private GameObject _vfxTouchImpactSword5;
 
         private CollisionHandler _coll;
         private CharacterMovement _move;
@@ -154,24 +154,24 @@ namespace Cursed.Character
             return particle;
         }
 
-        public void TouchImpactVfx (Vector3 VfxPosition)
+        public void TouchImpactSwordVfx (Vector3 VfxPosition)
         {
             int randParticle = Random.Range(0,5);
 
             if (randParticle == 0)
-                Instantiate(_vfxTouchImpact1, VfxPosition += new Vector3 (0,3,0), Quaternion.identity);
+                Instantiate(_vfxTouchImpactSword1, VfxPosition += new Vector3 (0,3,0), Quaternion.identity);
 
             if (randParticle == 1)
-                Instantiate(_vfxTouchImpact2, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+                Instantiate(_vfxTouchImpactSword2, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
 
             if (randParticle == 2)
-                Instantiate(_vfxTouchImpact3, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+                Instantiate(_vfxTouchImpactSword3, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
 
             if (randParticle == 3)
-                Instantiate(_vfxTouchImpact4, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+                Instantiate(_vfxTouchImpactSword4, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
 
             if (randParticle == 4)
-                Instantiate(_vfxTouchImpact5, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+                Instantiate(_vfxTouchImpactSword5, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
         }
 
         #region Getters & Setters
