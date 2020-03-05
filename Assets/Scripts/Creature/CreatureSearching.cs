@@ -5,8 +5,10 @@ namespace Cursed.Creature
     public class CreatureSearching : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private float _onWallRadius = 30f;
-        [SerializeField] private float _inAirRadius = 5f;
+        [SerializeField] private FloatReference _onWallRadius;
+        [SerializeField] private FloatReference _inAirRadius;
+        [SerializeField] private FloatReference _timeBeforeChasingOnWall;
+        private float _currentTimerBeforeChasingOnWall = 0f;
         [Header("Referencies")]
         [SerializeField] private LayerMask _checkLayer;
         private Transform _enemyHit;
@@ -33,7 +35,7 @@ namespace Cursed.Creature
             #region IN AIR
             if (_creatureManager.CurrentState == CreatureState.Moving && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
-                RaycastHit2D[] obj = Physics2D.CircleCastAll(_originRayInAir.position, _inAirRadius, new Vector2(0f, 0f));
+                RaycastHit2D[] obj = Physics2D.CircleCastAll(_originRayInAir.position, _inAirRadius.Value, new Vector2(0f, 0f));
                 float distance = Mathf.Infinity;
                 Transform enemyTransform = null;
                 foreach (RaycastHit2D hit in obj)
@@ -42,7 +44,7 @@ namespace Cursed.Creature
                     {
                         Debug.Log("Hit enemy");
                         
-                        if (EnemyInRange(hit.point, hit.collider.transform, _originRayInAir.position,_inAirRadius, true))
+                        if (EnemyInRange(hit.point, hit.collider.transform, _originRayInAir.position,_inAirRadius.Value, true))
                         {
                             if (Vector2.Distance(hit.point, _originRayInAir.position) < distance)
                             {
@@ -63,7 +65,7 @@ namespace Cursed.Creature
             #region ON WALL
             if (_creatureManager.CurrentState == CreatureState.OnWall && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoToWall")
             {
-                RaycastHit2D[] obj = Physics2D.CircleCastAll(_originRayOnWall.position, _onWallRadius, new Vector2(0f, 0f));
+                RaycastHit2D[] obj = Physics2D.CircleCastAll(_originRayOnWall.position, _onWallRadius.Value, new Vector2(0f, 0f));
                 float distance = Mathf.Infinity;
                 Transform enemyTransform = null;
                 foreach (RaycastHit2D hit in obj)
@@ -71,7 +73,7 @@ namespace Cursed.Creature
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
                         Debug.Log("Hit enemy");
-                        if (EnemyInRange(hit.point, hit.collider.transform, _originRayOnWall.position,_onWallRadius, true))
+                        if (EnemyInRange(hit.point, hit.collider.transform, _originRayOnWall.position,_onWallRadius.Value, true))
                         {
                             Debug.Log("Enemy in range");
                             if (Vector2.Distance(hit.point, _originRayOnWall.position) < distance)
@@ -85,8 +87,13 @@ namespace Cursed.Creature
                 }
                 if(enemyTransform != null)
                 {
-                    _enemyHit = enemyTransform;
-                    _creatureManager.CurrentState = CreatureState.Chasing;
+                    _currentTimerBeforeChasingOnWall += Time.deltaTime;
+                    if (_currentTimerBeforeChasingOnWall >= _timeBeforeChasingOnWall.Value)
+                    {
+                        _currentTimerBeforeChasingOnWall = 0f;
+                        _enemyHit = enemyTransform;
+                        _creatureManager.CurrentState = CreatureState.Chasing;
+                    }
                 }
             }
             #endregion
@@ -114,9 +121,9 @@ namespace Cursed.Creature
         {
             Gizmos.color = Color.cyan;
             if(_originRayInAir != null && _creatureManager.CurrentState == CreatureState.Moving)
-                Gizmos.DrawWireSphere(_originRayInAir.position, _inAirRadius);
+                Gizmos.DrawWireSphere(_originRayInAir.position, _inAirRadius.Value);
             if (_originRayOnWall != null && _creatureManager.CurrentState == CreatureState.OnWall)
-                Gizmos.DrawWireSphere(_originRayOnWall.position, _onWallRadius);
+                Gizmos.DrawWireSphere(_originRayOnWall.position, _onWallRadius.Value);
         } 
 
 

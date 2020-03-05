@@ -110,8 +110,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd9d737aacd518a4c9e5907dae9ef942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onWallRadius: 30
-  _inAirRadius: 6
+  _onWallRadius:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: fd5c25ada592c344288c34e1ccfb911a, type: 2}
+  _inAirRadius:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 4163d9876722ff545beab9ff097ad45f, type: 2}
+  _timeBeforeChasingOnWall:
+    UseConstant: 1
+    ConstantValue: 0.5
+    Variable: {fileID: 0}
   _checkLayer:
     serializedVersion: 2
     m_Bits: 768
