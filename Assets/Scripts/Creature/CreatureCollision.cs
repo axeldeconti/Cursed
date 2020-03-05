@@ -25,6 +25,7 @@ namespace Cursed.Creature
 
         public void CollideWithCharacter(CreatureState type, Transform target)
         {
+            Debug.Log("Collide");
             _creatureManager.CurrentState = type;
             Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target);
         }
@@ -72,18 +73,23 @@ namespace Cursed.Creature
                 CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
 
             if (collision.gameObject.CompareTag("Enemy") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
-                CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
+            {
+                if(_creatureManager.CurrentState != CreatureState.OnComeBack)
+                    CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
+            }
 
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
             {
-                _wallDirection = collision.contacts[0].normal;
-                _wallCollision = collision.transform;
-                _onWall = true;
-
+                if (_creatureManager.CurrentState == CreatureState.Moving)
+                {
+                    _wallDirection = collision.contacts[0].normal;
+                    _wallCollision = collision.transform;
+                    _creatureManager.CurrentState = CreatureState.OnWall;
+                }
                 //_ricochetDirection = v;
             }
-            else
-                _onWall = false;
+            /*else
+                _onWall = false;*/
         }
 
         #endregion

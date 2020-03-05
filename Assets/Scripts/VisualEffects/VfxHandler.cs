@@ -41,7 +41,6 @@ namespace Cursed.Character
 
             ParticleSystemRenderer particle = Instantiate(_vfxRun, VfxPosition, Quaternion.identity).GetComponent<ParticleSystemRenderer>();
             particle.flip = new Vector3(side, 0, 0);
-            AkSoundEngine.PostEvent("Play_Run", gameObject);
 
         }
 
@@ -57,7 +56,6 @@ namespace Cursed.Character
 
             ParticleSystemRenderer particle = Instantiate(_vfxWallRun, VfxPosition, Quaternion.identity).GetComponent<ParticleSystemRenderer>();
             particle.flip = new Vector3(0, side, 0);
-            AkSoundEngine.PostEvent("Play_Run", gameObject);
         }
 
         public void JumpVfx()
@@ -69,7 +67,6 @@ namespace Cursed.Character
                 particle.startRotation = -0.8f;
             else
                 particle.startRotation = 0f;
-            AkSoundEngine.PostEvent("Play_BasicJump", gameObject);
         }
 
         public GameObject WallSlideSparkVfx()

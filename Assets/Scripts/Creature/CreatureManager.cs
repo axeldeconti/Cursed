@@ -59,11 +59,15 @@ namespace Cursed.Creature
         private void UpdateInput()
         {
             #region LAUNCH & RECALL
-            if (_input.Down)
+            if (_input.Down) {
                 DeAttachFromPlayer();
-
-            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
+            }
+            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall) { 
                 CurrentState = CreatureState.OnComeBack;
+                AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
+            }
+
+
             #endregion
         }
 
@@ -103,6 +107,8 @@ namespace Cursed.Creature
             if (_creatureState != CreatureState.OnCharacter)
                 return;
 
+            AkSoundEngine.PostEvent("Play_Creature_Launch", gameObject);
+
             StartCoroutine(WaitForRecallReady());
 
             if (_characterMovement.Side != 0)
@@ -116,7 +122,7 @@ namespace Cursed.Creature
                     transform.position = _joystick.Target.GetChild(0).position;
             }
             else
-                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(4f * _movement.Direction, 0f);
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(.5f * _movement.Direction, 0f);
 
             CurrentState = CreatureState.Moving;
         }
