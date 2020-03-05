@@ -5,6 +5,7 @@ namespace Cursed.Character
 {
     public class VfxHandler : MonoBehaviour
     {
+        [Header("VFX Movement")]
         [SerializeField] private GameObject _vfxRun;
         [SerializeField] private GameObject _vfxWallRun;
         [SerializeField] private GameObject _vfxJump;
@@ -15,11 +16,18 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxDashSpeed;
         [SerializeField] private GameObject _vfxDashDust;
         [SerializeField] private GameObject _vfxTrailDivekick;
+        [Space]
+        [Header("VFX Attack")]
         [SerializeField] private GameObject _vfxTouchImpactSword1;
         [SerializeField] private GameObject _vfxTouchImpactSword2;
         [SerializeField] private GameObject _vfxTouchImpactSword3;
         [SerializeField] private GameObject _vfxTouchImpactSword4;
         [SerializeField] private GameObject _vfxTouchImpactSword5;
+        [SerializeField] private GameObject _vfxTouchImpactAxe1;
+        [SerializeField] private GameObject _vfxTouchImpactAxe2;
+        [SerializeField] private GameObject _vfxTouchImpactAxe3;
+        [SerializeField] private GameObject _vfxTouchImpactAxe4;
+        [SerializeField] private GameObject _vfxTouchImpactAxe5;
 
         private CollisionHandler _coll;
         private CharacterMovement _move;
@@ -172,6 +180,26 @@ namespace Cursed.Character
 
             if (randParticle == 4)
                 Instantiate(_vfxTouchImpactSword5, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+        }
+
+        public void TouchImpactAxeVfx(Vector3 VfxPosition)
+        {
+            int randParticle = Random.Range(0, 5);
+
+            if (randParticle == 0)
+                Instantiate(_vfxTouchImpactAxe1, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+
+            if (randParticle == 1)
+                Instantiate(_vfxTouchImpactAxe2, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+
+            if (randParticle == 2)
+                Instantiate(_vfxTouchImpactAxe3, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+
+            if (randParticle == 3)
+                Instantiate(_vfxTouchImpactAxe4, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
+
+            if (randParticle == 4)
+                Instantiate(_vfxTouchImpactAxe5, VfxPosition += new Vector3(0, 3, 0), Quaternion.identity);
         }
 
         #region Getters & Setters
