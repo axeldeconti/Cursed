@@ -14,7 +14,6 @@ namespace Cursed.Creature
         private CreatureJoystickDirection _joystick;
         private CreatureCollision _collision;
         private Animator _animator;
-        private CreatureVfxHandler _vfx;
         private int _direction;
         private float _impulseTimer;
         private bool _alreadyImpulse;
@@ -31,7 +30,6 @@ namespace Cursed.Creature
             _joystick = GetComponent<CreatureJoystickDirection>();
             _collision = GetComponentInChildren<CreatureCollision>();
             _animator = GetComponent<Animator>();
-            _vfx = GetComponent<CreatureVfxHandler>();
         }
         #endregion
 
@@ -103,12 +101,19 @@ namespace Cursed.Creature
                         MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
-
-                if(_collision.OnWall)
+                /*if(_collision.OnWall)
                 {
                     StuckOnWall();
-                }
+                }*/
             }
+            #endregion
+
+            #region ON WALL
+            if(_creatureManager.CurrentState == CreatureState.OnWall)
+            {
+                StuckOnWall();
+            }
+
             #endregion
 
             #region CHASING

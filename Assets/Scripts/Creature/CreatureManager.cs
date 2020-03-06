@@ -24,7 +24,6 @@ namespace Cursed.Creature
         private CreatureInputController _input;
         private CreatureJoystickDirection _joystick;
         private Animator _animator;
-        private CreatureVfxHandler _vfx;
 
         public event System.Action OnChangingState;
 
@@ -32,8 +31,6 @@ namespace Cursed.Creature
         private float _currentTimerBeforeZoom;
 
         private bool _canRecall = false;
-
-        private GameObject _refTrailMoveCreature;
 
         private void Start() => Initialize();
 
@@ -45,7 +42,6 @@ namespace Cursed.Creature
             _input = GetComponent<CreatureInputController>();
             _animator = GetComponent<Animator>();
             _joystick = GetComponent<CreatureJoystickDirection>();
-            _vfx = GetComponent<CreatureVfxHandler>();
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
@@ -63,15 +59,14 @@ namespace Cursed.Creature
         private void UpdateInput()
         {
             #region LAUNCH & RECALL
-            if (_input.Down)
-            {
+            if (_input.Down) {
                 DeAttachFromPlayer();
             }
-
-                if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
-            {
+            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall) { 
                 CurrentState = CreatureState.OnComeBack;
+                AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
             }
+
 
             #endregion
         }
@@ -112,6 +107,8 @@ namespace Cursed.Creature
             if (_creatureState != CreatureState.OnCharacter)
                 return;
 
+            AkSoundEngine.PostEvent("Play_Creature_Launch", gameObject);
+
             StartCoroutine(WaitForRecallReady());
 
             if (_characterMovement.Side != 0)
@@ -125,7 +122,7 @@ namespace Cursed.Creature
                     transform.position = _joystick.Target.GetChild(0).position;
             }
             else
-                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(4f * _movement.Direction, 0f);
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(.5f * _movement.Direction, 0f);
 
             CurrentState = CreatureState.Moving;
         }
@@ -157,12 +154,10 @@ namespace Cursed.Creature
                 {
                     case CreatureState.Moving:
                         //ToggleChilds(true);
-                        //_movement.MoveInTheAir = true;
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
-                        if (_refTrailMoveCreature == null)
-                            _refTrailMoveCreature = _vfx.CreatureTrailParticle();
+                        //_movement.MoveInTheAir = true;
                         break;
 
                     case CreatureState.OnCharacter:
@@ -170,7 +165,6 @@ namespace Cursed.Creature
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);
-                        Destroy(_refTrailMoveCreature);
                         break;
 
                     case CreatureState.OnComeBack:
@@ -179,8 +173,6 @@ namespace Cursed.Creature
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
-                        if (_refTrailMoveCreature == null)
-                            _refTrailMoveCreature = _vfx.CreatureTrailParticle();
                         break;
 
                     case CreatureState.OnEnemy:
@@ -189,7 +181,6 @@ namespace Cursed.Creature
                         _animator.SetBool("Moving", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Chasing", false);
-                        Destroy(_refTrailMoveCreature);
                         break;
 
                     case CreatureState.Chasing:
@@ -205,7 +196,6 @@ namespace Cursed.Creature
                         _animator.SetBool("OnWall", true);
                         _animator.SetBool("Moving", false);
                         _animator.SetBool("Chasing", false);
-                        Destroy(_refTrailMoveCreature);
                         break;
                 }
             }

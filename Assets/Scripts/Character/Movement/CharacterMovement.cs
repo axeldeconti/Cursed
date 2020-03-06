@@ -185,7 +185,6 @@ namespace Cursed.Character
             _hasWallJumped = false;
 
             _vfx.SpawnVfx(_vfx.VfxFall, transform.position);
-            AkSoundEngine.PostEvent("Play_Landing", gameObject);
             Destroy(_refWallSlideSparkVfx);
             Destroy(_refWallSlideDustVfx);
             Destroy(_refTrailDivekickVfx);
