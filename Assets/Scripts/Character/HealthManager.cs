@@ -18,6 +18,8 @@ namespace Cursed.Character
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
 
+        private SFXHandler _sfxHandler = null;
+
         #region Initalizer
 
         private void Start()
@@ -26,6 +28,8 @@ namespace Cursed.Character
             _stats = GetComponent<CharacterStats>();
             if (_stats != null)
                 _maxHealth.Value = _stats.BaseStats.MaxHealth;
+
+            _sfxHandler = GetComponent<SFXHandler>();
 
             UpdateCurrentHealth(_maxHealth);
 
@@ -96,6 +100,8 @@ namespace Cursed.Character
 
                 if (onHealthUpdate != null)
                     onHealthUpdate.Raise(_currentHealth);
+
+                _sfxHandler.LowHealth();
             }
         }
 

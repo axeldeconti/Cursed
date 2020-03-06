@@ -828,6 +828,20 @@
 						<Folder Name="Divekick" ID="{29FDE8A4-916B-4AF2-B51A-CC7A2FF37871}" ShortID="117067593">
 							<ChildrenList>
 								<RandomSequenceContainer Name="Random_Divekick" ID="{B6AAA5E3-0754-403F-8703-677E8C440FF5}" ShortID="810282784">
+									<PropertyList>
+										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -891,9 +905,18 @@
 					<ChildrenList>
 						<Sound Name="Laser" ID="{1F0C3F94-399B-4CBD-AE52-B5D50F716817}" ShortID="731684550">
 							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 								</Reference>
@@ -910,6 +933,9 @@
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{8D0664DA-8D39-4E41-939D-99C34C77C77F}"/>
+							</PositioningInfo>
 							<ActiveSourceList>
 								<ActiveSource Name="Laser" ID="{53E705DF-9594-4EF2-A71A-38672AA5CD3C}" Platform="Linked"/>
 							</ActiveSourceList>
@@ -968,12 +994,24 @@
 								</Sound>
 								<RandomSequenceContainer Name="Random_ElectricTrap_Inactive" ID="{CF7802A7-60C8-4FCA-AE54-B8A24CAE57EA}" ShortID="378237941">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="1"/>
 										<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-20</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ElectricTrap" ID="{9D1FD111-E7B0-4295-AF1C-6B507EE1DBF9}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="Effect0" PluginName="Wwise Delay" CompanyID="0" PluginID="106" PluginType="3">
+											<ObjectRef Name="ElectricTrap_Delay" ID="{AA14A5D4-D574-4119-BD25-E622C897C88B}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
 										</Reference>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
@@ -1072,6 +1110,53 @@
 								</RandomSequenceContainer>
 							</ChildrenList>
 						</Folder>
+						<Sound Name="MultiLaser" ID="{910E1C18-DCD3-47F9-A6C0-1AB8B5117A5B}" ShortID="147785401">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>20</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>400</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Laser" ID="{EE80BCD7-0BA0-442D-BA23-1F67615EAF43}">
+									<Language>SFX</Language>
+									<AudioFile>Laser.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="738182096"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<PositioningInfo>
+								<Panner Name="" ID="{B4D7F211-A4F9-4E8A-BDEA-383CAD00C89E}"/>
+							</PositioningInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="Laser" ID="{EE80BCD7-0BA0-442D-BA23-1F67615EAF43}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>

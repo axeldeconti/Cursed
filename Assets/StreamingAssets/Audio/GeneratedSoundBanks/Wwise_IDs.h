@@ -23,10 +23,14 @@ namespace AK
         static const AkUniqueID PLAY_DASH = 2211787386U;
         static const AkUniqueID PLAY_DIVEKICK = 1735873294U;
         static const AkUniqueID PLAY_DOUBLEJUMP = 595748461U;
+        static const AkUniqueID PLAY_ELECTRICTRAP_INACTIVE = 1235386822U;
         static const AkUniqueID PLAY_END_WALLSLIDE = 2912867303U;
         static const AkUniqueID PLAY_LANDING = 2323405115U;
         static const AkUniqueID PLAY_LASER = 2270376495U;
+        static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
+        static const AkUniqueID PLAY_LOWHEALTH2 = 291002680U;
         static const AkUniqueID PLAY_MAIN_WALLSLIDE = 3033462115U;
+        static const AkUniqueID PLAY_MULTILASER = 2996732270U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
         static const AkUniqueID STOP_MAIN_PLAY_LOOP_WALLSLIDE = 3156285719U;
     } // namespace EVENTS

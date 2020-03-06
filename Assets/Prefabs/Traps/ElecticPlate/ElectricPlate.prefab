@@ -4825,6 +4825,8 @@ GameObject:
   - component: {fileID: 3480154433867770935}
   - component: {fileID: 3972397990678978718}
   - component: {fileID: 6897087535438264996}
+  - component: {fileID: 5734014505370906778}
+  - component: {fileID: -1943297437673046418}
   m_Layer: 0
   m_Name: ElectricPlate
   m_TagString: Untagged
@@ -4931,6 +4933,43 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: dbd6eb367bbcdbb4fb87c63233c7aa44, type: 2}
+--- !u!114 &5734014505370906778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364969282875992654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace0cd82365bcf14f836bebce97915e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 7177bd13fa4f20f4d976a20616f39f4c,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 
+  bankNameInternal: 
+  valueGuidInternal: 
+--- !u!114 &-1943297437673046418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364969282875992654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f395b4231886f7d48ad9802781c8c5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6364969282932003158
 GameObject:
   m_ObjectHideFlags: 0

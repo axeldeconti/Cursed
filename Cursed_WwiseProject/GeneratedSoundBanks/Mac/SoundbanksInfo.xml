@@ -187,7 +187,27 @@
 			<ShortName>Spatialized</ShortName>
 			<Path>Spatialized.bnk</Path>
 			<IncludedEvents>
-				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" DurationType="Infinite">
+				<Event Id="1235386822" Name="Play_ElectricTrap_Inactive" ObjectPath="\Events\Default Work Unit\Spatial\Play_ElectricTrap_Inactive" MaxAttenuation="40.000000" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="407740136" Language="SFX">
+							<ShortName>ElectricTrap_Inactive_04.wav</ShortName>
+							<Path>SFX\ElectricTrap_Inactive_04_10C4C929.wem</Path>
+						</File>
+						<File Id="593614556" Language="SFX">
+							<ShortName>ElectricTrap_Inactive_01.wav</ShortName>
+							<Path>SFX\ElectricTrap_Inactive_01_10C4C929.wem</Path>
+						</File>
+						<File Id="844500145" Language="SFX">
+							<ShortName>ElectricTrap_Inactive_03.wav</ShortName>
+							<Path>SFX\ElectricTrap_Inactive_03_10C4C929.wem</Path>
+						</File>
+						<File Id="1034113395" Language="SFX">
+							<ShortName>ElectricTrap_Inactive_02.wav</ShortName>
+							<Path>SFX\ElectricTrap_Inactive_02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="738182096" Language="SFX">
 							<ShortName>Laser.wav</ShortName>
@@ -195,6 +215,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 		</SoundBank>
 	</SoundBanks>
