@@ -17,6 +17,7 @@ namespace Cursed.Character
         private CollisionHandler _coll = null;
         private WeaponInventory _weaponInv = null;
         private IInputController _input = null;
+        private GameManager _gameManager = null;
 
         [SerializeField] private AttackDefinition _divekickAttack = null;
 
@@ -39,10 +40,14 @@ namespace Cursed.Character
         private void Start()
         {
             _isAttacking = false;
+            _gameManager = GameManager.Instance;
         }
 
         private void Update()
         {
+            if (_gameManager.State != GameManager.GameState.InGame)
+                return;
+
             if (_input.Attack_1 || _input.Attack_2)
                 UpdateAttack(_input.Attack_1 ? 1 : 2);
         }

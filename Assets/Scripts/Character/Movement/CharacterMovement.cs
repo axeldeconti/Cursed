@@ -20,6 +20,7 @@ namespace Cursed.Character
         private CharacterAttackManager _attackManager = null;
         private CapsuleCollider2D _capsuleCollider = null;
         private IInputController _input = null;
+        private GameManager _gameManager = null;
 
         [SerializeField] private CharacterMovementState _state = CharacterMovementState.Idle;
         [SerializeField] private bool _showDebug = true;
@@ -114,6 +115,7 @@ namespace Cursed.Character
             _attackManager = GetComponent<CharacterAttackManager>();
             _capsuleCollider = GetComponent<CapsuleCollider2D>();
             _input = GetComponent<IInputController>();
+            _gameManager = GameManager.Instance;
             _coll.OnGrounded += ResetIsJumping;
             _coll.OnWalled += ResetIsJumping;
 
@@ -135,6 +137,10 @@ namespace Cursed.Character
             float y = _input.y;
 
             UpdateBools();
+
+            if (_gameManager.State != GameManager.GameState.InGame)
+                return;
+
             UpdateWallGrab(x, y);
             UpdateJump();
             UpdateDash(x);
@@ -151,6 +157,9 @@ namespace Cursed.Character
 
         private void FixedUpdate()
         {
+            if (_gameManager.State != GameManager.GameState.InGame)
+                return;
+
             //Get input
             float x = _isDiveKicking ? _lastX : _input.x;
             float y = _input.y;

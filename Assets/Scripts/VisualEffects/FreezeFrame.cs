@@ -11,11 +11,6 @@ namespace Cursed.VisualEffect
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                Freeze();
-            }           
-            
             if (_pendingFreeze && !_isFrozen)
             {
                 StartCoroutine(DoFreeze(0.2f));
