@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private GameState _state = GameState.InGame;
     [SerializeField] private bool _showFPS = false;
     public static int FPS = 0;
 
@@ -23,8 +24,7 @@ public class GameManager : Singleton<GameManager>
 
         Application.targetFrameRate = GameSettings.FRAME_RATE;
 
-        ShowMouseCursor(false);
-        Cursor.lockState = CursorLockMode.Confined;
+        State = GameState.InGame;
 
         if (_showFPS)
             CursedDebugger.Instance.Add("FPS", () => FPS.ToString());
@@ -115,4 +115,29 @@ public class GameManager : Singleton<GameManager>
 
         _instancedSystemPrefabs.Clear();
     }
+
+    public GameState State { 
+        get { return _state; } 
+        set 
+        { 
+            _state = value;
+
+            switch (_state)
+            {
+                case GameState.InGame:
+                    ShowMouseCursor(false);
+                    Cursor.lockState = CursorLockMode.Confined;
+                    break;
+                case GameState.InDevConsole:
+                    ShowMouseCursor(true);
+                    Cursor.lockState = CursorLockMode.Confined;
+
+                    break;
+                default:
+                    break;
+            }
+        } 
+    }
+
+    public enum GameState { InGame, InDevConsole }
 }

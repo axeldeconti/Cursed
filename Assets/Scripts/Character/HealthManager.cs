@@ -40,13 +40,7 @@ namespace Cursed.Character
         #endregion
 
         private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-                _stats.ModifyStat(Stat.Health, -10);
-
-            if (Input.GetKeyDown(KeyCode.G))
-                _stats.ModifyStat(Stat.Health, 10);
- 
+        { 
             if(_timeInvincibleLeft > 0f)
             {
                 _timeInvincibleLeft -= Time.deltaTime;
@@ -79,7 +73,8 @@ namespace Cursed.Character
                 //Become invincible
                 StartInvincibility(_invincibleTime);
 
-                Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
+                if(attacker != null)
+                    Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
                 if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
