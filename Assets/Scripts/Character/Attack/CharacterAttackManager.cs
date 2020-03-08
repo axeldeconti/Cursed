@@ -151,5 +151,6 @@ namespace Cursed.Character
 
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
+        public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);
     }
 }
