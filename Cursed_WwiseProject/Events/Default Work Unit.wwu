@@ -3,50 +3,6 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="Play_Creature_Launch" ID="{BE7E044D-78B5-4B4A-BD30-94CF252F2CDB}">
-					<ChildrenList>
-						<Action Name="" ID="{D5027B63-F2BB-416E-9164-1A814A43CF12}" ShortID="11301290">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Creature_Launch" ID="{C8E4354B-EE80-47DD-A074-016C5411883C}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_Creature_Grabbing" ID="{7E830C3A-7478-4423-8CD2-AF07196E41DA}">
-					<ChildrenList>
-						<Action Name="" ID="{78D50305-1CE2-45C3-91B6-2CCDDC3A5723}" ShortID="407173184">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Creature_Grabbing" ID="{A7344EE9-6155-4640-94F4-D8039B060FC6}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_Creature_HitWall" ID="{0F811855-8F4A-429A-BCD3-0D0709326CA4}">
-					<ChildrenList>
-						<Action Name="" ID="{B449CD9E-18A6-4011-BEA6-6AE2E8EC6ADB}" ShortID="471844595">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Creature_HitWall" ID="{C5FFF415-799D-46A2-B85A-EFB42FF176D9}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_Creature_Call" ID="{59DF8224-C06B-4F4E-A224-9386C6A4D458}">
-					<ChildrenList>
-						<Action Name="" ID="{96EE6F51-F614-413A-88D7-A513C97EAFF7}" ShortID="972264454">
-							<ReferenceList>
-								<Reference Name="Target">
-									<ObjectRef Name="Creature_Call" ID="{625EDA9D-2E47-4BA7-BC15-5C882A1DF5DA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-								</Reference>
-							</ReferenceList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Folder Name="Character" ID="{83F65F58-7F83-464F-A064-A1DE8EF06026}" ShortID="276846583">
 					<ChildrenList>
 						<Folder Name="WallSlide" ID="{537BDD75-9EED-4DDF-AE20-30C5D45CB485}" ShortID="644457230">
@@ -176,7 +132,7 @@
 								<Action Name="" ID="{9FBD41D3-A52B-4D2C-BC50-8805C00127E4}" ShortID="559632965">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Enemy_Damage_FirstHit01" ID="{5A9CB329-22E2-47D3-8D7A-AE395C13B349}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+											<ObjectRef Name="Weapon_FirstSlice" ID="{EED1FC0C-F186-47F0-9A27-749CE886055B}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -187,7 +143,125 @@
 								<Action Name="" ID="{E213B450-D32C-4E24-9F56-FECB78904E6B}" ShortID="165169935">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Enemy_Damage_FirstHit01" ID="{5A9CB329-22E2-47D3-8D7A-AE395C13B349}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+											<ObjectRef Name="Weapon_FirstSlice" ID="{EED1FC0C-F186-47F0-9A27-749CE886055B}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Divekick" ID="{B721BF58-80A2-482A-9845-0DEAD6CACA92}">
+							<ChildrenList>
+								<Action Name="" ID="{CAEE45F3-EFCB-4371-9A66-978446483F16}" ShortID="143552171">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Random_Divekick" ID="{B6AAA5E3-0754-403F-8703-677E8C440FF5}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_LowHealth1" ID="{594CC9FC-2EC2-4803-A3F7-4181EB8D6EE2}">
+							<ChildrenList>
+								<Action Name="" ID="{26836FAD-C396-4C87-A2B8-BCC21897E1E9}" ShortID="311247265">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LowHealth_First" ID="{B274002B-8B78-4F60-B73E-B2C0B2ADB875}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_LowHealth2" ID="{60963FAA-0D91-4F52-A8E2-190FF3A505EA}">
+							<ChildrenList>
+								<Action Name="" ID="{DA472E06-B57D-477B-B939-A4E191A56918}" ShortID="963279506">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="LowHealth_Second" ID="{FBDE4DFB-3819-4C04-B465-2025BE5F0775}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Creature" ID="{9BC71CF0-4981-4B6E-9425-C9EA7E793384}" ShortID="862410764">
+					<ChildrenList>
+						<Event Name="Play_Creature_Grabbing" ID="{7E830C3A-7478-4423-8CD2-AF07196E41DA}">
+							<ChildrenList>
+								<Action Name="" ID="{78D50305-1CE2-45C3-91B6-2CCDDC3A5723}" ShortID="407173184">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Creature_Grabbing" ID="{C233BC97-22E9-4CE4-BCCE-ACE9FD012B80}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Creature_Launch" ID="{BE7E044D-78B5-4B4A-BD30-94CF252F2CDB}">
+							<ChildrenList>
+								<Action Name="" ID="{D5027B63-F2BB-416E-9164-1A814A43CF12}" ShortID="11301290">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Creature_Launch" ID="{C8E4354B-EE80-47DD-A074-016C5411883C}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Creature_HitWall" ID="{0F811855-8F4A-429A-BCD3-0D0709326CA4}">
+							<ChildrenList>
+								<Action Name="" ID="{B449CD9E-18A6-4011-BEA6-6AE2E8EC6ADB}" ShortID="471844595">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Creature_HitWall" ID="{C5FFF415-799D-46A2-B85A-EFB42FF176D9}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Creature_Call" ID="{59DF8224-C06B-4F4E-A224-9386C6A4D458}">
+							<ChildrenList>
+								<Action Name="" ID="{96EE6F51-F614-413A-88D7-A513C97EAFF7}" ShortID="972264454">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Creature_Call" ID="{625EDA9D-2E47-4BA7-BC15-5C882A1DF5DA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Spatial" ID="{6CE84722-30DF-49D0-A0BE-0A25A968A5BF}" ShortID="864152871">
+					<ChildrenList>
+						<Event Name="Play_Laser" ID="{7270FB66-C97D-4513-9AEA-4BAB9495FD27}">
+							<ChildrenList>
+								<Action Name="" ID="{34E1695B-2DF9-4D31-9EEC-03F49D3813D1}" ShortID="87079135">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Laser" ID="{1F0C3F94-399B-4CBD-AE52-B5D50F716817}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_ElectricTrap_Inactive" ID="{21AC3B9F-78E3-4EF4-9CD6-00D53F8A4128}">
+							<ChildrenList>
+								<Action Name="" ID="{A24E1961-6DA0-4A7C-A694-6E1367F5F6DF}" ShortID="245808300">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Random_ElectricTrap_Inactive" ID="{CF7802A7-60C8-4FCA-AE54-B8A24CAE57EA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_MultiLaser" ID="{8492670A-9B07-4745-95BB-AFFEC8289111}">
+							<ChildrenList>
+								<Action Name="" ID="{8B03F91F-81D0-445C-8D1B-316FD82A684F}" ShortID="876412533">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MultiLaser" ID="{910E1C18-DCD3-47F9-A6C0-1AB8B5117A5B}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

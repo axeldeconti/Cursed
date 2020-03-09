@@ -40,7 +40,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586183571924148326
+    m_lastTime: -8586181177348954593
     List:
     - name: Characters
       guid: 7cd07edfa3d31d43b7738d06e66fb061
@@ -51,12 +51,30 @@ MonoBehaviour:
       - ElementName: Characters
         ObjectType: 7
       Path: Default Work Unit\Characters
+    - name: Creature
+      guid: 90a9f46898aa1e40a1d7a2a441fdc54b
+      id: 2661483290
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 7
+      Path: Default Work Unit\Creature
+    - name: Spatialized
+      guid: 2c95f594da1bb24cb2146adfd23fb61b
+      id: 2767400001
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatialized
+        ObjectType: 7
+      Path: Default Work Unit\Spatialized
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586183571924627056
+    m_lastTime: -8586181177349423327
     List:
     - name: Character
       guid: 585ff683837f4f46a064a1de8ef06026
@@ -69,6 +87,20 @@ MonoBehaviour:
       - ElementName: Character
         ObjectType: 3
       Path: Default Work Unit\Character\Character
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Creature
+      guid: f01cc79b81496e4b9425c9ea7e793384
+      id: 2661483290
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
+      - ElementName: Creature
+        ObjectType: 3
+      Path: Default Work Unit\Creature\Creature
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -120,9 +152,11 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
       - ElementName: Play_Creature_Call
         ObjectType: 3
-      Path: Default Work Unit\Play_Creature_Call
+      Path: Default Work Unit\Creature\Play_Creature_Call
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -132,9 +166,11 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
       - ElementName: Play_Creature_Grabbing
         ObjectType: 3
-      Path: Default Work Unit\Play_Creature_Grabbing
+      Path: Default Work Unit\Creature\Play_Creature_Grabbing
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -144,9 +180,11 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
       - ElementName: Play_Creature_HitWall
         ObjectType: 3
-      Path: Default Work Unit\Play_Creature_HitWall
+      Path: Default Work Unit\Creature\Play_Creature_HitWall
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -156,9 +194,11 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
       - ElementName: Play_Creature_Launch
         ObjectType: 3
-      Path: Default Work Unit\Play_Creature_Launch
+      Path: Default Work Unit\Creature\Play_Creature_Launch
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -176,6 +216,20 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Divekick
+      guid: 58bf21b7a2802a4898450dead6caca92
+      id: 1735873294
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Play_Divekick
+        ObjectType: 3
+      Path: Default Work Unit\Character\Play_Divekick
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_DoubleJump
       guid: 75ebc8e35810dc4796bdb9c9933b39ba
       id: 595748461
@@ -187,6 +241,20 @@ MonoBehaviour:
       - ElementName: Play_DoubleJump
         ObjectType: 3
       Path: Default Work Unit\Character\Play_DoubleJump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_ElectricTrap_Inactive
+      guid: 9f3bac21e378f44e9cd600d53f8a4128
+      id: 1235386822
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Play_ElectricTrap_Inactive
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Play_ElectricTrap_Inactive
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -220,6 +288,48 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Laser
+      guid: 66fb70727dc913459aea4bab9495fd27
+      id: 2270376495
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Play_Laser
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Play_Laser
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_LowHealth1
+      guid: fcc94c59c22e0348a3f74181eb8d6ee2
+      id: 291002683
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Play_LowHealth1
+        ObjectType: 3
+      Path: Default Work Unit\Character\Play_LowHealth1
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_LowHealth2
+      guid: aa3f9660910d524fa8e2190ff3a505ea
+      id: 291002680
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Play_LowHealth2
+        ObjectType: 3
+      Path: Default Work Unit\Character\Play_LowHealth2
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Main_WallSlide
       guid: ea1cc26ff5d6844ba14ed8b7b03cb94e
       id: 3033462115
@@ -236,6 +346,20 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_MultiLaser
+      guid: 0a679284079b454795bbaffec8289111
+      id: 2996732270
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Play_MultiLaser
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Play_MultiLaser
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Run
       guid: 8a097210b9738c4aaac1128127d288d6
       id: 2822207957
@@ -247,6 +371,20 @@ MonoBehaviour:
       - ElementName: Play_Run
         ObjectType: 3
       Path: Default Work Unit\Character\Play_Run
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Spatial
+      guid: 2247e86cdf30d049a0be0a25a968a5bf
+      id: 378350335
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Spatial
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Spatial
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -301,8 +439,39 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2031ed91eb5c0f4d9b90b219b5c5e946
     GuidInternal: 
-    m_lastTime: -8586184653362791257
-    List: []
+    m_lastTime: -8586182030913105414
+    List:
+    - name: SwitchGroup_WallSlide
+      guid: 751b7eec68581b4b861b7879597299e7
+      id: 3560252704
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SwitchGroup_WallSlide
+        ObjectType: 11
+      Path: Default Work Unit\SwitchGroup_WallSlide
+      values:
+      - name: Switch_WallSlide_End
+        guid: a905468155c43d4fac707aee6edec5dd
+        id: 865320709
+        PathAndIcons:
+        - ElementName: Switch_WallSlide_End
+          ObjectType: 10
+      - name: Switch_WallSlide_Loop
+        guid: 9be929fd05708a4c831e030703293892
+        id: 969489392
+        PathAndIcons:
+        - ElementName: Switch_WallSlide_Loop
+          ObjectType: 10
+      - name: Switch_WallSlide_Main
+        guid: b97d6e91f51d1b4bb12f0cf0fb727c1d
+        id: 2820367257
+        PathAndIcons:
+        - ElementName: Switch_WallSlide_Main
+          ObjectType: 10
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPath: Default Work Unit
@@ -312,8 +481,7 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /Cursed_WwiseProject
-  - /Cursed_WwiseProject/Events
-  - /Cursed_WwiseProject/Events/Default Work Unit
-  - /Cursed_WwiseProject/Events/Default Work Unit/Character
+  - /Cursed_WwiseProject/SoundBanks
+  - /Cursed_WwiseProject/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
