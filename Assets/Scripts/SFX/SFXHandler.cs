@@ -110,24 +110,14 @@ public class SFXHandler : MonoBehaviour
     #endregion
 
     #region Creature
-    public void Launch()
+    public void LaunchSFX()
     {
         AkSoundEngine.PostEvent("Play_Creature_Launch", gameObject);
     }
 
-    public void Call()
+    public void CallSFX()
     {
         AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
-    }
-
-    public void Grabbing()
-    {
-        AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
-    }
-
-    public void HitWall()
-    {
-        AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
     }
     #endregion
 

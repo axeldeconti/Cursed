@@ -69,12 +69,18 @@ namespace Cursed.Creature
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+            { 
                 CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
+                AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
+            }
 
             if (collision.gameObject.CompareTag("Enemy") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
-                if(_creatureManager.CurrentState != CreatureState.OnComeBack)
+                if (_creatureManager.CurrentState != CreatureState.OnComeBack)
+                {
                     CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
+                    AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
+                }
             }
 
             if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
@@ -84,6 +90,7 @@ namespace Cursed.Creature
                     _wallDirection = collision.contacts[0].normal;
                     _wallCollision = collision.transform;
                     _creatureManager.CurrentState = CreatureState.OnWall;
+                    AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
                 }
                 //_ricochetDirection = v;
             }
