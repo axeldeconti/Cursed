@@ -147,12 +147,16 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 0
     Variable: {fileID: 0}
+  _stats: {fileID: 0}
+  _creatureManager: {fileID: 0}
+  _creatureSearching: {fileID: 0}
   onHealthUpdate: {fileID: 11400000, guid: 5694e0f8a02932d4ab0746aaaad731b3, type: 2}
   onMaxHealthUpdate: {fileID: 11400000, guid: cfa5c906dd84816439d90bb3dfba15f1, type: 2}
   onHeal: {fileID: 11400000, guid: 6db6c90e0c7a762458ac75b5d3717642, type: 2}
   onPlayer: {fileID: 11400000, guid: 1fb53936dbe269e4c81c408b8f09e9f8, type: 2}
-  playerAttack: {fileID: 11400000, guid: 9d7985057aedb334c8c2d3619f404f9e, type: 2}
-  enemyAttack: {fileID: 11400000, guid: d414f77f91b3a27499df5f0b1b627094, type: 2}
+  _canAttackPlayer: 1
+  _playerAttack: {fileID: 11400000, guid: 9d7985057aedb334c8c2d3619f404f9e, type: 2}
+  _enemyAttack: {fileID: 11400000, guid: d414f77f91b3a27499df5f0b1b627094, type: 2}
 --- !u!114 &495610366346164372
 MonoBehaviour:
   m_ObjectHideFlags: 0

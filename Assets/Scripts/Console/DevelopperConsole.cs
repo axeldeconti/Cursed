@@ -72,6 +72,7 @@ namespace Cursed.Console
             Command_Test commandTest = Command_Test.CreateCommand();
             Command_Quit commandQuit = Command_Quit.CreateCommand();
             Command_Player commandPlayer = Command_Player.CreateCommand();
+            Command_Creature commandCreature = Command_Creature.CreateCommand();
         }
 
         public static void AddCommandsToConsole(string key, ConsoleCommand command)

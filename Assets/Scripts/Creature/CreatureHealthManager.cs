@@ -11,19 +11,20 @@ namespace Cursed.Creature
         [SerializeField] private IntReference _maxHealth;
 
         [SerializeField] private IntReference _currentHealth;
-        private CreatureStats _stats;
-        private CreatureManager _creatureManager;
-        private CreatureSearching _creatureSearching;
+        [SerializeField] private CreatureStats _stats;
+        [SerializeField] private CreatureManager _creatureManager;
+        [SerializeField] private CreatureSearching _creatureSearching;
 
         [Header ("Events")]
-        public IntEvent onHealthUpdate;
-        public IntEvent onMaxHealthUpdate;
-        public VoidEvent onHeal;
-        public VoidEvent onPlayer;
+        [SerializeField] private IntEvent onHealthUpdate;
+        [SerializeField] private IntEvent onMaxHealthUpdate;
+        [SerializeField] private VoidEvent onHeal;
+        [SerializeField] private VoidEvent onPlayer;
 
-        [Header ("Attacks")]
-        public CreatureAttack playerAttack;
-        public CreatureAttack enemyAttack;
+        [Header("Attacks")]
+        [SerializeField] private bool _canAttackPlayer = false;
+        [SerializeField] private CreatureAttack _playerAttack;
+        [SerializeField] private CreatureAttack _enemyAttack;
 
         private float _currentTimer;
         private bool _alreadyOnPlayer;
@@ -47,11 +48,6 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.H))
-                _stats.ModifyStat(CreatureStat.MaxHealth, -5);
-            if (Input.GetKeyDown(KeyCode.J))
-                _stats.ModifyStat(CreatureStat.MaxHealth, 5);
-
             if (_creatureManager.CurrentState == CreatureState.OnEnemy)
                 LaunchTimer();
 
@@ -121,19 +117,19 @@ namespace Cursed.Creature
             switch(_creatureManager.CurrentState)
             {
                 case CreatureState.OnCharacter:
-                    if (_currentTimer >= playerAttack.TimeBetweenAttack)
+                    if (_currentTimer >= _playerAttack.TimeBetweenAttack && _canAttackPlayer)
                     {
                         onPlayer?.Raise();
-                        playerAttack.InflictDamage(this.gameObject, GameObject.FindGameObjectWithTag("Player"));
+                        _playerAttack.InflictDamage(this.gameObject, GameObject.FindGameObjectWithTag("Player"));
                         ResetTimer();
                     }
                     break;
 
                 case CreatureState.OnEnemy:
-                    if (_currentTimer >= enemyAttack.TimeBetweenAttack)
+                    if (_currentTimer >= _enemyAttack.TimeBetweenAttack)
                     {
                         _alreadyOnPlayer = false;
-                        Attack attack = enemyAttack.InflictDamage(this.gameObject, _creatureSearching.Enemy.gameObject);
+                        Attack attack = _enemyAttack.InflictDamage(this.gameObject, _creatureSearching.Enemy.gameObject);
                         AddCurrentHealth(attack.Damage);
                         ResetTimer();
                     }
@@ -159,5 +155,7 @@ namespace Cursed.Creature
             yield return new WaitForSeconds(timer);
             _giveHealth = false;
         }
+
+        public bool CanAttackPlayer { get => _canAttackPlayer; set => _canAttackPlayer = value; }
     }
 }
