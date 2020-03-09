@@ -33,7 +33,7 @@ namespace Cursed.Creature
         private void Searching()
         {
             #region IN AIR
-            if (_creatureManager.CurrentState == CreatureState.Moving && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+            if (_creatureManager.CurrentState == CreatureState.Moving)
             {
                 RaycastHit2D[] obj = Physics2D.CircleCastAll(_originRayInAir.position, _inAirRadius.Value, new Vector2(0f, 0f));
                 float distance = Mathf.Infinity;
@@ -42,7 +42,7 @@ namespace Cursed.Creature
                 {
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        if (EnemyInRange(hit.point, hit.collider.transform, _originRayInAir.position,_inAirRadius.Value, true))
+                        if (EnemyInRange(hit.point, hit.collider.transform, _originRayInAir.position, _inAirRadius.Value, true))
                         {
                             if (Vector2.Distance(hit.point, _originRayInAir.position) < distance)
                             {
@@ -52,11 +52,15 @@ namespace Cursed.Creature
                         }
                     }
                 }
-                if(enemyTransform != null)
+                if (enemyTransform != null)
                 {
                     _enemyHit = enemyTransform;
                     _creatureManager.CurrentState = CreatureState.Chasing;
                 }
+            }
+            else if(_creatureManager.CurrentState == CreatureState.OnComeBack)
+            {
+                _enemyHit = null;
             }
             #endregion
 
@@ -90,6 +94,10 @@ namespace Cursed.Creature
                         _creatureManager.CurrentState = CreatureState.Chasing;
                     }
                 }
+            }
+            else if (_creatureManager.CurrentState == CreatureState.OnComeBack)
+            {
+                _enemyHit = null;
             }
             #endregion
         }
