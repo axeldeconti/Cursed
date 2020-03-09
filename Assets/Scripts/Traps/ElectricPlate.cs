@@ -14,11 +14,11 @@ namespace Cursed.Traps
         [SerializeField] private bool _isActive = false;
         [SerializeField] private bool _isActivating = false;
 
-        private Dictionary<IAttackable, float> _currentAttackables = null;
+        private List<ElectricPlateAttackable> _currentAttackables = null;
 
         private void Start()
         {
-            _currentAttackables = new Dictionary<IAttackable, float>();
+            _currentAttackables = new List<ElectricPlateAttackable>();
         }
 
         private void Update()
@@ -30,31 +30,46 @@ namespace Cursed.Traps
             if (!_isActive)
                 return;
 
-            foreach (IAttackable a in _currentAttackables.Keys)
+            foreach (ElectricPlateAttackable a in _currentAttackables)
             {
-                _currentAttackables[a] -= Time.deltaTime;
+                a.time -= Time.deltaTime;
 
-                if (_currentAttackables[a] <= 0)
+                if (a.time <= 0)
                 {
-                    _currentAttackables[a] = _timBetweenDamage;
-                    a.OnAttack(gameObject, _attack.CreateAttack());
+                    a.time = _timBetweenDamage;
+                    a.attackable.OnAttack(gameObject, _attack.CreateAttack());
                 }
             }
         }
 
-        protected override void InflinctDamage(Component[] attackables)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
+            Component[] attackables = collision.GetComponentsInChildren(typeof(IAttackable));
+
             foreach (IAttackable a in attackables)
             {
-                if (!_currentAttackables.ContainsKey(a))
+                if (!HasAttackable(a))
                 {
-                    _currentAttackables.Add(a, _timBetweenDamage);
-                    a.OnAttack(gameObject, _attack.CreateAttack());
+                    _currentAttackables.Add(new ElectricPlateAttackable(a, _timBetweenDamage));
+
+                    if (_isActive)
+                        a.OnAttack(gameObject, _attack.CreateAttack());
                 }
             }
 
             if (!_isActivating && !_isActive)
                 StartCoroutine(Activation());
+        }
+
+        private bool HasAttackable(IAttackable attackable)
+        {
+            foreach (ElectricPlateAttackable a in _currentAttackables)
+            {
+                if (a.attackable == attackable)
+                    return true;
+            }
+
+            return false;
         }
 
         private IEnumerator Activation()
@@ -65,9 +80,9 @@ namespace Cursed.Traps
             _isActive = true;
 
             //Inflict first damage
-            foreach (IAttackable a in _currentAttackables.Keys)
+            foreach (ElectricPlateAttackable a in _currentAttackables)
             {
-                a.OnAttack(gameObject, _attack.CreateAttack());
+                a.attackable.OnAttack(gameObject, _attack.CreateAttack());
             }
         }
 
@@ -102,15 +117,38 @@ namespace Cursed.Traps
 
             foreach (IAttackable a in attackables)
             {
-                if (_currentAttackables.ContainsKey(a))
-                    _currentAttackables.Remove(a);
+                if (HasAttackable(a))
+                    _currentAttackables.Remove(GetAttackable(a));
             }
 
             if (_currentAttackables.Count == 0)
                 StartCoroutine(Deactivation());
         }
 
+        private ElectricPlateAttackable GetAttackable(IAttackable attackable)
+        {
+            foreach (ElectricPlateAttackable a in _currentAttackables)
+            {
+                if (a.attackable == attackable)
+                    return a;
+            }
+
+            return null;
+        }
+
         public bool IsActive => _isActive;
         public bool IsActivating => _isActivating;
+
+        private class ElectricPlateAttackable
+        {
+            public IAttackable attackable = null;
+            public float time = 0;
+
+            public ElectricPlateAttackable(IAttackable attackable, float time)
+            {
+                this.attackable = attackable;
+                this.time = time;
+            }
+        }
     }
 }
