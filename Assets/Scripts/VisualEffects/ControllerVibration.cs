@@ -1,18 +1,20 @@
-﻿using System.Collections;
+﻿using Cursed.Character;
+using System.Collections;
 using UnityEngine;
 using XInputDotNetPure; // Required in C#
 
 namespace Cursed.VisualEffect
 {
-    public class ControllerVibrate : MonoBehaviour
+    public class ControllerVibration : MonoBehaviour
     {
-        bool playerIndexSet = false;
-        PlayerIndex playerIndex;
-        GamePadState state;
-        GamePadState prevState;
+        private bool playerIndexSet = false;
+        private PlayerIndex playerIndex;
+        private GamePadState state;
+        private GamePadState prevState;
 
-        void Update()
+        private void Update()
         {
+
             // Find a PlayerIndex, for a single player game
             // Will find the first controller that is connected ans use it
             if (!playerIndexSet || !prevState.IsConnected)
@@ -32,16 +34,12 @@ namespace Cursed.VisualEffect
 
             prevState = state;
             state = GamePad.GetState(playerIndex);
-
-            if (Input.GetKeyDown(KeyCode.Joystick1Button2))
-            {
-                StartCoroutine(MakeVibration(0.2f, 1f, 1f));
-            }
         }
 
-        private IEnumerator MakeVibration(float _time, float _leftMotor, float _rightMotor)
+        public IEnumerator MakeVibration(float _time, float _leftMotor, float _rightMotor)
         {
             // Make Vibration
+            Debug.Log("aaa");
             GamePad.SetVibration(playerIndex, _leftMotor, _rightMotor);
             yield return new WaitForSecondsRealtime(_time);
             GamePad.SetVibration(playerIndex, 0, 0);

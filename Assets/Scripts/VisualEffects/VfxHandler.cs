@@ -89,9 +89,9 @@ namespace Cursed.Character
             int side = _coll.OnLeftWall ? -20 : 20;
 
             if (side == -20)
-                VfxPosition += new Vector3(1.05f, 4.8f, 0f);
+                VfxPosition += new Vector3(0.9f, 4.9f, 0f);
             else
-                VfxPosition += new Vector3(-1.05f, 4.8f, 0f);
+                VfxPosition += new Vector3(-0.9f, 4.9f, 0f);
 
             GameObject particle = Instantiate(_vfxWallSlideSpark, VfxPosition, Quaternion.identity, transform);
             ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;

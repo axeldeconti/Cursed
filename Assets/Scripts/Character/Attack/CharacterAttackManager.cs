@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cursed.Combat;
+using Cursed.VisualEffect;
 
 namespace Cursed.Character
 {
@@ -18,6 +19,7 @@ namespace Cursed.Character
         private WeaponInventory _weaponInv = null;
         private IInputController _input = null;
         private GameManager _gameManager = null;
+        private ControllerVibration _contrVib = null;
 
         [SerializeField] private AttackDefinition _divekickAttack = null;
 
@@ -33,6 +35,7 @@ namespace Cursed.Character
             _coll = GetComponent<CollisionHandler>();
             _weaponInv = GetComponent<WeaponInventory>();
             _input = GetComponent<IInputController>();
+            _contrVib = GetComponent<ControllerVibration>();
 
             _coll.OnGrounded += () => _isDiveKicking = false;
         }
@@ -50,6 +53,7 @@ namespace Cursed.Character
 
             if (_input.Attack_1 || _input.Attack_2)
                 UpdateAttack(_input.Attack_1 ? 1 : 2);
+
         }
 
         /// <summary>
@@ -94,6 +98,12 @@ namespace Cursed.Character
                 Weapon weapon = _weaponInv.GetWeapon(_weaponNb);
 
                 _anim.LaunchAttack(weapon.WeaponType.GetHashCode());
+
+                //Vibration
+                if (CurrentWeapon.WeaponType == WeaponType.Sword)
+                    StartCoroutine(_contrVib.MakeVibration(0.2f, 0.5f, 0.5f));
+                if (CurrentWeapon.WeaponType == WeaponType.Axe)
+                    StartCoroutine(_contrVib.MakeVibration(0.5f, 1f, 1f));
             }
         }
 
