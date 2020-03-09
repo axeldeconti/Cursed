@@ -77,9 +77,16 @@ namespace Cursed.Character
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
+                CharacterAttackManager atkMgr = attacker.GetComponent<CharacterAttackManager>();
                 if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
                 {
-                    _vfx.TouchImpactSwordVfx(gameObject.transform.position);
+                    if (atkMgr)
+                    {
+                        if(atkMgr.CurrentWeapon.WeaponType == WeaponType.Sword)
+                            _vfx.TouchImpactSwordVfx(gameObject.transform.position);
+                        if (atkMgr.CurrentWeapon.WeaponType == WeaponType.Axe)
+                            _vfx.TouchImpactAxeVfx(gameObject.transform.position);
+                    }                   
                 }
                 //Do something if critical
             }
