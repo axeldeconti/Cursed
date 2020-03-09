@@ -86,6 +86,7 @@ namespace Cursed.Character
                             _vfx.TouchImpactSwordVfx(gameObject.transform.position);
                         if (atkMgr.CurrentWeapon.WeaponType == WeaponType.Axe)
                             _vfx.TouchImpactAxeVfx(gameObject.transform.position);
+                        AkSoundEngine.PostEvent("Play_Enemy_Damage_SecondHit01", gameObject);
                     }                   
                 }
                 //Do something if critical

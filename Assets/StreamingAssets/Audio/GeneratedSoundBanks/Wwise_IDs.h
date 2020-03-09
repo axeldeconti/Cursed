@@ -25,6 +25,8 @@ namespace AK
         static const AkUniqueID PLAY_DOUBLEJUMP = 595748461U;
         static const AkUniqueID PLAY_ELECTRICTRAP_INACTIVE = 1235386822U;
         static const AkUniqueID PLAY_END_WALLSLIDE = 2912867303U;
+        static const AkUniqueID PLAY_ENEMY_DAMAGE_FIRSTHIT01 = 2135486089U;
+        static const AkUniqueID PLAY_ENEMY_DAMAGE_SECONDHIT01 = 1211042197U;
         static const AkUniqueID PLAY_LANDING = 2323405115U;
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
