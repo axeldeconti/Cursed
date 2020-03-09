@@ -13,7 +13,7 @@ namespace Cursed.Creature
         OnComeBack,
         Chasing,
         OnPausing,
-        OnWall
+        OnWall,
     }
 
     public class CreatureManager : MonoBehaviour

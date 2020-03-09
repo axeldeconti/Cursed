@@ -42,8 +42,6 @@ namespace Cursed.Creature
                 {
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        Debug.Log("Hit enemy");
-                        
                         if (EnemyInRange(hit.point, hit.collider.transform, _originRayInAir.position,_inAirRadius.Value, true))
                         {
                             if (Vector2.Distance(hit.point, _originRayInAir.position) < distance)
@@ -72,14 +70,11 @@ namespace Cursed.Creature
                 {
                     if (hit.collider.gameObject.CompareTag("Enemy"))
                     {
-                        Debug.Log("Hit enemy");
                         if (EnemyInRange(hit.point, hit.collider.transform, _originRayOnWall.position,_onWallRadius.Value, true))
                         {
-                            Debug.Log("Enemy in range");
                             if (Vector2.Distance(hit.point, _originRayOnWall.position) < distance)
                             {
                                 distance = Vector2.Distance(hit.point, _originRayOnWall.position);
-                                Debug.Log("Distance : " + distance);
                                 enemyTransform = hit.collider.transform;
                             }
                         }
@@ -105,7 +100,6 @@ namespace Cursed.Creature
             {
                 if (raycastOn)
                 {
-                    Debug.Log(Physics2D.Linecast(origin, hit, _checkLayer).collider.name);
                     if (Physics2D.Linecast(origin, hit, _checkLayer).collider.gameObject.layer == ennemy.gameObject.layer)
                         return true;
                     else
