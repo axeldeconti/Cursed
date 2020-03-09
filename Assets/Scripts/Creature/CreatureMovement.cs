@@ -45,15 +45,15 @@ namespace Cursed.Creature
                     MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
                     _joystick.Direction = Vector2.zero;
                 }
-                else
+                /*else
                 {
                     RotateToDirection(_collision.WallDirection);
                     _rb.velocity = Vector2.zero;
                     _rb.angularVelocity = 0f;
-                }
+                }*/
 
                 // ON ENEMY
-                if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+               /* if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
                 {
                     RotateToTarget(_playerPosition.GetChild(0), false);
                     MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
@@ -63,7 +63,7 @@ namespace Cursed.Creature
                 {
                     RotateToTarget(_playerPosition.GetChild(0), false);
                     MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
-                }
+                }*/
 
                 // CHECK IF CREATURE IS ON PLAYER
                 if (this.transform.position == _playerPosition.GetChild(0).position)
@@ -76,7 +76,7 @@ namespace Cursed.Creature
             {
                 if (_joystick.Direction != Vector3.zero)
                 {
-                    RotateToDirection(_joystick.Direction);
+                    //RotateToDirection(_joystick.Direction);
                     if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
                     {
                         MoveToDirection(_joystick.Direction);
@@ -89,7 +89,7 @@ namespace Cursed.Creature
                 }
                 else
                 {
-                    RotateToDirection(_direction);
+                    //RotateToDirection(_direction);
                     if (_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
                     {
                         //_rb.AddForce(Vector2.left * _direction);
@@ -101,10 +101,6 @@ namespace Cursed.Creature
                         MoveToTarget(_playerPosition.GetChild(0), 150f);
                     }
                 }
-                /*if(_collision.OnWall)
-                {
-                    StuckOnWall();
-                }*/
             }
             #endregion
 

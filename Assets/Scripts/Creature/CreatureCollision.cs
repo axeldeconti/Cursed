@@ -25,7 +25,6 @@ namespace Cursed.Creature
 
         public void CollideWithCharacter(CreatureState type, Transform target)
         {
-            Debug.Log("Collide");
             _creatureManager.CurrentState = type;
             Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target);
         }
