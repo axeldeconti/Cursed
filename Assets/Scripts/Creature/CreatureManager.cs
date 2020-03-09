@@ -33,6 +33,8 @@ namespace Cursed.Creature
 
         private bool _canRecall = false;
 
+        [SerializeField] private bool _showDebug = false;
+
         private void Start() => Initialize();
 
         private GameObject _refCreatureTrailEffect;
@@ -50,7 +52,10 @@ namespace Cursed.Creature
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
 
-            CursedDebugger.Instance.Add("State : ", () => CurrentState.ToString());
+            if (_showDebug)
+            {
+                CursedDebugger.Instance.Add("State : ", () => CurrentState.ToString());
+            }
         }
 
 
