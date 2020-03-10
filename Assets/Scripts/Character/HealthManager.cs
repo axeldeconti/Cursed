@@ -19,12 +19,14 @@ namespace Cursed.Character
         public VoidEvent onDeath;
 
         private VfxHandler _vfx = null;
+        private SFXHandler _sfx = null;
 
         #region Initalizer
 
         private void Start()
         {
             _vfx = GetComponent<VfxHandler>();
+            _sfx = GetComponent<SFXHandler>();
 
             //Set to an eventual base number
             _stats = GetComponent<CharacterStats>();

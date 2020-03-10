@@ -87,6 +87,26 @@ public class SFXHandler : MonoBehaviour
         }
     }
 
+    public void PlayerDamageSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Player_Damage", gameObject);
+    }
+
+    public void EnemyDamageSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Enemy_Damage", gameObject);
+    }
+
+    public void PlayerDeathSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Player_Death", gameObject);
+    }
+
+    public void EnemyDeathSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Enemy_Death", gameObject);
+    }
+
     public void LowHealth()
     {
         //First LowHealth warning
