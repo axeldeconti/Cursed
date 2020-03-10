@@ -130,7 +130,11 @@ namespace Cursed.Creature
 
 
         #region GETTERS
-        public Transform Enemy => _enemyHit;
+        public Transform Enemy
+        {
+            get => _enemyHit;
+            set => _enemyHit = value;
+        }
 
         #endregion
     }
