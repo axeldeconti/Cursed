@@ -13,8 +13,14 @@ namespace Cursed.Traps
         [SerializeField] private FloatReference _deactivationTime = null;
         [SerializeField] private bool _isActive = false;
         [SerializeField] private bool _isActivating = false;
+        private Animator _animator;
 
         private Dictionary<IAttackable, float> _currentAttackables = null;
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
         private void Start()
         {
@@ -60,6 +66,7 @@ namespace Cursed.Traps
         private IEnumerator Activation()
         {
             _isActivating = true;
+            _animator.SetTrigger("Triggered");
             yield return new WaitForSeconds(_activationTime);
             _isActivating = false;
             _isActive = true;
@@ -73,6 +80,7 @@ namespace Cursed.Traps
 
         private IEnumerator Deactivation()
         {
+            _animator.SetTrigger("TimerOut");
             bool still = true;
             float timer = _deactivationTime;
             bool hasEnded = true;
