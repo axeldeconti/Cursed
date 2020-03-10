@@ -7,7 +7,6 @@ namespace Cursed.Creature
         [Header("VFX Movement")]
         [SerializeField] private GameObject _vfxMoveParticle;
         [SerializeField] private GameObject _vfxTrailParticle;
-        [SerializeField] private GameObject _vfxChaseParticle;
 
         public void CreatureMoveParticle()
         {

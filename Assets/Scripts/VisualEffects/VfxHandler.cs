@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cursed.VisualEffect;
+using System.Collections;
 using UnityEngine;
 
 namespace Cursed.Character
@@ -29,13 +30,21 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxTouchImpactAxe4;
         [SerializeField] private GameObject _vfxTouchImpactAxe5;
 
+        [Space]
+        [SerializeField] private FlashScreen _refFlashScreen;
         private CollisionHandler _coll;
-        private CharacterMovement _move;
+        private CharacterMovement _move;    
 
         private void Awake()
         {
             _coll = GetComponent<CollisionHandler>();
             _move = GetComponent<CharacterMovement>();
+        }
+
+        public void FlashScreenDmgPlayer ()
+        {
+            if (_refFlashScreen != null)
+                _refFlashScreen.FlashScreenFadeOut(0.2f);
         }
 
         public GameObject SpawnVfx(GameObject vfx, Vector3 position)
