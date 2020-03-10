@@ -25,17 +25,14 @@ namespace AK
         static const AkUniqueID PLAY_DOUBLEJUMP = 595748461U;
         static const AkUniqueID PLAY_ELECTRICTRAP_INACTIVE = 1235386822U;
         static const AkUniqueID PLAY_END_WALLSLIDE = 2912867303U;
-        static const AkUniqueID PLAY_ENEMY_DAMAGE = 3570856298U;
-        static const AkUniqueID PLAY_ENEMY_DEATH = 3046156865U;
+        static const AkUniqueID PLAY_ENEMY_DAMAGE_FIRSTHIT01 = 2135486089U;
+        static const AkUniqueID PLAY_ENEMY_DAMAGE_SECONDHIT01 = 1211042197U;
         static const AkUniqueID PLAY_LANDING = 2323405115U;
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
         static const AkUniqueID PLAY_LOWHEALTH2 = 291002680U;
         static const AkUniqueID PLAY_MAIN_WALLSLIDE = 3033462115U;
         static const AkUniqueID PLAY_MULTILASER = 2996732270U;
-        static const AkUniqueID PLAY_MUSIC = 2932040671U;
-        static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
-        static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
         static const AkUniqueID STOP_MAIN_PLAY_LOOP_WALLSLIDE = 3156285719U;
     } // namespace EVENTS
@@ -61,7 +58,6 @@ namespace AK
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID CHARACTERS = 1557941045U;
         static const AkUniqueID CREATURE = 2661483290U;
-        static const AkUniqueID MUSIC = 3991942870U;
         static const AkUniqueID SPATIALIZED = 2767400001U;
     } // namespace BANKS
 
