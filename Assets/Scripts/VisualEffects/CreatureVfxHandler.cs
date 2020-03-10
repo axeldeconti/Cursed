@@ -7,6 +7,8 @@ namespace Cursed.Creature
         [Header("VFX Movement")]
         [SerializeField] private GameObject _vfxMoveParticle;
         [SerializeField] private GameObject _vfxTrailParticle;
+        [SerializeField] private GameObject _vfxLauchParticle;
+        [SerializeField] private GameObject _vfxTouchImpactParticle;
 
         public void CreatureMoveParticle()
         {
@@ -16,6 +18,14 @@ namespace Cursed.Creature
         {
             GameObject particle = Instantiate(_vfxTrailParticle, transform.position, Quaternion.identity, transform);
             return particle;
+        }
+        public void CreatureLauchParticle()
+        {
+            Instantiate(_vfxLauchParticle, transform.position, Quaternion.identity, transform);
+        }
+        public void CreatureTouchImpactParticle()
+        {
+            Instantiate(_vfxTouchImpactParticle, transform.position, Quaternion.identity, transform);
         }
     }
 }

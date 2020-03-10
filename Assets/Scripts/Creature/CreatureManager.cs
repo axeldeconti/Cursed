@@ -177,6 +177,7 @@ namespace Cursed.Creature
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);
                         Destroy(_refCreatureTrailEffect);
+                        //_vfx.CreatureTouchImpactParticle();
                         break;
 
                     case CreatureState.OnComeBack:
@@ -196,6 +197,7 @@ namespace Cursed.Creature
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Chasing", false);
                         Destroy(_refCreatureTrailEffect);
+                        //_vfx.CreatureTouchImpactParticle();
                         break;
 
                     case CreatureState.Chasing:
