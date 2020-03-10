@@ -11,6 +11,7 @@ namespace Cursed.Creature
         [SerializeField] private Sprite _indicator;
         private Transform targetPosition;
         [SerializeField] private RectTransform pointerRectTransform;
+        [SerializeField] private float _pointerOffset = 75f;
         private Image pointerImage;
 
         private void Awake()
@@ -24,7 +25,7 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            float borderSize = 75f;
+            float borderSize = 20f;
             Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
             bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
 
@@ -34,10 +35,10 @@ namespace Cursed.Creature
 
                 pointerImage.color = new Color(pointerImage.color.r, pointerImage.color.g, pointerImage.color.b, 1f);
                 Vector3 cappedTargetScreenPosition = targetPositionScreenPoint;
-                if (cappedTargetScreenPosition.x <= borderSize) cappedTargetScreenPosition.x = borderSize;
-                if (cappedTargetScreenPosition.x >= Screen.width - borderSize) cappedTargetScreenPosition.x = Screen.width - borderSize;
-                if (cappedTargetScreenPosition.y <= borderSize) cappedTargetScreenPosition.y = borderSize;
-                if (cappedTargetScreenPosition.y >= Screen.height - borderSize) cappedTargetScreenPosition.y = Screen.height - borderSize;
+                if (cappedTargetScreenPosition.x <= _pointerOffset) cappedTargetScreenPosition.x = _pointerOffset;
+                if (cappedTargetScreenPosition.x >= Screen.width - _pointerOffset) cappedTargetScreenPosition.x = Screen.width - _pointerOffset;
+                if (cappedTargetScreenPosition.y <= _pointerOffset) cappedTargetScreenPosition.y = _pointerOffset;
+                if (cappedTargetScreenPosition.y >= Screen.height - _pointerOffset) cappedTargetScreenPosition.y = Screen.height - _pointerOffset;
 
                 Vector3 pointerWorldPosition = cappedTargetScreenPosition;
                 //Vector3 pointerWorldPosition = _uiCamera.ScreenToWorldPoint(cappedTargetScreenPosition);

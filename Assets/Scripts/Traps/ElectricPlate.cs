@@ -13,8 +13,15 @@ namespace Cursed.Traps
         [SerializeField] private FloatReference _deactivationTime = null;
         [SerializeField] private bool _isActive = false;
         [SerializeField] private bool _isActivating = false;
+        private Animator _animator;
 
         private List<ElectricPlateAttackable> _currentAttackables = null;
+
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
         private void Start()
         {
@@ -74,10 +81,14 @@ namespace Cursed.Traps
 
         private IEnumerator Activation()
         {
+            //Launch triggered animation
+            _animator.SetBool("Enter", true);
+            _animator.SetBool("Exit", false);
             _isActivating = true;
             yield return new WaitForSeconds(_activationTime);
             _isActivating = false;
             _isActive = true;
+
 
             //Inflict first damage
             foreach (ElectricPlateAttackable a in _currentAttackables)
@@ -91,6 +102,10 @@ namespace Cursed.Traps
             bool still = true;
             float timer = _deactivationTime;
             bool hasEnded = true;
+
+            //Launch exit animation
+            _animator.SetBool("Enter", false);
+            _animator.SetBool("Exit", true);
 
             while (still)
             {
