@@ -21,7 +21,7 @@
 			<ShortName>Characters</ShortName>
 			<Path>Characters.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
 					<IncludedMemoryFiles>
 						<File Id="390725724" Language="SFX">
 							<ShortName>Weapon_FirstSlice.wav</ShortName>
@@ -29,7 +29,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2804287435" Name="Play_Attack_Sword_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Play_Attack_Sword_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+				<Event Id="2804287435" Name="Play_Attack_Sword_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
 					<IncludedMemoryFiles>
 						<File Id="390725724" Language="SFX">
 							<ShortName>Weapon_FirstSlice.wav</ShortName>
@@ -37,7 +37,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2216073360" Name="Play_BasicJump" ObjectPath="\Events\Default Work Unit\Character\Play_BasicJump" DurationType="OneShot" DurationMin="0.230500" DurationMax="0.230500">
+				<Event Id="2216073360" Name="Play_BasicJump" ObjectPath="\Events\Default Work Unit\Character\Jump\Play_BasicJump" DurationType="OneShot" DurationMin="0.230500" DurationMax="0.230500">
 					<IncludedMemoryFiles>
 						<File Id="172115659" Language="SFX">
 							<ShortName>Jumps\BasicJump.wav</ShortName>
@@ -65,7 +65,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="595748461" Name="Play_DoubleJump" ObjectPath="\Events\Default Work Unit\Character\Play_DoubleJump" DurationType="OneShot" DurationMin="0.440083" DurationMax="0.440083">
+				<Event Id="595748461" Name="Play_DoubleJump" ObjectPath="\Events\Default Work Unit\Character\Jump\Play_DoubleJump" DurationType="OneShot" DurationMin="0.440083" DurationMax="0.440083">
 					<IncludedMemoryFiles>
 						<File Id="699165359" Language="SFX">
 							<ShortName>DoubleJump.wav</ShortName>
@@ -81,11 +81,51 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3570856298" Name="Play_Enemy_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_Damage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
+					<IncludedMemoryFiles>
+						<File Id="13990874" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3046156865" Name="Play_Enemy_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Enemy_Death" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.507506" DurationMax="0.781474">
+					<IncludedMemoryFiles>
+						<File Id="120410151" Language="SFX">
+							<ShortName>Death\Enemy\Enemy_Death01.wav</ShortName>
+							<Path>SFX\Death\Enemy\Enemy_Death01_10C4C929.wem</Path>
+						</File>
+						<File Id="344727761" Language="SFX">
+							<ShortName>Death\Enemy\Enemy_Death03.wav</ShortName>
+							<Path>SFX\Death\Enemy\Enemy_Death03_10C4C929.wem</Path>
+						</File>
+						<File Id="820326928" Language="SFX">
+							<ShortName>Death\Enemy\Enemy_Death02.wav</ShortName>
+							<Path>SFX\Death\Enemy\Enemy_Death02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2323405115" Name="Play_Landing" ObjectPath="\Events\Default Work Unit\Character\Play_Landing" DurationType="OneShot" DurationMin="0.436961" DurationMax="0.436961">
 					<IncludedMemoryFiles>
 						<File Id="307684995" Language="SFX">
 							<ShortName>Landing\Landing.wav</ShortName>
 							<Path>SFX\Landing\Landing_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="291002683" Name="Play_LowHealth1" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth1" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227">
+					<IncludedMemoryFiles>
+						<File Id="480281922" Language="SFX">
+							<ShortName>LowHealth\LowHealth_First.wav</ShortName>
+							<Path>SFX\LowHealth\LowHealth_First_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="291002680" Name="Play_LowHealth2" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth2" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227">
+					<IncludedMemoryFiles>
+						<File Id="901544711" Language="SFX">
+							<ShortName>LowHealth\LowHealth_Second.wav</ShortName>
+							<Path>SFX\LowHealth\LowHealth_Second_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -97,7 +137,27 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Character\Play_Run" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295">
+				<Event Id="3638125099" Name="Play_Player_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Player_Damage" DurationType="OneShot" DurationMin="0.428526" DurationMax="0.458118">
+					<IncludedMemoryFiles>
+						<File Id="20235951" Language="SFX">
+							<ShortName>Damage\Player\Player_Damage.wav</ShortName>
+							<Path>SFX\Damage\Player\Player_Damage_10C4C929.wem</Path>
+						</File>
+						<File Id="443828323" Language="SFX">
+							<ShortName>Damage\Player\Player_Damage_02.wav</ShortName>
+							<Path>SFX\Damage\Player\Player_Damage_02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1835085974" Name="Play_Player_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Player_Death" DurationType="OneShot" DurationMin="2.042109" DurationMax="2.042109">
+					<IncludedMemoryFiles>
+						<File Id="206046367" Language="SFX">
+							<ShortName>Death\Player\Player_Death.wav</ShortName>
+							<Path>SFX\Death\Player\Player_Death_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Character\Play_Run" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295">
 					<IncludedMemoryFiles>
 						<File Id="108996717" Language="SFX">
 							<ShortName>Run\Run01.wav</ShortName>
@@ -215,7 +275,29 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" MaxAttenuation="40.000000" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="738182096" Language="SFX">
+							<ShortName>Laser.wav</ShortName>
+							<Path>SFX\Laser_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+		</SoundBank>
+		<SoundBank Id="3991942870" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Music</ObjectPath>
+			<ShortName>Music</ShortName>
+			<Path>Music.bnk</Path>
+			<IncludedEvents>
+				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Music\Play_Music" DurationType="OneShot" DurationMin="12.000000" DurationMax="12.000000">
+					<IncludedMemoryFiles>
+						<File Id="607350317" Language="SFX">
+							<ShortName>Cursed_Theme_01_Mixing_02.wav</ShortName>
+							<Path>SFX\Cursed_Theme_01_Mixing_02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 			</IncludedEvents>
 		</SoundBank>
 	</SoundBanks>

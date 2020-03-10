@@ -79,7 +79,8 @@ namespace Cursed.Character
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
-                _sfx.LowHealth();
+                if (gameObject.tag.Equals("Player"))
+                    _sfx.LowHealth();
 
                 CharacterAttackManager atkMgr = attacker.GetComponent<CharacterAttackManager>();
                 if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))

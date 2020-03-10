@@ -102,9 +102,18 @@
 								<RandomSequenceContainer Name="Random_Run" ID="{3876757B-BEA7-46B2-8154-703637183A8B}" ShortID="1001962563">
 									<Comment>Playing randomly one of the run footsteps SFX</Comment>
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="1"/>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-15</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 										</Reference>
@@ -454,9 +463,13 @@
 									<ChildrenList>
 										<RandomSequenceContainer Name="Random_Enemy_Death" ID="{6EA2B277-A96F-4DE8-838F-792209A64EA1}" ShortID="186063017">
 											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
 												<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 												</Reference>
@@ -568,7 +581,13 @@
 								<Folder Name="Enemy" ID="{EE6C28C1-210E-4384-9446-FA5A5CB544C5}" ShortID="802423625">
 									<ChildrenList>
 										<Sound Name="Enemy_Damage_FirstHit01" ID="{5A9CB329-22E2-47D3-8D7A-AE395C13B349}" ShortID="17049321">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 												</Reference>
@@ -590,7 +609,13 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="Enemy_Damage_SecondHit01" ID="{F92F56EA-5187-41C2-8318-8318209AEAE0}" ShortID="512486359">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 												</Reference>
@@ -612,7 +637,13 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="Enemy_Damage_ThirdHit01" ID="{950067DA-CE79-44D1-A803-41A68BBAD468}" ShortID="722890216">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 												</Reference>
