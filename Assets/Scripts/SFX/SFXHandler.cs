@@ -55,12 +55,10 @@ public class SFXHandler : MonoBehaviour
 
     IEnumerator WallSlideEnum()
     {
-        Debug.Log("I'm here");
         yield return new WaitForSeconds(4.841f);
         if (_wallslideIsPlaying)
         {
             AkSoundEngine.PostEvent("Stop_Main_Play_Loop_WallSlide", gameObject);
-            Debug.Log("I'm in");
         }
     }
 
