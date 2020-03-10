@@ -211,6 +211,7 @@ namespace Cursed.Character
             if (gameObject.tag.Equals("Enemy"))
             {
                 _sfx.EnemyDeathSFX();
+                Destroy(gameObject);
             }
         }
 
