@@ -102,7 +102,6 @@
 								<RandomSequenceContainer Name="Random_Run" ID="{3876757B-BEA7-46B2-8154-703637183A8B}" ShortID="1001962563">
 									<Comment>Playing randomly one of the run footsteps SFX</Comment>
 									<PropertyList>
-										<Property Name="3DSpatialization" Type="int16" Value="1"/>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
@@ -111,9 +110,6 @@
 										</Property>
 									</PropertyList>
 									<ReferenceList>
-										<Reference Name="Attenuation">
-											<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 										</Reference>
@@ -331,6 +327,18 @@
 						<Folder Name="WallSlide" ID="{C8692C41-2FFA-4E66-923E-FEBA3F8DB3E7}" ShortID="755976540">
 							<ChildrenList>
 								<Sound Name="WallSlide_End" ID="{4A66DF46-EBBE-4194-ABEF-CD837425ADD8}" ShortID="324422698">
+									<PropertyList>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -353,6 +361,18 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="WallSlide_Main" ID="{D9882053-14A8-4596-BEB5-5E785D69CC33}" ShortID="107976899">
+									<PropertyList>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -376,7 +396,17 @@
 								</Sound>
 								<RandomSequenceContainer Name="Random_WallSlide_Loop" ID="{262640A7-10D1-49BA-A0F1-BFB05D0516A3}" ShortID="131077371">
 									<PropertyList>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
 										<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -1223,6 +1253,14 @@
 				<Folder Name="Musics" ID="{538C3706-0800-41C3-B6FD-07CE58B11454}" ShortID="1001259036">
 					<ChildrenList>
 						<Sound Name="Cursed_Theme_01_Mixing_02" ID="{9C23F3EE-EEEF-44E4-81B9-2501B11D2D8D}" ShortID="560626364">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-15</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>

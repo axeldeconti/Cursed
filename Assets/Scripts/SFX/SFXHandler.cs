@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cursed.Character;
 using Cursed.Traps;
+using System.Collections;
 
 public class SFXHandler : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class SFXHandler : MonoBehaviour
     private bool _myIsDiveKicking;
     private bool _lowHealth1Played = false;
     private bool _lowHealth2Played = false;
+    private bool _wallslidePlaying = false;
+    private bool _wallslideEndMain = false;
 
     private void Start()
     {
@@ -38,6 +41,22 @@ public class SFXHandler : MonoBehaviour
     }
 
     #region Character
+    public void WallSlideSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Main_WallSlide", gameObject);
+        _wallslidePlaying = true;
+        WallSlideEnum();
+    }
+
+    IEnumerator WallSlideEnum()
+    {
+        if(_wallslidePlaying)
+        {
+            yield return new WaitForSeconds(4.841f);
+            AkSoundEngine.PostEvent("Stop_Main_Play_Loop_WallSlide", gameObject);
+        }
+    }
+
     public void RunSFX()
     {
         AkSoundEngine.PostEvent("Play_Run", gameObject);
