@@ -81,7 +81,11 @@ namespace Cursed.Traps
         private IEnumerator Activation()
         {
             _isActivating = true;
-            _animator.SetTrigger("Triggered");
+
+            //Launch animation
+            _animator.SetBool("Enter", true);
+            _animator.SetBool("Exit", false);
+
             yield return new WaitForSeconds(_activationTime);
             _isActivating = false;
             _isActive = true;
@@ -95,11 +99,13 @@ namespace Cursed.Traps
 
         private IEnumerator Deactivation()
         {
-            _animator.SetTrigger("TimerOut");
             bool still = true;
             float timer = _deactivationTime;
             bool hasEnded = true;
 
+            //Launch animation
+            _animator.SetBool("Enter", false);
+            _animator.SetBool("Exit", true);
             while (still)
             {
                 if (timer <= 0)
