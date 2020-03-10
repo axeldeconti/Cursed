@@ -40,7 +40,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586178578249075435
+    m_lastTime: -8586177733665895021
     List:
     - name: Characters
       guid: 7cd07edfa3d31d43b7738d06e66fb061
@@ -60,6 +60,15 @@ MonoBehaviour:
       - ElementName: Creature
         ObjectType: 7
       Path: Default Work Unit\Creature
+    - name: Music
+      guid: 7aca8452329f844fa0b1c8a9610e4165
+      id: 3991942870
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 7
+      Path: Default Work Unit\Music
     - name: Spatialized
       guid: 2c95f594da1bb24cb2146adfd23fb61b
       id: 2767400001
@@ -74,8 +83,24 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586178578249005197
+    m_lastTime: -8586177733665974445
     List:
+    - name: Attack
+      guid: 677527c83d22624681e9e422da0fa12b
+      id: 180661997
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 3
+      Path: Default Work Unit\Character\Attack\Attack
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Character
       guid: 585ff683837f4f46a064a1de8ef06026
       id: 436743010
@@ -104,6 +129,84 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Damage
+      guid: 33049ea359d67542a4d6939788913329
+      id: 1786804762
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Damage
+        ObjectType: 4
+      - ElementName: Damage
+        ObjectType: 3
+      Path: Default Work Unit\Character\Damage\Damage
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Death
+      guid: 675ff3bac7e5c84f9ffbc43e4b7cfa10
+      id: 779278001
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Death
+        ObjectType: 4
+      - ElementName: Death
+        ObjectType: 3
+      Path: Default Work Unit\Character\Death\Death
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Jump
+      guid: 2df5ad9df342174a97d0e5ab6dcd65df
+      id: 3833651337
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 3
+      Path: Default Work Unit\Character\Jump\Jump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: LowHealth
+      guid: e3f7d963274feb47bdc42b6a7c2f1b13
+      id: 1017222595
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: LowHealth
+        ObjectType: 4
+      - ElementName: LowHealth
+        ObjectType: 3
+      Path: Default Work Unit\Character\LowHealth\LowHealth
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Music
+      guid: f5980c3ad166974ba8cc037372ec8133
+      id: 3991942870
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: Music
+        ObjectType: 3
+      Path: Default Work Unit\Music\Music
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Attack_Axe_FirstSlice
       guid: da7d491151a1784dbd90eb4546a5b703
       id: 1312214966
@@ -112,9 +215,11 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
       - ElementName: Play_Attack_Axe_FirstSlice
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_Attack_Axe_FirstSlice
+      Path: Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -126,9 +231,11 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
       - ElementName: Play_Attack_Sword_FirstSlice
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_Attack_Sword_FirstSlice
+      Path: Default Work Unit\Character\Attack\Play_Attack_Sword_FirstSlice
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -140,9 +247,11 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 4
       - ElementName: Play_BasicJump
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_BasicJump
+      Path: Default Work Unit\Character\Jump\Play_BasicJump
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -238,9 +347,11 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 4
       - ElementName: Play_DoubleJump
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_DoubleJump
+      Path: Default Work Unit\Character\Jump\Play_DoubleJump
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -274,31 +385,35 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_Enemy_Damage_FirstHit01
-      guid: bcac70bf1e92d649ae81d8ec076ce2d3
-      id: 2135486089
+    - name: Play_Enemy_Damage
+      guid: 2f90a986cb5fe14483cb871e7fbbd995
+      id: 3570856298
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
-      - ElementName: Play_Enemy_Damage_FirstHit01
+      - ElementName: Damage
+        ObjectType: 4
+      - ElementName: Play_Enemy_Damage
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_Enemy_Damage_FirstHit01
+      Path: Default Work Unit\Character\Damage\Play_Enemy_Damage
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_Enemy_Damage_SecondHit01
-      guid: 2f90a986cb5fe14483cb871e7fbbd995
-      id: 1211042197
+    - name: Play_Enemy_Death
+      guid: c1b1a7b216a037429978c49daa3fba99
+      id: 3046156865
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
-      - ElementName: Play_Enemy_Damage_SecondHit01
+      - ElementName: Death
+        ObjectType: 4
+      - ElementName: Play_Enemy_Death
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_Enemy_Damage_SecondHit01
+      Path: Default Work Unit\Character\Death\Play_Enemy_Death
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -338,9 +453,11 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
+      - ElementName: LowHealth
+        ObjectType: 4
       - ElementName: Play_LowHealth1
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_LowHealth1
+      Path: Default Work Unit\Character\LowHealth\Play_LowHealth1
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -352,9 +469,11 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Character
         ObjectType: 4
+      - ElementName: LowHealth
+        ObjectType: 4
       - ElementName: Play_LowHealth2
         ObjectType: 3
-      Path: Default Work Unit\Character\Play_LowHealth2
+      Path: Default Work Unit\Character\LowHealth\Play_LowHealth2
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -385,6 +504,52 @@ MonoBehaviour:
       - ElementName: Play_MultiLaser
         ObjectType: 3
       Path: Default Work Unit\Spatial\Play_MultiLaser
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Music
+      guid: 3e22cfd6028ad748a6e2c8f64c205228
+      id: 2932040671
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music
+        ObjectType: 4
+      - ElementName: Play_Music
+        ObjectType: 3
+      Path: Default Work Unit\Music\Play_Music
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Player_Damage
+      guid: 1e0393a67511624ab9a7518f0a1277bf
+      id: 3638125099
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Damage
+        ObjectType: 4
+      - ElementName: Play_Player_Damage
+        ObjectType: 3
+      Path: Default Work Unit\Character\Damage\Play_Player_Damage
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Player_Death
+      guid: 14edbdc336b7b349a7b2b58c71897efa
+      id: 1835085974
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Death
+        ObjectType: 4
+      - ElementName: Play_Player_Death
+        ObjectType: 3
+      Path: Default Work Unit\Character\Death\Play_Player_Death
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -509,10 +674,6 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /Cursed_WwiseProject
-  - /Cursed_WwiseProject/Events
-  - /Cursed_WwiseProject/Events/Default Work Unit
-  - /Cursed_WwiseProject/Events/Default Work Unit/Character
-  - /Cursed_WwiseProject/Events/Default Work Unit/Creature
   - /Cursed_WwiseProject/SoundBanks
   - /Cursed_WwiseProject/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1

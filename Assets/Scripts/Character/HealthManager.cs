@@ -79,6 +79,8 @@ namespace Cursed.Character
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
+                _sfx.LowHealth();
+
                 CharacterAttackManager atkMgr = attacker.GetComponent<CharacterAttackManager>();
                 if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
                 {
@@ -88,9 +90,16 @@ namespace Cursed.Character
                             _vfx.TouchImpactSwordVfx(gameObject.transform.position);
                         if (atkMgr.CurrentWeapon.WeaponType == WeaponType.Axe)
                             _vfx.TouchImpactAxeVfx(gameObject.transform.position);
-                        AkSoundEngine.PostEvent("Play_Enemy_Damage_SecondHit01", gameObject);
+
+                        _sfx.EnemyDamageSFX();
                     }                   
                 }
+
+                if (!attacker.tag.Equals("Creature") && gameObject.tag.Equals("Player"))
+                {
+                    _sfx.PlayerDamageSFX();
+                }
+
                 //Do something if critical
             }
         }
@@ -176,6 +185,15 @@ namespace Cursed.Character
         {
             Debug.Log(gameObject.name + " is dead :(");
             onDeath?.Raise();
+
+            if (gameObject.tag.Equals("Player"))
+            {
+                _sfx.PlayerDeathSFX();
+            }
+            if (gameObject.tag.Equals("Enemy"))
+            {
+                _sfx.EnemyDeathSFX();
+            }
         }
 
         #endregion
