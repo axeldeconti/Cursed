@@ -25,7 +25,6 @@ namespace Cursed.VisualEffect
                     GamePadState testState = GamePad.GetState(testPlayerIndex);
                     if (testState.IsConnected)
                     {
-                        Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
                         playerIndex = testPlayerIndex;
                         playerIndexSet = true;
                     }
@@ -39,7 +38,6 @@ namespace Cursed.VisualEffect
         public IEnumerator MakeVibration(float _time, float _leftMotor, float _rightMotor)
         {
             // Make Vibration
-            Debug.Log("aaa");
             GamePad.SetVibration(playerIndex, _leftMotor, _rightMotor);
             yield return new WaitForSecondsRealtime(_time);
             GamePad.SetVibration(playerIndex, 0, 0);

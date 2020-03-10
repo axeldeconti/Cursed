@@ -214,7 +214,7 @@ namespace Cursed.Character
 
             //Set bools
             _isDashing = true;
-            _isInvincible = true;
+            SetIsInvinsible(true);
 
             if (_healthManager)
                 _healthManager.StartInvincibility(_dashInvincibilityTime);
@@ -247,7 +247,7 @@ namespace Cursed.Character
             }
 
             //Reset values
-            StartCoroutine("ResetValuesOnAfterDash");
+            StartCoroutine(ResetValuesOnAfterDash());
             _capsuleCollider.offset = capsuleOffset;
             _capsuleCollider.size = capsuleSize;
 
@@ -279,7 +279,7 @@ namespace Cursed.Character
         private IEnumerator ResetValuesOnAfterDash()
         {
             _isDashing = false;
-            _isInvincible = false;
+            SetIsInvinsible(false);
 
             int frames = 2;
             for (int i = 0; i < frames; i++)
@@ -749,6 +749,12 @@ namespace Cursed.Character
             _canMove = false;
             yield return new WaitForSeconds(time);
             _canMove = true;
+        }
+
+        private void SetIsInvinsible(bool value)
+        {
+            _isInvincible = value;
+            _healthManager.IsInvincible = value;
         }
 
         private void OnDrawGizmos()
