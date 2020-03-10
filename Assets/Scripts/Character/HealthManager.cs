@@ -98,6 +98,7 @@ namespace Cursed.Character
                 if (!attacker.tag.Equals("Creature") && gameObject.tag.Equals("Player"))
                 {
                     _sfx.PlayerDamageSFX();
+                    _vfx.FlashScreenDmgPlayer();
                 }
 
                 //Do something if critical
