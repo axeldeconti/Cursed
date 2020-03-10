@@ -28,6 +28,9 @@ public class GameManager : Singleton<GameManager>
 
         if (_showFPS)
             CursedDebugger.Instance.Add("FPS", () => FPS.ToString());
+
+        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Boot"))
+            LoadLevel("Main");
     }
 
     private void Update()
@@ -73,9 +76,17 @@ public class GameManager : Singleton<GameManager>
             _loadOperations.Remove(ao);
 
             //Transition between level
+            //Change all this
+            if (_currentLevelName == "Scene_Proto_Game")
+                UnloadLevel("Main");
+
+            if (_currentLevelName == "Main" && SceneManager.sceneCount >= 4)
+                UnloadLevel("Scene_Proto_Game");
         }
 
         Debug.Log("Load complete");
+        State = GameState.InGame;
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
     }
 
     public void UnloadLevel(string levelName)
@@ -99,6 +110,12 @@ public class GameManager : Singleton<GameManager>
     public void ShowMouseCursor(bool visibility)
     {
         Cursor.visible = visibility;
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("!! Quit Game !!");
+        Application.Quit();
     }
 
     protected override void OnDestroy()
@@ -127,11 +144,16 @@ public class GameManager : Singleton<GameManager>
                 case GameState.InGame:
                     ShowMouseCursor(false);
                     Cursor.lockState = CursorLockMode.Confined;
+                    Time.timeScale = 1f;
+                    break;
+                case GameState.Pause:
+                    ShowMouseCursor(false);
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Time.timeScale = 0f;
                     break;
                 case GameState.InDevConsole:
                     ShowMouseCursor(true);
                     Cursor.lockState = CursorLockMode.Confined;
-
                     break;
                 default:
                     break;
@@ -139,5 +161,5 @@ public class GameManager : Singleton<GameManager>
         } 
     }
 
-    public enum GameState { InGame, InDevConsole }
+    public enum GameState { InGame, Pause, InDevConsole }
 }

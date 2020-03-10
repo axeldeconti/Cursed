@@ -24,6 +24,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
         if (instance != null)
         {
             Debug.LogErrorFormat("[Singleton] Trying to instantiate a second instance of singleton class {0}", GetType().Name);
+            Destroy(this);
         }
         else
         {

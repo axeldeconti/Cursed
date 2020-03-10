@@ -6,6 +6,8 @@ namespace Cursed.Character
 {
     public class HealthManager : MonoBehaviour, IAttackable
     {
+        private CharacterMovement _move = null;
+
         [SerializeField] private IntReference _maxHealth;
         [SerializeField] private FloatReference _invincibleTime;
 
@@ -21,6 +23,11 @@ namespace Cursed.Character
         private VfxHandler _vfx = null;
 
         #region Initalizer
+
+        private void Awake()
+        {
+            _move = GetComponent<CharacterMovement>();
+        }
 
         private void Start()
         {
@@ -57,7 +64,8 @@ namespace Cursed.Character
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            if (_isInvincible)
+            Debug.Log("Invincibility = " + (_isInvincible && IsInvicibleMovement()));
+            if (_isInvincible && IsInvicibleMovement())
             {
                 //Do something if invincible
             }
@@ -164,6 +172,14 @@ namespace Cursed.Character
                 _timeInvincibleLeft = time;
 
             _isInvincible = true;
+        }
+
+        private bool IsInvicibleMovement()
+        {
+            if (_move)
+                return _move.IsInvincible;
+
+            return false;
         }
 
         #endregion
