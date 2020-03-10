@@ -87,7 +87,17 @@ public class SFXHandler : MonoBehaviour
         }
     }
 
-    public void LowHealth()
+    public void PlayerDamageSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Player_Damage", gameObject);
+    }
+
+    public void EnemyDamageSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Enemy_Damage", gameObject);
+    }
+
+    public void LowHealthSFX()
     {
         //First LowHealth warning
         if(_healthManager.CurrentHealth <= _healthManager.MaxHealth * 30 / 100 && !_lowHealth1Played)
@@ -106,7 +116,17 @@ public class SFXHandler : MonoBehaviour
         }
         if (_healthManager.CurrentHealth > _healthManager.MaxHealth * 15 / 100)
             _lowHealth2Played = false;
-}
+    }
+
+    public void PlayerDeathSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Player_Death", gameObject);
+    }
+
+    public void EnemyDeathSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Enemy_Death", gameObject);
+    }
     #endregion
 
     #region Creature
