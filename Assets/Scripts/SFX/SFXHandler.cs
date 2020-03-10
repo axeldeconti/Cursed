@@ -12,8 +12,7 @@ public class SFXHandler : MonoBehaviour
     private bool _myIsDiveKicking;
     private bool _lowHealth1Played = false;
     private bool _lowHealth2Played = false;
-    private bool _wallslidePlaying = false;
-    private bool _wallslideEndMain = false;
+    private bool _wallslideIsPlaying = false;
 
     private void Start()
     {
@@ -31,7 +30,6 @@ public class SFXHandler : MonoBehaviour
         if (GetComponent<ElectricPlate>())
             AkSoundEngine.PostEvent("Play_ElectricTrap_Inactive", gameObject);
         #endregion
-
     }
     
     private void Update()
@@ -41,19 +39,28 @@ public class SFXHandler : MonoBehaviour
     }
 
     #region Character
-    public void WallSlideSFX()
+    public void WallSlideBeginSFX()
     {
+        if (!_wallslideIsPlaying)
         AkSoundEngine.PostEvent("Play_Main_WallSlide", gameObject);
-        _wallslidePlaying = true;
-        WallSlideEnum();
+        _wallslideIsPlaying = true;
+        StartCoroutine(WallSlideEnum());
+    }
+
+    public void WallSlideEndSFX()
+    {
+        AkSoundEngine.PostEvent("Play_End_WallSlide", gameObject);
+        _wallslideIsPlaying = false;
     }
 
     IEnumerator WallSlideEnum()
     {
-        if(_wallslidePlaying)
+        Debug.Log("I'm here");
+        yield return new WaitForSeconds(4.841f);
+        if (_wallslideIsPlaying)
         {
-            yield return new WaitForSeconds(4.841f);
             AkSoundEngine.PostEvent("Stop_Main_Play_Loop_WallSlide", gameObject);
+            Debug.Log("I'm in");
         }
     }
 

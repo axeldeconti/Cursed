@@ -80,7 +80,7 @@ public class GameManager : Singleton<GameManager>
             if (_currentLevelName == "Scene_Proto_Game")
                 UnloadLevel("Main");
 
-            if (_currentLevelName == "Main" && SceneManager.sceneCount >= 4)
+            if (_currentLevelName == "Main" && HasScene("Scene_Proto_Game"))
                 UnloadLevel("Scene_Proto_Game");
         }
 
@@ -105,6 +105,17 @@ public class GameManager : Singleton<GameManager>
     private void OnUnloadOperationComplete(AsyncOperation ao)
     {
         Debug.Log("Unload complete");
+    }
+
+    private bool HasScene(string sceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            if (SceneManager.GetSceneAt(i).name.Equals(sceneName))
+                return true;
+        }
+
+        return false;
     }
 
     public void ShowMouseCursor(bool visibility)
