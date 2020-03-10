@@ -12,6 +12,7 @@ namespace Cursed.Creature
         private bool _canCollideWithPlayer, _canCollideWithEnemy;
         private Vector2 _ricochetDirection;
         private CreatureManager _creatureManager;
+        private CreatureSearching _creatureSearching;
         private Animator _animator;
         private Transform _wallCollision;
         private Vector2 _wallDirection;
@@ -20,6 +21,7 @@ namespace Cursed.Creature
         {
             _creatureManager = GetComponentInParent<CreatureManager>();
             _animator = GetComponentInParent<Animator>();
+            _creatureSearching = GetComponentInParent<CreatureSearching>();
             _canCollideWithPlayer = _canCollideWithEnemy = true;
         }
 
@@ -78,6 +80,9 @@ namespace Cursed.Creature
             {
                 if (_creatureManager.CurrentState != CreatureState.OnComeBack)
                 {
+                    if (_creatureSearching.Enemy == null)
+                        _creatureSearching.Enemy = collision.transform;
+
                     CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
                     AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
                 }
