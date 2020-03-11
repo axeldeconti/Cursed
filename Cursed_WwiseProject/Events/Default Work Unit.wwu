@@ -335,8 +335,19 @@
 				</Folder>
 				<Folder Name="Music" ID="{3A0C98F5-66D1-4B97-A8CC-037372EC8133}" ShortID="286614591">
 					<ChildrenList>
-						<Event Name="Play_Music" ID="{D6CF223E-8A02-48D7-A6E2-C8F64C205228}">
+						<Event Name="Play_Music_InGame" ID="{D6CF223E-8A02-48D7-A6E2-C8F64C205228}">
 							<ChildrenList>
+								<Action Name="" ID="{13069324-4485-4364-9476-FAB10D51264E}" ShortID="344317368">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="Scope" Type="int16" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 								<Action Name="" ID="{B49FBDC3-D983-40FE-8151-9E5FEAAC32CA}" ShortID="949829398">
 									<ReferenceList>
 										<Reference Name="Target">
@@ -346,18 +357,30 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Play_Music_MainMenu" ID="{DD62BE73-6985-431D-91FF-B32A3DAC2D74}">
+							<ChildrenList>
+								<Action Name="" ID="{8AD9FBF2-1CD6-4D84-A919-35D049E3F909}" ShortID="274493309">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="Scope" Type="int16" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Cursed_Theme_01_Mixing_02" ID="{9C23F3EE-EEEF-44E4-81B9-2501B11D2D8D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+								<Action Name="" ID="{603BA903-422C-412B-A2BD-A626532E5B55}" ShortID="796001704">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
-				<Event Name="Set_State" ID="{0BDA781B-F605-4B46-90C1-E8418DB34CF8}">
-					<ChildrenList>
-						<Action Name="" ID="{7278F5A4-94C9-4686-AC8A-559B6D233CD4}" ShortID="1031397019">
-							<PropertyList>
-								<Property Name="ActionType" Type="int16" Value="22"/>
-							</PropertyList>
-							<ReferenceList/>
-						</Action>
-					</ChildrenList>
-				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

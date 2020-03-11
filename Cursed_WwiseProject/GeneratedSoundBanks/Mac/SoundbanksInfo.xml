@@ -185,7 +185,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3156285719" Name="Stop_Main_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide" DurationType="OneShot" DurationMin="0.689501" DurationMax="1.403900">
+				<Event Id="3156285719" Name="Stop_Main_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="142199507" Language="SFX">
 							<ShortName>WallSlide_Loop_02.wav</ShortName>
@@ -290,11 +290,19 @@
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<IncludedEvents>
-				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Music\Play_Music" DurationType="Infinite">
+				<Event Id="962944353" Name="Play_Music_InGame" ObjectPath="\Events\Default Work Unit\Music\Play_Music_InGame" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="607350317" Language="SFX">
 							<ShortName>Cursed_Theme_01_Mixing_02.wav</ShortName>
 							<Path>SFX\Cursed_Theme_01_Mixing_02_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="89892569" Language="SFX">
+							<ShortName>MainMenu_Full.wav</ShortName>
+							<Path>SFX\MainMenu_Full_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

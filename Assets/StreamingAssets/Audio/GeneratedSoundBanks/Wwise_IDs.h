@@ -33,7 +33,8 @@ namespace AK
         static const AkUniqueID PLAY_LOWHEALTH2 = 291002680U;
         static const AkUniqueID PLAY_MAIN_WALLSLIDE = 3033462115U;
         static const AkUniqueID PLAY_MULTILASER = 2996732270U;
-        static const AkUniqueID PLAY_MUSIC = 2932040671U;
+        static const AkUniqueID PLAY_MUSIC_INGAME = 962944353U;
+        static const AkUniqueID PLAY_MUSIC_MAINMENU = 1566693136U;
         static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_RUN = 2822207957U;

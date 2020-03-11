@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using UnityEngine.SceneManagement;
 
-public class MusicHandler : MonoBehaviour
-{
-    // Start is called before the first frame update
+public class MusicHandler : Singleton<MusicHandler>
+{   
     void Start()
     {
-        AkSoundEngine.PostEvent("Play_Music", gameObject);
+
+    }
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Main")
+            AkSoundEngine.PostEvent("Play_Music_MainMenu", gameObject);
+
+        if (SceneManager.GetActiveScene().name == "Scene_Proto_Game")
+            AkSoundEngine.PostEvent("Play_Music_InGame", gameObject);
     }
 }
