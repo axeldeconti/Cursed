@@ -621,7 +621,8 @@ namespace Cursed.Character
             {
                 //Just dive kick
                 UpdateVelocity(_diveKickDirection.x * _side * _diveKickSpeed, _diveKickDirection.y * _diveKickSpeed);
-                _refTrailDivekickVfx = _vfx.TrailDivekickEffect();
+                if(_refTrailDivekickVfx == null)
+                    _refTrailDivekickVfx = _vfx.TrailDivekickEffect();
             }
 
             _isDiveKicking = _attackManager.IsDiveKicking;
