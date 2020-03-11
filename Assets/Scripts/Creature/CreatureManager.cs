@@ -25,6 +25,7 @@ namespace Cursed.Creature
         private CreatureJoystickDirection _joystick;
         private Animator _animator;
         private CreatureVfxHandler _vfx;
+        private CreatureCollision _collision;
 
         public event System.Action OnChangingState;
 
@@ -34,6 +35,8 @@ namespace Cursed.Creature
         private bool _canRecall = false;
 
         [SerializeField] private bool _showDebug = false;
+
+        private Vector2 _launchDirection;
 
         private void Start() => Initialize();
 
@@ -48,6 +51,7 @@ namespace Cursed.Creature
             _animator = GetComponent<Animator>();
             _joystick = GetComponent<CreatureJoystickDirection>();
             _vfx = GetComponent<CreatureVfxHandler>();
+            _collision = GetComponentInChildren<CreatureCollision>();
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
@@ -116,7 +120,9 @@ namespace Cursed.Creature
             if (_creatureState != CreatureState.OnCharacter)
                 return;
 
+            //Play SFX
             AkSoundEngine.PostEvent("Play_Creature_Launch", gameObject);
+
 
             StartCoroutine(WaitForRecallReady());
 
@@ -128,10 +134,19 @@ namespace Cursed.Creature
             if (_joystick.Direction != Vector3.zero)
             {
                 if (_joystick.Target != null)
+                {
                     transform.position = _joystick.Target.GetChild(0).position;
+                    _launchDirection = _joystick.Direction;
+                }
             }
             else
+            {
+                _launchDirection = new Vector2(_movement.Direction, 0f);
                 transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(.5f * _movement.Direction, 0f);
+            }
+
+            //Play VFX
+            _vfx.CreatureLauchParticle(_launchDirection);
 
             CurrentState = CreatureState.Moving;
         }
@@ -173,11 +188,11 @@ namespace Cursed.Creature
 
                     case CreatureState.OnCharacter:
                         //ToggleChilds(false);
+                        _vfx.CreatureTouchImpactParticle(_collision.HitTransform.GetChild(0));
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);
                         Destroy(_refCreatureTrailEffect);
-                        //_vfx.CreatureTouchImpactParticle();
                         break;
 
                     case CreatureState.OnComeBack:
@@ -192,12 +207,12 @@ namespace Cursed.Creature
 
                     case CreatureState.OnEnemy:
                         //ToggleChilds(false);
+                        _vfx.CreatureTouchImpactParticle(_collision.HitTransform.GetChild(0));
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("Moving", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Chasing", false);
                         Destroy(_refCreatureTrailEffect);
-                        //_vfx.CreatureTouchImpactParticle();
                         break;
 
                     case CreatureState.Chasing:
