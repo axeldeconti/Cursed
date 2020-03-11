@@ -7,11 +7,13 @@ namespace Cursed.UI
         private GameManager _gameManager = null;
 
         [SerializeField] private GameObject _pauseMenu = null;
+        [SerializeField] private GameObject _controlsMenu = null;
 
         private void Start()
         {
             _gameManager = GameManager.Instance;
             _pauseMenu.SetActive(false);
+            _controlsMenu.SetActive(false);
         }
 
         private void Update()

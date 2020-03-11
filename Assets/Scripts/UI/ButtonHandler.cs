@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.Events;
 
 namespace Cursed.UI
 {
@@ -10,6 +11,11 @@ namespace Cursed.UI
     public class ButtonHandler : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         [SerializeField] private TextMeshProUGUI _text = null;
+        [Space]
+        [SerializeField] private UnityEvent _onPress;
+
+        private bool _pressed = false;
+        private float _pressedTimer = 0;
 
         private Button _button = null;
 
@@ -17,14 +23,28 @@ namespace Cursed.UI
         {
             _button = GetComponent<Button>();
 
-            _button.onClick.AddListener(() => StartCoroutine(Press()));
+            _button.onClick.AddListener(() => PressTest());
         }
 
-        private IEnumerator Press()
+        private void PressTest()
         {
-            SetTextColor(_button.colors.pressedColor);
-            yield return new WaitForSeconds(.1f);
-            SetTextColor(_button.colors.selectedColor);
+            _pressed = true;
+            _pressedTimer = .1f;
+        }
+
+        private void Update()
+        {
+            if (!_pressed)
+                return;
+
+            float deltaTime = Time.timeScale == 0 ? 1 / (float)GameSettings.FRAME_RATE : Time.deltaTime;
+            _pressedTimer -= deltaTime;
+
+            if (_pressedTimer <= 0)
+            {
+                _onPress.Invoke();
+                _pressed = false;
+            }
         }
 
         private void SetTextColor(Color color)
