@@ -2,6 +2,7 @@
 using Cursed.Character;
 using Cursed.Item;
 using Cursed.Creature;
+using Cursed.Utilities;
 
 namespace Cursed.Combat
 {
@@ -17,6 +18,12 @@ namespace Cursed.Combat
         [Header("Critic")]
         [SerializeField] private FloatReference _criticalMultiplier;
         [SerializeField] private FloatReference _criticalChance;
+
+        [Header("Vfx")]
+        [SerializeField] private GameObject[] _vfxTouchImpact;
+
+        [Header("Vibration")]
+        [SerializeField] private VibrationData_SO _vibrationData;
 
         public Attack CreateAttack()
         {
@@ -56,5 +63,7 @@ namespace Cursed.Combat
         public DamageType_SO DamageType { get => _damageType; set => _damageType = value; }
         public float CriticalMultiplier { get => _criticalMultiplier; set => _criticalMultiplier.Value = value; }
         public float CriticalChance { get => _criticalChance; set => _criticalChance.Value = value; }
+        public GameObject[] VfxTouchImpact { get => _vfxTouchImpact; set => _vfxTouchImpact = value; }
+        public VibrationData_SO Vibration {get => _vibrationData; set => _vibrationData = value; }
     }
 }

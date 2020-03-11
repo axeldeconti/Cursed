@@ -6,9 +6,6 @@ namespace Cursed.Combat
     [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Attack/Weapon")]
     public class Weapon : AttackDefinition
     {
-        [Header("Prefabs")]
-        [SerializeField] private Rigidbody _weaponPrefab;
-
         [Header("Type")]
         [SerializeField] private WeaponType _weaponType;
 
@@ -28,7 +25,6 @@ namespace Cursed.Combat
             }
         }
 
-        public Rigidbody WeaponPrefab => _weaponPrefab;
         public WeaponType WeaponType { get => _weaponType; set => _weaponType = value; }
     }
 }

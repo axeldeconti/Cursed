@@ -16,6 +16,7 @@ namespace Cursed.Creature
         private Animator _animator;
         private Transform _wallCollision;
         private Vector2 _wallDirection;
+        private Transform _hitTransform;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace Cursed.Creature
 
         public void CollideWithCharacter(CreatureState type, Transform target)
         {
+            _hitTransform = target;
             _creatureManager.CurrentState = type;
             Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target);
         }
@@ -110,6 +112,7 @@ namespace Cursed.Creature
         public Vector2 RicochetDirection => _ricochetDirection;
         public Transform WallCollision => _wallCollision;
         public Vector2 WallDirection => _wallDirection;
+        public Transform HitTransform => _hitTransform;
 
         #endregion
     }

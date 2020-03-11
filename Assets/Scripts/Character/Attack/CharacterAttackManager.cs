@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using Cursed.Combat;
+﻿using Cursed.Combat;
 using Cursed.VisualEffect;
+using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -63,7 +63,7 @@ namespace Cursed.Character
         {
             if (_coll.OnGround)
             {
-                if(Mathf.Abs(_move.XSpeed) > 4)
+                if (Mathf.Abs(_move.XSpeed) > 4)
                 {
                     //Run attack
                     RunAttack();
@@ -100,10 +100,7 @@ namespace Cursed.Character
                 _anim.LaunchAttack(weapon.WeaponType.GetHashCode());
 
                 //Vibration
-                if (CurrentWeapon.WeaponType == WeaponType.Sword)
-                    StartCoroutine(_contrVib.MakeVibration(0.2f, 0.5f, 0.5f));
-                if (CurrentWeapon.WeaponType == WeaponType.Axe)
-                    StartCoroutine(_contrVib.MakeVibration(0.5f, 1f, 1f));
+                StartCoroutine(_contrVib.MakeVibration(weapon.Vibration.VibrationTime, weapon.Vibration.LeftMotorIntensity, weapon.Vibration.VibrationTime));
             }
         }
 
@@ -157,6 +154,17 @@ namespace Cursed.Character
         public void ExecuteAttack(GameObject defender)
         {
             _weaponInv.GetWeapon(_weaponNb).ExecuteAttack(gameObject, defender);
+        }
+
+        public GameObject[] GetVfxTouchImpact()
+        {
+            if (!IsAttacking)
+                return null;
+
+            if (_isDiveKicking)
+                return _divekickAttack.VfxTouchImpact;
+
+            return CurrentWeapon.VfxTouchImpact;
         }
 
         public bool IsAttacking => _isAttacking;
