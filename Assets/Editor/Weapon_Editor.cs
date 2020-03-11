@@ -10,12 +10,14 @@ namespace Cursed.Combat
         private Weapon _weapon;
         private SerializedObject _object;
         private SerializedProperty _damageType;
+        private SerializedProperty _vfxTouchImpact;
 
         private void OnEnable()
         {
             _weapon = target as Weapon;
             _object = new SerializedObject(target);
             _damageType = _object.FindProperty("_damageType");
+            _vfxTouchImpact = _object.FindProperty("_vfxTouchImpact");
         }
 
         public override void OnInspectorGUI()
@@ -51,6 +53,11 @@ namespace Cursed.Combat
             GUILayout.Label("Critic", EditorStyles.boldLabel);
             _weapon.CriticalMultiplier = EditorGUILayout.FloatField("Critical Multiplier", _weapon.CriticalMultiplier);
             _weapon.CriticalChance = EditorGUILayout.FloatField("Critical Chance", _weapon.CriticalChance);
+
+            //Vfx
+            GUILayout.Space(10);
+            GUILayout.Label("Vfx", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(_vfxTouchImpact, true);
 
             EditorUtility.SetDirty(_weapon);
             _object.ApplyModifiedProperties();

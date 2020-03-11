@@ -159,6 +159,17 @@ namespace Cursed.Character
             _weaponInv.GetWeapon(_weaponNb).ExecuteAttack(gameObject, defender);
         }
 
+        public GameObject[] GetVfxTouchImpact()
+        {
+            if (!IsAttacking)
+                return null;
+
+            if (_isDiveKicking)
+                return _divekickAttack.VfxTouchImpact;
+
+            return CurrentWeapon.VfxTouchImpact;
+        }
+
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);

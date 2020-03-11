@@ -95,10 +95,7 @@ namespace Cursed.Character
                 {
                     if (atkMgr)
                     {
-                        if(atkMgr.CurrentWeapon.WeaponType == WeaponType.Sword)
-                            _vfx.TouchImpactSwordVfx(gameObject.transform.position);
-                        if (atkMgr.CurrentWeapon.WeaponType == WeaponType.Axe)
-                            _vfx.TouchImpactAxeVfx(gameObject.transform.position);
+                        _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
 
                         _sfx.EnemyDamageSFX();
                     }                   
