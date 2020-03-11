@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using Cursed.Item;
+using Cursed.Utilities;
 
 namespace Cursed.Combat
 {
@@ -58,6 +59,11 @@ namespace Cursed.Combat
             GUILayout.Space(10);
             GUILayout.Label("Vfx", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_vfxTouchImpact, true);
+
+            //Vibration
+            GUILayout.Space(10);
+            GUILayout.Label("Vibration", EditorStyles.boldLabel);
+            _weapon.Vibration = (VibrationData_SO)EditorGUILayout.ObjectField(_weapon.Vibration, typeof(VibrationData_SO));
 
             EditorUtility.SetDirty(_weapon);
             _object.ApplyModifiedProperties();
