@@ -16,6 +16,8 @@ namespace AK
         static const AkUniqueID PLAY_ATTACK_AXE_FIRSTSLICE = 1312214966U;
         static const AkUniqueID PLAY_ATTACK_SWORD_FIRSTSLICE = 2804287435U;
         static const AkUniqueID PLAY_BASICJUMP = 2216073360U;
+        static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
+        static const AkUniqueID PLAY_BUTTON_SELECTED = 3882482286U;
         static const AkUniqueID PLAY_CREATURE_CALL = 1776683280U;
         static const AkUniqueID PLAY_CREATURE_GRABBING = 3373431376U;
         static const AkUniqueID PLAY_CREATURE_HITWALL = 1251478039U;
@@ -23,7 +25,9 @@ namespace AK
         static const AkUniqueID PLAY_DASH = 2211787386U;
         static const AkUniqueID PLAY_DIVEKICK = 1735873294U;
         static const AkUniqueID PLAY_DOUBLEJUMP = 595748461U;
+        static const AkUniqueID PLAY_ELECTRICTRAP_ACTIVE = 2006604231U;
         static const AkUniqueID PLAY_ELECTRICTRAP_INACTIVE = 1235386822U;
+        static const AkUniqueID PLAY_ELECTRICTRAP_TRIGGERED = 3294792404U;
         static const AkUniqueID PLAY_END_WALLSLIDE = 2912867303U;
         static const AkUniqueID PLAY_ENEMY_DAMAGE = 3570856298U;
         static const AkUniqueID PLAY_ENEMY_DEATH = 3046156865U;
@@ -48,6 +52,7 @@ namespace AK
         static const AkUniqueID CREATURE = 2661483290U;
         static const AkUniqueID MUSIC = 3991942870U;
         static const AkUniqueID SPATIALIZED = 2767400001U;
+        static const AkUniqueID UI = 1551306167U;
     } // namespace BANKS
 
     namespace BUSSES

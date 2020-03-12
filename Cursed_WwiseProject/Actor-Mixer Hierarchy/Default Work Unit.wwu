@@ -1012,7 +1012,7 @@
 						</Folder>
 					</ChildrenList>
 				</Folder>
-				<Folder Name="Others" ID="{FA13E681-74E1-4560-B3DE-395D1F930343}" ShortID="789221889">
+				<Folder Name="Traps" ID="{FA13E681-74E1-4560-B3DE-395D1F930343}" ShortID="789221889">
 					<ChildrenList>
 						<Sound Name="Laser" ID="{1F0C3F94-399B-4CBD-AE52-B5D50F716817}" ShortID="731684550">
 							<PropertyList>
@@ -1354,6 +1354,54 @@
 							</ChildrenList>
 							<ActiveSourceList>
 								<ActiveSource Name="MainMenu_Full" ID="{9994F6DB-14BB-47D0-874A-B9C2A0710B4D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="UI" ID="{DD5BBCB8-D843-4B59-A3E7-E5D5691389E3}" ShortID="453385830">
+					<ChildrenList>
+						<Sound Name="Button_Selected" ID="{DF310660-5B33-481A-9FC6-40500BCC0128}" ShortID="216929335">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="TestButtonFeedback" ID="{D8F7998E-D89C-49E5-97BD-7AC3599B00D5}">
+									<Language>SFX</Language>
+									<AudioFile>TestButtonFeedback.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="726945814"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="TestButtonFeedback" ID="{D8F7998E-D89C-49E5-97BD-7AC3599B00D5}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Button_Pressed" ID="{D48E2112-9AAA-4E5A-9F2B-FCBD4648CE1D}" ShortID="595525462">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Button_Pressed" ID="{918696A1-77F8-41C1-9054-91A7D0DB5CA4}">
+									<Language>SFX</Language>
+									<AudioFile>Button_Pressed.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="561989917"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Button_Pressed" ID="{918696A1-77F8-41C1-9054-91A7D0DB5CA4}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>

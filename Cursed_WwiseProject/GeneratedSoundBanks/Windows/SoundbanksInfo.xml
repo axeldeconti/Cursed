@@ -16,6 +16,29 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
+		<SoundBank Id="1551306167" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
+			<ShortName>UI</ShortName>
+			<Path>UI.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="4.081746" DurationMax="4.081746">
+					<IncludedMemoryFiles>
+						<File Id="561989917" Language="SFX">
+							<ShortName>Button_Pressed.wav</ShortName>
+							<Path>SFX\Button_Pressed_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3882482286" Name="Play_Button_Selected" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Selected" DurationType="OneShot" DurationMin="0.464649" DurationMax="0.464649">
+					<IncludedMemoryFiles>
+						<File Id="726945814" Language="SFX">
+							<ShortName>TestButtonFeedback.wav</ShortName>
+							<Path>SFX\TestButtonFeedback_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+			</IncludedEvents>
+		</SoundBank>
 		<SoundBank Id="1557941045" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Characters</ObjectPath>
 			<ShortName>Characters</ShortName>
@@ -247,7 +270,15 @@
 			<ShortName>Spatialized</ShortName>
 			<Path>Spatialized.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1235386822" Name="Play_ElectricTrap_Inactive" ObjectPath="\Events\Default Work Unit\Spatial\Play_ElectricTrap_Inactive" MaxAttenuation="40.000000" DurationType="Infinite">
+				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="742247423" Language="SFX">
+							<ShortName>ElectricTrap_Active.wav</ShortName>
+							<Path>SFX\ElectricTrap_Active_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1235386822" Name="Play_ElectricTrap_Inactive" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Inactive" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="407740136" Language="SFX">
 							<ShortName>ElectricTrap_Inactive_04.wav</ShortName>
@@ -264,6 +295,14 @@
 						<File Id="1034113395" Language="SFX">
 							<ShortName>ElectricTrap_Inactive_02.wav</ShortName>
 							<Path>SFX\ElectricTrap_Inactive_02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3294792404" Name="Play_ElectricTrap_Triggered" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Triggered" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="749166722" Language="SFX">
+							<ShortName>ElectricTrap_Triggered.wav</ShortName>
+							<Path>SFX\ElectricTrap_Triggered_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

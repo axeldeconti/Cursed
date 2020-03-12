@@ -309,17 +309,6 @@
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Event Name="Play_ElectricTrap_Inactive" ID="{21AC3B9F-78E3-4EF4-9CD6-00D53F8A4128}">
-							<ChildrenList>
-								<Action Name="" ID="{A24E1961-6DA0-4A7C-A694-6E1367F5F6DF}" ShortID="245808300">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Random_ElectricTrap_Inactive" ID="{CF7802A7-60C8-4FCA-AE54-B8A24CAE57EA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
 						<Event Name="Play_MultiLaser" ID="{8492670A-9B07-4745-95BB-AFFEC8289111}">
 							<ChildrenList>
 								<Action Name="" ID="{8B03F91F-81D0-445C-8D1B-316FD82A684F}" ShortID="876412533">
@@ -331,6 +320,73 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Folder Name="ElectricTrap" ID="{5655E081-EA9B-427A-865F-D797F14E5AF7}" ShortID="174942988">
+							<ChildrenList>
+								<Event Name="Play_ElectricTrap_Inactive" ID="{21AC3B9F-78E3-4EF4-9CD6-00D53F8A4128}">
+									<ChildrenList>
+										<Action Name="" ID="{E6AECB94-3E88-4E0D-9BF5-87798092B74E}" ShortID="473411773">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="ElectricTrap_Active" ID="{A8F06EF0-7B4B-4F24-834B-DC131E48D3FD}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{A24E1961-6DA0-4A7C-A694-6E1367F5F6DF}" ShortID="245808300">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Random_ElectricTrap_Inactive" ID="{CF7802A7-60C8-4FCA-AE54-B8A24CAE57EA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_ElectricTrap_Triggered" ID="{3CA9790A-A0CF-46A4-B76F-462A36F0DEF2}">
+									<ChildrenList>
+										<Action Name="" ID="{2D9160A8-CCD2-4131-BEB1-C4314D916DCD}" ShortID="500804759">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Random_ElectricTrap_Inactive" ID="{CF7802A7-60C8-4FCA-AE54-B8A24CAE57EA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{522C030A-BF5A-4018-99B3-03240BD67A7A}" ShortID="1069542168">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="ElectricTrap_Triggered" ID="{8FC0E956-50C7-40D6-9E2C-7503A66EFC20}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_ElectricTrap_Active" ID="{605A4D3D-2D07-4F27-AE2E-615F4474854C}">
+									<ChildrenList>
+										<Action Name="" ID="{B7C4C4E2-5A2A-4601-9955-2C2A9042D958}" ShortID="421926252">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="ElectricTrap_Triggered" ID="{8FC0E956-50C7-40D6-9E2C-7503A66EFC20}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{8968F860-B2D4-4B35-8E17-4DBA1E29D44E}" ShortID="170197539">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="ElectricTrap_Active" ID="{A8F06EF0-7B4B-4F24-834B-DC131E48D3FD}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Music" ID="{3A0C98F5-66D1-4B97-A8CC-037372EC8133}" ShortID="286614591">
@@ -374,6 +430,32 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="UI" ID="{DFB9CC43-D65E-4A59-B9CF-1B5072B6DDDA}" ShortID="835444735">
+					<ChildrenList>
+						<Event Name="Play_Button_Selected" ID="{0DC10D72-5D56-4028-A9E8-45D77ACCD2F1}">
+							<ChildrenList>
+								<Action Name="" ID="{AD8A1C42-C888-437D-9826-95E4AF5173C1}" ShortID="37946820">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Button_Selected" ID="{DF310660-5B33-481A-9FC6-40500BCC0128}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Button_Pressed" ID="{2159BA94-D09C-4FB6-AC74-41FE36CF2908}">
+							<ChildrenList>
+								<Action Name="" ID="{D2DB3C07-5B50-4C91-85F6-DF5E4D788632}" ShortID="459218014">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Button_Pressed" ID="{D48E2112-9AAA-4E5A-9F2B-FCBD4648CE1D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

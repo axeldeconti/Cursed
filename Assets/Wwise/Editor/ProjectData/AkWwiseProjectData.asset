@@ -40,7 +40,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586176909248410842
+    m_lastTime: -8586175992089609407
     List:
     - name: Characters
       guid: 7cd07edfa3d31d43b7738d06e66fb061
@@ -78,12 +78,21 @@ MonoBehaviour:
       - ElementName: Spatialized
         ObjectType: 7
       Path: Default Work Unit\Spatialized
+    - name: UI
+      guid: ebf64210118ac245a899c95ed89df09d
+      id: 1551306167
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 7
+      Path: Default Work Unit\UI
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586176867554384761
+    m_lastTime: -8586175992284958713
     List:
     - name: Attack
       guid: 677527c83d22624681e9e422da0fa12b
@@ -158,6 +167,22 @@ MonoBehaviour:
       - ElementName: Death
         ObjectType: 3
       Path: Default Work Unit\Character\Death\Death
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: ElectricTrap
+      guid: 81e055569bea7a42865fd797f14e5af7
+      id: 951547309
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: ElectricTrap
+        ObjectType: 4
+      - ElementName: ElectricTrap
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\ElectricTrap\ElectricTrap
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -252,6 +277,34 @@ MonoBehaviour:
       - ElementName: Play_BasicJump
         ObjectType: 3
       Path: Default Work Unit\Character\Jump\Play_BasicJump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Button_Pressed
+      guid: 94ba59219cd0b64fac7441fe36cf2908
+      id: 1724924593
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 4
+      - ElementName: Play_Button_Pressed
+        ObjectType: 3
+      Path: Default Work Unit\UI\Play_Button_Pressed
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Button_Selected
+      guid: 720dc10d565d2840a9e845d77accd2f1
+      id: 3882482286
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 4
+      - ElementName: Play_Button_Selected
+        ObjectType: 3
+      Path: Default Work Unit\UI\Play_Button_Selected
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -355,6 +408,22 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_ElectricTrap_Active
+      guid: 3d4d5a60072d274fae2e615f4474854c
+      id: 2006604231
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: ElectricTrap
+        ObjectType: 4
+      - ElementName: Play_ElectricTrap_Active
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_ElectricTrap_Inactive
       guid: 9f3bac21e378f44e9cd600d53f8a4128
       id: 1235386822
@@ -363,9 +432,27 @@ MonoBehaviour:
         ObjectType: 12
       - ElementName: Spatial
         ObjectType: 4
+      - ElementName: ElectricTrap
+        ObjectType: 4
       - ElementName: Play_ElectricTrap_Inactive
         ObjectType: 3
-      Path: Default Work Unit\Spatial\Play_ElectricTrap_Inactive
+      Path: Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Inactive
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_ElectricTrap_Triggered
+      guid: 0a79a93ccfa0a446b76f462a36f0def2
+      id: 3294792404
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: ElectricTrap
+        ObjectType: 4
+      - ElementName: Play_ElectricTrap_Triggered
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Triggered
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -608,6 +695,20 @@ MonoBehaviour:
       - ElementName: Stop_Main_Play_Loop_WallSlide
         ObjectType: 3
       Path: Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: UI
+      guid: 43ccb9df5ed6594ab9cf1b5072b6ddda
+      id: 1551306167
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: UI
+        ObjectType: 4
+      - ElementName: UI
+        ObjectType: 3
+      Path: Default Work Unit\UI\UI
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
