@@ -159,7 +159,6 @@ namespace Cursed.Character
         public void TouchImpact(Vector3 pos, GameObject[] vfxTouchImpact)
         {
             Vector3 offset = new Vector3(0, 3, 0);
-            Debug.Log(vfxTouchImpact);
             int rnd = Random.Range(0, vfxTouchImpact.Length);
             Instantiate(vfxTouchImpact[rnd], pos + offset, Quaternion.identity);
         }

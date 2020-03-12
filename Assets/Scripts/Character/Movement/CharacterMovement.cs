@@ -628,12 +628,15 @@ namespace Cursed.Character
                     _refTrailDivekickVfx = _vfx.TrailDivekickEffect();
             }
 
-            _isDiveKicking = _attackManager.IsDiveKicking;
+            if(_isDiveKicking)
+            {
+                if (Mathf.Abs(_oldY - transform.position.y) < .1f)
+                    _attackManager.EndAttack();
+                else
+                    _oldY = transform.position.y;
+            }
 
-            if (Mathf.Abs(_oldY - transform.position.y) < .1f)
-                _attackManager.EndAttack();
-            else
-                _oldY = transform.position.y;
+            _isDiveKicking = _attackManager.IsDiveKicking;
         }
 
         /// <summary>

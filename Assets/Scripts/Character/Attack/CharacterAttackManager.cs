@@ -93,7 +93,6 @@ namespace Cursed.Character
             else
             {
                 _isAttacking = true;
-
                 _weaponNb = attackNb;
                 Weapon weapon = _weaponInv.GetWeapon(_weaponNb);
 

@@ -71,7 +71,7 @@ namespace Cursed.Character
             if(!_onGround && !_onWall && _attack.IsDiveKicking)
             {
                 var attackables = collision.gameObject.GetComponentInChildren<IAttackable>();
-
+                Debug.Log("Dive kick attack");
                 if (attackables != null)
                     _attack.DiveKickAttack(collision.gameObject);
             }
