@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1450,6 +1450,81 @@ MonoBehaviour:
   - {x: 0.53248596, y: -13.067184, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.30652618, y: 0.5387039, z: 0}
+--- !u!1001 &706061805
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1008046690}
+    m_Modifications:
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074502433782940207, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_Name
+      value: VibrationController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5c6ecd0d282d09e46bbeff946e2747e7, type: 3}
+--- !u!4 &706061806 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 706061805}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &742397234 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4433985217426720732, guid: 35547394a3ec291499ea9331f8fac9d6,
@@ -2306,6 +2381,7 @@ Transform:
   - {fileID: 758625356}
   - {fileID: 1619017955}
   - {fileID: 1560757191}
+  - {fileID: 706061806}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
