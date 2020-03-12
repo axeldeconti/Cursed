@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cursed.Combat;
 using System.Collections;
+using Cursed.VisualEffect;
 
 namespace Cursed.Character
 {
@@ -10,6 +11,7 @@ namespace Cursed.Character
 
         [SerializeField] private IntReference _maxHealth;
         [SerializeField] private FloatReference _invincibleTime;
+        [SerializeField] private FloatReference _freezeFrameKill;
 
         private CharacterStats _stats = null;
         private int _currentHealth = 0;
@@ -61,13 +63,11 @@ namespace Cursed.Character
             }
         }
 
-
         #region Modifiers
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            Debug.Log("Invincibility = " + (_isInvincible && IsInvicibleMovement()));
-            if (_isInvincible && IsInvicibleMovement())
+            if (_isInvincible || IsInvicibleMovement())
             {
                 //Do something if invincible
             }
@@ -209,6 +209,8 @@ namespace Cursed.Character
             {
                 _sfx.EnemyDeathSFX();
                 Destroy(gameObject);
+                if(_freezeFrameKill != null)
+                    FreezeFrame.Instance.Freeze(_freezeFrameKill);
             }
         }
 

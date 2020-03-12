@@ -3,22 +3,21 @@ using UnityEngine;
 
 namespace Cursed.VisualEffect
 {
-    public class FreezeFrame : MonoBehaviour
+    public class FreezeFrame : Singleton<FreezeFrame>
     {
         private bool _isFrozen = false;
         private bool _pendingFreeze = false;
+        private float _currentFreezeTime;
 
-        private void Update()
+        public void Freeze (FloatReference _freezeData)
         {
+            _currentFreezeTime = _freezeData.Value;
+            _pendingFreeze = true; 
+            
             if (_pendingFreeze && !_isFrozen)
             {
-                StartCoroutine(DoFreeze(0.2f));
+                StartCoroutine(DoFreeze(_currentFreezeTime));
             }
-        }
-
-        public void Freeze ()
-        {
-            _pendingFreeze = true;
         }
 
         private IEnumerator DoFreeze (float _duration)

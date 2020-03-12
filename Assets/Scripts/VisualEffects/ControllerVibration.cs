@@ -1,5 +1,4 @@
 ﻿using Cursed.Utilities;
-using System.Collections;
 using UnityEngine;
 using XInputDotNetPure; // Required in C#
 
@@ -14,10 +13,8 @@ namespace Cursed.VisualEffect
         private bool _isVibrating = false;
         private float _timer = -1;
 
-
         private void Update()
         {
-            CheckPlayerIndex();
             UpdateVibration();
         }
 
@@ -59,7 +56,9 @@ namespace Cursed.VisualEffect
 
         public void StartVibration(VibrationData_SO data)
         {
-            if (_isVibrating)
+            CheckPlayerIndex();
+
+            if (_isVibrating && !_playerIndexSet)
                 return;
 
             _isVibrating = true;
