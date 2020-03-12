@@ -10,8 +10,7 @@ namespace Cursed.Combat
     {
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
-                Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
