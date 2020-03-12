@@ -94,6 +94,7 @@ namespace Cursed.Character
         private float _timeToNextDash = 0f;
         private bool _isCoyoteTime;
         private float _lastX;
+        private float _oldY;
 
         [Space]
         private float _currentGravity = 0f;
@@ -229,6 +230,7 @@ namespace Cursed.Character
             float dashTimer = _dashTime;
             float deltaDist = 0;
             float newX = 0f;
+            float oldY = transform.position.y;
             bool forceToContinu = false;
             int side = _side;
 
@@ -243,11 +245,12 @@ namespace Cursed.Character
                 dashTimer -= Time.deltaTime;
                 UpdateForceToContinu(ref forceToContinu);
                 _ghost.GhostDashEffect();
-                yield return new WaitForEndOfFrame();
+                yield return null;
             }
 
             //Reset values
             StartCoroutine(ResetValuesOnAfterDash());
+            StopInvincibleMovement();
             _capsuleCollider.offset = capsuleOffset;
             _capsuleCollider.size = capsuleSize;
 
@@ -626,6 +629,11 @@ namespace Cursed.Character
             }
 
             _isDiveKicking = _attackManager.IsDiveKicking;
+
+            if (Mathf.Abs(_oldY - transform.position.y) < .1f)
+                _attackManager.EndAttack();
+            else
+                _oldY = transform.position.y;
         }
 
         /// <summary>
@@ -758,14 +766,10 @@ namespace Cursed.Character
         {
             _isInvincible = true;
         }
+
         private void StopInvincibleMovement()
         {
             _isInvincible = false;
-        }
-        private void SetIsInvinsible(bool value)
-        {
-            _isInvincible = value;
-            //_healthManager.IsInvincible = value;
         }
 
         private void OnDrawGizmos()
