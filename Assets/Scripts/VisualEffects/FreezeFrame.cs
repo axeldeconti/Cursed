@@ -7,7 +7,6 @@ namespace Cursed.VisualEffect
     {
         private bool _isFrozen = false;
         private bool _pendingFreeze = false;
-        private float _timeLerp = 1f;
 
         private void Update()
         {
