@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 8498843447298849142}
   - component: {fileID: 8498843447298849025}
   - component: {fileID: 8498843447298849038}
-  - component: {fileID: 891322282}
   - component: {fileID: 891322275}
   - component: {fileID: 3300097278112753336}
   - component: {fileID: 6341393546893377053}
@@ -470,18 +469,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &891322282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8498843447298849143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91dac45918b5f1149994c223b251ef79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &891322275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,6 +576,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 02c31bfef828c414ca58cc3c00c69f65, type: 2}
+  _freezeFrameKill:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 3bd9c869979bc854b8863bae69dcafff, type: 2}
   onHealthUpdate: {fileID: 11400000, guid: 4859836420cc5c340a2f67959dce997f, type: 2}
   onMaxHealthUpdate: {fileID: 11400000, guid: 868fb2563c3987f459bdfd7df0420c6a, type: 2}
   onDeath: {fileID: 11400000, guid: 52d2b35afe5f55f429615d3d030ad2ad, type: 2}
