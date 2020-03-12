@@ -11,6 +11,8 @@ namespace Cursed.VisualEffect
         private float _spriteAlpha;
         [SerializeField] private float _fadeSpeed = .5f;
 
+        private bool _canLaunch;
+
         private void Awake()
         {
             _healthManager = GetComponent<HealthManager>();
@@ -23,15 +25,23 @@ namespace Cursed.VisualEffect
             UpdateSprite();
         }
 
+        public void LaunchAnimation()
+        {
+            _canLaunch = true;
+        }
+
         private void UpdateSprite()
         {
-            if (_healthManager.IsInvincible)
+            if (_healthManager.IsInvincible && _canLaunch)
             {
                 float _alpha = Mathf.PingPong(_fadeSpeed * Time.time, _spriteAlpha);
                 _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _alpha);
             }
             else
+            {
                 _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, _spriteAlpha);
+                _canLaunch = false;
+            }
         }
     }
 }

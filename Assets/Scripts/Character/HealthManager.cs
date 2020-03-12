@@ -26,6 +26,7 @@ namespace Cursed.Character
 
         private VfxHandler _vfx = null;
         private SFXHandler _sfx = null;
+        private InvincibilityAnimation _invAnim;
 
         #region Initalizer
 
@@ -38,6 +39,7 @@ namespace Cursed.Character
         {
             _vfx = GetComponent<VfxHandler>();
             _sfx = GetComponent<SFXHandler>();
+            _invAnim = GetComponent<InvincibilityAnimation>();
 
             //Set to an eventual base number
             _stats = GetComponent<CharacterStats>();
@@ -82,8 +84,6 @@ namespace Cursed.Character
                 if (attack.Effect != null && _stats != null)
                     attack.Effect.Invoke(_stats);
 
-                //Become invincible
-                StartInvincibility(_invincibleTime);
 
                 if(attacker != null)
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
@@ -98,16 +98,23 @@ namespace Cursed.Character
                     if (atkMgr)
                     {
                         _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-
                         _sfx.EnemyDamageSFX();
+
+                        //Become invincible
+                        StartInvincibility(_invincibleTime);
                     }                   
                 }
 
                 if (!attacker.tag.Equals("Creature") && gameObject.tag.Equals("Player"))
                 {
+                    // Player take damage
                     _sfx.PlayerDamageSFX();
                     _vfx.FlashScreenDmgPlayer();
                     ControllerVibration.Instance.StartVibration(_takeDamageVibration);
+                    _invAnim.LaunchAnimation();
+
+                    //Become invincible
+                    StartInvincibility(_invincibleTime);
                 }
 
                 //Do something if critical
