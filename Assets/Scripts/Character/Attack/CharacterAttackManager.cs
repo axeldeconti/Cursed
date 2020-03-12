@@ -100,7 +100,7 @@ namespace Cursed.Character
                 _anim.LaunchAttack(weapon.WeaponType.GetHashCode());
 
                 //Vibration
-                StartCoroutine(_contrVib.MakeVibration(weapon.Vibration.VibrationTime, weapon.Vibration.LeftMotorIntensity, weapon.Vibration.VibrationTime));
+                _contrVib.StartVibration(weapon.Vibration);
             }
         }
 
