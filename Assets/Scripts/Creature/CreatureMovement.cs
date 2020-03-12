@@ -137,8 +137,13 @@ namespace Cursed.Creature
             #region ON ENEMY
             if(_creatureManager.CurrentState == CreatureState.OnEnemy)
             {
-                MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
-                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                if (_creatureSearching.Enemy != null)
+                {
+                    MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
+                    _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
+                else
+                    _creatureManager.CurrentState = CreatureState.OnComeBack;
             }
             else
                 _rb.constraints = RigidbodyConstraints2D.None;
