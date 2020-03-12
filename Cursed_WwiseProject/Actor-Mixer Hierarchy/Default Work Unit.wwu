@@ -1055,6 +1055,7 @@
 							<ChildrenList>
 								<Sound Name="ElectricTrap_Active" ID="{A8F06EF0-7B4B-4F24-834B-DC131E48D3FD}" ShortID="191199566">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="1"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
@@ -1067,8 +1068,16 @@
 												<Value>True</Value>
 											</ValueList>
 										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ElectricTrap" ID="{9D1FD111-E7B0-4295-AF1C-6B507EE1DBF9}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 										</Reference>
@@ -1091,6 +1100,7 @@
 								</Sound>
 								<Sound Name="ElectricTrap_Triggered" ID="{8FC0E956-50C7-40D6-9E2C-7503A66EFC20}" ShortID="997438048">
 									<PropertyList>
+										<Property Name="3DSpatialization" Type="int16" Value="1"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
 										<Property Name="MaxSoundPerInstance" Type="int16">
@@ -1103,8 +1113,16 @@
 												<Value>True</Value>
 											</ValueList>
 										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="ElectricTrap" ID="{9D1FD111-E7B0-4295-AF1C-6B507EE1DBF9}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 										</Reference>
@@ -1143,7 +1161,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-20</Value>
+												<Value>-15</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
