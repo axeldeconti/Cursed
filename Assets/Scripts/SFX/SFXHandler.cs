@@ -23,11 +23,14 @@ public class SFXHandler : MonoBehaviour
         _laserBeam = GetComponent<LaserBeam>();
 
         #region Spatialized
-        if (_laserBeam._laserType == LaserType.laser)
-            AkSoundEngine.PostEvent("Play_Laser", gameObject);
+        if (_laserBeam != null)
+        {
+            if (_laserBeam._laserType == LaserType.laser)
+                AkSoundEngine.PostEvent("Play_Laser", gameObject);
 
-        if (_laserBeam._laserType == LaserType.multilaserHorizontal || _laserBeam._laserType == LaserType.multiLaserVertical)
-            AkSoundEngine.PostEvent("Play_MultiLaser", gameObject);
+            if (_laserBeam._laserType == LaserType.multilaserHorizontal || _laserBeam._laserType == LaserType.multiLaserVertical)
+                AkSoundEngine.PostEvent("Play_MultiLaser", gameObject);
+        }
 
         if (GetComponent<ElectricPlate>())
             AkSoundEngine.PostEvent("Play_ElectricTrap_Inactive", gameObject);
