@@ -413,7 +413,7 @@ namespace Cursed.Character
         private void UpdateAirControl(float x)
         {
             //No air control if on ground or on the wall
-            if (_coll.OnGround || _wallGrab || _wallRun)
+            if (_coll.OnGround || _wallGrab || _wallRun || _isDiveKicking)
                 return;
 
             //Apply x velocity during a wall jump

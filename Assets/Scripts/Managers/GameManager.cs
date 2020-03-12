@@ -13,12 +13,14 @@ public class GameManager : Singleton<GameManager>
 
     private string _currentLevelName = string.Empty;
     private List<AsyncOperation> _loadOperations = null;
+    private List<string> _loadedScene = null;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         _loadOperations = new List<AsyncOperation>();
+        _loadedScene = new List<string>();
 
         InstatiateSystemPrefabs();
 
@@ -58,7 +60,7 @@ public class GameManager : Singleton<GameManager>
     {
         AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 
-        if(ao == null)
+        if(ao == null || _loadedScene.Contains(levelName))
         {
             Debug.LogError("[GameManager] Unable to load leve " + levelName);
             return;
@@ -66,6 +68,7 @@ public class GameManager : Singleton<GameManager>
 
         ao.completed += OnLoadOperationComplete;
         _loadOperations.Add(ao);
+        _loadedScene.Add(levelName);
         _currentLevelName = levelName;
     }
 
@@ -99,6 +102,8 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
+        if (_loadedScene.Contains(levelName))
+            _loadedScene.Remove(levelName);
         ao.completed += OnUnloadOperationComplete;
     }
 
