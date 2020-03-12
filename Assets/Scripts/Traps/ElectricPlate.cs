@@ -82,13 +82,14 @@ namespace Cursed.Traps
         private IEnumerator Activation()
         {
             //Launch triggered animation
+            AkSoundEngine.PostEvent("Play_ElectricTrap_Triggered", gameObject);
             _animator.SetBool("Enter", true);
             _animator.SetBool("Exit", false);
             _isActivating = true;
             yield return new WaitForSeconds(_activationTime);
             _isActivating = false;
             _isActive = true;
-
+            AkSoundEngine.PostEvent("Play_ElectricTrap_Active", gameObject);
 
             //Inflict first damage
             foreach (ElectricPlateAttackable a in _currentAttackables)
@@ -123,7 +124,10 @@ namespace Cursed.Traps
             }
 
             if (hasEnded)
+            {
                 _isActive = false;
+                AkSoundEngine.PostEvent("Play_ElectricTrap_Inactive", gameObject);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
