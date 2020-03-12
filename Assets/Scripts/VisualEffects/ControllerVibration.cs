@@ -5,7 +5,7 @@ using XInputDotNetPure; // Required in C#
 
 namespace Cursed.VisualEffect
 {
-    public class ControllerVibration : MonoBehaviour
+    public class ControllerVibration : Singleton<ControllerVibration>
     {
         private bool _playerIndexSet = false;
         private PlayerIndex _playerIndex;

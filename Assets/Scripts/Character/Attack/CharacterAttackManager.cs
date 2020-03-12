@@ -35,7 +35,7 @@ namespace Cursed.Character
             _coll = GetComponent<CollisionHandler>();
             _weaponInv = GetComponent<WeaponInventory>();
             _input = GetComponent<IInputController>();
-            _contrVib = GetComponent<ControllerVibration>();
+            //_contrVib = GetComponent<ControllerVibration>();
 
             _coll.OnGrounded += () => _isDiveKicking = false;
         }
@@ -100,7 +100,7 @@ namespace Cursed.Character
                 _anim.LaunchAttack(weapon.WeaponType.GetHashCode());
 
                 //Vibration
-                _contrVib.StartVibration(weapon.Vibration);
+                ControllerVibration.Instance.StartVibration(weapon.Vibration);
             }
         }
 
