@@ -23,10 +23,10 @@ namespace Cursed.UI
         {
             _button = GetComponent<Button>();
 
-            _button.onClick.AddListener(() => PressTest());
+            _button.onClick.AddListener(() => Press());
         }
 
-        private void PressTest()
+        private void Press()
         {
             _pressed = true;
             _pressedTimer = .1f;
@@ -44,6 +44,7 @@ namespace Cursed.UI
             {
                 _onPress.Invoke();
                 _pressed = false;
+                SetTextColor(_button.colors.normalColor);
             }
         }
 
@@ -60,7 +61,6 @@ namespace Cursed.UI
 
         public void OnDeselect(BaseEventData eventData)
         {
-            StopAllCoroutines();
             SetTextColor(_button.colors.normalColor);
         }
     }
