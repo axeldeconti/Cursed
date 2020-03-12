@@ -61,13 +61,11 @@ namespace Cursed.Character
             }
         }
 
-
         #region Modifiers
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            Debug.Log("Invincibility = " + (_isInvincible && IsInvicibleMovement()));
-            if (_isInvincible && IsInvicibleMovement())
+            if (_isInvincible || IsInvicibleMovement())
             {
                 //Do something if invincible
             }
