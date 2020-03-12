@@ -57,15 +57,18 @@ namespace Cursed.Traps
             {
                 if (!HasAttackable(a))
                 {
+
                     _currentAttackables.Add(new ElectricPlateAttackable(a, _timBetweenDamage));
 
                     if (_isActive)
                         a.OnAttack(gameObject, _attack.CreateAttack());
+
+
+                    if (!_isActivating && !_isActive)
+                        StartCoroutine(Activation());
                 }
             }
 
-            if (!_isActivating && !_isActive)
-                StartCoroutine(Activation());
         }
 
         private bool HasAttackable(IAttackable attackable)
@@ -81,10 +84,12 @@ namespace Cursed.Traps
 
         private IEnumerator Activation()
         {
-            //Launch triggered animation
-            AkSoundEngine.PostEvent("Play_ElectricTrap_Triggered", gameObject);
+            // Launch enter animation
             _animator.SetBool("Enter", true);
             _animator.SetBool("Exit", false);
+
+            //Launch triggered animation
+            AkSoundEngine.PostEvent("Play_ElectricTrap_Triggered", gameObject);
             _isActivating = true;
             yield return new WaitForSeconds(_activationTime);
             _isActivating = false;
@@ -115,6 +120,10 @@ namespace Cursed.Traps
 
                 if (_currentAttackables.Count != 0)
                 {
+                    // Launch enter animation
+                    _animator.SetBool("Enter", true);
+                    _animator.SetBool("Exit", false);
+
                     hasEnded = false;
                     break;
                 }
