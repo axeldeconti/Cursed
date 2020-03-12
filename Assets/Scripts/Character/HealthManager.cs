@@ -2,6 +2,7 @@
 using Cursed.Combat;
 using System.Collections;
 using Cursed.VisualEffect;
+using Cursed.Utilities;
 
 namespace Cursed.Character
 {
@@ -12,6 +13,7 @@ namespace Cursed.Character
         [SerializeField] private IntReference _maxHealth;
         [SerializeField] private FloatReference _invincibleTime;
         [SerializeField] private FloatReference _freezeFrameKill;
+        [SerializeField] private VibrationData_SO _takeDamageVibration;
 
         private CharacterStats _stats = null;
         private int _currentHealth = 0;
@@ -105,6 +107,7 @@ namespace Cursed.Character
                 {
                     _sfx.PlayerDamageSFX();
                     _vfx.FlashScreenDmgPlayer();
+                    ControllerVibration.Instance.StartVibration(_takeDamageVibration);
                 }
 
                 //Do something if critical
