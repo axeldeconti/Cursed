@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Cursed.Character;
 using Cursed.Combat;
-using Cursed.Character;
+using System.Collections;
+using UnityEngine;
 
 namespace Cursed.Creature
 {
     public class CreatureHealthManager : MonoBehaviour
     {
-        [Header ("Settings")]
+        [Header("Settings")]
         [SerializeField] private IntReference _maxHealth;
 
         [SerializeField] private IntReference _currentHealth;
@@ -15,7 +15,7 @@ namespace Cursed.Creature
         [SerializeField] private CreatureManager _creatureManager;
         [SerializeField] private CreatureSearching _creatureSearching;
 
-        [Header ("Events")]
+        [Header("Events")]
         [SerializeField] private IntEvent onHealthUpdate;
         [SerializeField] private IntEvent onMaxHealthUpdate;
         [SerializeField] private VoidEvent onHeal;
@@ -40,7 +40,7 @@ namespace Cursed.Creature
 
         private void Start()
         {
-            if(_stats != null)
+            if (_stats != null)
                 _maxHealth.Value = _stats.CurrentMaxHealth;
 
             UpdateCurrentHealth(0);
@@ -51,7 +51,7 @@ namespace Cursed.Creature
             if (_creatureManager.CurrentState == CreatureState.OnEnemy)
                 LaunchTimer();
 
-            else if(_creatureManager.CurrentState == CreatureState.OnCharacter)
+            else if (_creatureManager.CurrentState == CreatureState.OnCharacter)
             {
                 if (!_alreadyOnPlayer && _currentHealth.Value > 0)
                 {
@@ -59,8 +59,8 @@ namespace Cursed.Creature
                     _alreadyOnPlayer = true;
                 }
 
-                if(!_giveHealth)
-                    LaunchTimer();  
+                if (!_giveHealth)
+                    LaunchTimer();
             }
 
             else
@@ -87,8 +87,7 @@ namespace Cursed.Creature
                 _creatureManager.CurrentState = CreatureState.OnComeBack;
             }
 
-            if (onHealthUpdate != null)
-                onHealthUpdate.Raise(_currentHealth);
+            onHealthUpdate?.Raise(_currentHealth);
         }
 
         public void AddMaxHealth(int amount)
@@ -114,7 +113,7 @@ namespace Cursed.Creature
 
         private void TakeLifeToTarget()
         {
-            switch(_creatureManager.CurrentState)
+            switch (_creatureManager.CurrentState)
             {
                 case CreatureState.OnCharacter:
                     if (_currentTimer >= _playerAttack.TimeBetweenAttack && _canAttackPlayer)

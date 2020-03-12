@@ -798,6 +798,7 @@ namespace Cursed.Character
         public bool IsWallRun => _wallRun;
         public bool IsInvincible => _isInvincible;
         public int Side => _side;
+        public bool IsDiveKicking => _isDiveKicking;
 
         public CharacterMovementState State => _state;
 

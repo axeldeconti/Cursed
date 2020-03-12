@@ -17,7 +17,7 @@ namespace Cursed.UI
         private UpdateMaxBar _updateMaxBar;
 
 
-        private void Awake()
+        private void Start()
         {
             _fillImage = GetComponent<Image>();
             _updateMaxBar = GetComponentInParent<UpdateMaxBar>();

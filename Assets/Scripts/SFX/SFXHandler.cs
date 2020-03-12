@@ -8,6 +8,7 @@ public class SFXHandler : MonoBehaviour
     private Animator _anim = null;
     private CharacterAttackManager _attackManager = null;
     private HealthManager _healthManager = null;
+    private LaserBeam _laserBeam = null;
 
     private bool _myIsDiveKicking;
     private bool _lowHealth1Played = false;
@@ -19,13 +20,17 @@ public class SFXHandler : MonoBehaviour
         _anim = GetComponent<Animator>();
         _attackManager = GetComponent<CharacterAttackManager>();
         _healthManager = GetComponent<HealthManager>();
+        _laserBeam = GetComponent<LaserBeam>();
 
         #region Spatialized
-        if (GetComponent<LaserBeam>())
-            AkSoundEngine.PostEvent("Play_Laser", gameObject);
+        if (_laserBeam != null)
+        {
+            if (_laserBeam._laserType == LaserType.laser)
+                AkSoundEngine.PostEvent("Play_Laser", gameObject);
 
-        /*if (GetComponent<MultiLaserScript>())
-            AkSoundEngine.PostEvent("Play_MultiLaser", gameObject);*/
+            if (_laserBeam._laserType == LaserType.multilaserHorizontal || _laserBeam._laserType == LaserType.multiLaserVertical)
+                AkSoundEngine.PostEvent("Play_MultiLaser", gameObject);
+        }
 
         if (GetComponent<ElectricPlate>())
             AkSoundEngine.PostEvent("Play_ElectricTrap_Inactive", gameObject);
