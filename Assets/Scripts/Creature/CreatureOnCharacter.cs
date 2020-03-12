@@ -35,7 +35,7 @@ namespace Cursed.Creature
             UpdateSpriteMask();
             //UpdateFlip();
 
-            if(_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.OnComeBack)
+            if(_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.OnComeBack || _creatureManager.CurrentState == CreatureState.Chasing)
             {
                 Destroy(this.gameObject);
             }
