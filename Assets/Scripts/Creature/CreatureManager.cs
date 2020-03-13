@@ -238,8 +238,9 @@ namespace Cursed.Creature
 
         #region GETTERS & SETTERS
 
-        public Vector2 DirectionVector => _joystick.Direction;
+        public Vector2 LaunchDirection => _launchDirection;
         public int DirectionInt => _movement.Direction;
+
 
         #endregion
     }

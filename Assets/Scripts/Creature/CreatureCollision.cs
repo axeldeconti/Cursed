@@ -8,6 +8,7 @@ namespace Cursed.Creature
         [Header ("Referencies")]
         [SerializeField] private GameObject _creatureOnCharacter;
         [SerializeField] private GameObject _creaturePart;
+        [SerializeField] private LayerMask _wallLayer;
         private bool _onWall;
         private bool _canCollideWithPlayer, _canCollideWithEnemy;
         private Vector2 _ricochetDirection;
@@ -15,6 +16,7 @@ namespace Cursed.Creature
         private CreatureSearching _creatureSearching;
         private Animator _animator;
         private Transform _wallCollision;
+        private Vector2 _wallPoint;
         private Vector2 _wallDirection;
         private Transform _hitTransform;
 
@@ -26,6 +28,25 @@ namespace Cursed.Creature
             _canCollideWithPlayer = _canCollideWithEnemy = true;
         }
 
+        private void FixedUpdate()
+        {
+            UpdateRaycastWall();
+        }
+
+        private void UpdateRaycastWall()
+        {
+            if (_creatureManager.CurrentState != CreatureState.Moving)
+                return;
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, _creatureManager.LaunchDirection, 10f, _wallLayer);
+            if(hit.collider != null && Vector2.Distance(transform.position, hit.point) <= .6f)
+            {
+                _wallPoint = hit.point;
+                CollideWithWall();
+                return;
+            }
+        }
+
         public void CollideWithCharacter(CreatureState type, Transform target)
         {
             _hitTransform = target;
@@ -33,39 +54,45 @@ namespace Cursed.Creature
             Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target);
         }
 
+        private void CollideWithWall()
+        {
+            _creatureManager.CurrentState = CreatureState.OnWall;
+            AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
+        }
+
 
         #region COLLISIONS & TRIGGERS
 
         // TRIGGERS
-        void OnTriggerEnter2D(Collider2D collider)
+        void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collider.transform.GetComponent<CharacterMovement>())
+            if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
-                if (collider.gameObject.CompareTag("Player"))
-                {
-                    _creatureManager.CurrentState = CreatureState.OnCharacter;
-                }
-                else if (collider.gameObject.CompareTag("Enemy"))
-                {
-                    _creatureManager.CurrentState = CreatureState.OnEnemy;
-                }
-
-                Instantiate(_creatureOnCharacter, collider.transform.position + new Vector3(0f, 0f, 0f), Quaternion.identity, collider.transform);
+                CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
+                AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
             }
-        }
 
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+            if (collision.gameObject.CompareTag("Enemy") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
-                _onWall = true;
-                //_creatureManager.CurrentState = CreatureState.OnWall;
-            }
-        }
+                if (_creatureManager.CurrentState != CreatureState.OnComeBack)
+                {
+                    if (_creatureSearching.Enemy == null)
+                        _creatureSearching.Enemy = collision.transform;
 
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            _onWall = false;
+                    CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
+                    AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
+                }
+            }
+
+            /*if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
+            {
+                if (_creatureManager.CurrentState == CreatureState.Moving)
+                {
+                    *//*_wallDirection = collision.contacts[0].normal;
+                    _wallCollision = collision.transform;*//*
+                    CollideWithWall();
+                }
+            }*/
         }
 
 
@@ -99,10 +126,7 @@ namespace Cursed.Creature
                     _creatureManager.CurrentState = CreatureState.OnWall;
                     AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
                 }
-                //_ricochetDirection = v;
             }
-            /*else
-                _onWall = false;*/
         }
 
         #endregion
@@ -110,7 +134,7 @@ namespace Cursed.Creature
         #region GETTERS
         public bool OnWall => _onWall;
         public Vector2 RicochetDirection => _ricochetDirection;
-        public Transform WallCollision => _wallCollision;
+        public Vector2 WallPoint => _wallPoint;
         public Vector2 WallDirection => _wallDirection;
         public Transform HitTransform => _hitTransform;
 

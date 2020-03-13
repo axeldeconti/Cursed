@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Cursed.Utilities;
 
 namespace Cursed.Creature
 {
@@ -53,17 +52,17 @@ namespace Cursed.Creature
                 }*/
 
                 // ON ENEMY
-               /* if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
-                {
-                    RotateToTarget(_playerPosition.GetChild(0), false);
-                    MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
-                    _joystick.Direction = Vector2.zero;
-                }
-                else
-                {
-                    RotateToTarget(_playerPosition.GetChild(0), false);
-                    MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
-                }*/
+                /* if(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
+                 {
+                     RotateToTarget(_playerPosition.GetChild(0), false);
+                     MoveToTarget(_playerPosition.GetChild(0), _creatureStats.CurrentMoveSpeedChaseAndComeBack);
+                     _joystick.Direction = Vector2.zero;
+                 }
+                 else
+                 {
+                     RotateToTarget(_playerPosition.GetChild(0), false);
+                     MoveToTargetPosition(_creatureSearching.Enemy.position + new Vector3(0f, 2.5f, 0f), 150f);
+                 }*/
 
                 // CHECK IF CREATURE IS ON PLAYER
                 if (this.transform.position == _playerPosition.GetChild(0).position)
@@ -105,7 +104,7 @@ namespace Cursed.Creature
             #endregion
 
             #region ON WALL
-            if(_creatureManager.CurrentState == CreatureState.OnWall)
+            if (_creatureManager.CurrentState == CreatureState.OnWall)
             {
                 StuckOnWall();
             }
@@ -135,7 +134,7 @@ namespace Cursed.Creature
             #endregion
 
             #region ON ENEMY
-            if(_creatureManager.CurrentState == CreatureState.OnEnemy)
+            if (_creatureManager.CurrentState == CreatureState.OnEnemy)
             {
                 if (_creatureSearching.Enemy != null)
                 {
@@ -165,7 +164,7 @@ namespace Cursed.Creature
 
         public void MoveToTarget(Transform target, float speed)
         {
-            _rb.velocity = new Vector2(0f,0f);
+            _rb.velocity = new Vector2(0f, 0f);
             transform.position = Vector3.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
         }
 
@@ -175,12 +174,25 @@ namespace Cursed.Creature
             transform.position = Vector3.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
         }
 
+        public void MoveToTargetPosition(Vector2 target, float speed)
+        {
+            _rb.velocity = new Vector2(0f, 0f);
+            transform.position = Vector3.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
+        }
+
         public void StuckOnWall()
         {
-            RotateToDirection(-_collision.WallDirection);
+            //RotateToDirection(-_collision.WallDirection);
+            //MoveToTargetPosition(_collision.WallPoint, 150f);
+
             _rb.velocity = Vector2.zero;
             _rb.angularVelocity = 0f;
-            _creatureManager.CurrentState = CreatureState.OnWall;
+
+            //Rotate to wall
+            Vector2 direction = _collision.WallPoint - new Vector2(this.transform.position.x, this.transform.position.y);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            GetComponentInChildren<SpriteRenderer>().transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }
         #endregion
 
@@ -219,7 +231,7 @@ namespace Cursed.Creature
         #endregion
 
         #region GETTERS & SETTERS
-        public int Direction 
+        public int Direction
         {
             get => _direction;
             set => _direction = value;
