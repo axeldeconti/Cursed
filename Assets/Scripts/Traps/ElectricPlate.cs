@@ -84,22 +84,50 @@ namespace Cursed.Traps
 
         private IEnumerator Activation()
         {
+            bool still = true;
+            float timer = _activationTime;
+            bool hasEnded = true;
+            _isActivating = true;
+
+            AkSoundEngine.PostEvent("Play_ElectricTrap_Triggered", gameObject);
+
             // Launch enter animation
             _animator.SetBool("Enter", true);
             _animator.SetBool("Exit", false);
 
-            //Launch triggered animation
-            AkSoundEngine.PostEvent("Play_ElectricTrap_Triggered", gameObject);
-            _isActivating = true;
-            yield return new WaitForSeconds(_activationTime);
-            _isActivating = false;
-            _isActive = true;
-            AkSoundEngine.PostEvent("Play_ElectricTrap_Active", gameObject);
-
-            //Inflict first damage
-            foreach (ElectricPlateAttackable a in _currentAttackables)
+            while (still)
             {
-                a.attackable.OnAttack(gameObject, _attack.CreateAttack());
+                if (timer <= 0)
+                    break;
+
+                if (_currentAttackables.Count == 0)
+                {
+                    //Launch exit animation
+                    _animator.SetBool("Enter", false);
+                    _animator.SetBool("Exit", true);
+
+                    Debug.Log("Exit during activation");
+
+                    hasEnded = false;
+                    _isActivating = false;
+                    break;
+                }
+
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+
+            if (hasEnded)
+            {
+                _isActivating = false;
+                _isActive = true;
+                AkSoundEngine.PostEvent("Play_ElectricTrap_Active", gameObject);
+
+                //Inflict first damage
+                foreach (ElectricPlateAttackable a in _currentAttackables)
+                {
+                    a.attackable.OnAttack(gameObject, _attack.CreateAttack());
+                }
             }
         }
 
@@ -123,6 +151,7 @@ namespace Cursed.Traps
                     // Launch enter animation
                     _animator.SetBool("Enter", true);
                     _animator.SetBool("Exit", false);
+                    Debug.Log("Enter during deactivation");
 
                     hasEnded = false;
                     break;
