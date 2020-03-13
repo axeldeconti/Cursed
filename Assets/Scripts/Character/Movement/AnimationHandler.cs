@@ -20,6 +20,7 @@ namespace Cursed.Character
         private static readonly int _jumpVelocity = Animator.StringToHash("JumpVelocity");
         private static readonly int _isJumping = Animator.StringToHash("IsJumping");
         private static readonly int _groundTouch = Animator.StringToHash("GroundTouch");
+        private static readonly int _justOnGround = Animator.StringToHash("JustOnGround");
         private static readonly int _wallTouch = Animator.StringToHash("WallTouch");
         private static readonly int _isDashing = Animator.StringToHash("IsDashing");
         private static readonly int _isGrabing = Animator.StringToHash("GrabWall");
@@ -50,6 +51,7 @@ namespace Cursed.Character
             _anim.SetFloat(_moveSpeedY, _move.YSpeed);
             _anim.SetFloat(_jumpVelocity, Mathf.Clamp(_move.YSpeed, -15, 15));
             _anim.SetBool(_groundTouch, _coll.OnGround);
+            _anim.SetBool(_justOnGround, _coll.JustOnGround);
             _anim.SetBool(_wallTouch, _coll.OnWall);
             _anim.SetBool(_isGrabing, _move.IsGrabing);
             _anim.SetBool(_isWallRun, _move.IsWallRun);

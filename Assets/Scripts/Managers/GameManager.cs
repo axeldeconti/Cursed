@@ -138,6 +138,9 @@ public class GameManager : Singleton<GameManager>
     {
         base.OnDestroy();
 
+        if (_instancedSystemPrefabs == null)
+            return;
+
         if (_instancedSystemPrefabs.Count == 0)
             return;
 

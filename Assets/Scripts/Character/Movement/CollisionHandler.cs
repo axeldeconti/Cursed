@@ -16,6 +16,7 @@ namespace Cursed.Character
         [Space]
         [Header("Booleans")]
         [SerializeField] private bool _onGround = false;
+        [SerializeField] private bool _justOnGround = false;
         [SerializeField] private bool _onWall = false;
         [SerializeField] private bool _onRightWall = false;
         [SerializeField] private bool _onLeftWall = false;
@@ -41,8 +42,12 @@ namespace Cursed.Character
         {
             //Grounded if there is something of ground layer beneath
             _onGround = Physics2D.OverlapCircle((Vector2)transform.position + _bottomOffset, _collisionRadius, _groundLayer);
+            _justOnGround = false;
             if (OnGround && !_lastGrounded)
+            {
                 OnGrounded?.Invoke();
+                _justOnGround = true;
+            }
             _lastGrounded = _onGround;
 
             //On a wall if there is something of ground layer on the right or on the left
@@ -90,6 +95,7 @@ namespace Cursed.Character
         #region Getters & Setters 
 
         public bool OnGround => _onGround;
+        public bool JustOnGround => _justOnGround;
         public bool OnWall => _onWall;
         public bool OnRightWall => _onRightWall;
         public bool OnLeftWall => _onLeftWall;

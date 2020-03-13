@@ -39,7 +39,6 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _wallClimbMultiplySpeed;
         [SerializeField] private FloatReference _wallSlideSpeed;
         [SerializeField] private FloatReference _walkInertia;
-        [SerializeField] private FloatReference _dashInvincibilityTime;
 
         [Space]
         [Header("Dash")]
@@ -95,6 +94,8 @@ namespace Cursed.Character
         private bool _isCoyoteTime;
         private float _lastX;
         private float _oldY;
+        private Vector2 _capsuleOffset = Vector2.zero;
+        private Vector2 _capsuleSize = Vector2.zero;
 
         [Space]
         private float _currentGravity = 0f;
@@ -127,6 +128,8 @@ namespace Cursed.Character
             _canStillJump = true;
             _wasOnWall = false;
             _side = 1;
+            _capsuleOffset = _capsuleCollider.offset;
+            _capsuleSize = _capsuleCollider.size;
 
             if (_showDebug)
             {
@@ -215,14 +218,8 @@ namespace Cursed.Character
 
             //Set bools
             _isDashing = true;
-            //SetIsInvinsible(true);
-
-            if (_healthManager)
-                _healthManager.StartInvincibility(_dashInvincibilityTime);
 
             //Change capsule collider values
-            Vector2 capsuleOffset = _capsuleCollider.offset;
-            Vector2 capsuleSize = _capsuleCollider.size;
             _capsuleCollider.offset = new Vector2(_capsuleCollider.offset.x, 0.16f);
             _capsuleCollider.size = new Vector2(_capsuleCollider.size.x, 0.31f);
 
@@ -251,8 +248,8 @@ namespace Cursed.Character
             //Reset values
             StartCoroutine(ResetValuesOnAfterDash());
             StopInvincibleMovement();
-            _capsuleCollider.offset = capsuleOffset;
-            _capsuleCollider.size = capsuleSize;
+            _capsuleCollider.offset = _capsuleOffset;
+            _capsuleCollider.size = _capsuleSize;
 
             //Set dash cooldown
             _timeToNextDash = Time.time + _dashCooldown;
@@ -546,7 +543,9 @@ namespace Cursed.Character
                 _onCamShake?.Raise(_shakeDash);
                 
                 _refDashSpeedVfx = _vfx.DashSpeedVfx();
+                _refDashSpeedVfx.GetComponent<DestoyOnCondition>().condition = () => { return !_isDashing; };
                 _refDashDustVfx = _vfx.DashDustVfx();
+                _refDashDustVfx.GetComponent<DestoyOnCondition>().condition = () => { return !_isDashing; };
             }
         }
 
@@ -618,6 +617,9 @@ namespace Cursed.Character
             }
         }
 
+        /// <summary>
+        /// Update the divekick
+        /// </summary>
         private void UpdateDiveKick()
         {
             if(_attackManager.IsDiveKicking && !_isDiveKicking)
@@ -632,10 +634,9 @@ namespace Cursed.Character
             {
                 if (Mathf.Abs(_oldY - transform.position.y) < .1f)
                     _attackManager.EndAttack();
-                else
-                    _oldY = transform.position.y;
             }
 
+            _oldY = transform.position.y;
             _isDiveKicking = _attackManager.IsDiveKicking;
         }
 
