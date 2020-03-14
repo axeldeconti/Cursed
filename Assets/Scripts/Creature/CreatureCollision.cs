@@ -16,8 +16,8 @@ namespace Cursed.Creature
         private CreatureSearching _creatureSearching;
         private Animator _animator;
         private Transform _wallCollision;
+        private Vector3 _wallNormalPoint;
         private Vector2 _wallPoint;
-        private Vector2 _wallDirection;
         private Transform _hitTransform;
 
         private void Awake()
@@ -42,6 +42,7 @@ namespace Cursed.Creature
             if(hit.collider != null && Vector2.Distance(transform.position, hit.point) <= .6f)
             {
                 _wallPoint = hit.point;
+                _wallNormalPoint = hit.normal;
                 CollideWithWall();
                 return;
             }
@@ -68,7 +69,7 @@ namespace Cursed.Creature
         {
             if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
-                if (_creatureManager.CurrentState == CreatureState.Moving)
+                if (_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.Chasing)
                     return;
 
                 CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
@@ -86,16 +87,6 @@ namespace Cursed.Creature
                     AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
                 }
             }
-
-            /*if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
-            {
-                if (_creatureManager.CurrentState == CreatureState.Moving)
-                {
-                    *//*_wallDirection = collision.contacts[0].normal;
-                    _wallCollision = collision.transform;*//*
-                    CollideWithWall();
-                }
-            }*/
         }
 
 
@@ -124,7 +115,7 @@ namespace Cursed.Creature
             {
                 if (_creatureManager.CurrentState == CreatureState.Moving)
                 {
-                    _wallDirection = collision.contacts[0].normal;
+                    _wallNormalPoint = collision.contacts[0].normal;
                     _wallCollision = collision.transform;
                     _creatureManager.CurrentState = CreatureState.OnWall;
                     AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
@@ -137,8 +128,8 @@ namespace Cursed.Creature
         #region GETTERS
         public bool OnWall => _onWall;
         public Vector2 RicochetDirection => _ricochetDirection;
+        public Vector3 WallNormalPoint => _wallNormalPoint;
         public Vector2 WallPoint => _wallPoint;
-        public Vector2 WallDirection => _wallDirection;
         public Transform HitTransform => _hitTransform;
 
         #endregion

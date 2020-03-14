@@ -27,7 +27,6 @@ namespace Cursed.Creature
         {
             GameObject go = Instantiate(_vfxLauchParticle, transform.position, Quaternion.identity);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Debug.Log(angle);
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             go.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
         }

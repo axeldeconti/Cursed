@@ -183,12 +183,21 @@ namespace Cursed.Creature
         public void StuckOnWall()
         {
             //RotateToDirection(-_collision.WallDirection);
-            //MoveToTargetPosition(_collision.WallPoint, 150f);
-
+            MoveToTargetPosition(_collision.WallPoint, 150f);
             _rb.velocity = Vector2.zero;
             _rb.angularVelocity = 0f;
 
             //Rotate to wall
+            Vector3 offset = _collision.WallNormalPoint - transform.position;
+
+            // Construct a rotation as in the y+ case.
+            Quaternion rotation = Quaternion.LookRotation(
+                          Vector3.forward,
+                          _collision.WallNormalPoint
+                      );
+
+            // Apply a compensating rotation that twists x+ to y+ before the rotation above.
+            transform.rotation = rotation * Quaternion.Euler(0, 0, -90);
             /*Vector2 direction = _collision.WallPoint - new Vector2(this.transform.position.x, this.transform.position.y);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);

@@ -23,7 +23,7 @@ namespace Cursed.Creature
         private CreatureMovement _movement;
         private CreatureInputController _input;
         private CreatureJoystickDirection _joystick;
-        private Animator _animator;
+        private Animator _animator; 
         private CreatureVfxHandler _vfx;
         private CreatureCollision _collision;
 
@@ -142,7 +142,7 @@ namespace Cursed.Creature
             else
             {
                 _launchDirection = new Vector2(_movement.Direction, 0f);
-                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(.5f * _movement.Direction, 0f);
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(2.5f * _movement.Direction, 0f);
             }
 
             //Play VFX
