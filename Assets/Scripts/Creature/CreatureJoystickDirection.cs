@@ -35,13 +35,13 @@ namespace Cursed.Creature
                     _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
                     float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
 
-                    if (_playerCollision.OnGround)
+                    /*if (_playerCollision.OnGround)
                     {
                         if (angle < -90f)
                             _direction = -Vector2.right;
                         else if (angle < 0 && angle >= -90f)
                             _direction = Vector2.right;
-                    }
+                    }*/
                 }
                 else
                 {
