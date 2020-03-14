@@ -10,13 +10,17 @@ namespace Cursed.Creature
         [SerializeField] private GameObject _vfxLauchParticle;
         [SerializeField] private GameObject _vfxTouchImpactParticle;
 
+        [Header("Referencies")]
+        [SerializeField] private Transform _creatureBack;
+
+
         public void CreatureMoveParticle()
         {
-            Instantiate(_vfxMoveParticle, transform.position, Quaternion.identity, transform);
+            Instantiate(_vfxMoveParticle, _creatureBack.position, Quaternion.identity, transform);
         }
         public GameObject CreatureTrailParticle()
         {
-            GameObject particle = Instantiate(_vfxTrailParticle, transform.position, Quaternion.identity, transform);
+            GameObject particle = Instantiate(_vfxTrailParticle, _creatureBack.position, Quaternion.identity, transform);
             return particle;
         }
         public void CreatureLauchParticle(Vector2 direction)

@@ -68,6 +68,9 @@ namespace Cursed.Creature
         {
             if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
+                if (_creatureManager.CurrentState == CreatureState.Moving)
+                    return;
+
                 CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
                 AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
             }
