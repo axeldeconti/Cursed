@@ -10,19 +10,19 @@ namespace Cursed.Creature
         [SerializeField] private float _distanceToPlayer = 4f;
 
         [Header("Referencies")]
-        [SerializeField] private GameObject TargetObject;
+        [SerializeField] private GameObject _targetLine;
 
         private GameObject _target;
         private Vector2 _direction;
         private CreatureManager _creature;
         private CreatureInputController _input;
-        private CollisionHandler _playerCollision;
+        private Transform _origin;
 
         private void Awake()
         {
             _creature = GetComponent<CreatureManager>();
             _input = GetComponent<CreatureInputController>();
-            _playerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<CollisionHandler>();
+            _origin = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
         }
 
         private void Update()
@@ -53,9 +53,9 @@ namespace Cursed.Creature
 
                 if (_direction != Vector2.zero && _target == null)
                 {
-                    _target = Instantiate(TargetObject, this.transform.position, Quaternion.identity, this.transform);
+                    _target = Instantiate(_targetLine, _origin.position, Quaternion.identity, this.transform);
                     _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
-                    UpdateTargetPosition(_direction);
+                    //UpdateTargetPosition(_direction);
                 }
 
 
@@ -64,6 +64,7 @@ namespace Cursed.Creature
                     if (_direction != Vector2.zero)
                     {
                         _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                        _target.transform.position = _origin.position;
                         UpdateTargetRotation(_direction);
                     }
                 }

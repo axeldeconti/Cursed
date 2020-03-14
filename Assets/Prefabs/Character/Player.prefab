@@ -142,6 +142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1497935134210606031}
+  - component: {fileID: 8479106486791827747}
   m_Layer: 0
   m_Name: SnapPlayer
   m_TagString: Untagged
@@ -157,12 +158,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7734541707770378180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.437, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8498843447298849036}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8479106486791827747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7734541707770378180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5ee308978c7d8488a314aa17f366d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8498843447298849143
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 8498843447298849143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.27, y: -1.26, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 1}
+  m_LocalScale: {x: -8, y: 8, z: 1}
   m_Children:
   - {fileID: 1497935134210606031}
   - {fileID: 2285594007269526412}
@@ -365,10 +378,6 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 4f1ce59bf17e0c44191035c1c4740b4a, type: 2}
-  _dashInvincibilityTime:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 64ee82e327d16574fb88e6ae258aa6cc, type: 2}
   _dashDistance:
     UseConstant: 0
     ConstantValue: 0
@@ -430,6 +439,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _onGround: 0
+  _justOnGround: 0
   _onWall: 0
   _onRightWall: 0
   _onLeftWall: 0

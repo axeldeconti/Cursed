@@ -15,20 +15,23 @@ namespace Cursed.Character
 
         private void Update()
         {
-            if (_character.Side == 1 && _character.State == CharacterMovementState.Run)
+            switch (_character.State)
             {
-                this.transform.localPosition = new Vector3(.1f, this.transform.localPosition.y, this.transform.localPosition.z);
-                Debug.Log(this.transform.localPosition);    
+                case CharacterMovementState.Run:
+                    this.transform.localPosition = new Vector3(.1f, this.transform.localPosition.y, this.transform.localPosition.z);
+                    break;
+                case CharacterMovementState.Idle:
+                    this.transform.localPosition = new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z);
+                    break;
+                case CharacterMovementState.WallRun:
+                    this.transform.localPosition = new Vector3(-.3f, this.transform.localPosition.y, this.transform.localPosition.z);
+                    break;
+
+                default:
+                    this.transform.localPosition = new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z);
+                    break;
             }
-            else if (_character.Side == -1 && _character.State == CharacterMovementState.Run)
-                this.transform.localPosition = new Vector3(-.1f, this.transform.localPosition.y, this.transform.localPosition.z);
-
-            if (_character.State == CharacterMovementState.Idle)
-                this.transform.localPosition = new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z);
-
-
         }
-
     }
 }
 
