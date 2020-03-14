@@ -142,7 +142,7 @@ namespace Cursed.Creature
             else
             {
                 _launchDirection = new Vector2(_movement.Direction, 0f);
-                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(2.5f * _movement.Direction, 0f);
+                transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(1f * _movement.Direction, 0f);
             }
 
             //Play VFX
