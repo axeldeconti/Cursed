@@ -21,14 +21,14 @@ public class WinLooseManager : MonoBehaviour
     {
         if(--_enemyCount <= 0)
         {
-            GameManager.Instance.State = GameManager.GameState.Pause;
+            GameManager.Instance.State = GameManager.GameState.WinLoose;
             _winScreen.SetActive(true);
         }
     }
 
     public void OnPlayerDeath()
     {
-        GameManager.Instance.State = GameManager.GameState.Pause;
+        GameManager.Instance.State = GameManager.GameState.WinLoose;
         _looseScreen.SetActive(true);
     }
 

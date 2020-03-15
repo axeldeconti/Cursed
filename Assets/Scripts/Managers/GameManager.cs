@@ -174,11 +174,16 @@ public class GameManager : Singleton<GameManager>
                     ShowMouseCursor(true);
                     Cursor.lockState = CursorLockMode.Confined;
                     break;
+                case GameState.WinLoose:
+                    ShowMouseCursor(false);
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Time.timeScale = 0f;
+                    break;
                 default:
                     break;
             }
         } 
     }
 
-    public enum GameState { InGame, Pause, InDevConsole }
+    public enum GameState { InGame, Pause, InDevConsole, WinLoose }
 }

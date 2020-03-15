@@ -29,12 +29,16 @@ namespace Cursed.UI
                 case GameManager.GameState.InGame:
                     _gameManager.State = GameManager.GameState.Pause;
                     _pauseMenu.SetActive(true);
+                    _controlsMenu.SetActive(false);
                     break;
                 case GameManager.GameState.Pause:
                     _gameManager.State = GameManager.GameState.InGame;
                     _pauseMenu.SetActive(false);
+                    _controlsMenu.SetActive(false);
                     break;
                 case GameManager.GameState.InDevConsole:
+                    break;
+                case GameManager.GameState.WinLoose:
                     break;
                 default:
                     break;

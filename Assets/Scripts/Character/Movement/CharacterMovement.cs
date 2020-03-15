@@ -554,7 +554,7 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateWallGrab(float x, float y)
         {
-            if (_wallGrab && !_isDashing && CheckIfWallGrabDuringJump())
+            if (_wallGrab && !_isDashing && CheckIfWallGrabDuringJump() && !_attackManager.IsAttacking)
             {
                 if (x > .2f || x < .2f)
                     UpdateVelocity(_currentVelocity.x, 0);
@@ -596,7 +596,7 @@ namespace Cursed.Character
         private void UpdateFlip(float x)
         {
             //Return if the character can't flip 
-            if (_wallGrab || _wallSlide || !_canMove || _isDashing)
+            if (_wallGrab || _wallSlide || !_canMove || _isDashing || _attackManager.IsAttacking)
                 return;
 
             if (x > .1f)
