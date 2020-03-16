@@ -76,8 +76,11 @@ namespace Cursed.Character
             }
             else
             {
-                //Dive Kicku
-                DiveKick();
+                if(!_move.IsWallRun && !_move.WallSlide)
+                {
+                    //Dive Kicku
+                    DiveKick();
+                }
             }
         }
 
