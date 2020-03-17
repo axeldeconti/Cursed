@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -8,50 +6,64 @@ namespace Cursed.Character
     [RequireComponent(typeof(CharacterMovement))]
     [RequireComponent(typeof(CollisionHandler))]
     [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(CharacterAttackManager))]
     public class AnimationHandler : MonoBehaviour
     {
+        private Animator _anim = null;
+        private CharacterMovement _move = null;
+        private CollisionHandler _coll = null;
+        private SpriteRenderer _renderer = null;
+        private CharacterAttackManager _atttack = null;
 
-        private Animator _anim;
-        private CharacterMovement _move;
-        private CollisionHandler _coll;
-        private SpriteRenderer _renderer;
+        private static readonly int _moveSpeedX = Animator.StringToHash("MoveSpeedX");
+        private static readonly int _moveSpeedY = Animator.StringToHash("MoveSpeedY");
+        private static readonly int _jumpVelocity = Animator.StringToHash("JumpVelocity");
+        private static readonly int _isJumping = Animator.StringToHash("IsJumping");
+        private static readonly int _groundTouch = Animator.StringToHash("GroundTouch");
+        private static readonly int _justOnGround = Animator.StringToHash("JustOnGround");
+        private static readonly int _wallTouch = Animator.StringToHash("WallTouch");
+        private static readonly int _isDashing = Animator.StringToHash("IsDashing");
+        private static readonly int _isGrabing = Animator.StringToHash("GrabWall");
+        private static readonly int _isWallRun = Animator.StringToHash("WallRun");
+        private static readonly int _isWallSliding = Animator.StringToHash("IsWallSliding");
+        private static readonly int _decelerationTrigger = Animator.StringToHash("DecelerationTrigger");
+        private static readonly int _isAttacking = Animator.StringToHash("IsAttacking");
+        private static readonly int _weaponType = Animator.StringToHash("WeaponType");
 
-        void Start()
+        private bool _previousFlipState = false;
+
+        private void Start()
         {
             _anim = GetComponent<Animator>();
-            _coll = GetComponentInParent<CollisionHandler>();
             _move = GetComponentInParent<CharacterMovement>();
+            _coll = GetComponentInParent<CollisionHandler>();
             _renderer = GetComponent<SpriteRenderer>();
+            _atttack = GetComponent<CharacterAttackManager>();
+
+            _previousFlipState = _move.Side == 1 ? false : true;
+
+            GetComponent<CollisionHandler>().OnGrounded += () => { _anim.ResetTrigger(_decelerationTrigger); };
         }
 
-        void Update()
+        private void Update()
         {
             //Update every anim variables
-            _anim.SetBool("onGround", _coll.OnGround);
-            _anim.SetBool("onWall", _coll.OnWall);
-            _anim.SetBool("onRightWall", _coll.OnRightWall);
-            _anim.SetBool("wallGrab", _move.WallGrab);
-            _anim.SetBool("wallSlide", _move.WallSlide);
-            _anim.SetBool("canMove", _move.CanMove);
-            _anim.SetBool("isDashing", _move.IsDashing);
-        }
+            _anim.SetFloat(_moveSpeedY, _move.YSpeed);
+            _anim.SetFloat(_jumpVelocity, Mathf.Clamp(_move.YSpeed, -15, 15));
+            _anim.SetBool(_groundTouch, _coll.OnGround);
+            _anim.SetBool(_justOnGround, _coll.JustOnGround);
+            _anim.SetBool(_wallTouch, _coll.OnWall);
+            _anim.SetBool(_isGrabing, _move.IsGrabing);
+            _anim.SetBool(_isWallRun, _move.IsWallRun);
+            _anim.SetBool(_isJumping, _move.IsJumping);
+            _anim.SetBool(_isDashing, _move.IsDashing);
+            _anim.SetBool(_isWallSliding, _move.WallSlide);
+            _anim.SetBool(_isAttacking, _atttack.IsAttacking);
 
-        /// <summary>
-        /// Set the animator variable for the movement
-        /// </summary>
-        public void SetHorizontalMovement(float x, float y, float yVel)
-        {
-            _anim.SetFloat("HorizontalAxis", x);
-            _anim.SetFloat("VerticalAxis", y);
-            _anim.SetFloat("VerticalVelocity", yVel);
-        }
-
-        /// <summary>
-        /// Trigger the animator with the string in parameter
-        /// </summary>
-        public void SetTrigger(string trigger)
-        {
-            _anim.SetTrigger(trigger);
+            if(_move.IsDashing)
+                _anim.SetFloat(_moveSpeedX, 20f);
+            else
+                _anim.SetFloat(_moveSpeedX, Mathf.Abs(_move.XSpeed));
         }
 
         /// <summary>
@@ -61,17 +73,31 @@ namespace Cursed.Character
         {
             if (_move.WallGrab || _move.WallSlide)
             {
-                if (side == -1 && _renderer.flipX)
+                if (side == -1 && _previousFlipState)
                     return;
 
-                if (side == 1 && !_renderer.flipX)
+                if (side == 1 && !_previousFlipState)
                     return;
             }
 
             bool state = (side == 1) ? false : true;
-            _renderer.flipX = state;
+
+            if ((state && transform.localScale.x > 0) || (!state && transform.localScale.x < 0))
+                transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+            if(state == !_previousFlipState && Mathf.Abs(_move.XSpeed) > 4)
+                _anim.SetTrigger(_decelerationTrigger);
+
+            _previousFlipState = (side == 1) ? false : true;
         }
 
-        public SpriteRenderer Renderer => _renderer;
+        /// <summary>
+        /// Start the attack animation with the correct weapon
+        /// </summary>
+        /// <param name="weapon">Weapon name to attack with</param>
+        public void LaunchAttack(int weaponType)
+        {
+            _anim.SetFloat(_weaponType, weaponType);
+        }
     }
 }

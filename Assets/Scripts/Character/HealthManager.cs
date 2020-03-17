@@ -1,53 +1,130 @@
 ﻿using UnityEngine;
 using Cursed.Combat;
 using System.Collections;
+using Cursed.VisualEffect;
+using Cursed.Utilities;
 
 namespace Cursed.Character
 {
     public class HealthManager : MonoBehaviour, IAttackable
     {
+        private CharacterMovement _move = null;
+
         [SerializeField] private IntReference _maxHealth;
-        
-        private int _currentHealth = 0;
+        [SerializeField] private FloatReference _invincibleTime;
+        [SerializeField] private FloatReference _freezeFrameKill;
+        [SerializeField] private VibrationData_SO _takeDamageVibration;
+
         private CharacterStats _stats = null;
+        private int _currentHealth = 0;
+        private bool _isInvincible = false;
+        private float _timeInvincibleLeft = 0f;
 
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
 
+        private VfxHandler _vfx = null;
+        private SFXHandler _sfx = null;
+        private InvincibilityAnimation _invAnim;
+
         #region Initalizer
+
+        private void Awake()
+        {
+            _move = GetComponent<CharacterMovement>();
+        }
 
         private void Start()
         {
+            _vfx = GetComponent<VfxHandler>();
+            _sfx = GetComponent<SFXHandler>();
+            _invAnim = GetComponent<InvincibilityAnimation>();
+
             //Set to an eventual base number
             _stats = GetComponent<CharacterStats>();
             if (_stats != null)
                 _maxHealth.Value = _stats.BaseStats.MaxHealth;
 
-            UpdateHealth(_maxHealth);
+            UpdateCurrentHealth(_maxHealth);
+
+            _isInvincible = false;
+            _timeInvincibleLeft = 0f;
         }
 
         #endregion
+
+        private void Update()
+        { 
+            if(_timeInvincibleLeft > 0f)
+            {
+                _timeInvincibleLeft -= Time.deltaTime;
+            }
+            else if (_isInvincible)
+            {
+                //End invincibility
+                _isInvincible = false;
+            }
+        }
 
         #region Modifiers
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            //Update health
-            UpdateHealth(_currentHealth - attack.Damage);
+            if (_isInvincible || IsInvicibleMovement())
+            {
+                //Do something if invincible
+            }
+            else
+            {
+                //Update health
+                UpdateCurrentHealth(_currentHealth - attack.Damage);
 
-            //Apply the effect of the attack
-            if (attack.Effect != null && _stats != null)
-                attack.Effect.Invoke(_stats);
+                //Apply the effect of the attack
+                if (attack.Effect != null && _stats != null)
+                    attack.Effect.Invoke(_stats);
 
-            //Play sound, vfx and animation
-            //Do something if critical
+
+                if(attacker != null)
+                    Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
+
+                //Play sound, vfx and animation
+                if (gameObject.tag.Equals("Player"))
+                    _sfx.LowHealth();
+
+                CharacterAttackManager atkMgr = attacker.GetComponent<CharacterAttackManager>();
+                if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
+                {
+                    if (atkMgr)
+                    {
+                        _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
+                        _sfx.EnemyDamageSFX();
+
+                        //Become invincible
+                        StartInvincibility(_invincibleTime);
+                    }                   
+                }
+
+                if (!attacker.tag.Equals("Creature") && gameObject.tag.Equals("Player"))
+                {
+                    // Player take damage
+                    _sfx.PlayerDamageSFX();
+                    _vfx.FlashScreenDmgPlayer();
+                    ControllerVibration.Instance.StartVibration(_takeDamageVibration);
+                    _invAnim.LaunchAnimation();
+
+                    //Become invincible
+                    StartInvincibility(_invincibleTime);
+                }
+
+                //Do something if critical
+            }
         }
 
-        public void UpdateHealth(int health)
+        public void UpdateCurrentHealth(int health)
         {
             //Check if dead or not
-            if(health <= 0)
+            if (health <= 0)
             {
                 Die();
             }
@@ -60,6 +137,16 @@ namespace Cursed.Character
             }
         }
 
+        public void AddCurrentHealth(int amount)
+        {
+            _currentHealth += amount;
+
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
+
+            if (onHealthUpdate != null)
+                onHealthUpdate.Raise(_currentHealth);
+        }
+
         public void AddMaxHealth(int amount)
         {
             _maxHealth.Value += amount;
@@ -70,7 +157,10 @@ namespace Cursed.Character
             if (onMaxHealthUpdate != null)
                 onMaxHealthUpdate.Raise(_maxHealth);
 
-            UpdateHealth(_currentHealth + amount);
+            if (amount >= 0)
+                AddCurrentHealth(amount);
+            else
+                AddCurrentHealth(0);
         }
 
         public void ApplyDot(float damagePerSecond, float duration)
@@ -80,16 +170,36 @@ namespace Cursed.Character
 
         private IEnumerator ApplyDotCoroutine(float damagePerSecond, float duration)
         {
-            //Aplly dot
+            //Apply dot
             float timeLeft = duration;
 
             while(timeLeft > 0)
             {
-                UpdateHealth((int)((float)_currentHealth - damagePerSecond));
+                UpdateCurrentHealth((int)((float)_currentHealth - damagePerSecond));
                 yield return new WaitForSeconds(1f);
             }
 
             //End dot
+        }
+
+        #endregion
+
+        #region Invincibility
+
+        public void StartInvincibility(float time)
+        {
+            if (time > _timeInvincibleLeft)
+                _timeInvincibleLeft = time;
+
+            _isInvincible = true;
+        }
+
+        private bool IsInvicibleMovement()
+        {
+            if (_move)
+                return _move.IsInvincible;
+
+            return false;
         }
 
         #endregion
@@ -99,14 +209,28 @@ namespace Cursed.Character
         private void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
+            onDeath?.Raise();
+
+            if (gameObject.tag.Equals("Player"))
+            {
+                _sfx.PlayerDeathSFX();
+            }
+            if (gameObject.tag.Equals("Enemy"))
+            {
+                _sfx.EnemyDeathSFX();
+                Destroy(gameObject);
+                if(_freezeFrameKill != null)
+                    FreezeFrame.Instance.Freeze(_freezeFrameKill);
+            }
         }
 
         #endregion
 
         #region Getters
 
-        public int CurrentHealth => _currentHealth;
+        public float CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
+        public bool IsInvincible { get => _isInvincible; set => _isInvincible = value; }
 
         #endregion
     }

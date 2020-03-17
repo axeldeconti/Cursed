@@ -38,7 +38,10 @@ namespace Cursed.Console
                 {
                     _consoleInput.text = "";
                     _consoleInput.ActivateInputField();
+                    GameManager.Instance.State = GameManager.GameState.InDevConsole;
                 }
+                else
+                    GameManager.Instance.State = GameManager.GameState.InGame;
             }
 
             if (_consoleCanvas.gameObject.activeSelf)
@@ -68,6 +71,8 @@ namespace Cursed.Console
             Command_Help commandHelp = Command_Help.CreateCommand();
             Command_Test commandTest = Command_Test.CreateCommand();
             Command_Quit commandQuit = Command_Quit.CreateCommand();
+            Command_Player commandPlayer = Command_Player.CreateCommand();
+            Command_Creature commandCreature = Command_Creature.CreateCommand();
         }
 
         public static void AddCommandsToConsole(string key, ConsoleCommand command)

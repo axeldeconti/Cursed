@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Cursed.Character;
 using Cursed.Item;
+using Cursed.Creature;
+using Cursed.Utilities;
 
 namespace Cursed.Combat
 {
@@ -17,7 +19,25 @@ namespace Cursed.Combat
         [SerializeField] private FloatReference _criticalMultiplier;
         [SerializeField] private FloatReference _criticalChance;
 
-        public Attack CreateAttack(CharacterStats attackerStats, CharacterStats defenserStats)
+        [Header("Vfx")]
+        [SerializeField] private GameObject[] _vfxTouchImpact;
+
+        [Header("Vibration")]
+        [SerializeField] private VibrationData_SO _vibrationData;
+
+        public Attack CreateAttack()
+        {
+            float coreDamage = 0f;
+            coreDamage += _damageType.GetDamages();
+
+            bool isCritical = Random.value < _criticalChance;
+            if (isCritical)
+                coreDamage *= _criticalMultiplier;
+
+            return new Attack((int)coreDamage, isCritical, _damageType.Effect);
+        }
+
+        public Attack CreateAttack(CharacterStats attackerStats)
         {
             float coreDamage = 0f;
             coreDamage += _damageType.GetDamages();
@@ -31,9 +51,19 @@ namespace Cursed.Combat
             return new Attack((int)coreDamage, isCritical, _damageType.Effect);
         }
 
+        public Attack CreateAttack(CreatureStats creatureStats, CharacterStats defenserStats)
+        {
+            float coreDamage = 0f;
+            coreDamage += _damageType.GetDamages();
+
+            return new Attack((int)coreDamage, false, null);
+        }
+
         public float Cooldown { get => _cooldown; set => _cooldown.Value = value; }
         public DamageType_SO DamageType { get => _damageType; set => _damageType = value; }
         public float CriticalMultiplier { get => _criticalMultiplier; set => _criticalMultiplier.Value = value; }
         public float CriticalChance { get => _criticalChance; set => _criticalChance.Value = value; }
+        public GameObject[] VfxTouchImpact { get => _vfxTouchImpact; set => _vfxTouchImpact = value; }
+        public VibrationData_SO Vibration {get => _vibrationData; set => _vibrationData = value; }
     }
 }
