@@ -10,6 +10,7 @@ namespace Cursed.Creature
         public bool Down { get; private set; }
         public bool Up { get; private set; }
         public bool Holding { get; private set; }
+        public bool Sonar { get; private set; }
 
         void Update()
         {
@@ -38,6 +39,11 @@ namespace Cursed.Creature
                 Up = true;
                 _hasCalled = false;
             }
+
+            if (Input.GetButton("CreatureSonar"))
+                Sonar = true;
+            if (Input.GetButtonUp("CreatureSonar"))
+                Sonar = false;
 
         }
     }
