@@ -13,6 +13,8 @@ namespace Cursed.Traps
         [SerializeField] private FloatReference _deactivationTime = null;
         [SerializeField] private bool _isActive = false;
         [SerializeField] private bool _isActivating = false;
+
+        [SerializeField] private ParticleSystem _activePS;
         private Animator _animator;
 
         private List<ElectricPlateAttackable> _currentAttackables = null;
@@ -122,6 +124,7 @@ namespace Cursed.Traps
                 _isActivating = false;
                 _isActive = true;
                 AkSoundEngine.PostEvent("Play_ElectricTrap_Active", gameObject);
+                _activePS.Play();
 
                 //Inflict first damage
                 foreach (ElectricPlateAttackable a in _currentAttackables)
@@ -152,6 +155,7 @@ namespace Cursed.Traps
                     _animator.SetBool("Enter", true);
                     _animator.SetBool("Exit", false);
                     Debug.Log("Enter during deactivation");
+                    _activePS.Play();
 
                     hasEnded = false;
                     break;
