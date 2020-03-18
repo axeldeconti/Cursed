@@ -14,8 +14,8 @@ namespace Cursed.Creature
             _targetDirection = GetEnemyDirection(_target);
             RotateToTarget();
 
-            if (!GetComponent<SpriteRenderer>().enabled)
-                GetComponent<SpriteRenderer>().enabled = true;
+            if (!GetComponentInChildren<SpriteRenderer>().enabled)
+                GetComponentInChildren<SpriteRenderer>().enabled = true;
         }
 
         private void SearchCloserEnemy()
