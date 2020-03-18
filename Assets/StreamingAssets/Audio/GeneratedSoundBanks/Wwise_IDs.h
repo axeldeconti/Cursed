@@ -43,6 +43,7 @@ namespace AK
         static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
+        static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
         static const AkUniqueID STOP_MAIN_PLAY_LOOP_WALLSLIDE = 3156285719U;
     } // namespace EVENTS
 

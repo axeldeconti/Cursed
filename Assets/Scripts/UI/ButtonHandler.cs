@@ -30,6 +30,7 @@ namespace Cursed.UI
         {
             _pressed = true;
             _pressedTimer = .1f;
+            AkSoundEngine.PostEvent("Play_Button_Pressed", gameObject);
         }
 
         private void Update()
@@ -57,6 +58,7 @@ namespace Cursed.UI
         public void OnSelect(BaseEventData eventData)
         {
             SetTextColor(_button.colors.selectedColor);
+            AkSoundEngine.PostEvent("Play_Button_Selected", gameObject);
         }
 
         public void OnDeselect(BaseEventData eventData)
