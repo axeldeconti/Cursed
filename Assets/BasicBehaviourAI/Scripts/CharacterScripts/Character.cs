@@ -97,7 +97,7 @@ using Cursed.Character;
             }
             //Jump sensitivity
             if (jump.ability && Input.GetKeyUp(KeyCode.Space))
-            { //think about adding an isCurrentlyJumping bool that gets reset to false on landing or other forces affecting y
+            { 
                 if (velocity.y > jump.minJumpVelocity)
                 {
                     velocity.y = jump.minJumpVelocity;
@@ -126,9 +126,6 @@ using Cursed.Character;
             }
             _controller.Move(velocity * Time.deltaTime, input);
 
-            //animation
-            //_anim.SetFloat("speed", input.x != 0 ? 1f : 0f);
-            //_anim.SetBool("grounded", _controller.collisions.below);
 
             //Grounded + Jump reset
             if (_controller.collisions.below)
@@ -166,6 +163,7 @@ using Cursed.Character;
                 _character = c;
             }
         }
+        
 
         [System.Serializable]
         public class jumpStats : movementEssentials
