@@ -5,7 +5,7 @@
 /// http://www.shadero.com #Docs                            //
 //////////////////////////////////////////////////////////////
 
-Shader "Shadero Previews/PreviewXATXQ1"
+Shader "Shadero Customs/Shader_LaunchTarget"
 {
 Properties
 {

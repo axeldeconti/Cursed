@@ -22,11 +22,19 @@ namespace Cursed.Creature
         {
             if (_input.Sonar)
             {
-                if(_sonarObject == null)
-                    _sonarObject = Instantiate(_sonarReference, transform.position, Quaternion.identity, transform);
+                if (_sonarObject == null)
+                {
+                    _sonarObject = Instantiate(_sonarReference, GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).position, Quaternion.identity, transform);
+                    _sonarObject.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                }
+                else
+                    _sonarObject.GetComponent<CreatureJoystickLine>().LerpSize(false);
             }
             else
-                Destroy(_sonarObject);
+            {
+                if(_sonarObject != null)
+                    _sonarObject.GetComponent<CreatureJoystickLine>().LerpSize(true);
+            }
         }
     }
 }
