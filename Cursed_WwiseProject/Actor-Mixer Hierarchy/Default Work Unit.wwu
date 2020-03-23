@@ -539,7 +539,7 @@
 										</Property>
 										<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="1"/>
-										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="0.2">
+										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="0">
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{5CC8764B-A99A-41B1-87F7-B9A79CB7D675}"/>
@@ -568,7 +568,55 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<Sound Name="Foley_Player_WallSlideLoop_01" ID="{E31B6AEB-ABE2-47A9-872D-B9798C359BE9}" ShortID="499748524">
+										<Sound Name="Foley_Player_WallSlideLoop_01" ID="{BE6BE7C2-4887-463E-BC33-9CCD44C76CAF}" ShortID="34776679">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Foley_Player_WallSlideLoop_01" ID="{8785709E-6EEB-45D3-9926-DEE65BF79074}">
+													<Language>SFX</Language>
+													<AudioFile>Foley_Player_WallSlideLoop_01.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="18548234"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Foley_Player_WallSlideLoop_01" ID="{8785709E-6EEB-45D3-9926-DEE65BF79074}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Foley_Player_WallSlideLoop_02" ID="{1BE949F0-DBEC-41FE-A846-1CEDF87E6AB1}" ShortID="134852582">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Foley_Player_WallSlideLoop_02" ID="{1B6DB9C3-B365-46D3-97E5-D180E00AD729}">
+													<Language>SFX</Language>
+													<AudioFile>Foley_Player_WallSlideLoop_02.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="1061906529"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Foley_Player_WallSlideLoop_02" ID="{1B6DB9C3-B365-46D3-97E5-D180E00AD729}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<Folder Name="ANCIENT" ID="{2354C374-9054-4541-85D9-1F71BCB60A31}" ShortID="258481225">
+									<ChildrenList>
+										<Sound Name="ANCIENT_Foley_Player_WallSlideLoop_01" ID="{E31B6AEB-ABE2-47A9-872D-B9798C359BE9}" ShortID="499748524">
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -590,7 +638,7 @@
 												<ActiveSource Name="WallSlide_Loop_01" ID="{8C2BA6BC-3CA2-46CC-BB59-E9135E5437A1}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
-										<Sound Name="Foley_Player_WallSlideLoop_02" ID="{BA288E9C-5D4E-47A8-AE9D-591EA93628E5}" ShortID="872737834">
+										<Sound Name="ANCIENT_Foley_Player_WallSlideLoop_02" ID="{BA288E9C-5D4E-47A8-AE9D-591EA93628E5}" ShortID="872737834">
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -612,7 +660,7 @@
 												<ActiveSource Name="WallSlide_Loop_02" ID="{E5923057-67CF-4C79-A802-FBFAC685CA78}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
-										<Sound Name="Foley_Player_WallSlideLoop_03" ID="{F167EC21-8A17-4398-BF54-DCFEA85FF56B}" ShortID="735145230">
+										<Sound Name="ANCIENT_Foley_Player_WallSlideLoop_03" ID="{F167EC21-8A17-4398-BF54-DCFEA85FF56B}" ShortID="735145230">
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -635,7 +683,7 @@
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
-								</RandomSequenceContainer>
+								</Folder>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Death" ID="{7E255B56-B629-4FD3-A475-83EAB3A08AE4}" ShortID="1067348740">
