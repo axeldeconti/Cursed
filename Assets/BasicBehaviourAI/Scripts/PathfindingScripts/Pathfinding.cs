@@ -19,7 +19,7 @@ using Cursed.Character;
         private float _groundNodeHeight = 0.01f; //percentage of blockSize (Determines height off ground level for a groundNode)
         private float _groundMaxWidth = 0.35f; //percentage of blockSize (Determines max spacing allowed between two groundNodes)
         private float _fall_X_Spacing = 0.25f; //percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
-        private float _fall_Y_GrndDist = 0.02f;
+        private float _fall_Y_GrndDist = 0.02f; //percentage of blockSize (Determines space away from groundNode's top to place the fallNode)
         private Thread _t;
 
         private List<pathNode> _nodes = new List<pathNode>();
@@ -185,7 +185,8 @@ using Cursed.Character;
 
             for (int i = 0; i < 700; i++)
             {
-                if (i > 600) { Debug.Log("somethingwrong"); }
+                if (i > 600) { Debug.Log("something wrong Pathfinding.script"); }
+                if (i > 600) { Debug.Log("something wrong Pathfinding.script"); }
                 pathNodes.Add(currentNode);
 
                 if (currentNode.parent != null)
@@ -690,11 +691,9 @@ using Cursed.Character;
                 if (_groundNodes[i].neighbours.Count > 0 && obj.y > _groundNodes[i].pos.y && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < blockSize
                     /*only find ground nodes that are within 4f*/&& obj.y - _groundNodes[i].pos.y < 10000f)
                 {
-                    Debug.Log("testino");
                     float temp = Vector3.Distance(obj, (Vector3)_groundNodes[i].pos);
                     if (dist > temp)
                     {
-                        Debug.Log("nodeset");
                         dist = temp; node = _groundNodes[i];
                     }
                 }

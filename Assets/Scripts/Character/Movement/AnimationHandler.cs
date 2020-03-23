@@ -29,6 +29,8 @@ namespace Cursed.Character
         private static readonly int _decelerationTrigger = Animator.StringToHash("DecelerationTrigger");
         private static readonly int _isAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int _weaponType = Animator.StringToHash("WeaponType");
+        private static readonly int _combo = Animator.StringToHash("Combo");
+        private static readonly int _triggerAttack = Animator.StringToHash("TriggerAttack");
 
         private bool _previousFlipState = false;
 
@@ -95,9 +97,16 @@ namespace Cursed.Character
         /// Start the attack animation with the correct weapon
         /// </summary>
         /// <param name="weapon">Weapon name to attack with</param>
-        public void LaunchAttack(int weaponType)
+        public void LaunchAttack(int weaponType, int combo)
         {
             _anim.SetFloat(_weaponType, weaponType);
+            _anim.SetFloat(_combo, combo);
+        }
+
+        public void TiggerComboAttack(int weaponType, int combo)
+        {
+            _anim.SetTrigger(_triggerAttack);
+            LaunchAttack(weaponType, combo);
         }
     }
 }

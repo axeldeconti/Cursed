@@ -26,6 +26,8 @@ namespace Cursed.Character
         private bool _isAttacking = false;
         private bool _isDiveKicking = false;
         private int _weaponNb = 0;
+        private int _combo = 0;
+        private bool _canCombo = false;
 
         private void Awake()
         {
@@ -43,6 +45,10 @@ namespace Cursed.Character
         private void Start()
         {
             _isAttacking = false;
+            _isDiveKicking = false;
+            _isAttacking = false;
+            _combo = 0;
+            _canCombo = false;
             _gameManager = GameManager.Instance;
         }
 
@@ -76,7 +82,7 @@ namespace Cursed.Character
             }
             else
             {
-                if(!_move.IsWallRun && !_move.WallSlide)
+                if (!_move.IsWallRun && !_move.WallSlide)
                 {
                     //Dive Kicku
                     DiveKick();
@@ -89,21 +95,27 @@ namespace Cursed.Character
         /// </summary>
         private void NormalAttack(int attackNb)
         {
+            _weaponNb = attackNb;
+            Weapon weapon = _weaponInv.GetWeapon(_weaponNb);
+
             if (_isAttacking)
             {
-                //Combo
+                if (_canCombo)
+                {
+                    //Combo
+                    _anim.TiggerComboAttack(weapon.WeaponType.GetHashCode(), ++_combo);
+                    _canCombo = false;
+                }
             }
             else
             {
+                //1st attack
                 _isAttacking = true;
-                _weaponNb = attackNb;
-                Weapon weapon = _weaponInv.GetWeapon(_weaponNb);
 
-                _anim.LaunchAttack(weapon.WeaponType.GetHashCode());
-
-                //Vibration
-                ControllerVibration.Instance.StartVibration(weapon.Vibration);
+                _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
             }
+            //Vibration
+            ControllerVibration.Instance.StartVibration(weapon.Vibration);
         }
 
         /// <summary>
@@ -112,6 +124,7 @@ namespace Cursed.Character
         private void RunAttack()
         {
             _isAttacking = true;
+            _anim.LaunchAttack(0, ++_combo);
         }
 
         /// <summary>
@@ -121,6 +134,7 @@ namespace Cursed.Character
         {
             _isAttacking = true;
             _isDiveKicking = true;
+            _anim.LaunchAttack(0, ++_combo);
         }
 
         /// <summary>
@@ -147,6 +161,13 @@ namespace Cursed.Character
             _isAttacking = false;
             _isDiveKicking = false;
             _weaponNb = 0;
+            _combo = 0;
+            _canCombo = false;
+        }
+
+        public void CanCombo()
+        {
+            _canCombo = true;
         }
 
         /// <summary>

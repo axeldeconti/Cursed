@@ -14,8 +14,8 @@ namespace Cursed.Creature
             _targetDirection = GetEnemyDirection(_target);
             RotateToTarget();
 
-            if (!GetComponent<SpriteRenderer>().enabled)
-                GetComponent<SpriteRenderer>().enabled = true;
+            if (!GetComponentInChildren<SpriteRenderer>().enabled)
+                GetComponentInChildren<SpriteRenderer>().enabled = true;
         }
 
         private void SearchCloserEnemy()
@@ -71,8 +71,11 @@ namespace Cursed.Creature
         {
             if (_targetDirection != null)
             {
-                float angle = UtilsClass.GetAngleFromVectorFloat(_targetDirection);
-                transform.localEulerAngles = new Vector3(0, 0, angle);
+                /*float angle = UtilsClass.GetAngleFromVectorFloat(_targetDirection);
+                transform.localEulerAngles = new Vector3(0, 0, angle);*/
+                float angle = Mathf.Atan2(_targetDirection.y, _targetDirection.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                transform.rotation = Quaternion.Euler(rotation.eulerAngles);
             }
         }
 

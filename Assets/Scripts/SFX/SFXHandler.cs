@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cursed.Character;
+using Cursed.Creature;
 using Cursed.Traps;
 using System.Collections;
 
@@ -9,16 +10,19 @@ public class SFXHandler : MonoBehaviour
     private CharacterAttackManager _attackManager = null;
     private HealthManager _healthManager = null;
     private LaserBeam _laserBeam = null;
+    private CreatureManager _creatureManager = null;
 
     private bool _myIsDiveKicking;
     private bool _lowHealth1Played = false;
     private bool _lowHealth2Played = false;
     private bool _wallslideIsPlaying = false;
+    private bool _creatureOnCharisPlaying = false;
 
     private void Start()
     {
         _anim = GetComponent<Animator>();
         _attackManager = GetComponent<CharacterAttackManager>();
+        _creatureManager = GetComponent<CreatureManager>();
         _healthManager = GetComponent<HealthManager>();
         _laserBeam = GetComponent<LaserBeam>();
 
@@ -41,6 +45,22 @@ public class SFXHandler : MonoBehaviour
     {
         if (GetComponent<CharacterAttackManager>() && !_attackManager.IsDiveKicking)
             _myIsDiveKicking = false;
+
+        //CreatureOnCharacter sound
+        if (_creatureManager != null)
+        {
+            if (_creatureManager.CurrentState == CreatureState.OnCharacter && !_creatureOnCharisPlaying)
+            {
+                _creatureOnCharisPlaying = true;
+                AkSoundEngine.PostEvent("Play_Creature_OnChar", gameObject);
+            }
+            else if (_creatureManager.CurrentState != CreatureState.OnCharacter && _creatureOnCharisPlaying)
+            {
+                AkSoundEngine.PostEvent("Stop_Creature_OnChar", gameObject);
+                _creatureOnCharisPlaying = false;
+            }
+        }
+
     }
 
     #region Character
@@ -168,6 +188,7 @@ public class SFXHandler : MonoBehaviour
     {
         AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
     }
+
     #endregion
 
 }

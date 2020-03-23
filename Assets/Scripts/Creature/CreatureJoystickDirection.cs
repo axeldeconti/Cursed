@@ -47,14 +47,19 @@ namespace Cursed.Creature
                 {
                     _direction = Vector2.zero;
                     if (_target != null)
-                        _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
+                    {
+                        if (_target.GetComponent<CreatureJoystickLine>() != null)
+                            _target.GetComponent<CreatureJoystickLine>().LerpSize(true);
+                        else
+                            Destroy(_target);
+                    }
                 }
 
 
                 if (_direction != Vector2.zero && _target == null)
                 {
                     _target = Instantiate(_targetLine, _origin.position, Quaternion.identity, this.transform);
-                    _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                    if(_target.GetComponent<CreatureJoystickLine>() != null)_target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     //UpdateTargetPosition(_direction);
                 }
 
@@ -63,7 +68,7 @@ namespace Cursed.Creature
                 {
                     if (_direction != Vector2.zero)
                     {
-                        _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                        if (_target.GetComponent<CreatureJoystickLine>() != null) _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                         _target.transform.position = _origin.position;
                         UpdateTargetRotation(_direction);
                     }

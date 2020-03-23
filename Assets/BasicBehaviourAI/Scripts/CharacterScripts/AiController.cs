@@ -32,6 +32,7 @@ using Cursed.Character;
             if (_pathScript == null) { _pathScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<Pathfinding>(); }
         }
 
+        //Check player distance and do what told to wether or not player is in distance
         private bool PlayerInRange(float range, bool raycastOn)
         {
             if (player && Vector3.Distance(player.transform.position, transform.position) < range)
@@ -80,7 +81,7 @@ using Cursed.Character;
         }
 
         private void Chase()
-        { //Add this method into AiController
+        {
             if (!PlayerInRange(30f, false)) //Change boolean to true for OnSight aggro / 6f-30f
         {
                 state = ai_state.groundpatrol;
@@ -112,6 +113,7 @@ using Cursed.Character;
             }
         }
 
+        //Coroutine to switch tile/node target
         IEnumerator TimerForSwitchTarget()
         {
             _timerChangeTarget = true;

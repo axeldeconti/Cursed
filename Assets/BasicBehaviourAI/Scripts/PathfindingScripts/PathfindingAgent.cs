@@ -27,8 +27,8 @@ using Cursed.Character;
         private LineRenderer _pathLineRenderer;
         private int _orderNum = -1;
         private List<instructions> _currentOrders = new List<instructions>();
-        private List<instructions> _waitingOrders = null;
-        private Vector3 _lastOrder;
+        private List<instructions> _waitingOrders = null; //Storage for the path until we're ready to use it
+    private Vector3 _lastOrder;
         private bool _pathIsDirty = false;
         private float _oldDistance;
         private int _newPathAttempts = 3;
@@ -82,6 +82,7 @@ using Cursed.Character;
             _stopPathing = true;
         }
 
+        //Called to see pathing on screen (when path start)
         private void PathStarted()
         {
             if (debugBool) { Debug.Log("path started"); }
@@ -101,6 +102,7 @@ using Cursed.Character;
             if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
         }
 
+        //Called when the path has ended correctly (destination reached)
         private void PathCompleted()
         {
             if (debugBool) { Debug.Log("path completed"); }
@@ -108,6 +110,7 @@ using Cursed.Character;
             CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
         }
 
+        //Called if destination is unreachable
         private void PathNotFound()
         {
             if (debugBool) { Debug.Log("path not found"); }
@@ -118,7 +121,7 @@ using Cursed.Character;
             }
         }
 
-        //Used for refreshing paths, example: Flee behaviour 
+        //Used for refreshing paths, example : Chase behaviour 
         public int GetNodesFromCompletion()
         {
             if (_currentOrders == null) { return 0; }
@@ -135,9 +138,9 @@ using Cursed.Character;
                 if (debugBool) { Debug.Log("requeseting path vector"); }
                 _lastOrder = pathVector;
                 _pathfindingManagerScript.RequestPathInstructions(gameObject, _lastOrder, 20f //JumpHeight
-                    , true //Booleans tells if AI can use the capacity
-                    , true
-                    , true
+                    , true //Movement        //All booleans tells if AI can use the capacity
+                    , true //Jump
+                    , true //Fall
                     );
             }
             else
@@ -155,7 +158,7 @@ using Cursed.Character;
             {
                 if (debugBool) { Debug.Log("requesting path target"); }
                 _pathfindingManagerScript.RequestPathInstructions(gameObject, pathfindingTarget.transform.position, 20f //JumpHeight
-                    , true //Booleans tells if AI can use the capacity
+                    , true //Same as RequestPath(Vector3 pathVector)
                     , true
                     , true
                     );
@@ -259,7 +262,7 @@ using Cursed.Character;
                 RequestPath(_storePoint);
             }
 
-            //Only recieve orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
+            //Only receive orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
             if (_waitingOrders != null && (_controller.collisions.below))
             {
                 if (_aiControllerScript.NeedsPathfinding())
@@ -373,7 +376,7 @@ using Cursed.Character;
             }
         }
     }
-
+    #region Debugging visuals
     //Debugging visuals
     private void OnDrawGizmos()
     {
@@ -418,4 +421,5 @@ using Cursed.Character;
             _pathLineRenderer.endWidth = (0.5f);
         }
     }
+    #endregion
 }
