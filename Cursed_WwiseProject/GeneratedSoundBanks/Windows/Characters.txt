@@ -2,6 +2,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	291002680	Play_LowHealth2			\Default Work Unit\Character\LowHealth\Play_LowHealth2	
 	291002683	Play_LowHealth1			\Default Work Unit\Character\LowHealth\Play_LowHealth1	
 	595748461	Play_DoubleJump			\Default Work Unit\Character\Jump\Play_DoubleJump	
+	848533759	Stop_Begin_Play_Loop_WallSlide			\Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide	
 	1312214966	Play_Attack_Axe_FirstSlice			\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice	
 	1735873294	Play_Divekick			\Default Work Unit\Character\Play_Divekick	
 	1835085974	Play_Player_Death			\Default Work Unit\Character\Death\Play_Player_Death	
@@ -11,34 +12,32 @@ Event	ID	Name			Wwise Object Path	Notes
 	2804287435	Play_Attack_Sword_FirstSlice			\Default Work Unit\Character\Attack\Play_Attack_Sword_FirstSlice	
 	2822207957	Play_Run			\Default Work Unit\Character\Play_Run	
 	2912867303	Play_End_WallSlide			\Default Work Unit\Character\WallSlide\Play_End_WallSlide	
-	3033462115	Play_Main_WallSlide			\Default Work Unit\Character\WallSlide\Play_Main_WallSlide	
 	3046156865	Play_Enemy_Death			\Default Work Unit\Character\Death\Play_Enemy_Death	
-	3156285719	Stop_Main_Play_Loop_WallSlide			\Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide	
 	3570856298	Play_Enemy_Damage			\Default Work Unit\Character\Damage\Play_Enemy_Damage	
 	3638125099	Play_Player_Damage			\Default Work Unit\Character\Damage\Play_Player_Damage	
+	4060380671	Play_Begin_WallSlide			\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	13990874	SFX_Enemy_DamageSecondHit_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Damage\Enemy\SFX_Enemy_DamageSecondHit_01		39476
 	20235951	SFX_Player_Damage_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Damage\Player\Player_Damage_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Damage\Player\Random_Player_Damage\SFX_Player_Damage_01		37860
+	72233361	Foley_WallSlide_End	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Foley_WallSlide_End_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\Foley_WallSlide_End		59792
 	92819270	SFX_Player_Divekick_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Divekick\Divekick_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Divekick\Random_SFX_Player_Divekick\SFX_Player_Divekick_02		62296
 	108996717	SFX_Player_Run_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Run\Run01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Run\Random_SFX_Player_Run\SFX_Player_Run_01		58328
 	120410151	SFX_Enemy_Death_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Death\Enemy\Enemy_Death01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Death\Enemy\Random_SFX_Enemy_Death\SFX_Enemy_Death_01		48004
 	135575679	SFX_Player_Dash	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Dash\Dash_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Dash\SFX_Player_Dash		96616
-	142199507	SFX_Player_WallSlideLoop_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\WallSlide_Loop_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Random_WallSlide_Loop\SFX_Player_WallSlideLoop_02		147752
 	172115659	SFX_Player_BasicJump	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Jumps\BasicJump_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Jumps\SFX_Player_BasicJump		44320
 	206046367	SFX_Player_Death	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Death\Player\Player_Death_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Death\Player\SFX_Player_Death		180178
-	227638095	SFX_Player_WallSlideEnd	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\WallSlide\WallSlide_End_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Player_WallSlideEnd		59792
-	307420797	SFX_Player_WallSlideLoop_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\WallSlide_Loop_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Random_WallSlide_Loop\SFX_Player_WallSlideLoop_01		247712
+	239182092	Foley_Player_WallSlideLoop_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Random_WallSlide_Loop\Foley_Player_WallSlideLoop_02		339796
 	307684995	SFX_Player_Landing	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Landing\Landing_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Landing\SFX_Player_Landing		77144
+	324426504	Foley_WallSlide_Begin	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Foley_WallSlide_Begin_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\Foley_WallSlide_Begin		110234
 	344727761	SFX_Enemy_Death_03	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Death\Enemy\Enemy_Death03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Death\Enemy\Random_SFX_Enemy_Death\SFX_Enemy_Death_03		44826
 	390725724	SFX_Player_WeaponFirstSlice	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Weapon_FirstSlice_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Weapon\SFX_Player_WeaponFirstSlice		63448
 	443828323	SFX_Player_Damage_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Damage\Player\Player_Damage_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Damage\Player\Random_Player_Damage\SFX_Player_Damage_02		40470
 	453798610	SFX_Player_Run_04	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Run\Run04_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Run\Random_SFX_Player_Run\SFX_Player_Run_04		58328
 	480281922	SFX_Player_LowHealthFirst	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\LowHealth\LowHealth_First_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\LowHealth\SFX_Player_LowHealthFirst		81228
 	498343508	SFX_Player_Run_05	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Run\Run05_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Run\Random_SFX_Player_Run\SFX_Player_Run_05		58328
-	543310690	SFX_Player_WallSlideMain	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\WallSlide\WallSlide_Main_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Player_WallSlideMain		853932
 	699165359	SFX_Player_DoubleJump	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\DoubleJump_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Jumps\SFX_Player_DoubleJump		84560
-	733050369	SFX_Player_WallSlideLoop_03	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\WallSlide_Loop_03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Random_WallSlide_Loop\SFX_Player_WallSlideLoop_03		121692
+	719473206	Foley_Player_WallSlideLoop_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\WallSlide\SFX_Random_WallSlide_Loop\Foley_Player_WallSlideLoop_01		339796
 	779069619	SFX_Player_Run_06	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Run\Run06_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Run\Random_SFX_Player_Run\SFX_Player_Run_06		58328
 	820326928	SFX_Enemy_Death_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Death\Enemy\Enemy_Death02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Death\Enemy\Random_SFX_Enemy_Death\SFX_Enemy_Death_02		68990
 	892121780	SFX_Player_Run_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Run\Run02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\Character\Run\Random_SFX_Player_Run\SFX_Player_Run_02		58328
