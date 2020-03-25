@@ -98,7 +98,20 @@
 								<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 								<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 								<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="1"/>
+								<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="4">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{AC91ABBB-00E6-4C3A-9379-C46AECF89B55}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="4"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
 								<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+								<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-10</Value>
@@ -114,7 +127,7 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="SFX_Creature_OnChar_01" ID="{0009C375-5975-417D-8FFB-68E73486AC1B}" ShortID="851992956">
+								<Sound Name="SFX_Creature_OnChar_01" ID="{B5E7C58A-10AD-401C-BD1D-3189A39C7F4D}" ShortID="872125938">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -124,7 +137,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="SFX_Creature_OnChar_01" ID="{56A502D8-46CA-44A2-9C48-68D4450A6B9B}">
+										<AudioFileSource Name="SFX_Creature_OnChar_01" ID="{46290715-F9A4-40AF-97F6-4572F594C75A}">
 											<Language>SFX</Language>
 											<AudioFile>SFX_Creature_OnChar_01.wav</AudioFile>
 											<MediaIDList>
@@ -133,10 +146,10 @@
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="SFX_Creature_OnChar_01" ID="{56A502D8-46CA-44A2-9C48-68D4450A6B9B}" Platform="Linked"/>
+										<ActiveSource Name="SFX_Creature_OnChar_01" ID="{46290715-F9A4-40AF-97F6-4572F594C75A}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="SFX_Creature_OnChar_02" ID="{F7F79111-E068-4DCC-8EA3-9A01F9C5B578}" ShortID="782048619">
+								<Sound Name="SFX_Creature_OnChar_02" ID="{652C4C40-2AFE-49B0-BAD0-B5DB12C62261}" ShortID="328948368">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -146,7 +159,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="SFX_Creature_OnChar_02" ID="{99FE85A9-271F-4C07-8EBC-98403BAEE1F4}">
+										<AudioFileSource Name="SFX_Creature_OnChar_02" ID="{1E7711E6-6F19-43A1-8D1B-2EA0FBB36B48}">
 											<Language>SFX</Language>
 											<AudioFile>SFX_Creature_OnChar_02.wav</AudioFile>
 											<MediaIDList>
@@ -155,10 +168,10 @@
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="SFX_Creature_OnChar_02" ID="{99FE85A9-271F-4C07-8EBC-98403BAEE1F4}" Platform="Linked"/>
+										<ActiveSource Name="SFX_Creature_OnChar_02" ID="{1E7711E6-6F19-43A1-8D1B-2EA0FBB36B48}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="SFX_Creature_OnChar_03" ID="{76D6C622-48F7-489A-804E-CD55712524E3}" ShortID="1011715256">
+								<Sound Name="SFX_Creature_OnChar_03" ID="{2E83569F-C0CA-470F-A27B-DD723409D660}" ShortID="957963610">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -168,7 +181,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="SFX_Creature_OnChar_03" ID="{0CC8D0AF-6CF2-480B-B262-8FAF22B194F3}">
+										<AudioFileSource Name="SFX_Creature_OnChar_03" ID="{D4F0DDA8-0352-4B38-BABF-A8776E47BD3D}">
 											<Language>SFX</Language>
 											<AudioFile>SFX_Creature_OnChar_03.wav</AudioFile>
 											<MediaIDList>
@@ -177,10 +190,10 @@
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="SFX_Creature_OnChar_03" ID="{0CC8D0AF-6CF2-480B-B262-8FAF22B194F3}" Platform="Linked"/>
+										<ActiveSource Name="SFX_Creature_OnChar_03" ID="{D4F0DDA8-0352-4B38-BABF-A8776E47BD3D}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="SFX_Creature_OnChar_04" ID="{1005CF94-3E6D-44FA-845D-9D9A25C4C215}" ShortID="372755654">
+								<Sound Name="SFX_Creature_OnChar_04" ID="{9CE9080B-D613-4B9A-9FBA-0CE4FA11A0F8}" ShortID="347648284">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -190,7 +203,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="SFX_Creature_OnChar_04" ID="{49FA53B4-DA23-4FA8-89DC-749C401AF2BB}">
+										<AudioFileSource Name="SFX_Creature_OnChar_04" ID="{0157204B-DA6F-4A3D-ADE3-D2F522BF0E16}">
 											<Language>SFX</Language>
 											<AudioFile>SFX_Creature_OnChar_04.wav</AudioFile>
 											<MediaIDList>
@@ -199,7 +212,73 @@
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="SFX_Creature_OnChar_04" ID="{49FA53B4-DA23-4FA8-89DC-749C401AF2BB}" Platform="Linked"/>
+										<ActiveSource Name="SFX_Creature_OnChar_04" ID="{0157204B-DA6F-4A3D-ADE3-D2F522BF0E16}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_Creature_OnChar_05" ID="{D667AC19-D608-45F1-9C72-DC2FD71E9D5D}" ShortID="366998543">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Creature_OnChar_05" ID="{3A44E274-7B17-4945-B8A6-DDA3D0A25CB0}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Creature_OnChar_05.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1058628410"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Creature_OnChar_05" ID="{3A44E274-7B17-4945-B8A6-DDA3D0A25CB0}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_Creature_OnChar_06" ID="{635BCF1A-91E5-4CA9-87EE-DD4401252A40}" ShortID="641504853">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Creature_OnChar_06" ID="{B8A9792F-A68B-471D-A4D6-2B9DF64D3C0C}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Creature_OnChar_06.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1063801539"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Creature_OnChar_06" ID="{B8A9792F-A68B-471D-A4D6-2B9DF64D3C0C}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_Creature_OnChar_07" ID="{65017DA6-6C82-4A0D-AED3-B4DC13CEAF2F}" ShortID="671061848">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Creature_OnChar_07" ID="{84B129EB-5089-452F-A802-3EF13B5889F3}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Creature_OnChar_07.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="299119010"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Creature_OnChar_07" ID="{84B129EB-5089-452F-A802-3EF13B5889F3}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -437,86 +516,6 @@
 						</Folder>
 						<Folder Name="WallSlide" ID="{C8692C41-2FFA-4E66-923E-FEBA3F8DB3E7}" ShortID="755976540">
 							<ChildrenList>
-								<Sound Name="SFX_Player_WallSlideEnd" ID="{4A66DF46-EBBE-4194-ABEF-CD837425ADD8}" ShortID="324422698">
-									<PropertyList>
-										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
-										<Property Name="MaxSoundPerInstance" Type="int16">
-											<ValueList>
-												<Value>1</Value>
-											</ValueList>
-										</Property>
-										<Property Name="UseMaxSoundPerInstance" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="WallSlide_End" ID="{91BEE36A-F7EA-4D2D-864F-F9449372DEE7}">
-											<Language>SFX</Language>
-											<AudioFile>WallSlide\WallSlide_End.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="227638095"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="WallSlide_End" ID="{91BEE36A-F7EA-4D2D-864F-F9449372DEE7}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="SFX_Player_WallSlideMain" ID="{D9882053-14A8-4596-BEB5-5E785D69CC33}" ShortID="107976899">
-									<PropertyList>
-										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
-										<Property Name="MaxSoundPerInstance" Type="int16">
-											<ValueList>
-												<Value>1</Value>
-											</ValueList>
-										</Property>
-										<Property Name="UseMaxSoundPerInstance" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="WallSlide_Main" ID="{6E9DD2E3-82B0-4A21-A2F0-B411FF050417}">
-											<Language>SFX</Language>
-											<AudioFile>WallSlide\WallSlide_Main.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="543310690"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="WallSlide_Main" ID="{6E9DD2E3-82B0-4A21-A2F0-B411FF050417}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 								<RandomSequenceContainer Name="SFX_Random_WallSlide_Loop" ID="{262640A7-10D1-49BA-A0F1-BFB05D0516A3}" ShortID="131077371">
 									<PropertyList>
 										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
@@ -548,7 +547,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<Sound Name="SFX_Player_WallSlideLoop_01" ID="{E31B6AEB-ABE2-47A9-872D-B9798C359BE9}" ShortID="499748524">
+										<Sound Name="Foley_Player_WallSlideLoop_01" ID="{2E6CF10E-F32B-4266-9ACD-A1FF9E1A855C}" ShortID="412142075">
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -558,19 +557,19 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="WallSlide_Loop_01" ID="{8C2BA6BC-3CA2-46CC-BB59-E9135E5437A1}">
+												<AudioFileSource Name="Foley_Player_WallSlideLoop_01" ID="{CEC50178-0818-4903-84B9-86B28D0A2EF6}">
 													<Language>SFX</Language>
-													<AudioFile>WallSlide_Loop_01.wav</AudioFile>
+													<AudioFile>Foley_Player_WallSlideLoop_01.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="307420797"/>
+														<MediaID ID="719473206"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
-												<ActiveSource Name="WallSlide_Loop_01" ID="{8C2BA6BC-3CA2-46CC-BB59-E9135E5437A1}" Platform="Linked"/>
+												<ActiveSource Name="Foley_Player_WallSlideLoop_01" ID="{CEC50178-0818-4903-84B9-86B28D0A2EF6}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
-										<Sound Name="SFX_Player_WallSlideLoop_02" ID="{BA288E9C-5D4E-47A8-AE9D-591EA93628E5}" ShortID="872737834">
+										<Sound Name="Foley_Player_WallSlideLoop_02" ID="{5E15C18E-2455-4C93-938D-A5F163E1AB65}" ShortID="643530754">
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -580,42 +579,64 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="WallSlide_Loop_02" ID="{E5923057-67CF-4C79-A802-FBFAC685CA78}">
+												<AudioFileSource Name="Foley_Player_WallSlideLoop_02" ID="{650F7283-C10D-4F13-B040-8292BAE5DDA7}">
 													<Language>SFX</Language>
-													<AudioFile>WallSlide_Loop_02.wav</AudioFile>
+													<AudioFile>Foley_Player_WallSlideLoop_02.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="142199507"/>
+														<MediaID ID="239182092"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
-												<ActiveSource Name="WallSlide_Loop_02" ID="{E5923057-67CF-4C79-A802-FBFAC685CA78}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="SFX_Player_WallSlideLoop_03" ID="{F167EC21-8A17-4398-BF54-DCFEA85FF56B}" ShortID="735145230">
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="WallSlide_Loop_03" ID="{D9C09DDE-19B4-460A-8889-E612639DA4DB}">
-													<Language>SFX</Language>
-													<AudioFile>WallSlide_Loop_03.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="733050369"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="WallSlide_Loop_03" ID="{D9C09DDE-19B4-460A-8889-E612639DA4DB}" Platform="Linked"/>
+												<ActiveSource Name="Foley_Player_WallSlideLoop_02" ID="{650F7283-C10D-4F13-B040-8292BAE5DDA7}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
+								<Sound Name="Foley_WallSlide_Begin" ID="{23BC7248-24BD-4E98-A734-C37845473747}" ShortID="239188187">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Foley_WallSlide_Begin" ID="{1257D9F6-8621-424F-A604-86CA6B166537}">
+											<Language>SFX</Language>
+											<AudioFile>Foley_WallSlide_Begin.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="324426504"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Foley_WallSlide_Begin" ID="{1257D9F6-8621-424F-A604-86CA6B166537}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Foley_WallSlide_End" ID="{71AA31EE-560C-4B6A-BD59-B0022C3EC2E8}" ShortID="353228266">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Foley_WallSlide_End" ID="{769E84B1-F01A-467B-8171-23F48A98B2A6}">
+											<Language>SFX</Language>
+											<AudioFile>Foley_WallSlide_End.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="72233361"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Foley_WallSlide_End" ID="{769E84B1-F01A-467B-8171-23F48A98B2A6}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Death" ID="{7E255B56-B629-4FD3-A475-83EAB3A08AE4}" ShortID="1067348740">

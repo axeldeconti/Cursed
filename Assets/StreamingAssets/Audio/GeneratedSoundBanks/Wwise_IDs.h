@@ -16,6 +16,7 @@ namespace AK
         static const AkUniqueID PLAY_ATTACK_AXE_FIRSTSLICE = 1312214966U;
         static const AkUniqueID PLAY_ATTACK_SWORD_FIRSTSLICE = 2804287435U;
         static const AkUniqueID PLAY_BASICJUMP = 2216073360U;
+        static const AkUniqueID PLAY_BEGIN_WALLSLIDE = 4060380671U;
         static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
         static const AkUniqueID PLAY_BUTTON_SELECTED = 3882482286U;
         static const AkUniqueID PLAY_CREATURE_CALL = 1776683280U;
@@ -36,15 +37,14 @@ namespace AK
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
         static const AkUniqueID PLAY_LOWHEALTH2 = 291002680U;
-        static const AkUniqueID PLAY_MAIN_WALLSLIDE = 3033462115U;
         static const AkUniqueID PLAY_MULTILASER = 2996732270U;
         static const AkUniqueID PLAY_MUSIC_INGAME = 962944353U;
         static const AkUniqueID PLAY_MUSIC_MAINMENU = 1566693136U;
         static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
+        static const AkUniqueID STOP_BEGIN_PLAY_LOOP_WALLSLIDE = 848533759U;
         static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
-        static const AkUniqueID STOP_MAIN_PLAY_LOOP_WALLSLIDE = 3156285719U;
     } // namespace EVENTS
 
     namespace BANKS
