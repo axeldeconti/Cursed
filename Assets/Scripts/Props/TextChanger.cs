@@ -3,17 +3,47 @@ using TMPro;
 
 public class TextChanger : MonoBehaviour
 {
-    private TextMeshProUGUI remainingAndroid;
+    private TextMeshProUGUI _remainingAndroid;
+    private static int _numberOfEnemy;
+    private int _myNumberOfEnemy;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        remainingAndroid = GetComponent<TextMeshProUGUI>();
+        _remainingAndroid = GetComponent<TextMeshProUGUI>();
+        _numberOfEnemy = 0;
+        _myNumberOfEnemy = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateText()
     {
-        remainingAndroid.text = GameObject.FindGameObjectsWithTag("Enemy").Length.ToString();
+        _remainingAndroid.text = (_numberOfEnemy + 1).ToString();
+    }
+
+    public void AddEnemy()
+    {
+        if (_myNumberOfEnemy == _numberOfEnemy)
+        {
+            _numberOfEnemy++;
+            _myNumberOfEnemy++;
+        }
+        else
+        {
+            _myNumberOfEnemy = _numberOfEnemy;
+        }
+        UpdateText();
+    }
+
+    public void OnEnemyDeath()
+    {
+        if (_myNumberOfEnemy == _numberOfEnemy)
+        {
+            _numberOfEnemy--;
+            _myNumberOfEnemy--;
+        }
+        else
+        {
+            _myNumberOfEnemy = _numberOfEnemy;
+        }
+        UpdateText();
     }
 }
