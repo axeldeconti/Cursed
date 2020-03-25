@@ -23,6 +23,7 @@ namespace Cursed.Character
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
+        public VoidEvent addEnemy;
 
         private VfxHandler _vfx = null;
         private SFXHandler _sfx = null;
@@ -50,6 +51,8 @@ namespace Cursed.Character
 
             _isInvincible = false;
             _timeInvincibleLeft = 0f;
+
+            addEnemy?.Raise();
         }
 
         #endregion
@@ -209,7 +212,6 @@ namespace Cursed.Character
         private void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
-            onDeath?.Raise();
 
             if (gameObject.tag.Equals("Player"))
             {
@@ -219,9 +221,12 @@ namespace Cursed.Character
             {
                 _sfx.EnemyDeathSFX();
                 Destroy(gameObject);
-                if(_freezeFrameKill != null)
+                Debug.Log(GameObject.FindGameObjectsWithTag("Enemy").Length + 1);
+                if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);
             }
+
+            onDeath?.Raise();
         }
 
         #endregion
