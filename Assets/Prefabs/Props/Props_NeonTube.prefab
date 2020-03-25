@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4844479021584788941}
   - component: {fileID: 4844479021584788942}
+  - component: {fileID: 309515532}
+  - component: {fileID: 309515529}
   m_Layer: 0
   m_Name: Props_NeonTube
   m_TagString: Untagged
@@ -81,3 +83,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!111 &309515532
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4844479021584788943}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 67e4cf65a6b0c1c479bd978ff9f204da, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 67e4cf65a6b0c1c479bd978ff9f204da, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &309515529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4844479021584788943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 502569f8d3fc870438b447b89eae9958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: c670c13abbe1e2e4895ab091140fefe7, type: 2}
