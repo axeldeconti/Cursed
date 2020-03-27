@@ -120,9 +120,9 @@ namespace Cursed.Character
             int side = _move.Side == 1 ? 0 : 180;
 
             if (side == 0)
-                VfxPosition += new Vector3(-1f, 1f, 0f);
+                VfxPosition += new Vector3(-1f, 1.5f, 0f);
             else
-                VfxPosition += new Vector3(1f, 1f, 0f);
+                VfxPosition += new Vector3(1f, 1.5f, 0f);
 
             GameObject particle = Instantiate(_vfxDashSpeed, VfxPosition, Quaternion.identity, transform);
             ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
@@ -134,12 +134,12 @@ namespace Cursed.Character
         public GameObject DashDustVfx()
         {
             Vector3 VfxPosition = transform.position;
-            int side = _move.Side == 1 ? 0 : 1;
+            int side = _move.Side == 1 ? 1 : 0;
 
             if (side == 0)
-                VfxPosition += new Vector3(0f, 1.5f, 0f);
+                VfxPosition += new Vector3(-1.6f, 1.1f, 0f);
             else
-                VfxPosition += new Vector3(0f, 1.5f, 0f);
+                VfxPosition += new Vector3(1.6f, 1.1f, 0f);
 
             GameObject particle = Instantiate(_vfxDashDust, VfxPosition, Quaternion.identity, transform);
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
