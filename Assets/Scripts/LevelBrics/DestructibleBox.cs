@@ -9,6 +9,7 @@ namespace Cursed.Combat
     public class DestructibleBox : MonoBehaviour, IAttackable
     {
         [SerializeField] private GameObject _destructionEffect;
+        [SerializeField] private GameObject _destructionEffectDown;
 
         public void OnAttack(GameObject attacker, Attack attack)
         {
@@ -18,12 +19,29 @@ namespace Cursed.Combat
 
         private GameObject CreateDestroyEffect(Transform attacker)
         {
-            GameObject go = Instantiate(_destructionEffect, this.transform.position, Quaternion.identity);
-            Vector2 direction = this.transform.position - attacker.GetChild(0).position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            go.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
-            return go;
+            if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
+            {
+                GameObject particle = Instantiate(_destructionEffectDown, this.transform.position, Quaternion.identity);
+                return particle;
+            }
+            else 
+            {
+                int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+                GameObject particle = Instantiate(_destructionEffect, this.transform.position, Quaternion.identity);
+                if (side == 0)
+                {
+                    ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+                    rendererParticle.flip = new Vector3(1, 0, 0);
+                    rendererParticle.pivot = new Vector3(0.5f, 0, 0);
+                }
+                else
+                {
+                    ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+                    rendererParticle.flip = new Vector3(0, 0, 0);
+                    rendererParticle.pivot = new Vector3(-0.5f, 0, 0);
+                }
+                return particle;
+            }
         }
     }
 }
