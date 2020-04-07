@@ -21,7 +21,20 @@ namespace Cursed.Combat
         {
             if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
             {
+                int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
                 GameObject particle = Instantiate(_destructionEffectDown, this.transform.position, Quaternion.identity);
+                if (side == 0)
+                {
+                    ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+                    rendererParticle.flip = new Vector3(1, 0, 0);
+                    rendererParticle.pivot = new Vector3(0f, 0f, 0);
+                }
+                else
+                {
+                    ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+                    rendererParticle.flip = new Vector3(0, 0, 0);
+                    rendererParticle.pivot = new Vector3(0f, 0f, 0);
+                }
                 return particle;
             }
             else 
