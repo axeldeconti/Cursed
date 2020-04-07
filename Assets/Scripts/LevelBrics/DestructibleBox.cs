@@ -19,28 +19,33 @@ namespace Cursed.Combat
 
         private GameObject CreateDestroyEffect(Transform attacker)
         {
-            if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
+            if (attacker.GetComponent<CharacterMovement>().IsDiveKicking)
             {
+                Vector3 Direction = (attacker.transform.position - this.transform.position);
+                Vector3 ContactPoint = this.transform.position + Direction;
+
                 int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
-                GameObject particle = Instantiate(_destructionEffectDown, this.transform.position, Quaternion.identity);
+                GameObject particle = Instantiate(_destructionEffectDown, ContactPoint, Quaternion.identity);
+
                 if (side == 0)
                 {
                     ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
                     rendererParticle.flip = new Vector3(1, 0, 0);
-                    rendererParticle.pivot = new Vector3(0f, 0f, 0);
+                    rendererParticle.pivot = new Vector3(0f, -0.5f, 0);
                 }
                 else
                 {
                     ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
                     rendererParticle.flip = new Vector3(0, 0, 0);
-                    rendererParticle.pivot = new Vector3(0f, 0f, 0);
+                    rendererParticle.pivot = new Vector3(0f, -0.5f, 0);
                 }
                 return particle;
             }
             else 
             {
                 int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
-                GameObject particle = Instantiate(_destructionEffect, this.transform.position, Quaternion.identity);
+                GameObject particle = Instantiate(_destructionEffect, this.transform.position , Quaternion.identity);
+
                 if (side == 0)
                 {
                     ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
