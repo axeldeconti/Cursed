@@ -28,13 +28,11 @@ namespace Cursed.Combat
             }
             else
             {
-                int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
-
-                if (side == 0)
+                if (attacker.GetComponent<CharacterMovement>().Side == -1)
                 {
                     GameObject go = Instantiate(_destructionImpact, this.transform.position, Quaternion.identity);
                     ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
-                    rendererParticle.flip = new Vector3(side, 0, 0);
+                    rendererParticle.flip = new Vector3(0, 0, 0);
                     rendererParticle.pivot = new Vector3(-0.5f, 0, 0);
                     return go;
                 }
@@ -42,7 +40,7 @@ namespace Cursed.Combat
                 {
                     GameObject go = Instantiate(_destructionImpact, this.transform.position, Quaternion.identity);
                     ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
-                    rendererParticle.flip = new Vector3(side, 0, 0);
+                    rendererParticle.flip = new Vector3(1, 0, 0);
                     rendererParticle.pivot = new Vector3(0.5f, 0, 0);
                     return go;
                 }
