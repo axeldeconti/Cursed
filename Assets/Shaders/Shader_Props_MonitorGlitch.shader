@@ -10,11 +10,13 @@ Shader "Shadero Customs/Shader_Props_MonitorGlitch"
 Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-DistortionUV_WaveX_1("DistortionUV_WaveX_1", Range(0, 128)) = 10
-DistortionUV_WaveY_1("DistortionUV_WaveY_1", Range(0, 128)) = 10
-DistortionUV_DistanceX_1("DistortionUV_DistanceX_1", Range(0, 1)) = 0.2
-DistortionUV_DistanceY_1("DistortionUV_DistanceY_1", Range(0, 1)) = 0.2
-DistortionUV_Speed_1("DistortionUV_Speed_1", Range(-2, 2)) = 1
+DistortionUV_WaveX_1("DistortionUV_WaveX_1", Range(0, 128)) = 1
+DistortionUV_WaveY_1("DistortionUV_WaveY_1", Range(0, 128)) = 1
+DistortionUV_DistanceX_1("DistortionUV_DistanceX_1", Range(0, 1)) = 0.5
+DistortionUV_DistanceY_1("DistortionUV_DistanceY_1", Range(0, 1)) = 0
+DistortionUV_Speed_1("DistortionUV_Speed_1", Range(-2, 2)) = 0.2
+PixelXYUV_SizeX_1("PixelXYUV_SizeX_1", Range(1, 128)) = 128
+PixelXYUV_SizeY_1("PixelXYUV_SizeY_1", Range(1, 128)) = 128
 _SourceNewTex_1("_SourceNewTex_1(RGB)", 2D) = "white" { }
 _Hologram_Value_1("_Hologram_Value_1", Range(0, 1)) = 1
 _Hologram_Speed_1("_Hologram_Speed_1", Range(0, 4)) = 1
@@ -75,6 +77,8 @@ float DistortionUV_WaveY_1;
 float DistortionUV_DistanceX_1;
 float DistortionUV_DistanceY_1;
 float DistortionUV_Speed_1;
+float PixelXYUV_SizeX_1;
+float PixelXYUV_SizeY_1;
 sampler2D _SourceNewTex_1;
 float _Hologram_Value_1;
 float _Hologram_Speed_1;
@@ -157,19 +161,11 @@ float2 pos = float2(x, y);
 uv = floor(uv * pos+0.5) / pos;
 return uv;
 }
-float4 Color_PreGradients(float4 rgba, float4 a, float4 b, float4 c, float4 d, float offset, float fade, float speed)
-{
-float gray = (rgba.r + rgba.g + rgba.b) / 3;
-gray += offset+(speed*_Time*20);
-float4 result = a + b * cos(6.28318 * (c * gray + d));
-result.a = rgba.a;
-result.rgb = lerp(rgba.rgb, result.rgb, fade);
-return result;
-}
 float4 frag (v2f i) : COLOR
 {
 float2 DistortionUV_1 = DistortionUV(i.texcoord,DistortionUV_WaveX_1,DistortionUV_WaveY_1,DistortionUV_DistanceX_1,DistortionUV_DistanceY_1,DistortionUV_Speed_1);
-float4 _Hologram_1 = Hologram(DistortionUV_1,_SourceNewTex_1,_Hologram_Value_1,_Hologram_Speed_1);
+float2 PixelXYUV_1 = PixelXYUV(DistortionUV_1,PixelXYUV_SizeX_1,PixelXYUV_SizeY_1);
+float4 _Hologram_1 = Hologram(PixelXYUV_1,_SourceNewTex_1,_Hologram_Value_1,_Hologram_Speed_1);
 float4 FinalResult = _Hologram_1;
 FinalResult.rgb *= i.color.rgb;
 FinalResult.a = FinalResult.a * _SpriteFade * i.color.a;
