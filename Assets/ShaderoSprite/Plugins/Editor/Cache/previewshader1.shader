@@ -10,13 +10,8 @@ Shader "Shadero Previews/PreviewXATXQ1"
 Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-DistortionUV_WaveX_1("DistortionUV_WaveX_1", Range(0, 128)) = 91.228
-DistortionUV_WaveY_1("DistortionUV_WaveY_1", Range(0, 128)) = 93.556
-DistortionUV_DistanceX_1("DistortionUV_DistanceX_1", Range(0, 1)) = 0.15
-DistortionUV_DistanceY_1("DistortionUV_DistanceY_1", Range(0, 1)) = 1
-DistortionUV_Speed_1("DistortionUV_Speed_1", Range(-2, 2)) = 2
-_Burn_Value_1("_Burn_Value_1", Range(0, 1)) = 0.386
-_Burn_Speed_1("_Burn_Speed_1", Range(-8, 8)) = 0.907
+_PlasmaFX_Fade_1("_PlasmaFX_Fade_1", Range(0, 1)) = 0.5
+_PlasmaFX_Speed_1("_PlasmaFX_Speed_1", Range(0, 1)) = 0.5
 _SpriteFade("SpriteFade", Range(0, 1)) = 1.0
 
 // required for UI.Mask
@@ -69,13 +64,8 @@ float4 color    : COLOR;
 
 sampler2D _MainTex;
 float _SpriteFade;
-float DistortionUV_WaveX_1;
-float DistortionUV_WaveY_1;
-float DistortionUV_DistanceX_1;
-float DistortionUV_DistanceY_1;
-float DistortionUV_Speed_1;
-float _Burn_Value_1;
-float _Burn_Speed_1;
+float _PlasmaFX_Fade_1;
+float _PlasmaFX_Speed_1;
 
 v2f vert(appdata_t IN)
 {
@@ -87,50 +77,95 @@ return OUT;
 }
 
 
-float2 DistortionUV(float2 p, float WaveX, float WaveY, float DistanceX, float DistanceY, float Speed)
+inline float Holo1mod(float x,float modu)
 {
-Speed *=_Time*100;
-p.x= p.x+sin(p.y*WaveX + Speed)*DistanceX*0.05;
-p.y= p.y+cos(p.x*WaveY + Speed)*DistanceY*0.05;
-return p;
-}
-float BFXr (float2 c, float seed)
-{
-return frac(43.*sin(c.x+7.*c.y)* seed);
+return x - floor(x * (1.0 / modu)) * modu;
 }
 
-float BFXn (float2 p, float seed)
+inline float Holo1noise(sampler2D source,float2 p)
 {
-float2 i = floor(p), w = p-i, j = float2 (1.,0.);
-w = w*w*(3.-w-w);
-return lerp(lerp(BFXr(i, seed), BFXr(i+j, seed), w.x), lerp(BFXr(i+j.yx, seed), BFXr(i+1., seed), w.x), w.y);
+float _TimeX = _Time.y;
+float sample = tex2D(source,float2(.2,0.2*cos(_TimeX))*_TimeX*8. + p*1.).x;
+sample *= sample;
+return sample;
 }
 
-float BFXa (float2 p, float seed)
+inline float Holo1onOff(float a, float b, float c)
 {
-float m = 0., f = 2.;
-for ( int i=0; i<9; i++ ){ m += BFXn(f*p, seed)/f; f+=f; }
-return m;
+float _TimeX = _Time.y;
+return step(c, sin(_TimeX + a*cos(_TimeX*b)));
 }
 
-float4 BurnFX(float4 txt, float2 uv, float value, float seed, float HDR)
+float4 Hologram(float2 uv, sampler2D source, float value, float speed)
 {
-float t = frac(value*0.9999);
-float4 c = smoothstep(t / 1.2, t + .1, BFXa(3.5*uv, seed));
-c = txt*c;
-c.r = lerp(c.r, c.r*15.0*(1 - c.a), value);
-c.g = lerp(c.g, c.g*10.0*(1 - c.a), value);
-c.b = lerp(c.b, c.b*5.0*(1 - c.a), value);
-c.rgb += txt.rgb*value;
-c.rgb = lerp(saturate(c.rgb),c.rgb,HDR);
-return c;
+float alpha = tex2D(source, uv).a;
+float _TimeX = _Time.y * speed;
+float2 look = uv;
+float window = 1. / (1. + 20.*(look.y - Holo1mod(_TimeX / 4., 1.))*(look.y - Holo1mod(_TimeX / 4., 1.)));
+look.x = look.x + sin(look.y*30. + _TimeX) / (50.*value)*Holo1onOff(4., 4., .3)*(1. + cos(_TimeX*80.))*window;
+float vShift = .4*Holo1onOff(2., 3., .9)*(sin(_TimeX)*sin(_TimeX*20.) + (0.5 + 0.1*sin(_TimeX*20.)*cos(_TimeX)));
+look.y = Holo1mod(look.y + vShift, 1.);
+float4 video = float4(0, 0, 0, 0);
+float4 videox = tex2D(source, look);
+video.r = tex2D(source, look - float2(.05, 0.)*Holo1onOff(2., 1.5, .9)).r;
+video.g = videox.g;
+video.b = tex2D(source, look + float2(.05, 0.)*Holo1onOff(2., 1.5, .9)).b;
+video.a = videox.a;
+video = video;
+float vigAmt = 3. + .3*sin(_TimeX + 5.*cos(_TimeX*5.));
+float vignette = (1. - vigAmt*(uv.y - .5)*(uv.y - .5))*(1. - vigAmt*(uv.x - .5)*(uv.x - .5));
+float noi = Holo1noise(source,uv*float2(0.5, 1.) + float2(6., 3.))*value * 3;
+float y = Holo1mod(uv.y*4. + _TimeX / 2. + sin(_TimeX + sin(_TimeX*0.63)), 1.);
+float start = .5;
+float end = .6;
+float inside = step(start, y) - step(end, y);
+float fact = (y - start) / (end - start)*inside;
+float f1 = (1. - fact) * inside;
+video += f1*noi;
+video += Holo1noise(source,uv*2.) / 2.;
+video.r *= vignette;
+video *= (12. + Holo1mod(uv.y*30. + _TimeX, 1.)) / 13.;
+video.a = video.a + (frac(sin(dot(uv.xy*_TimeX, float2(12.9898, 78.233))) * 43758.5453))*.5;
+video.a = (video.a*.3)*alpha*vignette * 2;
+video.a *=1.2;
+video.a *= 1.2;
+video = lerp(tex2D(source, uv), video, value);
+return video;
+}
+inline float RBFXmod(float x,float modu)
+{
+return x - floor(x * (1.0 / modu)) * modu;
+}
+
+float3 RBFXrainbow(float t)
+{
+t= RBFXmod(t,1.0);
+float tx = t * 8;
+float r = clamp(tx - 4.0, 0.0, 1.0) + clamp(2.0 - tx, 0.0, 1.0);
+float g = tx < 2.0 ? clamp(tx, 0.0, 1.0) : clamp(4.0 - tx, 0.0, 1.0);
+float b = tx < 4.0 ? clamp(tx - 2.0, 0.0, 1.0) : clamp(6.0 - tx, 0.0, 1.0);
+return float3(r, g, b);
+}
+
+float4 Plasma(float4 txt, float2 uv, float _Fade, float speed)
+{
+float _TimeX=_Time.y * speed;
+float a = 1.1 + _TimeX * 2.25;
+float b = 0.5 + _TimeX * 1.77;
+float c = 8.4 + _TimeX * 1.58;
+float d = 610 + _TimeX * 2.03;
+float x1 = 2.0 * uv.x;
+float n = sin(a + x1) + sin(b - x1) + sin(c + 2.0 * uv.y) + sin(d + 5.0 * uv.y);
+n = RBFXmod(((5.0 + n) / 5.0), 1.0);
+float4 nx=txt;
+n += nx.r * 0.2 + nx.g * 0.4 + nx.b * 0.2;
+float4 ret=float4(RBFXrainbow(n),txt.a);
+return lerp(txt,ret,_Fade);
 }
 float4 frag (v2f i) : COLOR
 {
-float2 DistortionUV_1 = DistortionUV(i.texcoord,DistortionUV_WaveX_1,DistortionUV_WaveY_1,DistortionUV_DistanceX_1,DistortionUV_DistanceY_1,DistortionUV_Speed_1);
-float4 _MainTex_1 = tex2D(_MainTex,DistortionUV_1);
-float4 _Burn_1 = BurnFX(_MainTex_1,i.texcoord,_Burn_Value_1,_Burn_Speed_1,0);
-float4 FinalResult = _Burn_1;
+float4 _PlasmaFX_1 = Plasma(float4(1,1,1,1),i.texcoord,_PlasmaFX_Fade_1,_PlasmaFX_Speed_1);
+float4 FinalResult = _PlasmaFX_1;
 FinalResult.rgb *= i.color.rgb;
 FinalResult.a = FinalResult.a * _SpriteFade * i.color.a;
 return FinalResult;
