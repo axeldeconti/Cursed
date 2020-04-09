@@ -96,31 +96,38 @@ namespace Cursed.Character
                     _sfx.LowHealth();
 
                 CharacterAttackManager atkMgr = attacker.GetComponent<CharacterAttackManager>();
-                if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
+
+                if (gameObject.tag.Equals("Player"))
                 {
-                    if (atkMgr)
+                    if (!attacker.tag.Equals("Creature"))
                     {
-                        _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-                        _sfx.EnemyDamageSFX();
+                        // Player take damage
+                        _sfx.PlayerDamageSFX();
+                        _vfx.FlashScreenDmgPlayer();
+
+                        ControllerVibration.Instance.StartVibration(_takeDamageVibration);
+                        _invAnim.LaunchAnimation();
 
                         //Become invincible
                         StartInvincibility(_invincibleTime);
-                    }                   
+                    }
                 }
 
-                if (!attacker.tag.Equals("Creature") && gameObject.tag.Equals("Player"))
+                if (gameObject.tag.Equals("Enemy"))
                 {
-                    // Player take damage
-                    _sfx.PlayerDamageSFX();
-                    _vfx.FlashScreenDmgPlayer();
-                    ControllerVibration.Instance.StartVibration(_takeDamageVibration);
-                    _invAnim.LaunchAnimation();
+                    if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
+                    {
+                        if (atkMgr)
+                        {
+                            _sfx.EnemyDamageSFX();
+                            _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
+                            if(!atkMgr.IsDiveKicking && atkMgr.Combo != 2)
+                                _vfx.SlashAttackEffect(transform.position, attacker);
+                        }
+                    }
 
-                    //Become invincible
-                    StartInvincibility(_invincibleTime);
+                    //Do something if critical
                 }
-
-                //Do something if critical
             }
         }
 
