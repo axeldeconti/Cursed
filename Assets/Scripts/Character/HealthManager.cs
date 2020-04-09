@@ -117,16 +117,22 @@ namespace Cursed.Character
                 {
                     if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
                     {
-                        if (atkMgr)
+                        if (atkMgr && !attack.IsCritical)
                         {
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
                             if(!atkMgr.IsDiveKicking && atkMgr.Combo != 2)
                                 _vfx.SlashAttackEffect(transform.position, attacker);
                         }
-                    }
 
-                    //Do something if critical
+                        if (atkMgr && attack.IsCritical)
+                        {
+                            _sfx.EnemyDamageSFX();
+                            _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
+                            if (!atkMgr.IsDiveKicking && atkMgr.Combo != 2)
+                                _vfx.SlashAttackCriticalEffect(transform.position, attacker);
+                        }
+                    }
                 }
             }
         }

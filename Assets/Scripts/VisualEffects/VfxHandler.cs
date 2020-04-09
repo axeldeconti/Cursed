@@ -180,7 +180,7 @@ namespace Cursed.Character
 
         public GameObject SlashAttackCriticalEffect(Vector3 pos, GameObject attacker)
         {
-            int rnd = Random.Range(0, _vfxSlashAttack.Length);
+            int rnd = Random.Range(0, _vfxSlashAttackCritical.Length);
             int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
             Vector3 offset = new Vector3(0, 3, 0);
             GameObject particle = Instantiate(_vfxSlashAttackCritical[rnd], pos + offset, Quaternion.identity);
