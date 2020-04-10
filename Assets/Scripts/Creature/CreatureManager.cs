@@ -1,7 +1,7 @@
 ﻿using Cursed.Character;
 using Cursed.Utilities;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 namespace Cursed.Creature
 {
@@ -23,7 +23,7 @@ namespace Cursed.Creature
         private CreatureMovement _movement;
         private CreatureInputController _input;
         private CreatureJoystickDirection _joystick;
-        private Animator _animator; 
+        private Animator _animator;
         private CreatureVfxHandler _vfx;
         private CreatureCollision _collision;
 
@@ -68,18 +68,20 @@ namespace Cursed.Creature
         {
             UpdateInput();
             CameraZoom();
-            
-            if(_recallOffScreen)
+
+            if (_recallOffScreen)
                 CheckDistanceFromPlayer();
         }
 
         private void UpdateInput()
         {
             #region LAUNCH & RECALL
-            if (_input.Down) {
+            if (_input.Down)
+            {
                 DeAttachFromPlayer();
             }
-            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall) { 
+            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
+            {
                 CurrentState = CreatureState.OnComeBack;
                 AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
             }
@@ -121,15 +123,15 @@ namespace Cursed.Creature
 
         private void CheckDistanceFromPlayer()
         {
-            if (CurrentState != CreatureState.Moving)
-                return;
-
-            Transform targetPosition = GetComponentInChildren<Collider2D>().transform;
-            float borderSize = 0f;
-            Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
-            bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
-            if (isOffScreen)
-                LaunchComeBack();
+            if (CurrentState == CreatureState.Moving || CurrentState == CreatureState.OnWall)
+            {
+                Transform targetPosition = GetComponentInChildren<Collider2D>().transform;
+                float borderSize = 0f;
+                Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
+                bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
+                if (isOffScreen)
+                    LaunchComeBack();
+            }
 
         }
 
