@@ -121,7 +121,7 @@ namespace Cursed.Character
                         {
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-                            if(!atkMgr.IsDiveKicking && atkMgr.Combo != 2)
+                            if(!atkMgr.IsDiveKicking) //&& atkMgr.Combo != 3
                                 _vfx.SlashAttackEffect(transform.position, attacker);
                         }
 
@@ -129,7 +129,7 @@ namespace Cursed.Character
                         {
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-                            if (!atkMgr.IsDiveKicking && atkMgr.Combo != 2)
+                            if (!atkMgr.IsDiveKicking) //&& atkMgr.Combo != 3
                                 _vfx.SlashAttackCriticalEffect(transform.position, attacker);
                         }
                     }
