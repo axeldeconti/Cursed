@@ -35,6 +35,7 @@ namespace Cursed.Creature
         private bool _canRecall = false;
 
         [SerializeField] private bool _showDebug = false;
+        [SerializeField] private bool _recallOffScreen = true;
 
         private Vector2 _launchDirection;
 
@@ -67,6 +68,9 @@ namespace Cursed.Creature
         {
             UpdateInput();
             CameraZoom();
+            
+            if(_recallOffScreen)
+                CheckDistanceFromPlayer();
         }
 
         private void UpdateInput()
@@ -113,6 +117,25 @@ namespace Cursed.Creature
         {
             _currentTimerBeforeZoom = 0f;
             CameraZoomController.Instance.Zoom(true);
+        }
+
+        private void CheckDistanceFromPlayer()
+        {
+            if (CurrentState != CreatureState.Moving)
+                return;
+
+            Transform targetPosition = GetComponentInChildren<Collider2D>().transform;
+            float borderSize = 0f;
+            Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
+            bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
+            if (isOffScreen)
+                LaunchComeBack();
+
+        }
+
+        private void LaunchComeBack()
+        {
+            CurrentState = CreatureState.OnComeBack;
         }
 
         private void DeAttachFromPlayer()
