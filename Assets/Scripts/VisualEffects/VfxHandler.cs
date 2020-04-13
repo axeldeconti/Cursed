@@ -18,6 +18,10 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxDashDust;
         [SerializeField] private GameObject _vfxTrailDivekick;
 
+        [Header("VFX Attack")]
+        [SerializeField] private GameObject[] _vfxSlashAttack;
+        [SerializeField] private GameObject[] _vfxAttackCritical;
+
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
         private CollisionHandler _coll;
@@ -161,6 +165,28 @@ namespace Cursed.Character
             Vector3 offset = new Vector3(0, 3, 0);
             int rnd = Random.Range(0, vfxTouchImpact.Length);
             Instantiate(vfxTouchImpact[rnd], pos + offset, Quaternion.identity);
+        }
+
+        public GameObject SlashAttackEffect(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxSlashAttack.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxSlashAttack[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, Random.Range(0, 2), 0);
+            return particle;
+        }
+
+        public GameObject AttackCriticalEffect(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxAttackCritical.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxAttackCritical[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, Random.Range(0, 2), 0);
+            return particle;
         }
 
         #region Getters & Setters

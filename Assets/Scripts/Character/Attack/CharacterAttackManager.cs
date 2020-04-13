@@ -19,7 +19,7 @@ namespace Cursed.Character
         private WeaponInventory _weaponInv = null;
         private IInputController _input = null;
         private GameManager _gameManager = null;
-        private ControllerVibration _contrVib = null;
+        private VfxHandler _vfx = null;
 
         [SerializeField] private AttackDefinition _divekickAttack = null;
 
@@ -37,7 +37,7 @@ namespace Cursed.Character
             _coll = GetComponent<CollisionHandler>();
             _weaponInv = GetComponent<WeaponInventory>();
             _input = GetComponent<IInputController>();
-            //_contrVib = GetComponent<ControllerVibration>();
+            _vfx = GetComponent<VfxHandler>();
 
             _coll.OnGrounded += () => _isDiveKicking = false;
         }
@@ -193,5 +193,6 @@ namespace Cursed.Character
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);
+        public int Combo => _combo;
     }
 }
