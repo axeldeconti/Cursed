@@ -122,11 +122,11 @@ namespace Cursed.Character
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
                             if(!atkMgr.IsDiveKicking) //&& atkMgr.Combo != 3
-                                _vfx.SlashAttackEffect(transform.position, attacker);
+                                _vfx.AttackEffect(transform.position, attacker);
 
                             //Do something is critical
                             if(attack.IsCritical)
-                                _vfx.AttackCriticalEffect(transform.position, attacker);
+                                _vfx.CriticalEffect(transform.position, attacker);
                         }
                     }
                 }
