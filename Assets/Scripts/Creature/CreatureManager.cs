@@ -160,7 +160,8 @@ namespace Cursed.Creature
             {
                 if (_joystick.Target != null)
                 {
-                    transform.position = _joystick.Target.GetChild(0).position;
+                    //transform.position = _joystick.Target.GetChild(0).position;
+                    transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(1f * _movement.Direction, 0f);
                     _launchDirection = _joystick.Direction;
                 }
             }
