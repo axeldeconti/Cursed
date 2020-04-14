@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using Cursed.Combat;
-using System.Collections;
-using Cursed.VisualEffect;
+﻿using Cursed.Combat;
 using Cursed.Utilities;
+using Cursed.VisualEffect;
+using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -28,6 +29,8 @@ namespace Cursed.Character
         private VfxHandler _vfx = null;
         private SFXHandler _sfx = null;
         private InvincibilityAnimation _invAnim;
+
+        public Action<int> onEnemyHealthUpdate;
 
         #region Initalizer
 
@@ -58,8 +61,8 @@ namespace Cursed.Character
         #endregion
 
         private void Update()
-        { 
-            if(_timeInvincibleLeft > 0f)
+        {
+            if (_timeInvincibleLeft > 0f)
             {
                 _timeInvincibleLeft -= Time.deltaTime;
             }
@@ -88,7 +91,7 @@ namespace Cursed.Character
                     attack.Effect.Invoke(_stats);
 
 
-                if(attacker != null)
+                if (attacker != null)
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
@@ -121,11 +124,11 @@ namespace Cursed.Character
                         {
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-                            if(!atkMgr.IsDiveKicking) //&& atkMgr.Combo != 3
+                            if (!atkMgr.IsDiveKicking) //&& atkMgr.Combo != 3
                                 _vfx.SlashAttackEffect(transform.position, attacker);
 
                             //Do something is critical
-                            if(attack.IsCritical)
+                            if (attack.IsCritical)
                                 _vfx.AttackCriticalEffect(transform.position, attacker);
                         }
                     }
@@ -143,9 +146,9 @@ namespace Cursed.Character
             else
             {
                 _currentHealth = health;
+                onHealthUpdate?.Raise(_currentHealth);
+                onEnemyHealthUpdate?.Invoke(_currentHealth);
 
-                if (onHealthUpdate != null)
-                    onHealthUpdate.Raise(_currentHealth);
             }
         }
 
@@ -185,7 +188,7 @@ namespace Cursed.Character
             //Apply dot
             float timeLeft = duration;
 
-            while(timeLeft > 0)
+            while (timeLeft > 0)
             {
                 UpdateCurrentHealth((int)((float)_currentHealth - damagePerSecond));
                 yield return new WaitForSeconds(1f);

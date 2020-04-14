@@ -21,6 +21,10 @@ namespace Cursed.UI
         {
             _fillImage = GetComponent<Image>();
             _updateMaxBar = GetComponentInParent<UpdateMaxBar>();
+
+            HealthManager enemyHealth = GetComponentInParent<HealthManager>();
+            if (enemyHealth != null)
+                enemyHealth.onEnemyHealthUpdate += UpdateValue;
         }
 
         private void Update()
