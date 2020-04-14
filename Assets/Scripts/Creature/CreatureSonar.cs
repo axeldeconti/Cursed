@@ -6,11 +6,13 @@ namespace Cursed.Creature
     {
         [SerializeField] private GameObject _sonarReference;
         private CreatureInputController _input;
+        private CreatureManager _creature;
         private GameObject _sonarObject;
 
         private void Awake()
         {
             _input = GetComponent<CreatureInputController>();
+            _creature = GetComponent<CreatureManager>();
         }
 
         private void Update()
@@ -20,6 +22,14 @@ namespace Cursed.Creature
 
         private void UpdateInput()
         {
+            if (_creature.CurrentState != CreatureState.OnCharacter)
+            {
+                if (_sonarObject != null)
+                    Destroy(_sonarObject);
+
+                return;
+            }
+
             if (_input.Sonar)
             {
                 if (_sonarObject == null)
