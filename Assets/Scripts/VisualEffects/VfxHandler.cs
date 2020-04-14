@@ -174,7 +174,7 @@ namespace Cursed.Character
             Vector3 offset = new Vector3(0, 3, 0);
             GameObject particle = Instantiate(_vfxSlashAttack[rnd], pos + offset, Quaternion.identity);
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
-            rendererParticle.flip = new Vector3(side, Random.Range(0, 2), 0);
+            rendererParticle.flip = new Vector3(side, 0, 0);
             return particle;
         }
 
@@ -185,7 +185,7 @@ namespace Cursed.Character
             Vector3 offset = new Vector3(0, 3, 0);
             GameObject particle = Instantiate(_vfxAttackCritical[rnd], pos + offset, Quaternion.identity);
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
-            rendererParticle.flip = new Vector3(side, Random.Range(0, 2), 0);
+            rendererParticle.flip = new Vector3(side, 0, 0);
             return particle;
         }
 
