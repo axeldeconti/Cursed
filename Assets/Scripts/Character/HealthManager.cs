@@ -1,9 +1,9 @@
 ﻿using Cursed.Combat;
 using Cursed.Utilities;
 using Cursed.VisualEffect;
+using System;
 using System.Collections;
 using UnityEngine;
-using System;
 
 namespace Cursed.Character
 {
@@ -17,7 +17,7 @@ namespace Cursed.Character
         [SerializeField] private VibrationData_SO _takeDamageVibration;
 
         private CharacterStats _stats = null;
-        private int _currentHealth = 0;
+        protected int _currentHealth = 0;
         private bool _isInvincible = false;
         private float _timeInvincibleLeft = 0f;
 
@@ -75,7 +75,7 @@ namespace Cursed.Character
 
         #region Modifiers
 
-        public void OnAttack(GameObject attacker, Attack attack)
+        public virtual void OnAttack(GameObject attacker, Attack attack)
         {
             if (_isInvincible || IsInvicibleMovement())
             {

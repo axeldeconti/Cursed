@@ -7,6 +7,7 @@ namespace Cursed.UI
     public class UpdateIntFilledValue : MonoBehaviour
     {
         [SerializeField] private bool _lerpValues = true;
+        [SerializeField] private Animator _barAnimator;
 
         private Image _fillImage = null;
 
@@ -23,6 +24,8 @@ namespace Cursed.UI
             _updateMaxBar = GetComponentInParent<UpdateMaxBar>();
 
             HealthManager enemyHealth = GetComponentInParent<HealthManager>();
+            
+
             if (enemyHealth != null)
                 enemyHealth.onEnemyHealthUpdate += UpdateValue;
         }
@@ -47,6 +50,12 @@ namespace Cursed.UI
             {
                 _currentValue = f;
                 _updateValue = true;
+            }
+
+            if (_barAnimator != null)
+            {
+                Debug.Log("Shake");
+                _barAnimator.SetTrigger("Skake");
             }
         }
     }
