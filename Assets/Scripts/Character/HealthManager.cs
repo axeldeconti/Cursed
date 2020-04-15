@@ -3,6 +3,7 @@ using Cursed.Combat;
 using System.Collections;
 using Cursed.VisualEffect;
 using Cursed.Utilities;
+using System;
 
 namespace Cursed.Character
 {
@@ -230,7 +231,6 @@ namespace Cursed.Character
             {
                 _sfx.EnemyDeathSFX();
                 Destroy(gameObject);
-                Debug.Log(GameObject.FindGameObjectsWithTag("Enemy").Length + 1);
                 if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);
             }

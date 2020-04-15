@@ -269,6 +269,9 @@ namespace Cursed.Character
 
         private bool CheckIfCanDash()
         {
+            if (GameManager.Instance.State != GameManager.GameState.InGame)
+                return false;
+
             int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position, _side * Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
 
             bool canDash = i == 0;
@@ -457,7 +460,11 @@ namespace Cursed.Character
 
                 if (_isDashing)
                 {
-                    Jump(_dashJump);
+                    bool forced = false;
+                    UpdateForceToContinu(ref forced);
+
+                    if (!forced)
+                        Jump(_dashJump);
                 }
                 else
                 {
@@ -466,7 +473,7 @@ namespace Cursed.Character
             }
 
             //If on wall, wall jump
-            if ((_coll.OnWall && !_coll.OnGround && _wallGrab) || _wasOnWall)
+            if ((_coll.OnWall && !_coll.OnGround && _wallGrab) || _wasOnWall && !_isDashing)
                 WallJump();
         }
 
