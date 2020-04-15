@@ -10,6 +10,12 @@ Shader "Shadero Customs/Shader_Props_TextMonitor"
 Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
+PixelUV_Size_1("PixelUV_Size_1", Range(1, 128)) = 83
+AnimatedShakeUV_1_OffsetX_1("AnimatedShakeUV_1_OffsetX_1", Range(0, 0.05)) = 0.02
+AnimatedShakeUV_1_OffsetY_1("AnimatedShakeUV_1_OffsetY_1", Range(0, 0.05)) = 0
+AnimatedShakeUV_1_IntenseX_1("AnimatedShakeUV_1_IntenseX_1", Range(-3, 3)) = 3
+AnimatedShakeUV_1_IntenseY_1("AnimatedShakeUV_1_IntenseY_1", Range(-3, 3)) = 1
+AnimatedShakeUV_1_Speed_1("AnimatedShakeUV_1_Speed_1", Range(-1, 1)) = 1
 _SourceNewTex_1("_SourceNewTex_1(RGB)", 2D) = "white" { }
 __CompressionFX_Value_1("__CompressionFX_Value_1", Range(1, 16)) = 16
 _SpriteFade("SpriteFade", Range(0, 1)) = 1.0
@@ -64,6 +70,12 @@ float4 color    : COLOR;
 
 sampler2D _MainTex;
 float _SpriteFade;
+float PixelUV_Size_1;
+float AnimatedShakeUV_1_OffsetX_1;
+float AnimatedShakeUV_1_OffsetY_1;
+float AnimatedShakeUV_1_IntenseX_1;
+float AnimatedShakeUV_1_IntenseY_1;
+float AnimatedShakeUV_1_Speed_1;
 sampler2D _SourceNewTex_1;
 float __CompressionFX_Value_1;
 
@@ -98,9 +110,23 @@ float4 result = float4(float3(col1.x, col1.y, col1.z), 1.0);
 result.a = col1.a;
 return result;
 }
+float2 PixelUV(float2 uv, float x)
+{
+uv = floor(uv * x + 0.5) / x;
+return uv;
+}
+float2 AnimatedShakeUV(float2 uv, float offsetx, float offsety, float zoomx, float zoomy, float speed)
+{
+float time = sin(_Time * speed * 5000 * zoomx);
+float time2 = sin(_Time * speed * 5000 * zoomy);
+uv += float2(offsetx * time, offsety * time2);
+return uv;
+}
 float4 frag (v2f i) : COLOR
 {
-float4 _CompressionFX_1 = CompressionFX(i.texcoord,_SourceNewTex_1,__CompressionFX_Value_1);
+float2 PixelUV_1 = PixelUV(i.texcoord,PixelUV_Size_1);
+float2 AnimatedShakeUV_1 = AnimatedShakeUV(PixelUV_1,AnimatedShakeUV_1_OffsetX_1,AnimatedShakeUV_1_OffsetY_1,AnimatedShakeUV_1_IntenseX_1,AnimatedShakeUV_1_IntenseY_1,AnimatedShakeUV_1_Speed_1);
+float4 _CompressionFX_1 = CompressionFX(AnimatedShakeUV_1,_SourceNewTex_1,__CompressionFX_Value_1);
 float4 FinalResult = _CompressionFX_1;
 FinalResult.rgb *= i.color.rgb;
 FinalResult.a = FinalResult.a * _SpriteFade * i.color.a;
