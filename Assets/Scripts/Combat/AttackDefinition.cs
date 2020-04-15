@@ -24,7 +24,8 @@ namespace Cursed.Combat
         [SerializeField] private GameObject _vfxCombo3;
 
         [Header("Vibration")]
-        [SerializeField] private VibrationData_SO _vibrationData;
+        [SerializeField] private VibrationData_SO _classicVibration;
+        [SerializeField] private VibrationData_SO _combo3Vibration;
 
         public Attack CreateAttack()
         {
@@ -66,6 +67,7 @@ namespace Cursed.Combat
         public float CriticalChance { get => _criticalChance; set => _criticalChance.Value = value; }
         public GameObject[] VfxTouchImpact { get => _vfxTouchImpact; set => _vfxTouchImpact = value; }
         public GameObject VfxCombo3 { get => _vfxCombo3; set => _vfxCombo3 = value; }
-        public VibrationData_SO Vibration {get => _vibrationData; set => _vibrationData = value; }
+        public VibrationData_SO ClassicVibration {get => _classicVibration; set => _classicVibration = value; }
+        public VibrationData_SO Combo3Vibration { get => _combo3Vibration; set => _combo3Vibration = value; }
     }
 }

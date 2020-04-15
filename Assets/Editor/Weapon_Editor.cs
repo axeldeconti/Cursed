@@ -66,7 +66,8 @@ namespace Cursed.Combat
             //Vibration
             GUILayout.Space(10);
             GUILayout.Label("Vibration", EditorStyles.boldLabel);
-            _weapon.Vibration = (VibrationData_SO)EditorGUILayout.ObjectField(_weapon.Vibration, typeof(VibrationData_SO));
+            _weapon.ClassicVibration = (VibrationData_SO)EditorGUILayout.ObjectField(_weapon.ClassicVibration, typeof(VibrationData_SO));
+            _weapon.Combo3Vibration = (VibrationData_SO)EditorGUILayout.ObjectField(_weapon.Combo3Vibration, typeof(VibrationData_SO));
 
             EditorUtility.SetDirty(_weapon);
             _object.ApplyModifiedProperties();

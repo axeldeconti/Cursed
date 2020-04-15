@@ -115,7 +115,10 @@ namespace Cursed.Character
                 _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
             }
             //Vibration
-            ControllerVibration.Instance.StartVibration(weapon.Vibration);
+            if(Combo !=3 )
+                ControllerVibration.Instance.StartVibration(weapon.ClassicVibration);
+            else
+                ControllerVibration.Instance.StartVibration(weapon.Combo3Vibration);
         }
 
         /// <summary>
