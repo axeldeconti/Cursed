@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 9149523834209673447}
   - component: {fileID: 9149523834209673445}
   - component: {fileID: 9149523834209673444}
+  - component: {fileID: 255208536}
   m_Layer: 0
   m_Name: Props_CameraView
   m_TagString: Untagged
@@ -241,3 +242,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 9149523832363780232}
+--- !u!114 &255208536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9149523834209673443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6387402591036949a33785c425de393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetIsEnemy: 1
+  _screenGO: {fileID: 0}
+  _noiseMat: {fileID: 2100000, guid: b909f36aeb2550e4487a3e3530a486fa, type: 2}
+  _screenMat: {fileID: 2100000, guid: fe3ad88228fd7304cbb6d1d76a23dcf2, type: 2}
+  _timeBeforeSwitchTarget: 7
+  _noiseDuration: 2
