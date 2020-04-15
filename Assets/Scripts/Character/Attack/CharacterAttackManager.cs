@@ -190,6 +190,17 @@ namespace Cursed.Character
             return CurrentWeapon.VfxTouchImpact;
         }
 
+        public GameObject GetVfxCombo3()
+        {
+            if (!IsAttacking)
+                return null;
+
+            if (_isDiveKicking)
+                return null;
+
+            return CurrentWeapon.VfxCombo3;
+        }
+
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);

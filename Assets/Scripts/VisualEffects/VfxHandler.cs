@@ -189,6 +189,16 @@ namespace Cursed.Character
             return particle;
         }
 
+        public GameObject Combo3(Vector3 pos, GameObject vfxCombo3, GameObject attacker)
+        {
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(vfxCombo3, pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, 0, 0);
+            return particle;
+        }
+
         #region Getters & Setters
         public GameObject VfxDoubleJump => _vfxDoubleJump;
         public GameObject VfxFall => _vfxFall;

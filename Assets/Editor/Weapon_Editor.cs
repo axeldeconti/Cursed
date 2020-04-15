@@ -12,6 +12,7 @@ namespace Cursed.Combat
         private SerializedObject _object;
         private SerializedProperty _damageType;
         private SerializedProperty _vfxTouchImpact;
+        private SerializedProperty _vfxCombo3;
 
         private void OnEnable()
         {
@@ -19,6 +20,7 @@ namespace Cursed.Combat
             _object = new SerializedObject(target);
             _damageType = _object.FindProperty("_damageType");
             _vfxTouchImpact = _object.FindProperty("_vfxTouchImpact");
+            _vfxCombo3 = _object.FindProperty("_vfxCombo3");
         }
 
         public override void OnInspectorGUI()
@@ -59,6 +61,7 @@ namespace Cursed.Combat
             GUILayout.Space(10);
             GUILayout.Label("Vfx", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_vfxTouchImpact, true);
+            EditorGUILayout.PropertyField(_vfxCombo3, true);
 
             //Vibration
             GUILayout.Space(10);
