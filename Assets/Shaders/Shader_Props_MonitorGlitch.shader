@@ -5,7 +5,7 @@
 /// http://www.shadero.com #Docs                            //
 //////////////////////////////////////////////////////////////
 
-Shader "Shadero Customs/Shader_Props_MonitorGlitch"
+Shader "Shadero Customs/Shader_Props_TextMonitor"
 {
 Properties
 {
