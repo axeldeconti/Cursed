@@ -31,6 +31,11 @@ namespace Cursed.Character
         private InvincibilityAnimation _invAnim;
 
         public Action<int> onEnemyHealthUpdate;
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeCombo3 = null;
+        [SerializeField] private ShakeData _shakeCritic = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
 
         #region Initalizer
 
@@ -124,12 +129,22 @@ namespace Cursed.Character
                         {
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-                            if (!atkMgr.IsDiveKicking) //&& atkMgr.Combo != 3
-                                _vfx.SlashAttackEffect(transform.position, attacker);
+                            if(!atkMgr.IsDiveKicking)
+                                _vfx.AttackEffect(transform.position, attacker);
 
                             //Do something is critical
-                            if (attack.IsCritical)
-                                _vfx.AttackCriticalEffect(transform.position, attacker);
+                            if(attack.IsCritical && atkMgr.Combo != 3)
+                            {
+                                _vfx.CriticalEffect(transform.position, attacker);
+                                _onCamShake?.Raise(_shakeCritic);
+                            }
+
+                            //Do something for Combo 3
+                            if(atkMgr.Combo == 3)
+                            {
+                                _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
+                                _onCamShake?.Raise(_shakeCombo3);
+                            }
                         }
                     }
                 }
