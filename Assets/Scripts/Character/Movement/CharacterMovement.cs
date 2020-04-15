@@ -255,6 +255,13 @@ namespace Cursed.Character
             _timeToNextDash = Time.time + _dashCooldown;
             Destroy(_refDashSpeedVfx);
             Destroy(_refDashDustVfx);
+
+            //Check for flip if is attacking
+            if (_attackManager.IsAttacking)
+            {
+                if ((_input.x > 0 && _side == -1) || (_input.x < 0 && _side == 1))
+                    ForceFlip(_input.x);
+            }
         }
 
         private void UpdateForceToContinu(ref bool forceToContinu)
@@ -276,7 +283,7 @@ namespace Cursed.Character
 
             bool canDash = i == 0;
 
-            return canDash || _isJumping;
+            return canDash && !_isJumping && !_attackManager.IsAttacking;
         }
 
         private IEnumerator ResetValuesOnAfterDash()
@@ -781,6 +788,23 @@ namespace Cursed.Character
         private void StopInvincibleMovement()
         {
             _isInvincible = false;
+        }
+
+        /// <summary>
+        /// Used when dash cancel with attack to attack in the right direction
+        /// </summary>
+        private void ForceFlip(float x)
+        {
+            if (x > .1f)
+            {
+                _side = 1;
+                _anim.Flip(_side);
+            }
+            if (x < -.1f)
+            {
+                _side = -1;
+                _anim.Flip(_side);
+            }
         }
 
         private void OnDrawGizmos()

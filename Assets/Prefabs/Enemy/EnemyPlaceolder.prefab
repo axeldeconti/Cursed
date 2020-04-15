@@ -186,6 +186,9 @@ MonoBehaviour:
   onMaxHealthUpdate: {fileID: 0}
   onDeath: {fileID: 11400000, guid: 1838cfb5a6dbdb24fbb4ed68d2220252, type: 2}
   addEnemy: {fileID: 11400000, guid: b79507f460c093541bbf931d0628676d, type: 2}
+  _shakeCombo3: {fileID: 11400000, guid: 5cd8781a3152b9542956a9e3077a9180, type: 2}
+  _shakeCritic: {fileID: 11400000, guid: 9f81ee01cb0b3d94797c0d528f6839c5, type: 2}
+  _onCamShake: {fileID: 11400000, guid: 8a79bf79c1417ee438404cab95d4a731, type: 2}
 --- !u!114 &2073999563192726122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,17 +220,16 @@ MonoBehaviour:
     type: 3}
   _vfxTrailDivekick: {fileID: 4796411183293776234, guid: f133d0bb7e555e34594fccb0607241d1,
     type: 3}
-  _vfxSlashAttack:
+  _vfxCritical:
   - {fileID: 4770535873581478652, guid: f7831b836ae2f774393b7e5e30667482, type: 3}
   - {fileID: 6657351240293044476, guid: e480127cfc62a304ab1ed4ed8cf194f4, type: 3}
-  - {fileID: 3445959867886355058, guid: 11edb5fea282f674aa4f475893d76d7f, type: 3}
-  - {fileID: 1765968191274178739, guid: 937e1fb666e5f1e4c88e455ced71833d, type: 3}
-  - {fileID: 1765968191274178739, guid: b1547f3b0c90cf848a43cf142b5f5cdb, type: 3}
-  - {fileID: 1765968191274178739, guid: ae3359737abd3ab44b5b526fa49a99e9, type: 3}
-  _vfxAttackCritical:
+  _vfxAttack:
   - {fileID: 6277021173555870149, guid: 8b8ad14f78cf01348a660084366fd6fc, type: 3}
   - {fileID: 2787424099464129439, guid: decbd7ae61dedea4ca8b5449c6613dba, type: 3}
   - {fileID: 766887639296522203, guid: 38552f38aa9066a44a2041e925b0d779, type: 3}
+  - {fileID: 766887639296522203, guid: 06721cff0e73b924fb316f2e8b08bbf1, type: 3}
+  _vfxCombo3: {fileID: 766887639296522203, guid: 5b1e414c737383e49a05474b675a9e8d,
+    type: 3}
   _refFlashScreen: {fileID: 0}
 --- !u!114 &3232198941163069658
 MonoBehaviour:

@@ -115,7 +115,10 @@ namespace Cursed.Character
                 _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
             }
             //Vibration
-            ControllerVibration.Instance.StartVibration(weapon.Vibration);
+            if(Combo !=3 )
+                ControllerVibration.Instance.StartVibration(weapon.ClassicVibration);
+            else
+                ControllerVibration.Instance.StartVibration(weapon.Combo3Vibration);
         }
 
         /// <summary>
@@ -188,6 +191,17 @@ namespace Cursed.Character
                 return _divekickAttack.VfxTouchImpact;
 
             return CurrentWeapon.VfxTouchImpact;
+        }
+
+        public GameObject GetVfxCombo3()
+        {
+            if (!IsAttacking)
+                return null;
+
+            if (_isDiveKicking)
+                return null;
+
+            return CurrentWeapon.VfxCombo3;
         }
 
         public bool IsAttacking => _isAttacking;

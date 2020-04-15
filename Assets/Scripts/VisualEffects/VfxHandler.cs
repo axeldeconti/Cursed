@@ -19,8 +19,8 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxTrailDivekick;
 
         [Header("VFX Attack")]
-        [SerializeField] private GameObject[] _vfxSlashAttack;
-        [SerializeField] private GameObject[] _vfxAttackCritical;
+        [SerializeField] private GameObject[] _vfxCritical;
+        [SerializeField] private GameObject[] _vfxAttack;
 
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
@@ -167,23 +167,33 @@ namespace Cursed.Character
             Instantiate(vfxTouchImpact[rnd], pos + offset, Quaternion.identity);
         }
 
-        public GameObject SlashAttackEffect(Vector3 pos, GameObject attacker)
+        public GameObject CriticalEffect(Vector3 pos, GameObject attacker)
         {
-            int rnd = Random.Range(0, _vfxSlashAttack.Length);
+            int rnd = Random.Range(0, _vfxCritical.Length);
             int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
             Vector3 offset = new Vector3(0, 3, 0);
-            GameObject particle = Instantiate(_vfxSlashAttack[rnd], pos + offset, Quaternion.identity);
+            GameObject particle = Instantiate(_vfxCritical[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, Random.Range(0,2), 0);
+            return particle;
+        }
+
+        public GameObject AttackEffect(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxAttack.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxAttack[rnd], pos + offset, Quaternion.identity);
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
             rendererParticle.flip = new Vector3(side, 0, 0);
             return particle;
         }
 
-        public GameObject AttackCriticalEffect(Vector3 pos, GameObject attacker)
+        public GameObject Combo3(Vector3 pos, GameObject vfxCombo3, GameObject attacker)
         {
-            int rnd = Random.Range(0, _vfxAttackCritical.Length);
             int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
             Vector3 offset = new Vector3(0, 3, 0);
-            GameObject particle = Instantiate(_vfxAttackCritical[rnd], pos + offset, Quaternion.identity);
+            GameObject particle = Instantiate(vfxCombo3, pos + offset, Quaternion.identity);
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
             rendererParticle.flip = new Vector3(side, 0, 0);
             return particle;
