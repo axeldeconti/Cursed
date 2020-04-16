@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PreviewMaterial
-  m_Shader: {fileID: 4800000, guid: db879b679c7f6ae478b035b1004930b0, type: 3}
+  m_Shader: {fileID: 4800000, guid: a8395e3d670a16a4b8c7b88f250a0b78, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -45,6 +45,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - MorphingPack_UV_Before_1:
         m_Texture: {fileID: 2800000, guid: 9b057bf6b443e11499cb33feb3757af6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - PatternMovementPackMask_1:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - PatternMovementPackMask_2:
@@ -96,11 +100,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NewTex_1:
-        m_Texture: {fileID: 2800000, guid: 23a4b613f6e62194fa9890a89292faf9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3dfee176674948c44bc991586ac39375, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NewTex_2:
-        m_Texture: {fileID: 2800000, guid: 6086b12f15102904d9d8852997781d00, type: 3}
+        m_Texture: {fileID: 1552208714716835985, guid: 95e460b022e661946a87d0e834564581,
+          type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NewTex_3:
@@ -132,11 +137,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SourceNewTex_1:
-        m_Texture: {fileID: 2800000, guid: 03a49f9871c06874ab9f996c77d99ead, type: 3}
+        m_Texture: {fileID: 1552208714716835985, guid: 95e460b022e661946a87d0e834564581,
+          type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SourceNewTex_2:
-        m_Texture: {fileID: 2800000, guid: 2e52e8594dd87a14e8f10d3c24f48e80, type: 3}
+        m_Texture: {fileID: 2800000, guid: c6d588d88a4c48d48bc2020bd01742ea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SourceNewTex_3:
@@ -173,11 +179,11 @@ Material:
     - AnimatedPingPongOffsetUV_1_Speed_1: 0.1
     - AnimatedPingPongOffsetUV_1_ZoomX_1: 1
     - AnimatedPingPongOffsetUV_1_ZoomY_1: 1
-    - AnimatedShakeUV_1_IntenseX_1: 1
-    - AnimatedShakeUV_1_IntenseY_1: 0.15
-    - AnimatedShakeUV_1_OffsetX_1: 0
-    - AnimatedShakeUV_1_OffsetY_1: 0.031
-    - AnimatedShakeUV_1_Speed_1: 0.092
+    - AnimatedShakeUV_1_IntenseX_1: 3
+    - AnimatedShakeUV_1_IntenseY_1: 1
+    - AnimatedShakeUV_1_OffsetX_1: 0.02
+    - AnimatedShakeUV_1_OffsetY_1: 0
+    - AnimatedShakeUV_1_Speed_1: 1
     - AnimatedTwistUV_AnimatedTwistUV_Bend_1: 0.84
     - AnimatedTwistUV_AnimatedTwistUV_Bend_2: 0
     - AnimatedTwistUV_AnimatedTwistUV_PosX_1: -0.111
@@ -193,15 +199,15 @@ Material:
     - AnimatedZoomUV_AnimatedZoomUV_PosY_1: 0.4
     - AnimatedZoomUV_AnimatedZoomUV_Speed_1: 0.392
     - AnimatedZoomUV_AnimatedZoomUV_Zoom_1: 0.953
-    - DistortionUV_DistanceX_1: 1
+    - DistortionUV_DistanceX_1: 0.3
     - DistortionUV_DistanceX_2: 0.238
-    - DistortionUV_DistanceY_1: 1
+    - DistortionUV_DistanceY_1: 0.3
     - DistortionUV_DistanceY_2: 0.104
-    - DistortionUV_Speed_1: 0.592
+    - DistortionUV_Speed_1: 1
     - DistortionUV_Speed_2: 0.262
-    - DistortionUV_WaveX_1: 3.258
+    - DistortionUV_WaveX_1: 10
     - DistortionUV_WaveX_2: 17.641
-    - DistortionUV_WaveY_1: 12.567
+    - DistortionUV_WaveY_1: 10
     - DistortionUV_WaveY_2: 20.594
     - FishEyeUV_Size_1: 0.373
     - KaleidoscopeUV_Number_1: 1.779
@@ -211,7 +217,7 @@ Material:
     - OffsetUV_Y_1: 0
     - OffsetUV_ZoomX_1: 1.371
     - OffsetUV_ZoomY_1: 1
-    - PixelUV_Size_1: 32
+    - PixelUV_Size_1: 83
     - PixelXYUV_SizeX_1: 32
     - PixelXYUV_SizeY_1: 32
     - PositionUV_X_1: -0.035
@@ -257,8 +263,8 @@ Material:
     - _Blur_Intensity_1: 1
     - _Blur_Intensity_2: 1
     - _BumpScale: 1
-    - _Burn_Speed_1: -3.395
-    - _Burn_Value_1: 0
+    - _Burn_Speed_1: 0.907
+    - _Burn_Value_1: 0.386
     - _CircleFade_Dist_1: 0.2
     - _CircleFade_Dist_2: 0.2
     - _CircleFade_PosX_1: 0.5
@@ -907,7 +913,7 @@ Material:
     - _Make3DFX_PosY_2: -0.09743948
     - _Make3DFX_Size_1: 8
     - _Make3DFX_Size_2: 8.512886
-    - _Mask2RGBA_Fade_1: 1
+    - _Mask2RGBA_Fade_1: 0.9
     - _Mask2uv_Fade_13: 0
     - _Mask2uv_Fade_15: 1
     - _Mask2uv_Fade_17: 0
@@ -933,15 +939,20 @@ Material:
     - _OperationBlend_Fade_2: 0.764
     - _Outline_Size_1: 1
     - _Parallax: 0.02
+    - _PatternMovementPack_Intensity_1: 0
+    - _PatternMovementPack_MaskIntensity_1: 0
+    - _PatternMovementPack_Speed_1: 1
+    - _PatternMovementPack_ValueX_1: 0
+    - _PatternMovementPack_ValueY_1: 0
     - _PatternMovement_PosX_1: 0.077
     - _PatternMovement_PosX_2: 0
     - _PatternMovement_PosY_1: -0.4
     - _PatternMovement_PosY_2: -0.092
     - _PatternMovement_Speed_1: 0.974
     - _PatternMovement_Speed_2: 0.979
-    - _PlasmaFX_Fade_1: 0.688
+    - _PlasmaFX_Fade_1: 0.5
     - _PlasmaFX_Offset_1: 0.5
-    - _PlasmaFX_Speed_1: 0.759
+    - _PlasmaFX_Speed_1: 0.5
     - _PlasmaLightFX_BW_1: 1
     - _PlasmaLightFX_Fade_1: 0.5
     - _PlasmaLightFX_Speed_1: 0.5
@@ -949,7 +960,7 @@ Material:
     - _PremadeGradients_Fade_2: 1
     - _PremadeGradients_Offset_1: 0
     - _PremadeGradients_Offset_2: 0
-    - _PremadeGradients_Speed_1: 0.496
+    - _PremadeGradients_Speed_1: 5
     - _PremadeGradients_Speed_2: 0
     - _RGBA_Add_Fade_1: 1.756
     - _RGBA_Mul_Fade_1: 1.332
@@ -997,7 +1008,7 @@ Material:
     - _TurnGold_Speed_1: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - __CompressionFX_Value_1: 0.2
+    - __CompressionFX_Value_1: 16
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorGradients_Color1_1: {r: 1, g: 0, b: 0, a: 1}
@@ -1007,14 +1018,14 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FillColor_Color_1: {r: 0.83823526, g: 0.8004892, b: 0.51739347, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _FourGradients_Color1_1: {r: 1, g: 0, b: 0, a: 0}
+    - _FourGradients_Color1_1: {r: 1, g: 0, b: 0, a: 1}
     - _FourGradients_Color1_1222: {r: 1, g: 0, b: 0, a: 1}
     - _FourGradients_Color1_2: {r: 1, g: 0, b: 0, a: 1}
-    - _FourGradients_Color2_1: {r: 0, g: 1, b: 0, a: 0}
+    - _FourGradients_Color2_1: {r: 0, g: 1, b: 0, a: 1}
     - _FourGradients_Color2_2: {r: 0, g: 1, b: 0, a: 1}
-    - _FourGradients_Color3_1: {r: 1, g: 0.616, b: 0, a: 0.172}
+    - _FourGradients_Color3_1: {r: 0, g: 0, b: 1, a: 1}
     - _FourGradients_Color3_2: {r: 0, g: 0, b: 1, a: 1}
-    - _FourGradients_Color4_1: {r: 1, g: 0.48529413, b: 0, a: 0.316}
+    - _FourGradients_Color4_1: {r: 1, g: 1, b: 0, a: 1}
     - _FourGradients_Color4_2: {r: 1, g: 1, b: 0, a: 1}
     - _FourGradients_Up_Left: {r: 1, g: 0, b: 0, a: 1}
     - _FourGradients_Up_Right: {r: 0, g: 1, b: 0, a: 1}
