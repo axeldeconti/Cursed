@@ -40,6 +40,12 @@ public class GameManager : Singleton<GameManager>
         FPS = Mathf.RoundToInt(1f / Time.unscaledDeltaTime);
     }
 
+    public string GetGameVersion()
+    {
+        string version = Application.version;
+        return version;
+    }
+
     private void InstatiateSystemPrefabs()
     {
         _instancedSystemPrefabs = new List<GameObject>();

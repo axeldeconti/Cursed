@@ -23,7 +23,9 @@ namespace Cursed.UI
 
         public void Play()
         {
-            _gameManager.LoadLevel("Scene_Proto_Game");
+            _mainMenuAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void Home()
@@ -48,6 +50,12 @@ namespace Cursed.UI
         public void Quit()
         {
             _gameManager.QuitGame();
+        }
+
+        IEnumerator WaitBeforeLoad(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            _gameManager.LoadLevel("Scene_Proto_Game");
         }
 
         IEnumerator WaitForActive(GameObject go, bool active, float delay)
