@@ -4,6 +4,7 @@ using System.Collections;
 using Cursed.VisualEffect;
 using Cursed.Utilities;
 using System;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Cursed.Character
 {
@@ -16,11 +17,17 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _freezeFrameKill;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
 
+        [Space]
+        [Header("Head light")]
+        [SerializeField] private Light2D _headLight = null;
+        [SerializeField] private Gradient _lightGradient = null;
+
         private CharacterStats _stats = null;
         private int _currentHealth = 0;
         private bool _isInvincible = false;
         private float _timeInvincibleLeft = 0f;
 
+        [Space]
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
@@ -160,6 +167,9 @@ namespace Cursed.Character
             else
             {
                 _currentHealth = health;
+                _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
+
+                _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
 
                 if (onHealthUpdate != null)
                     onHealthUpdate.Raise(_currentHealth);
@@ -171,6 +181,9 @@ namespace Cursed.Character
             _currentHealth += amount;
 
             _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
+
+            _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
+
 
             if (onHealthUpdate != null)
                 onHealthUpdate.Raise(_currentHealth);
