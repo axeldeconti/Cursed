@@ -152,6 +152,14 @@ namespace Cursed.Character
                                 _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
                                 _onCamShake?.Raise(_shakeCombo3);
                             }
+
+                            //Blood effect
+                            int _varRndBlood = UnityEngine.Random.Range(0, 3);
+                            if(!atkMgr.IsDiveKicking && _varRndBlood == 0)
+                            {
+                                _vfx.BloodParticle(transform.position, attacker);
+                                _vfx.BloodProjection(transform.position, attacker);
+                            }
                         }
                     }
                 }

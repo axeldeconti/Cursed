@@ -21,6 +21,8 @@ namespace Cursed.Character
         [Header("VFX Attack")]
         [SerializeField] private GameObject[] _vfxCritical;
         [SerializeField] private GameObject[] _vfxAttack;
+        [SerializeField] private GameObject _vfxBloodParticle;
+        [SerializeField] private GameObject[] _vfxBloodProjection;
 
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
@@ -196,6 +198,41 @@ namespace Cursed.Character
             GameObject particle = Instantiate(vfxCombo3, pos + offset, Quaternion.identity);
             ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
             rendererParticle.flip = new Vector3(side, 0, 0);
+            return particle;
+        }
+
+        public GameObject BloodParticle(Vector3 pos, GameObject attacker)
+        {
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxBloodParticle, pos + offset, Quaternion.identity);
+            ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
+            if(side == 0)
+                shapeParticle.rotation = new Vector3(0, 90, 0);
+            else
+                shapeParticle.rotation = new Vector3(0, -90, 0);
+
+            return particle;
+        }
+
+        public GameObject BloodProjection(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxBloodProjection.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxBloodProjection[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            if (side == 1)
+            {
+                rendererParticle.flip = new Vector3(0, 0, 0);
+                rendererParticle.pivot = new Vector3(-0.5f, 0.5f, 0);
+            }
+            else
+            {
+                rendererParticle.flip = new Vector3(1, 0, 0);
+                rendererParticle.pivot = new Vector3(0.5f, 0.5f, 0);
+            }
+
             return particle;
         }
 
