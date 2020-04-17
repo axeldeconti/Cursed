@@ -268,6 +268,7 @@ namespace Cursed.Character
             if (gameObject.tag.Equals("Enemy"))
             {
                 _sfx.EnemyDeathSFX();
+                _vfx.EnemyDeathEffect(transform.position);
                 Destroy(gameObject);
                 if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);
