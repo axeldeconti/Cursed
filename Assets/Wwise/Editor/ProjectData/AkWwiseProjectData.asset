@@ -17,14 +17,14 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 1670697613dda2419016f537a3137412
     GuidInternal: 
-    m_lastTime: -8586184653362760943
+    m_lastTime: -8586152570421948790
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 4799e45544d55a4892fe138223275588
     GuidInternal: 
-    m_lastTime: -8586184653366295120
+    m_lastTime: -8586152570448726846
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -40,7 +40,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586171590170462625
+    m_lastTime: -8586144931716993211
     List:
     - name: Characters
       guid: 7cd07edfa3d31d43b7738d06e66fb061
@@ -92,7 +92,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586171591136366474
+    m_lastTime: -8586144924396795408
     List:
     - name: Attack
       guid: 677527c83d22624681e9e422da0fa12b
@@ -280,6 +280,22 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Begin_WallSlide
+      guid: ea1cc26ff5d6844ba14ed8b7b03cb94e
+      id: 4060380671
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Play_Begin_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Character\WallSlide\Play_Begin_WallSlide
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Button_Pressed
       guid: 94ba59219cd0b64fac7441fe36cf2908
       id: 1724924593
@@ -389,6 +405,20 @@ MonoBehaviour:
       - ElementName: Play_Dash
         ObjectType: 3
       Path: Default Work Unit\Character\Play_Dash
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_DestructibleWall
+      guid: 35409c353a2d014b92fe7cf2c44c5d29
+      id: 3966446488
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: Play_DestructibleWall
+        ObjectType: 3
+      Path: Default Work Unit\Character\Play_DestructibleWall
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -578,22 +608,6 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Play_Main_WallSlide
-      guid: ea1cc26ff5d6844ba14ed8b7b03cb94e
-      id: 3033462115
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Character
-        ObjectType: 4
-      - ElementName: WallSlide
-        ObjectType: 4
-      - ElementName: Play_Main_WallSlide
-        ObjectType: 3
-      Path: Default Work Unit\Character\WallSlide\Play_Main_WallSlide
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
     - name: Play_MultiLaser
       guid: 0a679284079b454795bbaffec8289111
       id: 2996732270
@@ -696,6 +710,22 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Stop_Begin_Play_Loop_WallSlide
+      guid: 2e891f58f7e3bc498b9b07d2b638425a
+      id: 848533759
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Character
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Stop_Begin_Play_Loop_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Stop_Creature_OnChar
       guid: 01459f0e9960a64884cd000bce1650af
       id: 1316790141
@@ -707,22 +737,6 @@ MonoBehaviour:
       - ElementName: Stop_Creature_OnChar
         ObjectType: 3
       Path: Default Work Unit\Creature\Stop_Creature_OnChar
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
-    - name: Stop_Main_Play_Loop_WallSlide
-      guid: 2e891f58f7e3bc498b9b07d2b638425a
-      id: 3156285719
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Character
-        ObjectType: 4
-      - ElementName: WallSlide
-        ObjectType: 4
-      - ElementName: Stop_Main_Play_Loop_WallSlide
-        ObjectType: 3
-      Path: Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -761,28 +775,28 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: a1889d9b1db7f9469431a8f1a6a2a35d
     GuidInternal: 
-    m_lastTime: -8586184653366664445
+    m_lastTime: -8586152570455961819
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 276595bab354574f9d2d883a3a1b3010
     GuidInternal: 
-    m_lastTime: -8586184653362801236
+    m_lastTime: -8586152570422018606
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 2031ed91eb5c0f4d9b90b219b5c5e946
     GuidInternal: 
-    m_lastTime: -8586171646260325670
+    m_lastTime: -8586152570421998673
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 9411a18d3810e043ad340fbe3f4473cb
     GuidInternal: 
-    m_lastTime: -8586184653362771314
+    m_lastTime: -8586152570421978726
     List: []
   ExpandedItems:
   - /Cursed_WwiseProject

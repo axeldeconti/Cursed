@@ -6,6 +6,8 @@ public class CameraTargetProps : MonoBehaviour
     [SerializeField] private bool _targetIsEnemy;
     private Cinemachine.CinemachineVirtualCamera _cinemachineVCComponent;
 
+    private SwitchCellInfo _switchCellInfo;
+
     private GameObject[] _enemyList;
     private GameObject _enemyChosen;
     private GameObject _player;
@@ -22,6 +24,7 @@ public class CameraTargetProps : MonoBehaviour
     private void Awake()
     {
         _cinemachineVCComponent = this.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        _switchCellInfo = this.GetComponent<SwitchCellInfo>();
         _enemyList = GameObject.FindGameObjectsWithTag("Enemy");
         _player = GameObject.FindGameObjectWithTag("Player");
         _screenRenderer = _screenGO.GetComponent<MeshRenderer>();        
@@ -56,6 +59,7 @@ public class CameraTargetProps : MonoBehaviour
     IEnumerator TimerForSwitchTarget()
     {
         yield return new WaitForSeconds(_noiseDuration);
+        _switchCellInfo.UpdateCellInformation();
         _screenRenderer.material = _screenMat;
         yield return new WaitForSeconds(_timeBeforeSwitchTarget);
         ChangeTarget();

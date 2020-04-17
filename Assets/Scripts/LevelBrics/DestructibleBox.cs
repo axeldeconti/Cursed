@@ -49,6 +49,7 @@ namespace Cursed.Combat
         private GameObject CreateDestroyEffect(Transform attacker)
         {
             GameObject go = Instantiate(_destructionEffect, this.transform.position, Quaternion.identity);
+            AkSoundEngine.PostEvent("Play_DestructibleWall", gameObject);
             Vector2 direction = this.transform.position - attacker.GetChild(0).position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
