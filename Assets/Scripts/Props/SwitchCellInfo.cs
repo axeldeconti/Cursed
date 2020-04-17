@@ -4,55 +4,51 @@ using System.Collections;
 
 public class SwitchCellInfo : MonoBehaviour
 {
-    private TextMeshProUGUI _cellInfoText;
+    public TextMeshProUGUI cellInfoText;
 
-    [SerializeField] public int _cellNumber;
+    [SerializeField] private int _cellNumber;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        _cellInfoText = GetComponent<TextMeshProUGUI>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateCellInformation();
-    }
-
     public void UpdateCellInformation()
     {
         switch (_cellNumber)
         {
             case 9:
-                print("C3");
+                cellInfoText.text = "C3";
                 break;
             case 8:
-                print("C2");
+                cellInfoText.text = "B3";
                 break;
             case 7:
-                print("C1");
+                cellInfoText.text = "A3";
                 break;
             case 6:
-                print("B3");
+                cellInfoText.text = "C2";
                 break;
             case 5:
-                print("B2");
+                cellInfoText.text = "B2";
                 break;
             case 4:
-                print("B1");
+                cellInfoText.text = "A2";
                 break;
             case 3:
-                print("A3");
+                cellInfoText.text = "C1";
                 break;
             case 2:
-                print("A2");
+                cellInfoText.text = "B1";
                 break;
             case 1:
-                print("A1");
+                cellInfoText.text = "A1";
                 break;
             default:
                 break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<CellInfo>())
+        {
+            _cellNumber = other.gameObject.GetComponent<CellInfo>().cellNumberInfo;
         }
     }
 }
