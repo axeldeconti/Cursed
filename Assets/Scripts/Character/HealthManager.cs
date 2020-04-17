@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using Cursed.Combat;
-using System.Collections;
-using Cursed.VisualEffect;
+﻿using Cursed.Combat;
 using Cursed.Utilities;
+using Cursed.VisualEffect;
 using System;
+using UnityEngine.Experimental.Rendering.Universal;
+using System.Collections;
+using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -16,11 +17,17 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _freezeFrameKill;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
 
+        [Space]
+        [Header("Head light")]
+        [SerializeField] private Light2D _headLight = null;
+        [SerializeField] private Gradient _lightGradient = null;
+
         private CharacterStats _stats = null;
-        private int _currentHealth = 0;
+        protected int _currentHealth = 0;
         private bool _isInvincible = false;
         private float _timeInvincibleLeft = 0f;
 
+        [Space]
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
@@ -30,6 +37,7 @@ namespace Cursed.Character
         private SFXHandler _sfx = null;
         private InvincibilityAnimation _invAnim;
 
+        public Action<int> onEnemyHealthUpdate;
         [Space]
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeCombo3 = null;
@@ -65,8 +73,8 @@ namespace Cursed.Character
         #endregion
 
         private void Update()
-        { 
-            if(_timeInvincibleLeft > 0f)
+        {
+            if (_timeInvincibleLeft > 0f)
             {
                 _timeInvincibleLeft -= Time.deltaTime;
             }
@@ -79,7 +87,7 @@ namespace Cursed.Character
 
         #region Modifiers
 
-        public void OnAttack(GameObject attacker, Attack attack)
+        public virtual void OnAttack(GameObject attacker, Attack attack)
         {
             if (_isInvincible || IsInvicibleMovement())
             {
@@ -95,7 +103,7 @@ namespace Cursed.Character
                     attack.Effect.Invoke(_stats);
 
 
-                if(attacker != null)
+                if (attacker != null)
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
@@ -144,6 +152,14 @@ namespace Cursed.Character
                                 _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
                                 _onCamShake?.Raise(_shakeCombo3);
                             }
+
+                            //Blood effect
+                            int _varRndBlood = UnityEngine.Random.Range(0, 3);
+                            if(!atkMgr.IsDiveKicking && _varRndBlood == 0)
+                            {
+                                _vfx.BloodParticle(transform.position, attacker);
+                                _vfx.BloodProjection(transform.position, attacker);
+                            }
                         }
                     }
                 }
@@ -160,9 +176,12 @@ namespace Cursed.Character
             else
             {
                 _currentHealth = health;
+                _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
 
-                if (onHealthUpdate != null)
-                    onHealthUpdate.Raise(_currentHealth);
+                _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
+                onHealthUpdate?.Raise(_currentHealth);
+                onEnemyHealthUpdate?.Invoke(_currentHealth);
+
             }
         }
 
@@ -171,6 +190,9 @@ namespace Cursed.Character
             _currentHealth += amount;
 
             _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
+
+            _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
+
 
             if (onHealthUpdate != null)
                 onHealthUpdate.Raise(_currentHealth);
@@ -202,7 +224,7 @@ namespace Cursed.Character
             //Apply dot
             float timeLeft = duration;
 
-            while(timeLeft > 0)
+            while (timeLeft > 0)
             {
                 UpdateCurrentHealth((int)((float)_currentHealth - damagePerSecond));
                 yield return new WaitForSeconds(1f);

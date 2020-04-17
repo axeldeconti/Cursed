@@ -49,7 +49,10 @@ namespace Cursed.Character
 
         private void Update()
         {
+            float xSpeed = _move.IsDashing ? 20f : Mathf.Abs(_move.XSpeed);
+
             //Update every anim variables
+            _anim.SetFloat(_moveSpeedX, xSpeed);
             _anim.SetFloat(_moveSpeedY, _move.YSpeed);
             _anim.SetFloat(_jumpVelocity, Mathf.Clamp(_move.YSpeed, -15, 15));
             _anim.SetBool(_groundTouch, _coll.OnGround);
@@ -61,11 +64,6 @@ namespace Cursed.Character
             _anim.SetBool(_isDashing, _move.IsDashing);
             _anim.SetBool(_isWallSliding, _move.WallSlide);
             _anim.SetBool(_isAttacking, _atttack.IsAttacking);
-
-            if(_move.IsDashing)
-                _anim.SetFloat(_moveSpeedX, 20f);
-            else
-                _anim.SetFloat(_moveSpeedX, Mathf.Abs(_move.XSpeed));
         }
 
         /// <summary>

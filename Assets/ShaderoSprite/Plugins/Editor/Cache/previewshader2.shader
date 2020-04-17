@@ -10,7 +10,6 @@ Shader "Shadero Previews/PreviewXATXQ2"
 Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-_NewTex_1("NewTex_1(RGB)", 2D) = "white" { }
 _SpriteFade("SpriteFade", Range(0, 1)) = 1.0
 
 // required for UI.Mask
@@ -63,7 +62,6 @@ float4 color    : COLOR;
 
 sampler2D _MainTex;
 float _SpriteFade;
-sampler2D _NewTex_1;
 
 v2f vert(appdata_t IN)
 {
@@ -77,8 +75,8 @@ return OUT;
 
 float4 frag (v2f i) : COLOR
 {
-float4 NewTex_1 = tex2D(_NewTex_1, i.texcoord);
-float4 FinalResult = NewTex_1;
+float4 _MainTex_1 = tex2D(_MainTex, i.texcoord);
+float4 FinalResult = _MainTex_1;
 FinalResult.rgb *= i.color.rgb;
 FinalResult.a = FinalResult.a * _SpriteFade * i.color.a;
 return FinalResult;

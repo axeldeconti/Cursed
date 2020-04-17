@@ -24,20 +24,17 @@ public class CableScript : MonoBehaviour
             this.ropeSegments.Add(new RopeSegment(ropeStartPoint));
             ropeStartPoint.y -= ropeSegLen;
         }
-
-        this.DrawRope();
-        this.Simulate();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //this.DrawRope();
+        this.DrawRope();
     }
 
     private void FixedUpdate()
     {
-        //this.Simulate();
+        this.Simulate();
     }
 
     private void Simulate()

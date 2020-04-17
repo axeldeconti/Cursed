@@ -233,7 +233,7 @@ namespace Cursed.Character
 
             while (dashTimer >= 0 || forceToContinu)
             {
-                if (!CheckIfCanDash())
+                if (!CheckIfCanDash(forceToContinu))
                     break;
 
                 deltaDist = side * _dashDistance * 10 * (1 / (float)GameManager.FPS) / _dashTime;
@@ -264,7 +264,7 @@ namespace Cursed.Character
             }
         }
 
-        private void UpdateForceToContinu(ref bool forceToContinu)
+        public void UpdateForceToContinu(ref bool forceToContinu)
         {
             Vector2 frontOffset = new Vector2(_side * _upFrontRaycastOffset.x, _upFrontRaycastOffset.y);
             Vector2 backOffset = new Vector2(_side * _upBackRaycastOffset.x, _upBackRaycastOffset.y);
@@ -274,7 +274,7 @@ namespace Cursed.Character
             forceToContinu = (i + j) != 0;
         }
 
-        private bool CheckIfCanDash()
+        private bool CheckIfCanDash(bool forced)
         {
             if (GameManager.Instance.State != GameManager.GameState.InGame)
                 return false;
@@ -283,7 +283,9 @@ namespace Cursed.Character
 
             bool canDash = i == 0;
 
-            return canDash && !_isJumping && !_attackManager.IsAttacking;
+            bool attack = forced ? true : !_attackManager.IsAttacking;
+
+            return canDash && !_isJumping && attack;
         }
 
         private IEnumerator ResetValuesOnAfterDash()
@@ -539,10 +541,7 @@ namespace Cursed.Character
         {
             _canDash = !_isDashing && (Time.time >= _timeToNextDash);
 
-            if (!CheckIfCanDash())
-                return;
-
-            if (_attackManager.IsAttacking)
+            if (!CheckIfCanDash(false))
                 return;
 
             if (!_input.Dash.Value || !_canDash || !_groundTouch || !_dashUnlock)
