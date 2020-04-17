@@ -1140,6 +1140,39 @@
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
+								<Folder Name="DestructibleWall" ID="{411EFE82-CD9D-4660-BBEE-7B7F1750C398}" ShortID="1037040950">
+									<ChildrenList>
+										<Sound Name="Foley_DestructibleWall" ID="{412718BB-6463-483C-8A6B-20ECA122034C}" ShortID="186021465">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-10</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Foley_DestructibleWall" ID="{6F08D548-1093-4A56-802A-4E1FAD884847}">
+													<Language>SFX</Language>
+													<AudioFile>Foley_DestructibleWall.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="633154784"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Foley_DestructibleWall" ID="{6F08D548-1093-4A56-802A-4E1FAD884847}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</Folder>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>
