@@ -27,6 +27,14 @@ namespace Cursed.Creature
 
         private void Update()
         {
+            UpdateDirection();
+        }
+
+        private void UpdateDirection()
+        {
+            if (GameManager.Instance.State == GameManager.GameState.Pause)
+                return;
+
             if (_creature.CurrentState == CreatureState.OnCharacter)
             {
                 float mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")).magnitude);
@@ -59,7 +67,7 @@ namespace Cursed.Creature
                 if (_direction != Vector2.zero && _target == null)
                 {
                     _target = Instantiate(_targetLine, _origin.position, Quaternion.identity, this.transform);
-                    if(_target.GetComponent<CreatureJoystickLine>() != null)_target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                    if (_target.GetComponent<CreatureJoystickLine>() != null) _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     //UpdateTargetPosition(_direction);
                 }
 

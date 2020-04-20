@@ -75,6 +75,9 @@ namespace Cursed.Creature
 
         private void UpdateInput()
         {
+            if (GameManager.Instance.State == GameManager.GameState.Pause)
+                return;
+
             #region LAUNCH & RECALL
             if (_input.Down)
             {
