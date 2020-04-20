@@ -16,6 +16,8 @@ public class ScientistSpawnerMenu : MonoBehaviour
     {
         ScientistMovement scientist = Instantiate(_scientist, this.transform.position, Quaternion.identity, transform).GetComponent<ScientistMovement>();
         scientist.target = _target;
+        scientist.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-19, 0);
+
 
         if (_flip)
             scientist.flip = -1;
@@ -27,6 +29,6 @@ public class ScientistSpawnerMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SpawnScientist();
-        StartCoroutine(WaitForSpawnScientist(Random.Range(1.5f, 4f)));
+        StartCoroutine(WaitForSpawnScientist(Random.Range(2.5f, 5f)));
     }
 }
