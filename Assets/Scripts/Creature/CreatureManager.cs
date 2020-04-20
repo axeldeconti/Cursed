@@ -85,6 +85,9 @@ namespace Cursed.Creature
             }
             if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
             {
+                if (CreatureOnCharacter.Instance != null)
+                    Destroy(CreatureOnCharacter.Instance.gameObject);
+
                 CurrentState = CreatureState.OnComeBack;
                 AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
             }
