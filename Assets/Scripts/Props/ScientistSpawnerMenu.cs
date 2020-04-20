@@ -5,7 +5,7 @@ public class ScientistSpawnerMenu : MonoBehaviour
 {
     [SerializeField] private bool _flip;
     [SerializeField] private Transform _target;
-    [SerializeField] private GameObject _scientist;
+    [SerializeField] private GameObject[] _scientist;
 
     private void Start()
     {
@@ -14,7 +14,7 @@ public class ScientistSpawnerMenu : MonoBehaviour
 
     private void SpawnScientist()
     {
-        ScientistMovement scientist = Instantiate(_scientist, this.transform.position, Quaternion.identity, transform).GetComponent<ScientistMovement>();
+        ScientistMovement scientist = Instantiate(_scientist[Random.Range(0, _scientist.Length)], this.transform.position, Quaternion.identity, transform).GetComponent<ScientistMovement>();
         scientist.target = _target;
         scientist.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-19, 0);
 
