@@ -13,6 +13,7 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PLAY_ASSEMBLYLINE = 3793046172U;
         static const AkUniqueID PLAY_ATTACK_AXE_FIRSTSLICE = 1312214966U;
         static const AkUniqueID PLAY_ATTACK_SWORD_FIRSTSLICE = 2804287435U;
         static const AkUniqueID PLAY_BASICJUMP = 2216073360U;
