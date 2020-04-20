@@ -130,7 +130,7 @@ namespace Cursed.Character
 
                 if (gameObject.tag.Equals("Enemy"))
                 {
-                    if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
+                    if (attacker.tag.Equals("Player"))
                     {
                         if (atkMgr)
                         {
@@ -264,11 +264,12 @@ namespace Cursed.Character
             if (gameObject.tag.Equals("Player"))
             {
                 _sfx.PlayerDeathSFX();
+                _vfx.DeathEffect(transform.position);
             }
             if (gameObject.tag.Equals("Enemy"))
             {
                 _sfx.EnemyDeathSFX();
-                _vfx.EnemyDeathEffect(transform.position);
+                _vfx.DeathEffect(transform.position);
                 Destroy(gameObject);
                 if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);

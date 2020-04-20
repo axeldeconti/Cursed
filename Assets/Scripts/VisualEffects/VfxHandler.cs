@@ -237,7 +237,7 @@ namespace Cursed.Character
             return particle;
         }
 
-        public void EnemyDeathEffect(Vector3 pos)
+        public void DeathEffect(Vector3 pos)
         {
             Vector3 offset = new Vector3(0, 3, 0);
             Instantiate(_vfxEnemyDeathEffect, pos + offset, Quaternion.identity);
