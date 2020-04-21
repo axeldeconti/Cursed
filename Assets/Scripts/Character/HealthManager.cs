@@ -270,6 +270,9 @@ namespace Cursed.Character
             {
                 _sfx.EnemyDeathSFX();
                 _vfx.DeathEffect(transform.position);
+                _vfx.BloodExplosion(transform.position);
+                _vfx.AndroidPartExplosion(transform.position);
+
                 Destroy(gameObject);
                 if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);
