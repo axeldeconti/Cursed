@@ -43,6 +43,7 @@ namespace Cursed.Creature
         [Space]
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeLaunchCreature = null;
+        [SerializeField] private ShakeData _shakeCreatureOnCharacter = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
 
         private void Start() => Initialize();
@@ -88,7 +89,6 @@ namespace Cursed.Creature
             if (_input.Down && _creatureState == CreatureState.OnCharacter)
             {
                 DeAttachFromPlayer();
-                _onCamShake?.Raise(_shakeLaunchCreature);
             }
             if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
             {
@@ -186,6 +186,7 @@ namespace Cursed.Creature
 
             //Play VFX
             _vfx.CreatureLauchParticle(_launchDirection);
+            _onCamShake?.Raise(_shakeLaunchCreature);
 
             CurrentState = CreatureState.Moving;
         }
@@ -230,6 +231,7 @@ namespace Cursed.Creature
                         //ToggleChilds(false);
                         _vfx.CreatureTouchImpactParticle(_collision.HitTransform.GetChild(0));
                         _vfx.CreatureAberration(_vfx._higherChromacticAberrationValue);
+                        _onCamShake?.Raise(_shakeCreatureOnCharacter);
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);
