@@ -3,48 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapCellUI : MonoBehaviour
+namespace Cursed.UI
 {
-    [Header("Cell Info")]
-    [SerializeField] private int _cellInfo;
-    public CellInfo _myCell { get; private set; }
-
-    [Header("Sprites")]
-    [SerializeField] private Sprite _emptyCell;
-    [SerializeField] private Sprite _filledCell;
-    private Image _spriteImage;
-
-    [Header("Referencies")]
-    [SerializeField] private RectTransform _avatarPositionUI;
-
-    private void Awake()
+    public class MapCellUI : MonoBehaviour
     {
-        _spriteImage = GetComponent<Image>();
-    }
+        [Header("Cell Info")]
+        [SerializeField] private int _cellInfo;
+        public CellInfo _myCell { get; private set; }
 
-    private void Start()
-    {
-        CellInfo[] _cells = GameObject.FindObjectsOfType<CellInfo>();
-        for(int i = 0; i < _cells.Length; i++)
+        [Header("Sprites")]
+        [SerializeField] private Sprite _emptyCell;
+        [SerializeField] private Sprite _filledCell;
+        private Image _spriteImage;
+
+        [Header("Referencies")]
+        [SerializeField] private RectTransform _avatarPositionUI;
+
+        private void Awake()
         {
-            if (_cells[i].cellNumberInfo == _cellInfo)
-                _myCell = _cells[i];
+            _spriteImage = GetComponent<Image>();
         }
 
-        _myCell._onEnemyCellCountUpdate += () => UpdateSprite();
-    }
+        private void Start()
+        {
+            CellInfo[] _cells = GameObject.FindObjectsOfType<CellInfo>();
+            for (int i = 0; i < _cells.Length; i++)
+            {
+                if (_cells[i].cellNumberInfo == _cellInfo)
+                    _myCell = _cells[i];
+            }
 
-    private void UpdateSprite()
-    {
-        if (_myCell._emptyCell)
-            _spriteImage.sprite = _emptyCell;
-        else
-            _spriteImage.sprite = _filledCell;
-    }
+            _myCell._onEnemyCellCountUpdate += () => UpdateSprite();
+        }
 
-    public void PlayerOnMyCell()
-    {
-        _avatarPositionUI.transform.parent = this.transform;
-        _avatarPositionUI.localPosition = new Vector3(0f, 0f, 0f);
+        private void UpdateSprite()
+        {
+            if (_myCell._emptyCell)
+                _spriteImage.sprite = _emptyCell;
+            else
+                _spriteImage.sprite = _filledCell;
+        }
+
+        public void PlayerOnMyCell()
+        {
+            _avatarPositionUI.transform.parent = this.transform;
+            _avatarPositionUI.localPosition = new Vector3(0f, 0f, 0f);
+
+            GetComponentInParent<MapUIManager>().DeactiveMap();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cursed.UI;
 
 public class CellCameraDetection : MonoBehaviour
 {

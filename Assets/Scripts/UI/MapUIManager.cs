@@ -10,7 +10,12 @@ namespace Cursed.UI
         private void Start()
         {
             _mapActive = false;
-            _mapObject.SetActive(_mapActive);
+            //_mapObject.SetActive(_mapActive);
+        }
+
+        public void DeactiveMap()
+        {
+            _mapObject.SetActive(false);
         }
 
         public void ToggleMapActive()

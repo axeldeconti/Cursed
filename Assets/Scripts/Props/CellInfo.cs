@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cursed.Character;
+using Cursed.UI;
 
 public class CellInfo : MonoBehaviour
 {
