@@ -210,6 +210,7 @@ namespace Cursed.Creature
                 {
                     case CreatureState.Moving:
                         //ToggleChilds(true);
+                        _vfx.CreatureAberration(_vfx._lowerChromacticAberrationValue);
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
@@ -221,6 +222,7 @@ namespace Cursed.Creature
                     case CreatureState.OnCharacter:
                         //ToggleChilds(false);
                         _vfx.CreatureTouchImpactParticle(_collision.HitTransform.GetChild(0));
+                        _vfx.CreatureAberration(_vfx._higherChromacticAberrationValue);
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);
