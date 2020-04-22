@@ -2,6 +2,7 @@
 using Cursed.Utilities;
 using System.Collections;
 using UnityEngine;
+using Cursed.VisualEffect;
 
 namespace Cursed.Creature
 {
@@ -38,6 +39,11 @@ namespace Cursed.Creature
         [SerializeField] private bool _recallOffScreen = true;
 
         private Vector2 _launchDirection;
+
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeLaunchCreature = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
 
         private void Start() => Initialize();
 
@@ -79,9 +85,10 @@ namespace Cursed.Creature
                 return;
 
             #region LAUNCH & RECALL
-            if (_input.Down)
+            if (_input.Down && _creatureState == CreatureState.OnCharacter)
             {
                 DeAttachFromPlayer();
+                _onCamShake?.Raise(_shakeLaunchCreature);
             }
             if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
             {

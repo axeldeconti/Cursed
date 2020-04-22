@@ -38,6 +38,7 @@ namespace Cursed.Character
         private InvincibilityAnimation _invAnim;
 
         public Action<int> onEnemyHealthUpdate;
+
         [Space]
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeCombo3 = null;
