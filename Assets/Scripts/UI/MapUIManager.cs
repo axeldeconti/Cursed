@@ -22,7 +22,8 @@ namespace Cursed.UI
 
         public void DeactiveMap()
         {
-            _mapObject.SetActive(false);
+            _mapActive = true;
+            ToggleMapActive();
         }
 
         public void ToggleMapActive()
@@ -41,7 +42,6 @@ namespace Cursed.UI
         IEnumerator WaitForActive(GameObject go, bool active, float delay)
         {
             yield return new WaitForSeconds(delay);
-            Debug.Log("Deactive");
             go.SetActive(active);
         }
     }
