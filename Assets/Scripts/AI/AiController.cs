@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cursed.Character;
+using System.Collections;
 using UnityEngine;
 
 namespace Cursed.AI
@@ -10,7 +11,8 @@ namespace Cursed.AI
 
         [SerializeField] private AIState _state = AIState.GroundPatrol;
 
-        private PathfindingAgent _pathAgent;
+        private PathfindingAgent _pathAgent = null;
+        private CollisionHandler _col = null;
 
         private bool _destroy = false;
         private bool _timerChangeTarget = false;
@@ -21,24 +23,27 @@ namespace Cursed.AI
                 _player = GameObject.FindGameObjectWithTag("Player");
 
             _pathAgent = GetComponent<PathfindingAgent>();
+            _col = GetComponent<CollisionHandler>();
 
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
         }
 
-        /*Destroy object on lateupdate to avoid warning errors of objects not existing*/
         private void LateUpdate()
         {
+            //Destroy object on lateupdate to avoid warning errors of objects not existing
             if (_destroy)
                 Destroy(gameObject);
         }
 
-        //Check player distance and do what told to wether or not player is in distance
+        /// <summary>
+        /// Check player distance and do what told to wether or not player is in distance
+        /// </summary>
         private bool PlayerInRange(float range, bool raycastOn)
         {
             if (_player && Vector3.Distance(_player.transform.position, transform.position) < range)
             {
-                if (raycastOn && !Physics2D.Linecast(transform.position, _player.transform.position/*, _ray.collisionMask*/))
+                if (raycastOn && !Physics2D.Linecast(transform.position, _player.transform.position, _pathfindingMgr.GroundLayer))
                 {
                     return true;
                 }
@@ -67,9 +72,11 @@ namespace Cursed.AI
                     break;
                 case AIState.GroundPatrol:
                     GroundPatrol(ref input);
+                    _pathAgent.AiMovement(ref velocity, ref input, ref jumpRequest);
                     break;
                 case AIState.Chase:
                     Chase();
+                    _pathAgent.AiMovement(ref velocity, ref input, ref jumpRequest);
                     break;
                 case AIState.Attack:
                     AttackOnRange();
@@ -77,9 +84,6 @@ namespace Cursed.AI
                 default:
                     break;
             }
-
-            if (_state == AIState.Chase || _state == AIState.GroundPatrol)
-                _pathAgent.AiMovement(ref velocity, ref input, ref jumpRequest);
         }
 
         private void Chase()
@@ -115,7 +119,9 @@ namespace Cursed.AI
             }
         }
 
-        //Coroutine to switch tile/node target
+        /// <summary>
+        /// Coroutine to switch tile/node target
+        /// </summary>
         private IEnumerator TimerForSwitchTarget()
         {
             _timerChangeTarget = true;

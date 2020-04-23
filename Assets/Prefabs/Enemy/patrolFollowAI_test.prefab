@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7241006980957390741}
   - component: {fileID: 502983778585291273}
   - component: {fileID: 7148813450785064788}
+  - component: {fileID: 2987228160341031770}
   - component: {fileID: 8239339684578294684}
   - component: {fileID: 1256613417554009364}
   - component: {fileID: 5268360098289650286}
@@ -22,6 +23,7 @@ GameObject:
   - component: {fileID: 5791740875564743495}
   - component: {fileID: 4745543872232184749}
   - component: {fileID: 5257384259050955424}
+  - component: {fileID: 4899068109193366447}
   m_Layer: 0
   m_Name: patrolFollowAI_test
   m_TagString: Untagged
@@ -94,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bea418f815d36848937c4d85262f744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathfindingTarget: {fileID: 0}
+  _target: {fileID: 0}
   followDistance: 0.5
   debugBool: 0
   drawPath: 0
@@ -114,7 +116,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3b98bc352a93541a9da7c8ae5cffae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
+  _state: 1
+--- !u!114 &2987228160341031770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275295404781019534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2947031e6c487f4ea12de5fb38c8de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpInputBufferTimer:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 667dfe7192b2e5b40bcd4e8f2e541ed8, type: 2}
+  _dashInputBufferTimer:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 795e928226313924b844f42dd6d841f9, type: 2}
 --- !u!114 &8239339684578294684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +436,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStats: {fileID: 11400000, guid: 9fa45251b0514fb41a04c29378dcf6b4, type: 2}
+--- !u!114 &4899068109193366447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275295404781019534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06054137b2264a409d06bfd8e87b01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxRun: {fileID: 4088965895379082687, guid: 727c1b55582a73042ad3f1c8678b1043, type: 3}
+  _vfxWallRun: {fileID: 8180102943743448197, guid: a65dc3963cc161945b173e2fdc6f949f,
+    type: 3}
+  _vfxJump: {fileID: 5318427770110259264, guid: 5d4b9bc7bd53e3b41b2e58c16034489a,
+    type: 3}
+  _vfxDoubleJump: {fileID: 8114406786386643903, guid: c7442787a6f372c488cf3572676630c8,
+    type: 3}
+  _vfxFall: {fileID: 4818869912900407256, guid: d13a1e741451391419329692836b7849,
+    type: 3}
+  _vfxWallSlideSpark: {fileID: 1103421733211284317, guid: 5228ec6b0f834d9499da7f23cb56e81a,
+    type: 3}
+  _vfxWallSlideDust: {fileID: 3776477047226201451, guid: b43103f85b340d743a7311e3ad390fc9,
+    type: 3}
+  _vfxDashSpeed: {fileID: 2633979679782619797, guid: 1a76eaf0e4bd6c645bfb5f72bd8d71c4,
+    type: 3}
+  _vfxDashDust: {fileID: 1907876244288169627, guid: 2c78562846af4c748ba44602c2f571e8,
+    type: 3}
+  _vfxTrailDivekick: {fileID: 8884033203457709585, guid: 15ee19c5730bee643b83861944c6e78b,
+    type: 3}
+  _vfxCritical:
+  - {fileID: 4770535873581478652, guid: f7831b836ae2f774393b7e5e30667482, type: 3}
+  - {fileID: 6657351240293044476, guid: e480127cfc62a304ab1ed4ed8cf194f4, type: 3}
+  _vfxAttack:
+  - {fileID: 6277021173555870149, guid: 8b8ad14f78cf01348a660084366fd6fc, type: 3}
+  - {fileID: 2787424099464129439, guid: decbd7ae61dedea4ca8b5449c6613dba, type: 3}
+  - {fileID: 766887639296522203, guid: 38552f38aa9066a44a2041e925b0d779, type: 3}
+  - {fileID: 766887639296522203, guid: 06721cff0e73b924fb316f2e8b08bbf1, type: 3}
+  _vfxBloodProjection:
+  - {fileID: 8197729329596060421, guid: 5316613bca74f544faef059789fd5b77, type: 3}
+  - {fileID: 8197729329596060421, guid: ad1d776ca82b4474d85fb2c0f13eb19d, type: 3}
+  _vfxBloodParticle: {fileID: 8619041140878793685, guid: 92c0693d18761634c8bb356afb57d280,
+    type: 3}
+  _vfxEnemyDeathEffect: {fileID: 0}
+  _refFlashScreen: {fileID: 0}
 --- !u!1 &275295404781033898
 GameObject:
   m_ObjectHideFlags: 0

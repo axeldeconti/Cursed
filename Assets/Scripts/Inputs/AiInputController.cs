@@ -6,6 +6,8 @@ namespace Cursed.Character
     [RequireComponent(typeof(AiController))]
     public class AiInputController : MonoBehaviour, IInputController
     {
+        private AiController _aiController = null;
+
         #region IInputController
         public float x { get; private set; }
         public float y { get; private set; }
@@ -17,9 +19,12 @@ namespace Cursed.Character
         public bool Attack_2 { get; private set; }
         #endregion
 
-        private AiController _aiController = null;
+        [SerializeField] private FloatReference _jumpInputBufferTimer;
+        [SerializeField] private FloatReference _dashInputBufferTimer;
 
         private Vector3 _velocity = Vector3.zero;
+        private Vector2 _input = Vector2.zero;
+        private bool _jump = false;
 
         private void Awake()
         {
@@ -29,13 +34,21 @@ namespace Cursed.Character
         private void Start()
         {
             _velocity = Vector3.zero;
+            _input = Vector2.zero;
+
+            Jump = new BoolBuffer(_jumpInputBufferTimer);
+            Dash = new BoolBuffer(_dashInputBufferTimer);
+
+            CursedDebugger.Instance.Add("Input", () => _input.ToString());
+            CursedDebugger.Instance.Add("Velocity", () => _velocity.ToString());
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            Vector2 input = new Vector2(x, y);
-            bool jump = Jump.Value;
-            _aiController.GetInput(ref _velocity, ref input, ref jump);
+            //Retrieve value from AiController
+            _input = new Vector2(x, y);
+            _jump = false;
+            _aiController.GetInput(ref _velocity, ref _input, ref _jump);
         }
     }
 }

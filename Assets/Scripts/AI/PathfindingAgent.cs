@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cursed.Character;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cursed.AI
@@ -7,7 +8,8 @@ namespace Cursed.AI
     {
         public static Pathfinding _pathfindingMgr;
 
-        private AiController _aiControllerScript;
+        private AiController _aiController = null;
+        private CollisionHandler _col = null;
 
         [SerializeField] private GameObject _target; //Following / Chasing
 
@@ -52,14 +54,13 @@ namespace Cursed.AI
         private bool _hasLastOrder = false;
         private bool _aiJumped = false; //Is AI actually in jump
 
-        //Get Components
         private void Awake()
         {
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
 
-            _aiControllerScript = GetComponent<AiController>();
-            //_controller = GetComponent<CharacterController2D>();
+            _aiController = GetComponent<AiController>();
+            _col = GetComponent<CollisionHandler>();
 
             if (drawPath)
                 AddLineRenderer();
@@ -67,20 +68,21 @@ namespace Cursed.AI
 
         private void Start()
         {
-            CursedDebugger.Instance.Add("GoTarget", () => _target.ToString());
-            CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
+            //CursedDebugger.Instance.Add("GoTarget", () => _target.ToString());
+            //CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
         }
 
-        //Applying new paths when character is ready
         private void Update()
         {
+            //Applying new paths when character is ready
+
             if (_useStored)
                 RequestPath(_storePoint);
 
             //Only receive orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
-            if (_waitingOrders != null /*&& _controller.collisions.below*/)
+            if (_waitingOrders != null && _col.OnGround)
             {
-                if (_aiControllerScript.NeedsPathfinding())
+                if (_aiController.NeedsPathfinding())
                 {
                     _currentOrders = _waitingOrders;
                     _waitingOrders = null;
@@ -128,9 +130,10 @@ namespace Cursed.AI
             }
         }
 
-        //Requesting new path timers
         private void FixedUpdate()
         {
+            //Requesting new path timers
+
             //Update Follow/Chase Path
             if (_target)
             {
@@ -162,7 +165,7 @@ namespace Cursed.AI
                         if (_oldDistance <= newDistance)
                         {
                             _failAttemptCount++;
-                            if (_failAttemptCount >= _failAttempts /*&& _controller.collisions.below*/)
+                            if (_failAttemptCount >= _failAttempts && _col.OnGround)
                             {
                                 _failAttemptCount = 0;
                                 _pathIsDirty = true;
@@ -178,9 +181,9 @@ namespace Cursed.AI
             if (_pathIsDirty)
             {
                 _pathIsDirty = false;
-                if (_target && _aiControllerScript.State == AIState.Chase)
+                if (_target && _aiController.State == AIState.Chase)
                 { RequestPath(_target); }
-                else if (_hasLastOrder && _aiControllerScript.State == AIState.GroundPatrol)
+                else if (_hasLastOrder && _aiController.State == AIState.GroundPatrol)
                 { RequestPath(_lastOrder); }
 
                 if (debugBool)
@@ -202,7 +205,9 @@ namespace Cursed.AI
             _stopPathing = true;
         }
 
-        //Called to see pathing on screen (when path start)
+        /// <summary>
+        /// Called to see pathing on screen (when path start)
+        /// </summary>
         private void PathStarted()
         {
             if (debugBool)
@@ -227,7 +232,9 @@ namespace Cursed.AI
                 Destroy(gameObject.GetComponent<LineRenderer>());
         }
 
-        //Called when the path has ended correctly (destination reached)
+        /// <summary>
+        /// Called when the path has ended correctly (destination reached)
+        /// </summary>
         private void PathCompleted()
         {
             if (debugBool)
@@ -239,7 +246,9 @@ namespace Cursed.AI
             CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
         }
 
-        //Called if destination is unreachable
+        /// <summary>
+        /// Called if destination is unreachable
+        /// </summary>
         private void PathNotFound()
         {
             if (debugBool)
@@ -255,7 +264,9 @@ namespace Cursed.AI
             }
         }
 
-        //Used for refreshing paths, example : Chase behaviour 
+        /// <summary>
+        /// Used for refreshing paths, example : Chase behaviour 
+        /// </summary>
         public int GetNodesFromCompletion()
         {
             if (_currentOrders == null)
@@ -265,10 +276,13 @@ namespace Cursed.AI
             return r;
         }
 
-        //Request path towards Vector3
+        /// <summary>
+        /// Request path towards Vector3
+        /// </summary>
+        /// <param name="pathVector">Target</param>
         public void RequestPath(Vector3 pathVector)
         {
-            if (/*_controller.collisions.below*/true)
+            if (_col.OnGround)
             {
                 _useStored = false;
                 if (debugBool)
@@ -288,12 +302,15 @@ namespace Cursed.AI
             }
         }
 
-        //Request path towards GameObject
-        public void RequestPath(GameObject Go)
+        /// <summary>
+        /// Request path towards GameObject
+        /// </summary>
+        /// <param name="go">Target</param>
+        public void RequestPath(GameObject go)
         {
-            _target = Go;
+            _target = go;
 
-            if (/*_controller.collisions.below*/true)
+            if (_col.OnGround)
             {
                 if (debugBool)
                     Log("Requesting path target");
@@ -306,7 +323,9 @@ namespace Cursed.AI
             }
         }
 
-        //Callback from Thread with path information
+        /// <summary>
+        /// Callback from Thread with path information
+        /// </summary>
         public void ReceivePathInstructions(List<instructions> instr, bool passed)
         {
             //Passed == false means incompleted / failure to reach node destination
@@ -365,7 +384,7 @@ namespace Cursed.AI
                 }
 
                 //Jump
-                if (_currentOrders[_orderNum].order == "jump" && !_aiJumped /*&& _controller.collisions.below*/)
+                if (_currentOrders[_orderNum].order == "jump" && !_aiJumped && _col.OnGround)
                 {
                     jumpRequest = true;
                     _aiJumped = true;
