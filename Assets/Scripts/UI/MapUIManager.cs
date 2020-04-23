@@ -30,19 +30,18 @@ namespace Cursed.UI
         {
             _mapActive = !_mapActive;
 
-            if(_mapActive)
-                _mapObject.SetActive(_mapActive);
+            if (_mapActive)
+            {
+                _mapAnimator.SetBool("Open", true);
+                _mapAnimator.SetBool("Close", false);
+                Debug.Log("Open");
+            }
             else
             {
-                _mapAnimator.SetTrigger("Close");
-                StartCoroutine(WaitForActive(_mapObject, _mapActive, _mapAnimator.GetCurrentAnimatorClipInfo(0).Length));
+                Debug.Log("Close");
+                _mapAnimator.SetBool("Open", false);
+                _mapAnimator.SetBool("Close", true);
             }
-        }
-
-        IEnumerator WaitForActive(GameObject go, bool active, float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            go.SetActive(active);
         }
     }
 }

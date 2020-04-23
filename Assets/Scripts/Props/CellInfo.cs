@@ -35,7 +35,6 @@ public class CellInfo : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             _playerOnThisCell = true;
-
             foreach (MapCellUI cell in FindObjectsOfType<MapCellUI>())
             {
                 if (this == cell._myCell)
