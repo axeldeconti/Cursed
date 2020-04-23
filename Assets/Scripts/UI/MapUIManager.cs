@@ -34,11 +34,9 @@ namespace Cursed.UI
             {
                 _mapAnimator.SetBool("Open", true);
                 _mapAnimator.SetBool("Close", false);
-                Debug.Log("Open");
             }
             else
             {
-                Debug.Log("Close");
                 _mapAnimator.SetBool("Open", false);
                 _mapAnimator.SetBool("Close", true);
             }
