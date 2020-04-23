@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Cursed.Props;
 
 namespace Cursed.UI
 {
@@ -13,6 +14,10 @@ namespace Cursed.UI
         {
             _mapActive = false;
             //_mapObject.SetActive(_mapActive);
+
+            MapSpot spot = GetComponentInParent<MapSpot>();
+            if (spot != null)
+                spot._mapInteractionTriggered += () => ToggleMapActive();
         }
 
         public void DeactiveMap()

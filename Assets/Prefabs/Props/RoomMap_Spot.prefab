@@ -509,8 +509,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonImage: {fileID: 1022085952580530362}
-  _mapInteractionTriggered: {fileID: 11400000, guid: 84ee22a5cd1f8d54b953f6aadb45314f,
-    type: 2}
 --- !u!1 &1022085953800446086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,7 +2511,6 @@ GameObject:
   - component: {fileID: 8977624489725581841}
   - component: {fileID: 8266715867539377797}
   - component: {fileID: 2087225155741626853}
-  - component: {fileID: 5832112872306663343}
   - component: {fileID: 5832112872306663344}
   m_Layer: 0
   m_Name: MapCanvas
@@ -2602,33 +2599,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5832112872306663343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7865448896372631077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 84ee22a5cd1f8d54b953f6aadb45314f, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5832112872306663344}
-        m_MethodName: ToggleMapActive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &5832112872306663344
 MonoBehaviour:
   m_ObjectHideFlags: 0

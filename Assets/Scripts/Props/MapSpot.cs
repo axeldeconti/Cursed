@@ -7,7 +7,7 @@ namespace Cursed.Props
     public class MapSpot : MonoBehaviour
     {
         [SerializeField] private Image _buttonImage;
-        [SerializeField] private VoidEvent _mapInteractionTriggered;
+        public event System.Action _mapInteractionTriggered;
         private bool _triggered;
         private PlayerInputController _playerInput = null;
 
@@ -21,7 +21,7 @@ namespace Cursed.Props
             if (_playerInput != null)
             {
                 if (_triggered && _playerInput.WorldInteraction)
-                    _mapInteractionTriggered?.Raise();
+                    _mapInteractionTriggered?.Invoke();
             }
         }
 
