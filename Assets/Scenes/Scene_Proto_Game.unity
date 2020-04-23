@@ -15507,25 +15507,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1022085952580530362, guid: cfe18fbe58a2eb54ebf16211888c9055,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 2100000, guid: ab37c64d23a80a24585597191c382f44, type: 2}
     - target: {fileID: 1022085953618894194, guid: cfe18fbe58a2eb54ebf16211888c9055,
         type: 3}
       propertyPath: m_Name
       value: RoomMap_Spot
-      objectReference: {fileID: 0}
-    - target: {fileID: 1022085953618894199, guid: cfe18fbe58a2eb54ebf16211888c9055,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 75.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1022085953618894199, guid: cfe18fbe58a2eb54ebf16211888c9055,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -21.94
       objectReference: {fileID: 0}
     - target: {fileID: 1022085953618894199, guid: cfe18fbe58a2eb54ebf16211888c9055,
         type: 3}
@@ -15792,16 +15777,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5403923945849939088, guid: cfe18fbe58a2eb54ebf16211888c9055,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5403923945849939088, guid: cfe18fbe58a2eb54ebf16211888c9055,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5956302302888295633, guid: cfe18fbe58a2eb54ebf16211888c9055,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -15831,11 +15806,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7865448896372631077, guid: cfe18fbe58a2eb54ebf16211888c9055,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8454955757317562620, guid: cfe18fbe58a2eb54ebf16211888c9055,
         type: 3}
@@ -15869,58 +15839,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfe18fbe58a2eb54ebf16211888c9055, type: 3}
---- !u!1 &5832112872306663341 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5403923945849939088, guid: cfe18fbe58a2eb54ebf16211888c9055,
-    type: 3}
-  m_PrefabInstance: {fileID: 5832112872306663340}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5832112872306663342 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7865448896372631077, guid: cfe18fbe58a2eb54ebf16211888c9055,
-    type: 3}
-  m_PrefabInstance: {fileID: 5832112872306663340}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5832112872306663343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5832112872306663342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 84ee22a5cd1f8d54b953f6aadb45314f, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5832112872306663344}
-        m_MethodName: ToggleMapActive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5832112872306663344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5832112872306663342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851edc9087a564d48b130194ad4634cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mapObject: {fileID: 5832112872306663341}
 --- !u!1001 &8072999774874854306
 PrefabInstance:
   m_ObjectHideFlags: 0

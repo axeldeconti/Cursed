@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: ab37c64d23a80a24585597191c382f44, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -2146,6 +2146,7 @@ GameObject:
   - component: {fileID: 8968952546151846531}
   - component: {fileID: 6146175872142636363}
   - component: {fileID: 3949631554514691654}
+  - component: {fileID: 685169506097509552}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -2227,6 +2228,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!95 &685169506097509552
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403923945849939088}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99d4c31a2755c954ca18c272a734d340, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5660657959403793438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,6 +2513,8 @@ GameObject:
   - component: {fileID: 8977624489725581841}
   - component: {fileID: 8266715867539377797}
   - component: {fileID: 2087225155741626853}
+  - component: {fileID: 5832112872306663343}
+  - component: {fileID: 5832112872306663344}
   m_Layer: 0
   m_Name: MapCanvas
   m_TagString: Untagged
@@ -2580,6 +2602,47 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5832112872306663343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865448896372631077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 84ee22a5cd1f8d54b953f6aadb45314f, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5832112872306663344}
+        m_MethodName: ToggleMapActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5832112872306663344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7865448896372631077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851edc9087a564d48b130194ad4634cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapObject: {fileID: 5403923945849939088}
+  _mapAnimator: {fileID: 685169506097509552}
 --- !u!1 &8555455187501213440
 GameObject:
   m_ObjectHideFlags: 0
