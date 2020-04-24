@@ -283,6 +283,28 @@
 								</Sound>
 							</ChildrenList>
 						</RandomSequenceContainer>
+						<Sound Name="SFX_Creature_EndDrain" ID="{37168FC7-5DBB-4323-A7FD-38A929176A82}" ShortID="55029552">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_Creature_EndDrain" ID="{CE4A5EAF-0E84-41B8-BA54-2C31E246F24D}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_Creature_EndDrain.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="327802423"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_Creature_EndDrain" ID="{CE4A5EAF-0E84-41B8-BA54-2C31E246F24D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Character" ID="{034E77AB-C3EB-457C-897D-8829ECECF5E4}" ShortID="740000020">
@@ -1488,7 +1510,7 @@
 				</Folder>
 				<Folder Name="Musics" ID="{538C3706-0800-41C3-B6FD-07CE58B11454}" ShortID="1001259036">
 					<ChildrenList>
-						<Sound Name="Mus_Cursed_Theme_01_Mixing_02" ID="{9C23F3EE-EEEF-44E4-81B9-2501B11D2D8D}" ShortID="560626364">
+						<Sound Name="Mus_MainMenu_Theme" ID="{5FC159DE-2416-488F-9CCE-1B5203783277}" ShortID="763505810">
 							<PropertyList>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
@@ -1518,19 +1540,19 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="Cursed_Theme_01_Mixing_02" ID="{F692FEBF-F157-468D-BB2A-E9DBB19707D9}">
+								<AudioFileSource Name="Mus_MainMenu_Theme" ID="{710291F1-6303-4400-9A7B-A0F9F28E6B35}">
 									<Language>SFX</Language>
-									<AudioFile>Cursed_Theme_01_Mixing_02.wav</AudioFile>
+									<AudioFile>Mus_MainMenu_Theme.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="607350317"/>
+										<MediaID ID="235091105"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="Cursed_Theme_01_Mixing_02" ID="{F692FEBF-F157-468D-BB2A-E9DBB19707D9}" Platform="Linked"/>
+								<ActiveSource Name="Mus_MainMenu_Theme" ID="{710291F1-6303-4400-9A7B-A0F9F28E6B35}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="Mus_MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" ShortID="395740305">
+						<Sound Name="Mus_Level01_Theme" ID="{D11DEB2D-81E2-4D18-A5EF-5DAF094F3D02}" ShortID="911631619">
 							<PropertyList>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
@@ -1560,16 +1582,16 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="MainMenu_Full" ID="{9994F6DB-14BB-47D0-874A-B9C2A0710B4D}">
+								<AudioFileSource Name="Mus_Level01_Theme" ID="{11E08CB1-EEAD-4AEE-A6B1-E1E221866B97}">
 									<Language>SFX</Language>
-									<AudioFile>MainMenu_Full.wav</AudioFile>
+									<AudioFile>Mus_Level01_Theme.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="89892569"/>
+										<MediaID ID="170720435"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="MainMenu_Full" ID="{9994F6DB-14BB-47D0-874A-B9C2A0710B4D}" Platform="Linked"/>
+								<ActiveSource Name="Mus_Level01_Theme" ID="{11E08CB1-EEAD-4AEE-A6B1-E1E221866B97}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>
@@ -1632,6 +1654,76 @@
 							</ChildrenList>
 							<ActiveSourceList>
 								<ActiveSource Name="SFX_Button_Pressed" ID="{ABB109BD-4736-4626-ACD3-F5BBA028E535}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Props" ID="{8C480922-D6A2-4CFB-AD10-72485040B726}" ShortID="1049714708">
+					<ChildrenList>
+						<Sound Name="SFX_AssemblyLine" ID="{F0B733DF-9007-4C91-AABC-04AB9FAFA24E}" ShortID="29266862">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_AssemblyLine" ID="{71D25BED-A727-40F6-BFD1-9118F80EF619}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_AssemblyLine.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="447976717"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_AssemblyLine" ID="{71D25BED-A727-40F6-BFD1-9118F80EF619}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_StaticNoise" ID="{11A95106-81F0-4018-8053-53781080EF8E}" ShortID="160721687">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_StaticNoise" ID="{99D45B56-0960-4750-8634-2B625DFD840E}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_StaticNoise.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="452589518"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_StaticNoise" ID="{99D45B56-0960-4750-8634-2B625DFD840E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_DeathAnnouncement" ID="{C30DF060-945B-4055-9E27-D2C1CF52C61E}" ShortID="703935834">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_DeathAnnouncement" ID="{43B37693-1B52-436A-A41C-35A112004E4C}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_DeathAnnouncement.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="912044876"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_DeathAnnouncement" ID="{43B37693-1B52-436A-A41C-35A112004E4C}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>

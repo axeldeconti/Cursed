@@ -243,6 +243,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3331455763" Name="Play_Creature_EndDrain" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_EndDrain" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873">
+					<IncludedMemoryFiles>
+						<File Id="327802423" Language="SFX">
+							<ShortName>SFX_Creature_EndDrain.wav</ShortName>
+							<Path>SFX\SFX_Creature_EndDrain_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="3373431376" Name="Play_Creature_Grabbing" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Grabbing" DurationType="OneShot" DurationMin="0.662222" DurationMax="0.662222">
 					<IncludedMemoryFiles>
 						<File Id="99906037" Language="SFX">
@@ -307,6 +315,22 @@
 			<ShortName>Spatialized</ShortName>
 			<Path>Spatialized.bnk</Path>
 			<IncludedEvents>
+				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
+					<IncludedMemoryFiles>
+						<File Id="447976717" Language="SFX">
+							<ShortName>SFX_AssemblyLine.wav</ShortName>
+							<Path>SFX\SFX_AssemblyLine_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3531069449" Name="Play_DeathAnnouncement" ObjectPath="\Events\Default Work Unit\Spatial\Play_DeathAnnouncement" DurationType="OneShot" DurationMin="4.028662" DurationMax="4.028662">
+					<IncludedMemoryFiles>
+						<File Id="912044876" Language="SFX">
+							<ShortName>SFX_DeathAnnouncement.wav</ShortName>
+							<Path>SFX\SFX_DeathAnnouncement_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="742247423" Language="SFX">
@@ -359,6 +383,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
+					<IncludedMemoryFiles>
+						<File Id="452589518" Language="SFX">
+							<ShortName>SFX_StaticNoise.wav</ShortName>
+							<Path>SFX\SFX_StaticNoise_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 			</IncludedEvents>
 		</SoundBank>
 		<SoundBank Id="3991942870" Language="SFX">
@@ -366,19 +398,19 @@
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<IncludedEvents>
-				<Event Id="962944353" Name="Play_Music_InGame" ObjectPath="\Events\Default Work Unit\Music\Play_Music_InGame" DurationType="Infinite">
+				<Event Id="962944353" Name="Play_Music_InGame" ObjectPath="\Events\Default Work Unit\Music\Play_Music_InGame" DurationType="OneShot" DurationMin="238.176392" DurationMax="238.176392">
 					<IncludedMemoryFiles>
-						<File Id="607350317" Language="SFX">
-							<ShortName>Cursed_Theme_01_Mixing_02.wav</ShortName>
-							<Path>SFX\Cursed_Theme_01_Mixing_02_D79FB2B7.wem</Path>
+						<File Id="170720435" Language="SFX">
+							<ShortName>Mus_Level01_Theme.wav</ShortName>
+							<Path>SFX\Mus_Level01_Theme_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="Infinite">
+				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="OneShot" DurationMin="42.666668" DurationMax="42.666668">
 					<IncludedMemoryFiles>
-						<File Id="89892569" Language="SFX">
-							<ShortName>MainMenu_Full.wav</ShortName>
-							<Path>SFX\MainMenu_Full_D79FB2B7.wem</Path>
+						<File Id="235091105" Language="SFX">
+							<ShortName>Mus_MainMenu_Theme.wav</ShortName>
+							<Path>SFX\Mus_MainMenu_Theme_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
