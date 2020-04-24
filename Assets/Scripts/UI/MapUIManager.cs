@@ -20,6 +20,19 @@ namespace Cursed.UI
                 spot._mapInteractionTriggered += () => ToggleMapActive();
         }
 
+        public void AwayFromSpot()
+        {
+            if(_mapActive)
+            {
+                // JOUE TON SON ICI TOOOOOM
+                Debug.Log("Play close map");
+            }
+
+            _mapActive = false;
+            _mapAnimator.SetBool("Open", false);
+            _mapAnimator.SetBool("Close", true);
+        }
+
         public void DeactiveMap()
         {
             _mapActive = true;

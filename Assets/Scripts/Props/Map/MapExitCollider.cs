@@ -11,7 +11,7 @@ public class MapExitCollider : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            _mapUI.DeactiveMap();
+            _mapUI.AwayFromSpot();
         }
     }
 }
