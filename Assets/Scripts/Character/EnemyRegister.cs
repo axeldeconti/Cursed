@@ -7,7 +7,7 @@ namespace Cursed.Character
     public class EnemyRegister : MonoBehaviour
     {
         [SerializeField] private VoidEvent _registerEnemy = null;
-        private CellInfo _currentCell;
+        public CellInfo _currentCell { get; private set; }
 
         private void Start()
         {
@@ -20,6 +20,11 @@ namespace Cursed.Character
             {
                 _currentCell = other.GetComponent<CellInfo>();
             }
+        }
+
+        private void OnDestroy()
+        {
+            
         }
     }
 }
