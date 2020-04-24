@@ -58,7 +58,6 @@ public class CameraTargetProps : MonoBehaviour
     {
         yield return new WaitForSeconds(_cameraManager._noiseDuration);
         _switchCellInfo.UpdateCellInformation(_cameraManager._enemyChosen.GetComponent<EnemyRegister>()._currentCell.cellNumberInfo);
-        Debug.Log("Enemy in cell : " + _cameraManager._enemyChosen.GetComponent<EnemyRegister>()._currentCell.cellNumberInfo);
         _screenRenderer.material = _screenMat;
         yield return new WaitForSeconds(_cameraManager._timeBeforeSwitchTarget);
         ChangeTarget();

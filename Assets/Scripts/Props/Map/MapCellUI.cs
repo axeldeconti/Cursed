@@ -48,6 +48,7 @@ namespace Cursed.UI
         {
             _avatarPositionUI.transform.parent = this.transform;
             _avatarPositionUI.localPosition = new Vector3(0f, 0f, 0f);
+            _avatarPositionUI.localScale = new Vector3(1f, 1f, 1f);
 
             GetComponentInParent<MapUIManager>().DeactiveMap();
         }
