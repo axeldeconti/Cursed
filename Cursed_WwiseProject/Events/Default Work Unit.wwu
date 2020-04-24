@@ -495,16 +495,35 @@
 						</Event>
 						<Event Name="Play_Music_MainMenu" ID="{DD62BE73-6985-431D-91FF-B32A3DAC2D74}">
 							<ChildrenList>
-								<Action Name="" ID="{8AD9FBF2-1CD6-4D84-A919-35D049E3F909}" ShortID="274493309">
+								<Action Name="" ID="{0C987CC1-1F51-4733-BD8F-EF986BFA3B06}" ShortID="26978212">
 									<PropertyList>
-										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="ActionType" Type="int16" Value="3"/>
 										<Property Name="Scope" Type="int16" Value="1"/>
 									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Mus_Level01_Theme" ID="{D11DEB2D-81E2-4D18-A5EF-5DAF094F3D02}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-										</Reference>
-									</ReferenceList>
+									<ReferenceList/>
+									<ChildrenList>
+										<EventActionException Name="" ID="{0B70BB97-40FE-476E-A160-FF710385D34A}">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Mus_MainMenu_Theme" ID="{5FC159DE-2416-488F-9CCE-1B5203783277}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</EventActionException>
+										<EventActionException Name="" ID="{E3B4B35C-9391-4FCE-A716-F01BF4921AB8}">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Button_Pressed" ID="{9568C7A6-CD4F-4938-9668-E41D245A20E2}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</EventActionException>
+										<EventActionException Name="" ID="{1678AEA8-A80A-48D2-8FF9-2EA855D105F6}">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Button_Selected" ID="{DF310660-5B33-481A-9FC6-40500BCC0128}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</EventActionException>
+									</ChildrenList>
 								</Action>
 								<Action Name="" ID="{603BA903-422C-412B-A2BD-A626532E5B55}" ShortID="796001704">
 									<ReferenceList>
