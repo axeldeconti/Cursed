@@ -41,6 +41,8 @@ namespace AK
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
         static const AkUniqueID PLAY_LOWHEALTH2 = 291002680U;
+        static const AkUniqueID PLAY_MAPGENERATOR_OFF = 2809729569U;
+        static const AkUniqueID PLAY_MAPGENERATOR_ON = 1701637365U;
         static const AkUniqueID PLAY_MULTILASER = 2996732270U;
         static const AkUniqueID PLAY_MUSIC_INGAME = 962944353U;
         static const AkUniqueID PLAY_MUSIC_MAINMENU = 1566693136U;

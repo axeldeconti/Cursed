@@ -24,8 +24,7 @@ namespace Cursed.UI
         {
             if(_mapActive)
             {
-                // JOUE TON SON ICI TOOOOOM
-                Debug.Log("Play close map");
+                AkSoundEngine.PostEvent("Play_MapGenerator_Off", gameObject);
             }
 
             _mapActive = false;
@@ -47,11 +46,13 @@ namespace Cursed.UI
             {
                 _mapAnimator.SetBool("Open", true);
                 _mapAnimator.SetBool("Close", false);
+                AkSoundEngine.PostEvent("Play_MapGenerator_On", gameObject);
             }
             else
             {
                 _mapAnimator.SetBool("Open", false);
                 _mapAnimator.SetBool("Close", true);
+                AkSoundEngine.PostEvent("Play_MapGenerator_Off", gameObject);
             }
         }
     }

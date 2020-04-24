@@ -315,7 +315,7 @@
 			<ShortName>Spatialized</ShortName>
 			<Path>Spatialized.bnk</Path>
 			<IncludedEvents>
-				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
+				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
 					<IncludedMemoryFiles>
 						<File Id="447976717" Language="SFX">
 							<ShortName>SFX_AssemblyLine.wav</ShortName>
@@ -375,6 +375,22 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2809729569" Name="Play_MapGenerator_Off" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_Off" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.430295" DurationMax="0.430295">
+					<IncludedMemoryFiles>
+						<File Id="3225159" Language="SFX">
+							<ShortName>SFX_MapGenerator_Off.wav</ShortName>
+							<Path>SFX\SFX_MapGenerator_Off_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1701637365" Name="Play_MapGenerator_On" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_On" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.434286" DurationMax="0.434286">
+					<IncludedMemoryFiles>
+						<File Id="1048841554" Language="SFX">
+							<ShortName>SFX_MapGenerator_On.wav</ShortName>
+							<Path>SFX\SFX_MapGenerator_On_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" MaxAttenuation="45.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="738182096" Language="SFX">
@@ -383,7 +399,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
+				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
 					<IncludedMemoryFiles>
 						<File Id="452589518" Language="SFX">
 							<ShortName>SFX_StaticNoise.wav</ShortName>
