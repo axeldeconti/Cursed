@@ -7,7 +7,8 @@ namespace Cursed.Creature
     public class CreatureJoystickDirection : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private float _distanceToPlayer = 4f;
+        [SerializeField] private int _minLeftAngle = -150;
+        [SerializeField] private int _minRightAngle = -30;
 
         [Header("Referencies")]
         [SerializeField] private GameObject _targetLine;
@@ -16,6 +17,7 @@ namespace Cursed.Creature
         private Vector2 _direction;
         private CreatureManager _creature;
         private CreatureInputController _input;
+        private CollisionHandler _playerCollision;  
         private Transform _origin;
 
         private void Awake()
@@ -23,6 +25,7 @@ namespace Cursed.Creature
             _creature = GetComponent<CreatureManager>();
             _input = GetComponent<CreatureInputController>();
             _origin = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
+            _playerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<CollisionHandler>();
         }
 
         private void Update()
@@ -43,13 +46,13 @@ namespace Cursed.Creature
                     _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
                     float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
 
-                    /*if (_playerCollision.OnGround)
+                    if (_playerCollision.OnGround)
                     {
-                        if (angle < -90f)
-                            _direction = -Vector2.right;
-                        else if (angle < 0 && angle >= -90f)
-                            _direction = Vector2.right;
-                    }*/
+                        if (angle < -90f && angle > _minLeftAngle)
+                            _direction = new Vector2(Mathf.Cos(_minLeftAngle * Mathf.Deg2Rad), Mathf.Sin(_minLeftAngle * Mathf.Deg2Rad));
+                        else if (angle < _minRightAngle && angle >= -90f)
+                            _direction = new Vector2(Mathf.Cos(_minRightAngle * Mathf.Deg2Rad), Mathf.Sin(_minRightAngle * Mathf.Deg2Rad));
+                    }
                 }
                 else
                 {
