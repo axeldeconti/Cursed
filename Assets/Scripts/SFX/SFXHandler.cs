@@ -154,6 +154,7 @@ public class SFXHandler : MonoBehaviour
     public void EnemyDeathSFX()
     {
         AkSoundEngine.PostEvent("Play_Enemy_Death", gameObject);
+        AkSoundEngine.PostEvent("Play_DeathAnnouncement", gameObject);
     }
 
     public void LowHealth()
