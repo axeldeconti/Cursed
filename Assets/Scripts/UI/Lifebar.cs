@@ -15,6 +15,8 @@ namespace Cursed.UI
         [SerializeField] private FloatReference _delayToRegain = null;
         [SerializeField] private FloatReference _shinkingSpeed = null;
         [SerializeField] private FloatReference _regainingSpeed = null;
+        [SerializeField] private Gradient _healthGradient;
+        [SerializeField] private Image _lifeBar;
 
         private float _deltaPosition = 0.001f;
         private float _sliderMaxPosX = 0;
@@ -62,6 +64,7 @@ namespace Cursed.UI
 
         public void UpdateCurrentValue(int value)
         {
+            _lifeBar.color = _healthGradient.Evaluate(1 - (float)value / (float)_maxValue);
             float percent = (float)value / _maxValue;
 
             if (percent < _targetPercent)
