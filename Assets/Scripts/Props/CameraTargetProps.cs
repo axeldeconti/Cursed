@@ -56,7 +56,6 @@ public class CameraTargetProps : MonoBehaviour
 
     IEnumerator TimerForSwitchTarget()
     {
-        AkSoundEngine.PostEvent("Play_StaticNoise", gameObject);
         yield return new WaitForSeconds(_cameraManager._noiseDuration);
         _switchCellInfo.UpdateCellInformation(_cameraManager._enemyChosen.GetComponent<EnemyRegister>()._currentCell.cellNumberInfo);
         _screenRenderer.material = _screenMat;
