@@ -49,6 +49,7 @@ namespace Cursed.Creature
         private void Start() => Initialize();
 
         private GameObject _refCreatureTrailEffect;
+        private Transform _colliderTransform;
 
         private void Initialize()
         {
@@ -60,6 +61,7 @@ namespace Cursed.Creature
             _joystick = GetComponent<CreatureJoystickDirection>();
             _vfx = GetComponent<CreatureVfxHandler>();
             _collision = GetComponentInChildren<CreatureCollision>();
+            _colliderTransform = GetComponentInChildren<Collider2D>().transform;
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
@@ -138,9 +140,8 @@ namespace Cursed.Creature
         {
             if (CurrentState == CreatureState.Moving || CurrentState == CreatureState.OnWall)
             {
-                Transform targetPosition = GetComponentInChildren<Collider2D>().transform;
                 float borderSize = 0f;
-                Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
+                Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(_colliderTransform.position);
                 bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
                 if (isOffScreen)
                     LaunchComeBack();
