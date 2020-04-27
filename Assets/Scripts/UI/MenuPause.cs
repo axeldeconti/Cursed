@@ -45,6 +45,7 @@ namespace Cursed.UI
                     _controlsMenu.SetActive(false);
                     _inGameMenu.SetActive(false);
                     _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+                    ButtonHandler.isFirstSelected = true;
                     break;
                 case GameManager.GameState.Pause:
                     _gameManager.State = GameManager.GameState.InGame;
