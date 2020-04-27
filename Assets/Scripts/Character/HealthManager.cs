@@ -16,6 +16,7 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _invincibleTime;
         [SerializeField] private FloatReference _freezeFrameKill;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
+        [SerializeField] private VibrationData_SO _divekickTouchVibration;
 
         [Space]
         [Header("Head light")]
@@ -137,11 +138,14 @@ namespace Cursed.Character
                         {
                             _sfx.EnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
+
                             if(!atkMgr.IsDiveKicking)
                                 _vfx.AttackEffect(transform.position, attacker);
+                            if(atkMgr.IsDiveKicking)
+                                ControllerVibration.Instance.StartVibration(_divekickTouchVibration);
 
                             //Do something is critical
-                            if(attack.IsCritical && atkMgr.Combo != 3)
+                            if (attack.IsCritical && atkMgr.Combo != 3)
                             {
                                 _vfx.CriticalEffect(transform.position, attacker);
                                 _onCamShake?.Raise(_shakeCritic);
