@@ -23,7 +23,6 @@ namespace Cursed.UI
 
         private void Shake()
         {
-            Debug.Log("Shake");
             _animator.SetTrigger("Shake");
         }
     }

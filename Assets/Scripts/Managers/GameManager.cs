@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cursed.UI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -76,6 +77,9 @@ public class GameManager : Singleton<GameManager>
         _loadOperations.Add(ao);
         _loadedScene.Add(levelName);
         _currentLevelName = levelName;
+
+        //Handle he button sound issue
+        ButtonHandler.isFirstSelected = true;
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)

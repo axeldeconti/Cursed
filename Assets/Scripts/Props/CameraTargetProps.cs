@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Cursed.Character;
 
 public class CameraTargetProps : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class CameraTargetProps : MonoBehaviour
 
     private SwitchCellInfo _switchCellInfo;
 
-    private GameObject[] _enemyList;
-    private GameObject _enemyChosen;
+    private CameraTargetManager _cameraManager;
     private GameObject _player;
     [SerializeField] private GameObject _screenGO;
 
@@ -18,22 +18,21 @@ public class CameraTargetProps : MonoBehaviour
     [SerializeField] private Material _noiseMat;
     [SerializeField] private Material _screenMat;
 
-    [SerializeField] private float _timeBeforeSwitchTarget;
-    [SerializeField] private float _noiseDuration;
 
     private void Awake()
     {
+        _cameraManager = GameObject.FindObjectOfType<CameraTargetManager>();
         _cinemachineVCComponent = this.GetComponent<Cinemachine.CinemachineVirtualCamera>();
         _switchCellInfo = this.GetComponent<SwitchCellInfo>();
-        _enemyList = GameObject.FindGameObjectsWithTag("Enemy");
         _player = GameObject.FindGameObjectWithTag("Player");
         _screenRenderer = _screenGO.GetComponent<MeshRenderer>();        
+
+        _cameraManager._onChangeTarget += () => ChangeTarget();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangeTarget();
     }
 
     private void ChangeTarget()
@@ -43,9 +42,8 @@ public class CameraTargetProps : MonoBehaviour
             //Faire en sorte que la cam ne choisisse pas un ennemi déjà choisi
             //Faire en sorte (suite au com précédent) que s'il reste un ennemi dans la liste il soit tout de même choisi
             _screenRenderer.material = _noiseMat;
-            _enemyChosen = _enemyList[Random.Range(0, _enemyList.Length)].gameObject;
-            _cinemachineVCComponent.LookAt = _enemyChosen.transform;
-            _cinemachineVCComponent.Follow = _enemyChosen.transform;
+            _cinemachineVCComponent.LookAt = _cameraManager._enemyChosen.transform;
+            _cinemachineVCComponent.Follow = _cameraManager._enemyChosen.transform;
             StartCoroutine(TimerForSwitchTarget());
         }
         else
@@ -58,10 +56,10 @@ public class CameraTargetProps : MonoBehaviour
 
     IEnumerator TimerForSwitchTarget()
     {
-        yield return new WaitForSeconds(_noiseDuration);
-        _switchCellInfo.UpdateCellInformation();
+        yield return new WaitForSeconds(_cameraManager._noiseDuration);
+        _switchCellInfo.UpdateCellInformation(_cameraManager._enemyChosen.GetComponent<EnemyRegister>()._currentCell.cellNumberInfo);
         _screenRenderer.material = _screenMat;
-        yield return new WaitForSeconds(_timeBeforeSwitchTarget);
+        yield return new WaitForSeconds(_cameraManager._timeBeforeSwitchTarget);
         ChangeTarget();
     }
 }

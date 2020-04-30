@@ -330,6 +330,17 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Play_Creature_EndDrain" ID="{3953CEF8-86DA-4C5A-A924-283240C6E9D7}">
+							<ChildrenList>
+								<Action Name="" ID="{11527297-D5BC-4D04-A2A6-DB8ADB2843B0}" ShortID="240161040">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_Creature_EndDrain" ID="{37168FC7-5DBB-4323-A7FD-38A929176A82}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Spatial" ID="{6CE84722-30DF-49D0-A0BE-0A25A968A5BF}" ShortID="864152871">
@@ -423,21 +434,61 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
-						<Folder Name="Props" ID="{18747196-76FC-4B11-8A28-F128EE4B85F9}" ShortID="864435293">
+						<Event Name="Play_AssemblyLine" ID="{CE7AA058-9ABE-4CAE-8B94-ED115F8D0F09}">
 							<ChildrenList>
-								<Event Name="Play_AssemblyLine" ID="{DAB1B1FD-ED1D-46B0-B21E-786CAA2AB2B6}">
-									<ChildrenList>
-										<Action Name="" ID="{3536B9D4-DAFA-4E85-A045-82FD6B7A2110}" ShortID="667849532">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="SFX_AssemblyLine" ID="{1CCCA4BE-57EA-43B2-98E6-39F54AA429AB}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
+								<Action Name="" ID="{B9F55142-8D64-4A0A-BA29-909C0B7E9390}" ShortID="570017336">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_AssemblyLine" ID="{F0B733DF-9007-4C91-AABC-04AB9FAFA24E}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
 							</ChildrenList>
-						</Folder>
+						</Event>
+						<Event Name="Play_DeathAnnouncement" ID="{3FE0F0A3-C399-4174-88F5-B5E483F401AC}">
+							<ChildrenList>
+								<Action Name="" ID="{C13E0885-09A4-42B2-B8D3-2FD8C31D275A}" ShortID="151769516">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_DeathAnnouncement" ID="{C30DF060-945B-4055-9E27-D2C1CF52C61E}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_StaticNoise" ID="{BCB9A590-7AA5-45B6-A884-08EE78C13D83}">
+							<ChildrenList>
+								<Action Name="" ID="{CCFA0BB5-ABE8-4209-8548-99E597A7B2F1}" ShortID="664297214">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_StaticNoise" ID="{11A95106-81F0-4018-8053-53781080EF8E}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_MapGenerator_On" ID="{447AA28E-4264-44CA-97D8-A5E9C99A9DF9}">
+							<ChildrenList>
+								<Action Name="" ID="{D3120118-239F-4375-9E29-86D466BF6747}" ShortID="917005155">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_MapGenerator_On" ID="{53410508-A9FF-4B94-B372-2A826BCBA9B3}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_MapGenerator_Off" ID="{81744432-15CB-4E3E-A1AD-51AC500A0A7A}">
+							<ChildrenList>
+								<Action Name="" ID="{A7C42A4B-99F0-4C20-9636-A47A3F13E55A}" ShortID="198141492">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_MapGenerator_Off" ID="{D35047EA-1B1B-4080-8287-7A73B520482F}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Music" ID="{3A0C98F5-66D1-4B97-A8CC-037372EC8133}" ShortID="286614591">
@@ -451,14 +502,14 @@
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Mus_MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+											<ObjectRef Name="Mus_MainMenu_Theme" ID="{5FC159DE-2416-488F-9CCE-1B5203783277}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
 								<Action Name="" ID="{B49FBDC3-D983-40FE-8151-9E5FEAAC32CA}" ShortID="949829398">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Mus_Cursed_Theme_01_Mixing_02" ID="{9C23F3EE-EEEF-44E4-81B9-2501B11D2D8D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+											<ObjectRef Name="Mus_Level01_Theme" ID="{7D831930-AFBE-4879-BD7A-2588CFFDDA70}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -466,21 +517,40 @@
 						</Event>
 						<Event Name="Play_Music_MainMenu" ID="{DD62BE73-6985-431D-91FF-B32A3DAC2D74}">
 							<ChildrenList>
-								<Action Name="" ID="{8AD9FBF2-1CD6-4D84-A919-35D049E3F909}" ShortID="274493309">
+								<Action Name="" ID="{0C987CC1-1F51-4733-BD8F-EF986BFA3B06}" ShortID="26978212">
 									<PropertyList>
-										<Property Name="ActionType" Type="int16" Value="2"/>
+										<Property Name="ActionType" Type="int16" Value="3"/>
 										<Property Name="Scope" Type="int16" Value="1"/>
 									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Mus_Cursed_Theme_01_Mixing_02" ID="{9C23F3EE-EEEF-44E4-81B9-2501B11D2D8D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-										</Reference>
-									</ReferenceList>
+									<ReferenceList/>
+									<ChildrenList>
+										<EventActionException Name="" ID="{0B70BB97-40FE-476E-A160-FF710385D34A}">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Mus_MainMenu_Theme" ID="{5FC159DE-2416-488F-9CCE-1B5203783277}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</EventActionException>
+										<EventActionException Name="" ID="{E3B4B35C-9391-4FCE-A716-F01BF4921AB8}">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Button_Pressed" ID="{9568C7A6-CD4F-4938-9668-E41D245A20E2}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</EventActionException>
+										<EventActionException Name="" ID="{1678AEA8-A80A-48D2-8FF9-2EA855D105F6}">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Button_Selected" ID="{DF310660-5B33-481A-9FC6-40500BCC0128}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</EventActionException>
+									</ChildrenList>
 								</Action>
 								<Action Name="" ID="{603BA903-422C-412B-A2BD-A626532E5B55}" ShortID="796001704">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="Mus_MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+											<ObjectRef Name="Mus_MainMenu_Theme" ID="{5FC159DE-2416-488F-9CCE-1B5203783277}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>

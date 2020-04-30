@@ -283,6 +283,28 @@
 								</Sound>
 							</ChildrenList>
 						</RandomSequenceContainer>
+						<Sound Name="SFX_Creature_EndDrain" ID="{37168FC7-5DBB-4323-A7FD-38A929176A82}" ShortID="55029552">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_Creature_EndDrain" ID="{CE4A5EAF-0E84-41B8-BA54-2C31E246F24D}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_Creature_EndDrain.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="327802423"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_Creature_EndDrain" ID="{CE4A5EAF-0E84-41B8-BA54-2C31E246F24D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Character" ID="{034E77AB-C3EB-457C-897D-8829ECECF5E4}" ShortID="740000020">
@@ -1488,7 +1510,7 @@
 				</Folder>
 				<Folder Name="Musics" ID="{538C3706-0800-41C3-B6FD-07CE58B11454}" ShortID="1001259036">
 					<ChildrenList>
-						<Sound Name="Mus_Cursed_Theme_01_Mixing_02" ID="{9C23F3EE-EEEF-44E4-81B9-2501B11D2D8D}" ShortID="560626364">
+						<Sound Name="Mus_MainMenu_Theme" ID="{5FC159DE-2416-488F-9CCE-1B5203783277}" ShortID="763505810">
 							<PropertyList>
 								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
@@ -1518,38 +1540,21 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="Cursed_Theme_01_Mixing_02" ID="{F692FEBF-F157-468D-BB2A-E9DBB19707D9}">
+								<AudioFileSource Name="Mus_MainMenu_Theme" ID="{710291F1-6303-4400-9A7B-A0F9F28E6B35}">
 									<Language>SFX</Language>
-									<AudioFile>Cursed_Theme_01_Mixing_02.wav</AudioFile>
+									<AudioFile>Mus_MainMenu_Theme.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="607350317"/>
+										<MediaID ID="235091105"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="Cursed_Theme_01_Mixing_02" ID="{F692FEBF-F157-468D-BB2A-E9DBB19707D9}" Platform="Linked"/>
+								<ActiveSource Name="Mus_MainMenu_Theme" ID="{710291F1-6303-4400-9A7B-A0F9F28E6B35}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="Mus_MainMenu_Full" ID="{51B186BB-FBB5-49B9-AAA1-6942AA55269D}" ShortID="395740305">
+						<Sound Name="Mus_Level01_Theme" ID="{7D831930-AFBE-4879-BD7A-2588CFFDDA70}" ShortID="453904696">
 							<PropertyList>
-								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
-								<Property Name="MaxSoundPerInstance" Type="int16">
-									<ValueList>
-										<Value>1</Value>
-									</ValueList>
-								</Property>
-								<Property Name="UseMaxSoundPerInstance" Type="bool">
-									<ValueList>
-										<Value>True</Value>
-									</ValueList>
-								</Property>
-								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>-10</Value>
-									</ValueList>
-								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -1560,16 +1565,16 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="MainMenu_Full" ID="{9994F6DB-14BB-47D0-874A-B9C2A0710B4D}">
+								<AudioFileSource Name="Mus_Level01_Theme" ID="{CBFBC26A-F3EE-4F14-989F-EEF126FEDD51}">
 									<Language>SFX</Language>
-									<AudioFile>MainMenu_Full.wav</AudioFile>
+									<AudioFile>Mus_Level01_Theme.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="89892569"/>
+										<MediaID ID="170720435"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="MainMenu_Full" ID="{9994F6DB-14BB-47D0-874A-B9C2A0710B4D}" Platform="Linked"/>
+								<ActiveSource Name="Mus_Level01_Theme" ID="{CBFBC26A-F3EE-4F14-989F-EEF126FEDD51}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>
@@ -1636,20 +1641,99 @@
 						</Sound>
 					</ChildrenList>
 				</Folder>
-				<Folder Name="Props" ID="{83FE987C-36C7-47DE-93C8-3B5DB5FB808F}" ShortID="996981690">
+				<Folder Name="Props" ID="{8C480922-D6A2-4CFB-AD10-72485040B726}" ShortID="1049714708">
 					<ChildrenList>
-						<Folder Name="AssemblyLine" ID="{86227FE4-36B3-470C-9A11-8D26E17C4E31}" ShortID="558233679">
+						<Sound Name="SFX_AssemblyLine" ID="{F0B733DF-9007-4C91-AABC-04AB9FAFA24E}" ShortID="29266862">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="SFX_AssemblyLine" ID="{1CCCA4BE-57EA-43B2-98E6-39F54AA429AB}" ShortID="480039242">
-									<PropertyList>
-										<Property Name="3DSpatialization" Type="int16" Value="1"/>
-										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-10</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
+								<AudioFileSource Name="SFX_AssemblyLine" ID="{71D25BED-A727-40F6-BFD1-9118F80EF619}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_AssemblyLine.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="447976717"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_AssemblyLine" ID="{71D25BED-A727-40F6-BFD1-9118F80EF619}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_StaticNoise" ID="{11A95106-81F0-4018-8053-53781080EF8E}" ShortID="160721687">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-30</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_StaticNoise" ID="{99D45B56-0960-4750-8634-2B625DFD840E}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_StaticNoise.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="452589518"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_StaticNoise" ID="{99D45B56-0960-4750-8634-2B625DFD840E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_DeathAnnouncement" ID="{C30DF060-945B-4055-9E27-D2C1CF52C61E}" ShortID="703935834">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_DeathAnnouncement" ID="{43B37693-1B52-436A-A41C-35A112004E4C}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_DeathAnnouncement.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="912044876"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_DeathAnnouncement" ID="{43B37693-1B52-436A-A41C-35A112004E4C}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Folder Name="MapGenerator" ID="{2A2C1D9D-09C0-463F-8A3F-D626DFD826BF}" ShortID="368917996">
+							<ChildrenList>
+								<Sound Name="SFX_MapGenerator_Off" ID="{D35047EA-1B1B-4080-8287-7A73B520482F}" ShortID="555630376">
 									<ReferenceList>
 										<Reference Name="Attenuation">
 											<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
@@ -1662,16 +1746,41 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="SFX_AssemblyLine" ID="{D31AC008-DD3B-46CE-B8E2-2EAF98B9D2C4}">
+										<AudioFileSource Name="SFX_MapGenerator_Off" ID="{F714891C-31DF-4F52-868B-D1004CBFF740}">
 											<Language>SFX</Language>
-											<AudioFile>SFX_AssemblyLine.wav</AudioFile>
+											<AudioFile>SFX_MapGenerator_Off.wav</AudioFile>
 											<MediaIDList>
-												<MediaID ID="465921257"/>
+												<MediaID ID="3225159"/>
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="SFX_AssemblyLine" ID="{D31AC008-DD3B-46CE-B8E2-2EAF98B9D2C4}" Platform="Linked"/>
+										<ActiveSource Name="SFX_MapGenerator_Off" ID="{F714891C-31DF-4F52-868B-D1004CBFF740}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_MapGenerator_On" ID="{53410508-A9FF-4B94-B372-2A826BCBA9B3}" ShortID="1061891038">
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_MapGenerator_On" ID="{A81408B2-FCC3-4D67-A8F8-F00EA7361A7B}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_MapGenerator_On.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1048841554"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_MapGenerator_On" ID="{A81408B2-FCC3-4D67-A8F8-F00EA7361A7B}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

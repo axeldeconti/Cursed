@@ -31,6 +31,11 @@ namespace Cursed.Character
         private int _combo = 0;
         private bool _canCombo = false;
 
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeDivekick = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
+
         private void Awake()
         {
             _anim = GetComponentInChildren<AnimationHandler>();
@@ -164,6 +169,7 @@ namespace Cursed.Character
             _isAttacking = true;
             _isDiveKicking = true;
             _anim.LaunchAttack(0, ++_combo);
+            _onCamShake?.Raise(_shakeDivekick);
         }
 
         /// <summary>

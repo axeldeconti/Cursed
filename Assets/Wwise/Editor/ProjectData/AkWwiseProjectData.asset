@@ -40,7 +40,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586142203969205077
+    m_lastTime: -8586138710420065311
     List:
     - name: Characters
       guid: 7cd07edfa3d31d43b7738d06e66fb061
@@ -92,7 +92,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586142204304469320
+    m_lastTime: -8586138710740538158
     List:
     - name: Attack
       guid: 677527c83d22624681e9e422da0fa12b
@@ -233,18 +233,16 @@ MonoBehaviour:
       maxDuration: -1
       minDuration: -1
     - name: Play_AssemblyLine
-      guid: fdb1b1da1dedb046b21e786caa2ab2b6
+      guid: 58a07acebe9aae4c8b94ed115f8d0f09
       id: 3793046172
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Spatial
         ObjectType: 4
-      - ElementName: Props
-        ObjectType: 4
       - ElementName: Play_AssemblyLine
         ObjectType: 3
-      Path: Default Work Unit\Spatial\Props\Play_AssemblyLine
+      Path: Default Work Unit\Spatial\Play_AssemblyLine
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -354,6 +352,20 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Creature_EndDrain
+      guid: f8ce5339da865a4ca924283240c6e9d7
+      id: 3331455763
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
+      - ElementName: Play_Creature_EndDrain
+        ObjectType: 3
+      Path: Default Work Unit\Creature\Play_Creature_EndDrain
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Creature_Grabbing
       guid: 3a0c837e787423448cd2af07196e41da
       id: 3373431376
@@ -421,6 +433,20 @@ MonoBehaviour:
       - ElementName: Play_Dash
         ObjectType: 3
       Path: Default Work Unit\Character\Play_Dash
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_DeathAnnouncement
+      guid: a3f0e03f99c3744188f5b5e483f401ac
+      id: 3531069449
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Play_DeathAnnouncement
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Play_DeathAnnouncement
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -624,6 +650,34 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_MapGenerator_Off
+      guid: 32447481cb153e4ea1ad51ac500a0a7a
+      id: 2809729569
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Play_MapGenerator_Off
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Play_MapGenerator_Off
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_MapGenerator_On
+      guid: 8ea27a446442ca4497d8a5e9c99a9df9
+      id: 1701637365
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Spatial
+        ObjectType: 4
+      - ElementName: Play_MapGenerator_On
+        ObjectType: 3
+      Path: Default Work Unit\Spatial\Play_MapGenerator_On
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_MultiLaser
       guid: 0a679284079b454795bbaffec8289111
       id: 2996732270
@@ -712,19 +766,17 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: Props
-      guid: 96717418fc76114b8a28f128ee4b85f9
-      id: 968010305
+    - name: Play_StaticNoise
+      guid: 90a5b9bca57ab645a88408ee78c13d83
+      id: 1913495746
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
       - ElementName: Spatial
         ObjectType: 4
-      - ElementName: Props
-        ObjectType: 4
-      - ElementName: Props
+      - ElementName: Play_StaticNoise
         ObjectType: 3
-      Path: Default Work Unit\Spatial\Props\Props
+      Path: Default Work Unit\Spatial\Play_StaticNoise
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -835,7 +887,6 @@ MonoBehaviour:
   - /Cursed_WwiseProject/Events
   - /Cursed_WwiseProject/Events/Default Work Unit
   - /Cursed_WwiseProject/Events/Default Work Unit/Spatial
-  - /Cursed_WwiseProject/Events/Default Work Unit/Spatial/Props
   - /Cursed_WwiseProject/SoundBanks
   - /Cursed_WwiseProject/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1

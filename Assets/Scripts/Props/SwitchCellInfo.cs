@@ -5,12 +5,10 @@ using System.Collections;
 public class SwitchCellInfo : MonoBehaviour
 {
     public TextMeshProUGUI cellInfoText;
-
-    [SerializeField] private int _cellNumber;
     
-    public void UpdateCellInformation()
+    public void UpdateCellInformation(int index)
     {
-        switch (_cellNumber)
+        switch (index)
         {
             case 9:
                 cellInfoText.text = "C3";
@@ -41,14 +39,6 @@ public class SwitchCellInfo : MonoBehaviour
                 break;
             default:
                 break;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<CellInfo>())
-        {
-            _cellNumber = other.gameObject.GetComponent<CellInfo>().cellNumberInfo;
         }
     }
 }

@@ -21,11 +21,13 @@ namespace AK
         static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
         static const AkUniqueID PLAY_BUTTON_SELECTED = 3882482286U;
         static const AkUniqueID PLAY_CREATURE_CALL = 1776683280U;
+        static const AkUniqueID PLAY_CREATURE_ENDDRAIN = 3331455763U;
         static const AkUniqueID PLAY_CREATURE_GRABBING = 3373431376U;
         static const AkUniqueID PLAY_CREATURE_HITWALL = 1251478039U;
         static const AkUniqueID PLAY_CREATURE_LAUNCH = 3361186193U;
         static const AkUniqueID PLAY_CREATURE_ONCHAR = 2125403547U;
         static const AkUniqueID PLAY_DASH = 2211787386U;
+        static const AkUniqueID PLAY_DEATHANNOUNCEMENT = 3531069449U;
         static const AkUniqueID PLAY_DESTRUCTIBLEWALL = 3966446488U;
         static const AkUniqueID PLAY_DIVEKICK = 1735873294U;
         static const AkUniqueID PLAY_DOUBLEJUMP = 595748461U;
@@ -39,12 +41,15 @@ namespace AK
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
         static const AkUniqueID PLAY_LOWHEALTH2 = 291002680U;
+        static const AkUniqueID PLAY_MAPGENERATOR_OFF = 2809729569U;
+        static const AkUniqueID PLAY_MAPGENERATOR_ON = 1701637365U;
         static const AkUniqueID PLAY_MULTILASER = 2996732270U;
         static const AkUniqueID PLAY_MUSIC_INGAME = 962944353U;
         static const AkUniqueID PLAY_MUSIC_MAINMENU = 1566693136U;
         static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
+        static const AkUniqueID PLAY_STATICNOISE = 1913495746U;
         static const AkUniqueID STOP_BEGIN_PLAY_LOOP_WALLSLIDE = 848533759U;
         static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
     } // namespace EVENTS

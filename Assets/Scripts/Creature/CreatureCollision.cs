@@ -69,11 +69,11 @@ namespace Cursed.Creature
         {
             if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
             {
-                if (_creatureManager.CurrentState == CreatureState.Moving || _creatureManager.CurrentState == CreatureState.Chasing)
-                    return;
-
-                CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
-                AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
+                if (_creatureManager.CurrentState == CreatureState.OnComeBack || _creatureManager.CurrentState == CreatureState.OnWall)
+                {
+                    CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
+                    AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
+                }
             }
 
             if (collision.gameObject.CompareTag("Enemy") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")

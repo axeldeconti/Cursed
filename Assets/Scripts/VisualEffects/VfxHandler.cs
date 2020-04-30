@@ -23,7 +23,11 @@ namespace Cursed.Character
         [SerializeField] private GameObject[] _vfxAttack;        
         [SerializeField] private GameObject[] _vfxBloodProjection;
         [SerializeField] private GameObject _vfxBloodParticle;
-        [SerializeField] private GameObject _vfxEnemyDeathEffect;
+
+        [Header("VFX Death")]
+        [SerializeField] private GameObject _vfxDeathEffect;
+        [SerializeField] private GameObject _vfxBloodExplosion;
+        [SerializeField] private GameObject _vfxAndroidPartExplosion;
 
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
@@ -36,16 +40,12 @@ namespace Cursed.Character
             _move = GetComponent<CharacterMovement>();
         }
 
-        public void FlashScreenDmgPlayer ()
-        {
-            if (_refFlashScreen != null)
-                _refFlashScreen.FlashScreenFadeOut(0.2f);
-        }
-
         public GameObject SpawnVfx(GameObject vfx, Vector3 position)
         {
             return Instantiate(vfx, position, Quaternion.identity);
         }
+
+        #region VFX Movement
 
         public void RunVfx()
         {
@@ -163,6 +163,16 @@ namespace Cursed.Character
             return particle;
         }
 
+        #endregion
+
+        #region VFX Attack
+
+        public void FlashScreenDmgPlayer()
+        {
+            if (_refFlashScreen != null)
+                _refFlashScreen.FlashScreenFadeOut(0.2f);
+        }
+
         public void TouchImpact(Vector3 pos, GameObject[] vfxTouchImpact)
         {
             Vector3 offset = new Vector3(0, 3, 0);
@@ -208,7 +218,7 @@ namespace Cursed.Character
             Vector3 offset = new Vector3(0, 3, 0);
             GameObject particle = Instantiate(_vfxBloodParticle, pos + offset, Quaternion.identity);
             ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
-            if(side == 0)
+            if (side == 0)
                 shapeParticle.rotation = new Vector3(0, 90, 0);
             else
                 shapeParticle.rotation = new Vector3(0, -90, 0);
@@ -237,11 +247,29 @@ namespace Cursed.Character
             return particle;
         }
 
-        public void EnemyDeathEffect(Vector3 pos)
+        #endregion
+
+        #region VFX Death
+
+        public void DeathEffect(Vector3 pos)
         {
             Vector3 offset = new Vector3(0, 3, 0);
-            Instantiate(_vfxEnemyDeathEffect, pos + offset, Quaternion.identity);
+            Instantiate(_vfxDeathEffect, pos + offset, Quaternion.identity);
         }
+
+        public void BloodExplosion(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            Instantiate(_vfxBloodExplosion, pos + offset, Quaternion.identity);
+        }
+
+        public void AndroidPartExplosion(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            Instantiate(_vfxAndroidPartExplosion, pos + offset, Quaternion.identity);
+        }
+
+        #endregion
 
         #region Getters & Setters
         public GameObject VfxDoubleJump => _vfxDoubleJump;

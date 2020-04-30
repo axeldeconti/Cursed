@@ -6,6 +6,8 @@ namespace Cursed.Creature
 
     public class CreatureOnCharacter : MonoBehaviour
     {
+        public static CreatureOnCharacter Instance;
+
         private SpriteMask _mask;
         private Transform _parent;
         private SpriteRenderer _spriteParent, _spriteRenderer;
@@ -16,6 +18,14 @@ namespace Cursed.Creature
 
         void Awake()
         {
+            if (Instance == null)
+                Instance = this;
+            else
+            {
+                Destroy(Instance.gameObject);
+                Instance = this;
+            }
+            
             _parent = transform.parent;
 
             if( _parent.GetComponent<SpriteMask>() == null) 
