@@ -36,6 +36,9 @@ namespace Cursed.Character
         [SerializeField] private ShakeData _shakeDivekick = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
 
+        [Header("Unlocks")]
+        [SerializeField] private bool _attacksUnlock = true;
+
         private void Awake()
         {
             _anim = GetComponentInChildren<AnimationHandler>();
@@ -74,6 +77,9 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateAttack(int attackNb)
         {
+            if (!_attacksUnlock)
+                return;
+
             if (_coll.OnGround)
             {
                 if (_move.IsDashing)
@@ -259,9 +265,18 @@ namespace Cursed.Character
             return CurrentWeapon.VfxCombo3;
         }
 
+        #region GETTERS & SETTERS
+
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);
         public int Combo => _combo;
+        public bool AttacksUnlock
+        {
+            get => _attacksUnlock;
+            set => _attacksUnlock = value;
+        }
+
+        #endregion
     }
 }

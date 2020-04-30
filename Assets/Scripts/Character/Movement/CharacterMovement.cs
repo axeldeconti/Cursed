@@ -79,6 +79,8 @@ namespace Cursed.Character
 
         [Space]
         [Header("Unlocks")]
+        [SerializeField] private bool _jumpUnlock = true;
+        [SerializeField] private bool _wallRunUnlock = true;
         [SerializeField] private bool _dashUnlock = false;
         [SerializeField] private bool _doubleJumpUnlock = false;
 
@@ -441,6 +443,9 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateJump()
         {
+            if (!_jumpUnlock)
+                return;
+
             if (!_input.Jump.Value)
                 return;
 
@@ -567,6 +572,9 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateWallGrab(float x, float y)
         {
+            if (!_wallRunUnlock)
+                return;
+
             if (_wallGrab && !_isDashing && CheckIfWallGrabDuringJump() && !_attackManager.IsAttacking)
             {
                 if (x > .2f || x < .2f)
@@ -825,6 +833,7 @@ namespace Cursed.Character
         public bool CanMove => _canMove;
         public bool IsDashing => _isDashing;
         public bool IsJumping => _isJumping;
+        public bool IsDoubleJumping => _hasDoubleJumped;
         public float XSpeed => _currentVelocity.x;
         public float YSpeed => _currentVelocity.y;
         public bool OnGroundTouch => _groundTouch;
@@ -833,6 +842,26 @@ namespace Cursed.Character
         public bool IsInvincible => _isInvincible;
         public int Side => _side;
         public bool IsDiveKicking => _isDiveKicking;
+        public bool JumpUnlock
+        {
+            get => _jumpUnlock;
+            set => _jumpUnlock = value;
+        }
+        public bool DoubleJumpUnlock
+        {
+            get => _doubleJumpUnlock;
+            set => _doubleJumpUnlock = value;
+        }
+        public bool WallRunUnlock
+        {
+            get => _wallRunUnlock;
+            set => _wallRunUnlock = value;
+        }
+        public bool DashUnlock
+        {
+            get => _dashUnlock;
+            set => _dashUnlock = value;
+        }
 
         public CharacterMovementState State => _state;
 

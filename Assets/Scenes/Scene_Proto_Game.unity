@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5278,6 +5278,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Creature
       objectReference: {fileID: 0}
+    - target: {fileID: 8864257907197743972, guid: a5025087565816e4b978203d7292944b,
+        type: 3}
+      propertyPath: _canAttackPlayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5025087565816e4b978203d7292944b, type: 3}
 --- !u!1 &1133726149
@@ -8026,21 +8031,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Lifebar
-      objectReference: {fileID: 0}
-    - target: {fileID: 4433985217545818979, guid: 35547394a3ec291499ea9331f8fac9d6,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4433985217545818979, guid: 35547394a3ec291499ea9331f8fac9d6,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.8627451
-      objectReference: {fileID: 0}
-    - target: {fileID: 4433985217545818979, guid: 35547394a3ec291499ea9331f8fac9d6,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35547394a3ec291499ea9331f8fac9d6, type: 3}
