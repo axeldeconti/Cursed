@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cursed.Creature;
 
 namespace Cursed.Tutoriel
 {
@@ -11,6 +12,10 @@ namespace Cursed.Tutoriel
         [SerializeField] private GameObject _wallRunTuto;
         [SerializeField] private GameObject _dashTuto;
         [SerializeField] private GameObject _attackTuto;
+        [SerializeField] private GameObject _sonarTuto;
+        [SerializeField] private GameObject _creatureDirectionTuto;
+        [SerializeField] private GameObject _creatureLaunchTuto;
+        [SerializeField] private GameObject _creatureRecallTuto;
 
         private GameObject _tutoChild;
         private TutorielBox _tutorielBox;
@@ -79,8 +84,33 @@ namespace Cursed.Tutoriel
                     }
                     break;
 
-                case TutorielType.Attack:
-                    if (_tutorielBox.PlayerAttacks.IsAttacking)
+
+                case TutorielType.Sonar:
+                    if (FindObjectOfType<CreatureInputController>().Sonar)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.CreatureDirection:
+                    if (FindObjectOfType<CreatureJoystickDirection>().Direction != Vector3.zero)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.CreatureLaunch:
+                    if (FindObjectOfType<CreatureInputController>().Down)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.CreatureRecall:
+                    if (FindObjectOfType<CreatureInputController>().Down)
                     {
                         HideTuto();
                         return;
@@ -117,6 +147,21 @@ namespace Cursed.Tutoriel
                     ShowTuto(_attackTuto);
                     break;
 
+                case TutorielType.CreatureDirection:
+                    ShowTuto(_creatureDirectionTuto);
+                    break;
+
+                case TutorielType.CreatureLaunch:
+                    ShowTuto(_creatureLaunchTuto);
+                    break;
+
+                case TutorielType.CreatureRecall:
+                    ShowTuto(_creatureRecallTuto);
+                    break;
+
+                case TutorielType.Sonar:
+                    ShowTuto(_sonarTuto);
+                    break;
             }
         }
 

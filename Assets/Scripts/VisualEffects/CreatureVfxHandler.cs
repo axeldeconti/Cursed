@@ -42,7 +42,7 @@ namespace Cursed.Creature
 
         public void CreatureAberration(float value)
         {
-            _chromaticAberrationChanging.LerpToValue(value);
+            _chromaticAberrationChanging?.LerpToValue(value);
         }
     }
 }

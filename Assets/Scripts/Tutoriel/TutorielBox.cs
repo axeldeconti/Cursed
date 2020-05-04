@@ -8,7 +8,11 @@ public enum TutorielType
     DoubleJump,
     WallRun,
     Dash,
-    Attack
+    Attack,
+    Sonar,
+    CreatureDirection,
+    CreatureLaunch,
+    CreatureRecall
 }
 namespace Cursed.Tutoriel
 {
