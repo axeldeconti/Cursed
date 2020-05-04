@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 namespace Cursed.Tutoriel
 {
@@ -44,7 +42,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Move:
                     if (_tutorielBox.PlayerMovement.XSpeed != 0)
                     {
-                        Destroy(_tutoChild);
+                        HideTuto();
                         return;
                     }
                     break;
@@ -52,7 +50,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Jump:
                     if (_tutorielBox.PlayerMovement.IsJumping)
                     {
-                        Destroy(_tutoChild);
+                        HideTuto();
                         return;
                     }
                     break;
@@ -60,7 +58,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.DoubleJump:
                     if (_tutorielBox.PlayerMovement.IsDoubleJumping)
                     {
-                        Destroy(_tutoChild);
+                        HideTuto();
                         return;
                     }
                     break;
@@ -68,7 +66,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.WallRun:
                     if (_tutorielBox.PlayerMovement.IsWallRun)
                     {
-                        Destroy(_tutoChild);
+                        HideTuto();
                         return;
                     }
                     break;
@@ -76,7 +74,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Dash:
                     if (_tutorielBox.PlayerMovement.IsDashing)
                     {
-                        Destroy(_tutoChild);
+                        HideTuto();
                         return;
                     }
                     break;
@@ -84,7 +82,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Attack:
                     if (_tutorielBox.PlayerAttacks.IsAttacking)
                     {
-                        Destroy(_tutoChild);
+                        HideTuto();
                         return;
                     }
                     break;
@@ -93,33 +91,47 @@ namespace Cursed.Tutoriel
 
         private void ShowTutorielInformation(TutorielType type)
         {
-            switch(type)
+            switch (type)
             {
                 case TutorielType.Move:
-                    _tutoChild = Instantiate(_moveTuto, transform.position, Quaternion.identity, transform);
+                    ShowTuto(_moveTuto);
                     break;
 
                 case TutorielType.Jump:
-                    _tutoChild = Instantiate(_jumpTuto, transform.position, Quaternion.identity, transform);
+                    ShowTuto(_jumpTuto);
                     break;
 
                 case TutorielType.DoubleJump:
-                    _tutoChild = Instantiate(_doubleJumpTuto, transform.position, Quaternion.identity, transform);
+                    ShowTuto(_doubleJumpTuto);
                     break;
 
                 case TutorielType.WallRun:
-                    _tutoChild = Instantiate(_wallRunTuto, transform.position, Quaternion.identity, transform);
+                    ShowTuto(_wallRunTuto);
                     break;
 
                 case TutorielType.Dash:
-                    _tutoChild = Instantiate(_dashTuto, transform.position, Quaternion.identity, transform);
+                    ShowTuto(_dashTuto);
                     break;
 
                 case TutorielType.Attack:
-                    _tutoChild = Instantiate(_attackTuto, transform.position, Quaternion.identity, transform);
+                    ShowTuto(_attackTuto);
                     break;
 
             }
+        }
+
+        private void ShowTuto(GameObject tutoObject)
+        {
+            _tutoChild = Instantiate(tutoObject, transform.position, Quaternion.identity, transform);
+            _tutoChild.GetComponent<Animator>().SetBool("Open", true);
+        }
+
+        private void HideTuto()
+        {
+            Animator animator = _tutoChild.GetComponent<Animator>();
+            animator.SetBool("Close", true);
+            animator.SetBool("Open", false);
+            Destroy(_tutoChild, animator.GetCurrentAnimatorClipInfo(0).Length);
         }
     }
 
