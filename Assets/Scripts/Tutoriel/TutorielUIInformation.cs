@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cursed.Creature;
+using Cursed.Character;
 
 namespace Cursed.Tutoriel
 {
@@ -11,7 +12,8 @@ namespace Cursed.Tutoriel
         [SerializeField] private GameObject _doubleJumpTuto;
         [SerializeField] private GameObject _wallRunTuto;
         [SerializeField] private GameObject _dashTuto;
-        [SerializeField] private GameObject _attackTuto;
+        [SerializeField] private GameObject _attack1Tuto;
+        [SerializeField] private GameObject _attack2Tuto;
         [SerializeField] private GameObject _sonarTuto;
         [SerializeField] private GameObject _creatureDirectionTuto;
         [SerializeField] private GameObject _creatureLaunchTuto;
@@ -76,8 +78,25 @@ namespace Cursed.Tutoriel
                     }
                     break;
 
+
                 case TutorielType.Dash:
                     if (_tutorielBox.PlayerMovement.IsDashing)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.Attack1:
+                    if (_tutorielBox.PlayerAttacks.GetComponent<IInputController>().Attack_1)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.Attack2:
+                    if (_tutorielBox.PlayerAttacks.GetComponent<IInputController>().Attack_2)
                     {
                         HideTuto();
                         return;
@@ -143,8 +162,12 @@ namespace Cursed.Tutoriel
                     ShowTuto(_dashTuto);
                     break;
 
-                case TutorielType.Attack:
-                    ShowTuto(_attackTuto);
+                case TutorielType.Attack1:
+                    ShowTuto(_attack1Tuto);
+                    break;
+
+                case TutorielType.Attack2:
+                    ShowTuto(_attack2Tuto);
                     break;
 
                 case TutorielType.CreatureDirection:
@@ -173,7 +196,10 @@ namespace Cursed.Tutoriel
 
         private void HideTuto()
         {
-            Animator animator = _tutoChild.GetComponent<Animator>();
+            if (_tutoChild == null)
+                return;
+
+            Animator animator = _tutoChild?.GetComponent<Animator>();
             animator.SetBool("Close", true);
             animator.SetBool("Open", false);
             Destroy(_tutoChild, animator.GetCurrentAnimatorClipInfo(0).Length);
