@@ -6,7 +6,15 @@ namespace Cursed.Tutoriel
 {
     public class TutorielUIInformation : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _tutorielText;
+        [Header("Tuto objects")]
+        [SerializeField] private GameObject _moveTuto;
+        [SerializeField] private GameObject _jumpTuto;
+        [SerializeField] private GameObject _doubleJumpTuto;
+        [SerializeField] private GameObject _wallRunTuto;
+        [SerializeField] private GameObject _dashTuto;
+        [SerializeField] private GameObject _attackTuto;
+
+        private GameObject _tutoChild;
         private TutorielBox _tutorielBox;
         private TutorielType _tutorielType;
 
@@ -18,17 +26,15 @@ namespace Cursed.Tutoriel
 
         private void Start()
         {
-            _tutorielText.text = "";
-
             _tutorielBox.SpellUnlock += ShowTutorielInformation;
         }
 
         private void Update()
         {
-            UpdateTextInformations();
+            UpdateTutoInformation();
         }
 
-        private void UpdateTextInformations()
+        private void UpdateTutoInformation()
         {
             if (_tutorielBox.PlayerMovement == null || _tutorielBox.PlayerAttacks == null)
                 return;
@@ -38,7 +44,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Move:
                     if (_tutorielBox.PlayerMovement.XSpeed != 0)
                     {
-                        _tutorielText.text = "";
+                        Destroy(_tutoChild);
                         return;
                     }
                     break;
@@ -46,7 +52,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Jump:
                     if (_tutorielBox.PlayerMovement.IsJumping)
                     {
-                        _tutorielText.text = "";
+                        Destroy(_tutoChild);
                         return;
                     }
                     break;
@@ -54,7 +60,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.DoubleJump:
                     if (_tutorielBox.PlayerMovement.IsDoubleJumping)
                     {
-                        _tutorielText.text = "";
+                        Destroy(_tutoChild);
                         return;
                     }
                     break;
@@ -62,7 +68,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.WallRun:
                     if (_tutorielBox.PlayerMovement.IsWallRun)
                     {
-                        _tutorielText.text = "";
+                        Destroy(_tutoChild);
                         return;
                     }
                     break;
@@ -70,7 +76,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Dash:
                     if (_tutorielBox.PlayerMovement.IsDashing)
                     {
-                        _tutorielText.text = "";
+                        Destroy(_tutoChild);
                         return;
                     }
                     break;
@@ -78,7 +84,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Attack:
                     if (_tutorielBox.PlayerAttacks.IsAttacking)
                     {
-                        _tutorielText.text = "";
+                        Destroy(_tutoChild);
                         return;
                     }
                     break;
@@ -90,27 +96,27 @@ namespace Cursed.Tutoriel
             switch(type)
             {
                 case TutorielType.Move:
-                    _tutorielText.text = "Use Left Joystick to move";
+                    _tutoChild = Instantiate(_moveTuto, transform.position, Quaternion.identity, transform);
                     break;
 
                 case TutorielType.Jump:
-                    _tutorielText.text = "Press A to jump";
+                    _tutoChild = Instantiate(_jumpTuto, transform.position, Quaternion.identity, transform);
                     break;
 
                 case TutorielType.DoubleJump:
-                    _tutorielText.text = "Press A in the air to double jump";
+                    _tutoChild = Instantiate(_doubleJumpTuto, transform.position, Quaternion.identity, transform);
                     break;
 
                 case TutorielType.WallRun:
-                    _tutorielText.text = "Press Right Trigger to wall run close to a wall";
+                    _tutoChild = Instantiate(_wallRunTuto, transform.position, Quaternion.identity, transform);
                     break;
 
                 case TutorielType.Dash:
-                    _tutorielText.text = "Press Right Trigger to dash on the ground and to dodge lasers";
+                    _tutoChild = Instantiate(_dashTuto, transform.position, Quaternion.identity, transform);
                     break;
 
                 case TutorielType.Attack:
-                    _tutorielText.text = "Press X to attack with the first weapon";
+                    _tutoChild = Instantiate(_attackTuto, transform.position, Quaternion.identity, transform);
                     break;
 
             }
