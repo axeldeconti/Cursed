@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using System.Collections;
 using UnityEngine.Events;
 
 namespace Cursed.UI
@@ -10,6 +9,8 @@ namespace Cursed.UI
     [RequireComponent(typeof(Button))]
     public class ButtonHandler : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
+        public static bool isFirstSelected = true;
+
         [SerializeField] private TextMeshProUGUI _text = null;
         [Space]
         [SerializeField] private UnityEvent _onPress;
@@ -58,7 +59,11 @@ namespace Cursed.UI
         public void OnSelect(BaseEventData eventData)
         {
             SetTextColor(_button.colors.selectedColor);
-            AkSoundEngine.PostEvent("Play_Button_Selected", gameObject);
+
+            if (isFirstSelected)
+                isFirstSelected = false;
+            else
+                AkSoundEngine.PostEvent("Play_Button_Selected", gameObject);
         }
 
         public void OnDeselect(BaseEventData eventData)

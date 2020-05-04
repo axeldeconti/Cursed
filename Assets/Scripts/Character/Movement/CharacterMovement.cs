@@ -79,6 +79,8 @@ namespace Cursed.Character
 
         [Space]
         [Header("Unlocks")]
+        [SerializeField] private bool _jumpUnlock = true;
+        [SerializeField] private bool _wallRunUnlock = true;
         [SerializeField] private bool _dashUnlock = false;
         [SerializeField] private bool _doubleJumpUnlock = false;
 
@@ -233,7 +235,7 @@ namespace Cursed.Character
 
             while (dashTimer >= 0 || forceToContinu)
             {
-                if (!CheckIfCanDash())
+                if (!CheckIfCanDash(forceToContinu))
                     break;
 
                 deltaDist = side * _dashDistance * 10 * (1 / (float)GameManager.FPS) / _dashTime;
@@ -255,9 +257,16 @@ namespace Cursed.Character
             _timeToNextDash = Time.time + _dashCooldown;
             Destroy(_refDashSpeedVfx);
             Destroy(_refDashDustVfx);
+
+            //Check for flip if is attacking
+            if (_attackManager.IsAttacking)
+            {
+                if ((_input.x > 0 && _side == -1) || (_input.x < 0 && _side == 1))
+                    ForceFlip(_input.x);
+            }
         }
 
-        private void UpdateForceToContinu(ref bool forceToContinu)
+        public void UpdateForceToContinu(ref bool forceToContinu)
         {
             Vector2 frontOffset = new Vector2(_side * _upFrontRaycastOffset.x, _upFrontRaycastOffset.y);
             Vector2 backOffset = new Vector2(_side * _upBackRaycastOffset.x, _upBackRaycastOffset.y);
@@ -267,13 +276,18 @@ namespace Cursed.Character
             forceToContinu = (i + j) != 0;
         }
 
-        private bool CheckIfCanDash()
+        private bool CheckIfCanDash(bool forced)
         {
+            if (GameManager.Instance.State != GameManager.GameState.InGame)
+                return false;
+
             int i = Physics2D.RaycastAll(new Vector2(0f, 1.5f) + (Vector2)transform.position, _side * Vector2.right, 3f, LayerMask.GetMask("Ground")).Length;
 
             bool canDash = i == 0;
 
-            return canDash || _isJumping;
+            bool attack = forced ? true : !_attackManager.IsAttacking;
+
+            return canDash && !_isJumping && attack;
         }
 
         private IEnumerator ResetValuesOnAfterDash()
@@ -429,6 +443,9 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateJump()
         {
+            if (!_jumpUnlock)
+                return;
+
             if (!_input.Jump.Value)
                 return;
 
@@ -457,7 +474,11 @@ namespace Cursed.Character
 
                 if (_isDashing)
                 {
-                    Jump(_dashJump);
+                    bool forced = false;
+                    UpdateForceToContinu(ref forced);
+
+                    if (!forced)
+                        Jump(_dashJump);
                 }
                 else
                 {
@@ -466,7 +487,7 @@ namespace Cursed.Character
             }
 
             //If on wall, wall jump
-            if ((_coll.OnWall && !_coll.OnGround && _wallGrab) || _wasOnWall)
+            if ((_coll.OnWall && !_coll.OnGround && _wallGrab) || _wasOnWall && !_isDashing)
                 WallJump();
         }
 
@@ -525,10 +546,7 @@ namespace Cursed.Character
         {
             _canDash = !_isDashing && (Time.time >= _timeToNextDash);
 
-            if (!CheckIfCanDash())
-                return;
-
-            if (_attackManager.IsAttacking)
+            if (!CheckIfCanDash(false))
                 return;
 
             if (!_input.Dash.Value || !_canDash || !_groundTouch || !_dashUnlock)
@@ -554,6 +572,9 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateWallGrab(float x, float y)
         {
+            if (!_wallRunUnlock)
+                return;
+
             if (_wallGrab && !_isDashing && CheckIfWallGrabDuringJump() && !_attackManager.IsAttacking)
             {
                 if (x > .2f || x < .2f)
@@ -776,6 +797,23 @@ namespace Cursed.Character
             _isInvincible = false;
         }
 
+        /// <summary>
+        /// Used when dash cancel with attack to attack in the right direction
+        /// </summary>
+        private void ForceFlip(float x)
+        {
+            if (x > .1f)
+            {
+                _side = 1;
+                _anim.Flip(_side);
+            }
+            if (x < -.1f)
+            {
+                _side = -1;
+                _anim.Flip(_side);
+            }
+        }
+
         private void OnDrawGizmos()
         {
             if (!_showDebug)
@@ -795,6 +833,7 @@ namespace Cursed.Character
         public bool CanMove => _canMove;
         public bool IsDashing => _isDashing;
         public bool IsJumping => _isJumping;
+        public bool IsDoubleJumping => _hasDoubleJumped;
         public float XSpeed => _currentVelocity.x;
         public float YSpeed => _currentVelocity.y;
         public bool OnGroundTouch => _groundTouch;
@@ -803,6 +842,26 @@ namespace Cursed.Character
         public bool IsInvincible => _isInvincible;
         public int Side => _side;
         public bool IsDiveKicking => _isDiveKicking;
+        public bool JumpUnlock
+        {
+            get => _jumpUnlock;
+            set => _jumpUnlock = value;
+        }
+        public bool DoubleJumpUnlock
+        {
+            get => _doubleJumpUnlock;
+            set => _doubleJumpUnlock = value;
+        }
+        public bool WallRunUnlock
+        {
+            get => _wallRunUnlock;
+            set => _wallRunUnlock = value;
+        }
+        public bool DashUnlock
+        {
+            get => _dashUnlock;
+            set => _dashUnlock = value;
+        }
 
         public CharacterMovementState State => _state;
 

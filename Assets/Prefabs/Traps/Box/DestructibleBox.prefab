@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7750688133669251746}
   - component: {fileID: 7750688133669251747}
   - component: {fileID: 7750688133669251748}
+  - component: {fileID: 3836682742696376061}
   m_Layer: 8
   m_Name: DestructibleBox
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7750688133669251744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 281.88, y: -233.22, z: 3.7188}
-  m_LocalScale: {x: 16, y: 16, z: 0}
+  m_LocalScale: {x: 18.1, y: 10, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e27c7c6638bc3be4fbcbcb8cdde8ab27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,8 +96,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0536918568e77499d57998571b2621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destructionEffect: {fileID: 883735949759709132, guid: 4809ff107012914449a17349e4c1f8f8,
+  _destructionEffect: {fileID: 3106315975454716832, guid: bea484fbfd8475e4fb4c299f964bd2d3,
     type: 3}
+  _destructionImpact: {fileID: 9059129696956267527, guid: abfefa3ccf72c574b90662f7deba2c7f,
+    type: 3}
+  _destructionImpactDivekick: {fileID: 3952899226987271341, guid: 14cdf7f65b4277244b14df9f827201b5,
+    type: 3}
+  _shakeDestructibleWall: {fileID: 11400000, guid: 9d760f393d23e69418ffd4f163e1eb3c,
+    type: 2}
+  _onCamShake: {fileID: 11400000, guid: 8a79bf79c1417ee438404cab95d4a731, type: 2}
 --- !u!61 &7750688133669251748
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -123,3 +131,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &3836682742696376061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7750688133669251744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace0cd82365bcf14f836bebce97915e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerList: f7e1664c
+  useOtherObject: 0
+  data:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 784b0a376c599314abb8c86b811cf9ea,
+      type: 2}
+  decodeBank: 0
+  loadAsynchronous: 0
+  saveDecodedBank: 0
+  unloadTriggerList: 958ca0ea
+  bankNameInternal: 
+  valueGuidInternal: 

@@ -18,6 +18,17 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxDashDust;
         [SerializeField] private GameObject _vfxTrailDivekick;
 
+        [Header("VFX Attack")]
+        [SerializeField] private GameObject[] _vfxCritical;
+        [SerializeField] private GameObject[] _vfxAttack;        
+        [SerializeField] private GameObject[] _vfxBloodProjection;
+        [SerializeField] private GameObject _vfxBloodParticle;
+
+        [Header("VFX Death")]
+        [SerializeField] private GameObject _vfxDeathEffect;
+        [SerializeField] private GameObject _vfxBloodExplosion;
+        [SerializeField] private GameObject _vfxAndroidPartExplosion;
+
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
         private CollisionHandler _coll;
@@ -29,16 +40,12 @@ namespace Cursed.Character
             _move = GetComponent<CharacterMovement>();
         }
 
-        public void FlashScreenDmgPlayer ()
-        {
-            if (_refFlashScreen != null)
-                _refFlashScreen.FlashScreenFadeOut(0.2f);
-        }
-
         public GameObject SpawnVfx(GameObject vfx, Vector3 position)
         {
             return Instantiate(vfx, position, Quaternion.identity);
         }
+
+        #region VFX Movement
 
         public void RunVfx()
         {
@@ -156,12 +163,113 @@ namespace Cursed.Character
             return particle;
         }
 
+        #endregion
+
+        #region VFX Attack
+
+        public void FlashScreenDmgPlayer()
+        {
+            if (_refFlashScreen != null)
+                _refFlashScreen.FlashScreenFadeOut(0.2f);
+        }
+
         public void TouchImpact(Vector3 pos, GameObject[] vfxTouchImpact)
         {
             Vector3 offset = new Vector3(0, 3, 0);
             int rnd = Random.Range(0, vfxTouchImpact.Length);
             Instantiate(vfxTouchImpact[rnd], pos + offset, Quaternion.identity);
         }
+
+        public GameObject CriticalEffect(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxCritical.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxCritical[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, Random.Range(0,2), 0);
+            return particle;
+        }
+
+        public GameObject AttackEffect(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxAttack.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxAttack[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, 0, 0);
+            return particle;
+        }
+
+        public GameObject Combo3(Vector3 pos, GameObject vfxCombo3, GameObject attacker)
+        {
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(vfxCombo3, pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            rendererParticle.flip = new Vector3(side, 0, 0);
+            return particle;
+        }
+
+        public GameObject BloodParticle(Vector3 pos, GameObject attacker)
+        {
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxBloodParticle, pos + offset, Quaternion.identity);
+            ParticleSystem.ShapeModule shapeParticle = particle.GetComponent<ParticleSystem>().shape;
+            if (side == 0)
+                shapeParticle.rotation = new Vector3(0, 90, 0);
+            else
+                shapeParticle.rotation = new Vector3(0, -90, 0);
+
+            return particle;
+        }
+
+        public GameObject BloodProjection(Vector3 pos, GameObject attacker)
+        {
+            int rnd = Random.Range(0, _vfxBloodProjection.Length);
+            int side = attacker.GetComponent<CharacterMovement>().Side == 1 ? 0 : 1;
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject particle = Instantiate(_vfxBloodProjection[rnd], pos + offset, Quaternion.identity);
+            ParticleSystemRenderer rendererParticle = particle.GetComponent<ParticleSystemRenderer>();
+            if (side == 1)
+            {
+                rendererParticle.flip = new Vector3(0, 0, 0);
+                rendererParticle.pivot = new Vector3(-0.5f, 0.5f, 0);
+            }
+            else
+            {
+                rendererParticle.flip = new Vector3(1, 0, 0);
+                rendererParticle.pivot = new Vector3(0.5f, 0.5f, 0);
+            }
+
+            return particle;
+        }
+
+        #endregion
+
+        #region VFX Death
+
+        public void DeathEffect(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            Instantiate(_vfxDeathEffect, pos + offset, Quaternion.identity);
+        }
+
+        public void BloodExplosion(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            Instantiate(_vfxBloodExplosion, pos + offset, Quaternion.identity);
+        }
+
+        public void AndroidPartExplosion(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            Instantiate(_vfxAndroidPartExplosion, pos + offset, Quaternion.identity);
+        }
+
+        #endregion
 
         #region Getters & Setters
         public GameObject VfxDoubleJump => _vfxDoubleJump;

@@ -1,7 +1,8 @@
 ﻿using Cursed.Character;
 using Cursed.Utilities;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using Cursed.VisualEffect;
 
 namespace Cursed.Creature
 {
@@ -23,7 +24,7 @@ namespace Cursed.Creature
         private CreatureMovement _movement;
         private CreatureInputController _input;
         private CreatureJoystickDirection _joystick;
-        private Animator _animator; 
+        private Animator _animator;
         private CreatureVfxHandler _vfx;
         private CreatureCollision _collision;
 
@@ -35,12 +36,20 @@ namespace Cursed.Creature
         private bool _canRecall = false;
 
         [SerializeField] private bool _showDebug = false;
+        [SerializeField] private bool _recallOffScreen = true;
 
         private Vector2 _launchDirection;
+
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeLaunchCreature = null;
+        [SerializeField] private ShakeData _shakeCreatureOnCharacter = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
 
         private void Start() => Initialize();
 
         private GameObject _refCreatureTrailEffect;
+        private Transform _colliderTransform;
 
         private void Initialize()
         {
@@ -52,6 +61,7 @@ namespace Cursed.Creature
             _joystick = GetComponent<CreatureJoystickDirection>();
             _vfx = GetComponent<CreatureVfxHandler>();
             _collision = GetComponentInChildren<CreatureCollision>();
+            _colliderTransform = GetComponentInChildren<Collider2D>().transform;
 
             //Init Creature State
             CurrentState = CreatureState.OnComeBack;
@@ -67,15 +77,26 @@ namespace Cursed.Creature
         {
             UpdateInput();
             CameraZoom();
+
+            if (_recallOffScreen)
+                CheckDistanceFromPlayer();
         }
 
         private void UpdateInput()
         {
+            if (GameManager.Instance.State == GameManager.GameState.Pause)
+                return;
+
             #region LAUNCH & RECALL
-            if (_input.Down) {
+            if (_input.Down && _creatureState == CreatureState.OnCharacter)
+            {
                 DeAttachFromPlayer();
             }
-            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall) { 
+            if (_input.Down && _creatureState != CreatureState.OnCharacter && _canRecall)
+            {
+                if (CreatureOnCharacter.Instance != null)
+                    Destroy(CreatureOnCharacter.Instance.gameObject);
+
                 CurrentState = CreatureState.OnComeBack;
                 AkSoundEngine.PostEvent("Play_Creature_Call", gameObject);
             }
@@ -115,6 +136,24 @@ namespace Cursed.Creature
             CameraZoomController.Instance.Zoom(true);
         }
 
+        private void CheckDistanceFromPlayer()
+        {
+            if (CurrentState == CreatureState.Moving || CurrentState == CreatureState.OnWall)
+            {
+                float borderSize = 0f;
+                Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(_colliderTransform.position);
+                bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;
+                if (isOffScreen)
+                    LaunchComeBack();
+            }
+
+        }
+
+        private void LaunchComeBack()
+        {
+            CurrentState = CreatureState.OnComeBack;
+        }
+
         private void DeAttachFromPlayer()
         {
             if (_creatureState != CreatureState.OnCharacter)
@@ -135,7 +174,8 @@ namespace Cursed.Creature
             {
                 if (_joystick.Target != null)
                 {
-                    transform.position = _joystick.Target.GetChild(0).position;
+                    //transform.position = _joystick.Target.GetChild(0).position;
+                    transform.position = _characterMovement.transform.GetChild(0).position + new Vector3(1f * _movement.Direction, 0f);
                     _launchDirection = _joystick.Direction;
                 }
             }
@@ -147,6 +187,7 @@ namespace Cursed.Creature
 
             //Play VFX
             _vfx.CreatureLauchParticle(_launchDirection);
+            _onCamShake?.Raise(_shakeLaunchCreature);
 
             CurrentState = CreatureState.Moving;
         }
@@ -178,6 +219,7 @@ namespace Cursed.Creature
                 {
                     case CreatureState.Moving:
                         //ToggleChilds(true);
+                        _vfx.CreatureAberration(_vfx._lowerChromacticAberrationValue);
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
@@ -189,6 +231,8 @@ namespace Cursed.Creature
                     case CreatureState.OnCharacter:
                         //ToggleChilds(false);
                         _vfx.CreatureTouchImpactParticle(_collision.HitTransform.GetChild(0));
+                        _vfx.CreatureAberration(_vfx._higherChromacticAberrationValue);
+                        _onCamShake?.Raise(_shakeCreatureOnCharacter);
                         _animator.SetBool("GoToCharacter", true);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", false);

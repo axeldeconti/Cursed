@@ -1,5 +1,6 @@
 ﻿using Cursed.Combat;
 using Cursed.VisualEffect;
+using System.Collections;
 using UnityEngine;
 
 namespace Cursed.Character
@@ -19,15 +20,24 @@ namespace Cursed.Character
         private WeaponInventory _weaponInv = null;
         private IInputController _input = null;
         private GameManager _gameManager = null;
-        private ControllerVibration _contrVib = null;
+        private VfxHandler _vfx = null;
 
         [SerializeField] private AttackDefinition _divekickAttack = null;
+        [SerializeField] private FloatReference _timeAfterCombo = null;
 
         private bool _isAttacking = false;
         private bool _isDiveKicking = false;
         private int _weaponNb = 0;
         private int _combo = 0;
         private bool _canCombo = false;
+
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeDivekick = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
+
+        [Header("Unlocks")]
+        [SerializeField] private bool _attacksUnlock = true;
 
         private void Awake()
         {
@@ -37,7 +47,7 @@ namespace Cursed.Character
             _coll = GetComponent<CollisionHandler>();
             _weaponInv = GetComponent<WeaponInventory>();
             _input = GetComponent<IInputController>();
-            //_contrVib = GetComponent<ControllerVibration>();
+            _vfx = GetComponent<VfxHandler>();
 
             _coll.OnGrounded += () => _isDiveKicking = false;
         }
@@ -67,17 +77,34 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateAttack(int attackNb)
         {
+            if (!_attacksUnlock)
+                return;
+
             if (_coll.OnGround)
             {
-                if (Mathf.Abs(_move.XSpeed) > 4)
+                if (_move.IsDashing)
                 {
-                    //Run attack
-                    RunAttack();
+                    bool forced = false;
+                    _move.UpdateForceToContinu(ref forced);
+
+                    if (!forced)
+                    {
+                        //Dash attack
+                        NormalAttack(attackNb);
+                    }
                 }
                 else
                 {
-                    //Attack normal
-                    NormalAttack(attackNb);
+                    if (Mathf.Abs(_move.XSpeed) > 4)
+                    {
+                        //Run attack
+                        RunAttack();
+                    }
+                    else
+                    {
+                        //Attack normal
+                        NormalAttack(attackNb);
+                    }
                 }
             }
             else
@@ -109,13 +136,26 @@ namespace Cursed.Character
             }
             else
             {
-                //1st attack
-                _isAttacking = true;
+                if (_canCombo)
+                {
+                    //Combo after the end of the animation
+                    _isAttacking = true;
+                    _canCombo = false;
+                    _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
+                }
+                else
+                {
+                    //1st attack
+                    _isAttacking = true;
 
-                _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
+                    _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
+                }
             }
             //Vibration
-            ControllerVibration.Instance.StartVibration(weapon.Vibration);
+            if (Combo != 3)
+                ControllerVibration.Instance.StartVibration(weapon.ClassicVibration);
+            else
+                ControllerVibration.Instance.StartVibration(weapon.Combo3Vibration);
         }
 
         /// <summary>
@@ -135,6 +175,7 @@ namespace Cursed.Character
             _isAttacking = true;
             _isDiveKicking = true;
             _anim.LaunchAttack(0, ++_combo);
+            _onCamShake?.Raise(_shakeDivekick);
         }
 
         /// <summary>
@@ -154,7 +195,7 @@ namespace Cursed.Character
         }
 
         /// <summary>
-        /// reset IsAttacking
+        /// Reset IsAttacking
         /// </summary>
         public void EndAttack()
         {
@@ -163,6 +204,29 @@ namespace Cursed.Character
             _weaponNb = 0;
             _combo = 0;
             _canCombo = false;
+        }
+
+        /// <summary>
+        /// Called by attacks 1 and 2 of combo to allow to combo a bit of time after then end of the animation
+        /// </summary>
+        public void EndComboAttack()
+        {
+            _isAttacking = false;
+            _isDiveKicking = false;
+            _weaponNb = 0;
+
+            StartCoroutine(AllowCombo());
+        }
+
+        private IEnumerator AllowCombo()
+        {
+            yield return new WaitForSeconds(_timeAfterCombo);
+
+            if (!_isAttacking)
+            {
+                _combo = 0;
+                _canCombo = false;
+            }
         }
 
         public void CanCombo()
@@ -190,8 +254,29 @@ namespace Cursed.Character
             return CurrentWeapon.VfxTouchImpact;
         }
 
+        public GameObject GetVfxCombo3()
+        {
+            if (!IsAttacking)
+                return null;
+
+            if (_isDiveKicking)
+                return null;
+
+            return CurrentWeapon.VfxCombo3;
+        }
+
+        #region GETTERS & SETTERS
+
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);
+        public int Combo => _combo;
+        public bool AttacksUnlock
+        {
+            get => _attacksUnlock;
+            set => _attacksUnlock = value;
+        }
+
+        #endregion
     }
 }

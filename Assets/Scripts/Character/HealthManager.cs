@@ -1,8 +1,10 @@
-﻿using UnityEngine;
-using Cursed.Combat;
-using System.Collections;
-using Cursed.VisualEffect;
+﻿using Cursed.Combat;
 using Cursed.Utilities;
+using Cursed.VisualEffect;
+using System;
+using UnityEngine.Experimental.Rendering.Universal;
+using System.Collections;
+using UnityEngine;
 
 namespace Cursed.Character
 {
@@ -14,12 +16,19 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _invincibleTime;
         [SerializeField] private FloatReference _freezeFrameKill;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
+        [SerializeField] private VibrationData_SO _divekickTouchVibration;
+
+        [Space]
+        [Header("Head light")]
+        [SerializeField] private Light2D _headLight = null;
+        [SerializeField] private Gradient _lightGradient = null;
 
         private CharacterStats _stats = null;
-        private int _currentHealth = 0;
+        protected int _currentHealth = 0;
         private bool _isInvincible = false;
         private float _timeInvincibleLeft = 0f;
 
+        [Space]
         public IntEvent onHealthUpdate;
         public IntEvent onMaxHealthUpdate;
         public VoidEvent onDeath;
@@ -28,6 +37,14 @@ namespace Cursed.Character
         private VfxHandler _vfx = null;
         private SFXHandler _sfx = null;
         private InvincibilityAnimation _invAnim;
+
+        public Action<int> onEnemyHealthUpdate;
+
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeCombo3 = null;
+        [SerializeField] private ShakeData _shakeCritic = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
 
         #region Initalizer
 
@@ -58,8 +75,8 @@ namespace Cursed.Character
         #endregion
 
         private void Update()
-        { 
-            if(_timeInvincibleLeft > 0f)
+        {
+            if (_timeInvincibleLeft > 0f)
             {
                 _timeInvincibleLeft -= Time.deltaTime;
             }
@@ -72,7 +89,7 @@ namespace Cursed.Character
 
         #region Modifiers
 
-        public void OnAttack(GameObject attacker, Attack attack)
+        public virtual void OnAttack(GameObject attacker, Attack attack)
         {
             if (_isInvincible || IsInvicibleMovement())
             {
@@ -88,7 +105,7 @@ namespace Cursed.Character
                     attack.Effect.Invoke(_stats);
 
 
-                if(attacker != null)
+                if (attacker != null)
                     Debug.Log(gameObject.name + " got attacked by " + attacker.name + " and did " + attack.Damage + " damages");
 
                 //Play sound, vfx and animation
@@ -96,31 +113,61 @@ namespace Cursed.Character
                     _sfx.LowHealth();
 
                 CharacterAttackManager atkMgr = attacker.GetComponent<CharacterAttackManager>();
-                if (!attacker.tag.Equals("Creature") && !attacker.tag.Equals("Traps"))
+
+                if (gameObject.tag.Equals("Player"))
                 {
-                    if (atkMgr)
+                    if (!attacker.tag.Equals("Creature"))
                     {
-                        _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
-                        _sfx.EnemyDamageSFX();
+                        // Player take damage
+                        _sfx.PlayerDamageSFX();
+                        _vfx.FlashScreenDmgPlayer();
+
+                        ControllerVibration.Instance.StartVibration(_takeDamageVibration);
+                        _invAnim.LaunchAnimation();
 
                         //Become invincible
                         StartInvincibility(_invincibleTime);
-                    }                   
+                    }
                 }
 
-                if (!attacker.tag.Equals("Creature") && gameObject.tag.Equals("Player"))
+                if (gameObject.tag.Equals("Enemy"))
                 {
-                    // Player take damage
-                    _sfx.PlayerDamageSFX();
-                    _vfx.FlashScreenDmgPlayer();
-                    ControllerVibration.Instance.StartVibration(_takeDamageVibration);
-                    _invAnim.LaunchAnimation();
+                    if (attacker.tag.Equals("Player"))
+                    {
+                        if (atkMgr)
+                        {
+                            _sfx.EnemyDamageSFX();
+                            _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
 
-                    //Become invincible
-                    StartInvincibility(_invincibleTime);
+                            if(!atkMgr.IsDiveKicking)
+                                _vfx.AttackEffect(transform.position, attacker);
+                            if(atkMgr.IsDiveKicking)
+                                ControllerVibration.Instance.StartVibration(_divekickTouchVibration);
+
+                            //Do something is critical
+                            if (attack.IsCritical && atkMgr.Combo != 3)
+                            {
+                                _vfx.CriticalEffect(transform.position, attacker);
+                                _onCamShake?.Raise(_shakeCritic);
+                            }
+
+                            //Do something for Combo 3
+                            if(atkMgr.Combo == 3)
+                            {
+                                _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
+                                _onCamShake?.Raise(_shakeCombo3);
+                            }
+
+                            //Blood effect
+                            int _varRndBlood = UnityEngine.Random.Range(0, 3);
+                            if(!atkMgr.IsDiveKicking && _varRndBlood == 0)
+                            {
+                                _vfx.BloodParticle(transform.position, attacker);
+                                _vfx.BloodProjection(transform.position, attacker);
+                            }
+                        }
+                    }
                 }
-
-                //Do something if critical
             }
         }
 
@@ -134,9 +181,12 @@ namespace Cursed.Character
             else
             {
                 _currentHealth = health;
+                _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
 
-                if (onHealthUpdate != null)
-                    onHealthUpdate.Raise(_currentHealth);
+                _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
+                onHealthUpdate?.Raise(_currentHealth);
+                onEnemyHealthUpdate?.Invoke(_currentHealth);
+
             }
         }
 
@@ -145,6 +195,9 @@ namespace Cursed.Character
             _currentHealth += amount;
 
             _currentHealth = Mathf.Clamp(_currentHealth, 0, MaxHealth);
+
+            _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
+
 
             if (onHealthUpdate != null)
                 onHealthUpdate.Raise(_currentHealth);
@@ -176,7 +229,7 @@ namespace Cursed.Character
             //Apply dot
             float timeLeft = duration;
 
-            while(timeLeft > 0)
+            while (timeLeft > 0)
             {
                 UpdateCurrentHealth((int)((float)_currentHealth - damagePerSecond));
                 yield return new WaitForSeconds(1f);
@@ -216,12 +269,16 @@ namespace Cursed.Character
             if (gameObject.tag.Equals("Player"))
             {
                 _sfx.PlayerDeathSFX();
+                _vfx.DeathEffect(transform.position);
             }
             if (gameObject.tag.Equals("Enemy"))
             {
                 _sfx.EnemyDeathSFX();
+                _vfx.DeathEffect(transform.position);
+                _vfx.BloodExplosion(transform.position);
+                _vfx.AndroidPartExplosion(transform.position);
+
                 Destroy(gameObject);
-                Debug.Log(GameObject.FindGameObjectsWithTag("Enemy").Length + 1);
                 if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);
             }

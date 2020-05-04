@@ -21,11 +21,11 @@
 			<ShortName>UI</ShortName>
 			<Path>UI.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="4.081746" DurationMax="4.081746">
+				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980">
 					<IncludedMemoryFiles>
-						<File Id="561989917" Language="SFX">
-							<ShortName>Button_Pressed.wav</ShortName>
-							<Path>SFX\Button_Pressed_10C4C929.wem</Path>
+						<File Id="1057618011" Language="SFX">
+							<ShortName>SFX_Button_Pressed.wav</ShortName>
+							<Path>SFX\SFX_Button_Pressed_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -68,11 +68,27 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="4060380671" Name="Play_Begin_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide" DurationType="OneShot" DurationMin="1.147604" DurationMax="1.147604">
+					<IncludedMemoryFiles>
+						<File Id="324426504" Language="SFX">
+							<ShortName>Foley_WallSlide_Begin.wav</ShortName>
+							<Path>SFX\Foley_WallSlide_Begin_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Character\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
 					<IncludedMemoryFiles>
 						<File Id="135575679" Language="SFX">
 							<ShortName>Dash\Dash.wav</ShortName>
 							<Path>SFX\Dash\Dash_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3966446488" Name="Play_DestructibleWall" ObjectPath="\Events\Default Work Unit\Character\Play_DestructibleWall" DurationType="OneShot" DurationMin="0.790113" DurationMax="0.790113">
+					<IncludedMemoryFiles>
+						<File Id="633154784" Language="SFX">
+							<ShortName>Foley_DestructibleWall.wav</ShortName>
+							<Path>SFX\Foley_DestructibleWall_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -98,9 +114,9 @@
 				</Event>
 				<Event Id="2912867303" Name="Play_End_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_End_WallSlide" DurationType="OneShot" DurationMin="0.338594" DurationMax="0.338594">
 					<IncludedMemoryFiles>
-						<File Id="227638095" Language="SFX">
-							<ShortName>WallSlide\WallSlide_End.wav</ShortName>
-							<Path>SFX\WallSlide\WallSlide_End_10C4C929.wem</Path>
+						<File Id="72233361" Language="SFX">
+							<ShortName>Foley_WallSlide_End.wav</ShortName>
+							<Path>SFX\Foley_WallSlide_End_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -152,14 +168,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3033462115" Name="Play_Main_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_Main_WallSlide" DurationType="OneShot" DurationMin="4.840521" DurationMax="4.840521">
-					<IncludedMemoryFiles>
-						<File Id="543310690" Language="SFX">
-							<ShortName>WallSlide\WallSlide_Main.wav</ShortName>
-							<Path>SFX\WallSlide\WallSlide_Main_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="3638125099" Name="Play_Player_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Player_Damage" DurationType="OneShot" DurationMin="0.428526" DurationMax="0.458118">
 					<IncludedMemoryFiles>
 						<File Id="20235951" Language="SFX">
@@ -208,19 +216,15 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3156285719" Name="Stop_Main_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Main_Play_Loop_WallSlide" DurationType="Infinite">
+				<Event Id="848533759" Name="Stop_Begin_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide" DurationType="Infinite">
 					<IncludedMemoryFiles>
-						<File Id="142199507" Language="SFX">
-							<ShortName>WallSlide_Loop_02.wav</ShortName>
-							<Path>SFX\WallSlide_Loop_02_10C4C929.wem</Path>
+						<File Id="239182092" Language="SFX">
+							<ShortName>Foley_Player_WallSlideLoop_02.wav</ShortName>
+							<Path>SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem</Path>
 						</File>
-						<File Id="307420797" Language="SFX">
-							<ShortName>WallSlide_Loop_01.wav</ShortName>
-							<Path>SFX\WallSlide_Loop_01_10C4C929.wem</Path>
-						</File>
-						<File Id="733050369" Language="SFX">
-							<ShortName>WallSlide_Loop_03.wav</ShortName>
-							<Path>SFX\WallSlide_Loop_03_10C4C929.wem</Path>
+						<File Id="719473206" Language="SFX">
+							<ShortName>Foley_Player_WallSlideLoop_01.wav</ShortName>
+							<Path>SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -236,6 +240,14 @@
 						<File Id="352268105" Language="SFX">
 							<ShortName>Creature\Creature_Call.wav</ShortName>
 							<Path>SFX\Creature\Creature_Call_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3331455763" Name="Play_Creature_EndDrain" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_EndDrain" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873">
+					<IncludedMemoryFiles>
+						<File Id="327802423" Language="SFX">
+							<ShortName>SFX_Creature_EndDrain.wav</ShortName>
+							<Path>SFX\SFX_Creature_EndDrain_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -265,6 +277,10 @@
 				</Event>
 				<Event Id="2125403547" Name="Play_Creature_OnChar" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_OnChar" DurationType="Infinite">
 					<IncludedMemoryFiles>
+						<File Id="299119010" Language="SFX">
+							<ShortName>SFX_Creature_OnChar_07.wav</ShortName>
+							<Path>SFX\SFX_Creature_OnChar_07_10C4C929.wem</Path>
+						</File>
 						<File Id="456417066" Language="SFX">
 							<ShortName>SFX_Creature_OnChar_01.wav</ShortName>
 							<Path>SFX\SFX_Creature_OnChar_01_10C4C929.wem</Path>
@@ -281,6 +297,14 @@
 							<ShortName>SFX_Creature_OnChar_02.wav</ShortName>
 							<Path>SFX\SFX_Creature_OnChar_02_10C4C929.wem</Path>
 						</File>
+						<File Id="1058628410" Language="SFX">
+							<ShortName>SFX_Creature_OnChar_05.wav</ShortName>
+							<Path>SFX\SFX_Creature_OnChar_05_10C4C929.wem</Path>
+						</File>
+						<File Id="1063801539" Language="SFX">
+							<ShortName>SFX_Creature_OnChar_06.wav</ShortName>
+							<Path>SFX\SFX_Creature_OnChar_06_10C4C929.wem</Path>
+						</File>
 					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="1316790141" Name="Stop_Creature_OnChar" ObjectPath="\Events\Default Work Unit\Creature\Stop_Creature_OnChar" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
@@ -291,6 +315,22 @@
 			<ShortName>Spatialized</ShortName>
 			<Path>Spatialized.bnk</Path>
 			<IncludedEvents>
+				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
+					<IncludedMemoryFiles>
+						<File Id="447976717" Language="SFX">
+							<ShortName>SFX_AssemblyLine.wav</ShortName>
+							<Path>SFX\SFX_AssemblyLine_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3531069449" Name="Play_DeathAnnouncement" ObjectPath="\Events\Default Work Unit\Spatial\Play_DeathAnnouncement" DurationType="OneShot" DurationMin="4.028662" DurationMax="4.028662">
+					<IncludedMemoryFiles>
+						<File Id="912044876" Language="SFX">
+							<ShortName>SFX_DeathAnnouncement.wav</ShortName>
+							<Path>SFX\SFX_DeathAnnouncement_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="742247423" Language="SFX">
@@ -343,6 +383,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
+					<IncludedMemoryFiles>
+						<File Id="452589518" Language="SFX">
+							<ShortName>SFX_StaticNoise.wav</ShortName>
+							<Path>SFX\SFX_StaticNoise_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 			</IncludedEvents>
 		</SoundBank>
 		<SoundBank Id="3991942870" Language="SFX">
@@ -352,17 +400,17 @@
 			<IncludedEvents>
 				<Event Id="962944353" Name="Play_Music_InGame" ObjectPath="\Events\Default Work Unit\Music\Play_Music_InGame" DurationType="Infinite">
 					<IncludedMemoryFiles>
-						<File Id="607350317" Language="SFX">
-							<ShortName>Cursed_Theme_01_Mixing_02.wav</ShortName>
-							<Path>SFX\Cursed_Theme_01_Mixing_02_D79FB2B7.wem</Path>
+						<File Id="170720435" Language="SFX">
+							<ShortName>Mus_Level01_Theme.wav</ShortName>
+							<Path>SFX\Mus_Level01_Theme_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="Infinite">
 					<IncludedMemoryFiles>
-						<File Id="89892569" Language="SFX">
-							<ShortName>MainMenu_Full.wav</ShortName>
-							<Path>SFX\MainMenu_Full_D79FB2B7.wem</Path>
+						<File Id="235091105" Language="SFX">
+							<ShortName>Mus_MainMenu_Theme.wav</ShortName>
+							<Path>SFX\Mus_MainMenu_Theme_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

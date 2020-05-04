@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cursed.UI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,6 +41,12 @@ public class GameManager : Singleton<GameManager>
         FPS = Mathf.RoundToInt(1f / Time.unscaledDeltaTime);
     }
 
+    public string GetGameVersion()
+    {
+        string version = Application.version;
+        return version;
+    }
+
     private void InstatiateSystemPrefabs()
     {
         _instancedSystemPrefabs = new List<GameObject>();
@@ -70,6 +77,9 @@ public class GameManager : Singleton<GameManager>
         _loadOperations.Add(ao);
         _loadedScene.Add(levelName);
         _currentLevelName = levelName;
+
+        //Handle he button sound issue
+        ButtonHandler.isFirstSelected = true;
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)
