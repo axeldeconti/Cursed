@@ -25,10 +25,10 @@ namespace Cursed.AI
         private List<pathNode> _nodes = new List<pathNode>();
         private List<pathNode> _groundNodes = new List<pathNode>();
 
-        [SerializeField] private List<threadLock> _orders = new List<threadLock>();
-        [SerializeField] private List<threadLock> _readyOrders = new List<threadLock>();
+        [SerializeField] private List<ThreadLock> _orders = new List<ThreadLock>();
+        [SerializeField] private List<ThreadLock> _readyOrders = new List<ThreadLock>();
 
-        [SerializeField] private nodeWeight _nodeWeights;
+        [SerializeField] private NodeWeight _nodeWeights;
 
         [SerializeField] private bool _debugTools = false; /*Pauses game on runtime and displays pathnode connections*/
 
@@ -64,8 +64,8 @@ namespace Cursed.AI
             FindJumpNodes(_groundNodes);
 
             GroundNeighbors(_groundNodes, _groundNodes);
-            JumpNeighbors(attachedJumpNodes(_groundNodes), _groundNodes); //CHANGE this function to find all jump nodes attached to ground nodes **********TODO
-            FallNeighbors(attachedFallNodes(_groundNodes), _groundNodes);  //CHANGE this function to find all fall nodes attached to ground nodes **********TODO
+            JumpNeighbors(AttachedJumpNodes(_groundNodes), _groundNodes); //CHANGE this function to find all jump nodes attached to ground nodes **********TODO
+            FallNeighbors(AttachedFallNodes(_groundNodes), _groundNodes);  //CHANGE this function to find all fall nodes attached to ground nodes **********TODO
 
             if (_debugTools)
                 Debug.Break();
@@ -83,7 +83,7 @@ namespace Cursed.AI
         public void RequestPathInstructions(PathfindingAgent agent, Vector3 target, float jumpH, bool movement, bool jump, bool fall)
         {
             bool replaced = false;
-            threadLock newLocker = new threadLock(agent, target, jumpH, movement, jump, fall);
+            ThreadLock newLocker = new ThreadLock(agent, target, jumpH, movement, jump, fall);
 
             //Check if one order is present for this agent, if so, change it
             for (int i = 1; i < _orders.Count; i++)
@@ -106,7 +106,7 @@ namespace Cursed.AI
         /// <param name="threadLocker"></param>
         public void FindPath(object threadLocker)
         {
-            threadLock a = (threadLock)threadLocker;
+            ThreadLock a = (ThreadLock)threadLocker;
             Vector3 character = a.agentPos;
             Vector3 location = a.end;
             float characterJump = a.jump;
@@ -120,9 +120,9 @@ namespace Cursed.AI
             ResetLists();
 
             pathNode startNode = new pathNode("", Vector3.zero);
-            startNode = getNearestGroundNode(character);
+            startNode = GetNearestGroundNode(character);
 
-            pathNode endNode = getNearestNode(location);
+            pathNode endNode = GetNearestNode(location);
 
             //If a point couldnt be found or if character can't move cancel path
             if (endNode == null || startNode == null || !a.canMove)
@@ -243,6 +243,8 @@ namespace Cursed.AI
 
             a.instr = instr;
             _readyOrders.Add(a);
+
+            Log("Path found");
         }
 
         public void DeliverPathfindingInstructions()
@@ -254,7 +256,7 @@ namespace Cursed.AI
                     _readyOrders[i].agent.ReceivePathInstructions(_readyOrders[i].instr, _readyOrders[i].passed);
                 }
             }
-            _readyOrders = new List<threadLock>();
+            _readyOrders = new List<ThreadLock>();
         }
 
         /// <summary>
@@ -371,8 +373,8 @@ namespace Cursed.AI
 
             GroundNeighbors(collection, largerCollection);
 
-            JumpNeighbors(attachedJumpNodes(collection), largerCollection);
-            FallNeighbors(attachedFallNodes(collection), largerCollection);
+            JumpNeighbors(AttachedJumpNodes(collection), largerCollection);
+            FallNeighbors(AttachedFallNodes(collection), largerCollection);
 
             //Make node neighbor mesh visible
             if (Input.GetKey(KeyCode.LeftShift))
@@ -703,7 +705,7 @@ namespace Cursed.AI
         /// <summary>
         /// Get nearest node ground. Useful for finding start and end points of the path
         /// </summary>
-        private pathNode getNearestNode(Vector3 obj)
+        private pathNode GetNearestNode(Vector3 obj)
         {
             float dist = float.MaxValue;
             pathNode node = null;
@@ -725,7 +727,7 @@ namespace Cursed.AI
             return node;
         }
 
-        private pathNode getNearestGroundNode(Vector3 obj)
+        private pathNode GetNearestGroundNode(Vector3 obj)
         {
             float dist = float.MaxValue;
             pathNode node = null;
@@ -752,7 +754,7 @@ namespace Cursed.AI
         /// <summary>
         /// Used when reconstructing pathnode connections
         /// </summary>
-        private List<pathNode> attachedJumpNodes(List<pathNode> pGround)
+        private List<pathNode> AttachedJumpNodes(List<pathNode> pGround)
         {
 
             List<pathNode> returnNodes = new List<pathNode>();
@@ -764,7 +766,7 @@ namespace Cursed.AI
             return returnNodes;
         }
 
-        private List<pathNode> attachedFallNodes(List<pathNode> pGround)
+        private List<pathNode> AttachedFallNodes(List<pathNode> pGround)
         {
 
             List<pathNode> returnNodes = new List<pathNode>();
@@ -803,7 +805,7 @@ namespace Cursed.AI
             }
         }
 
-        public class threadLock
+        public class ThreadLock
         {
             public PathfindingAgent agent;
             public bool passed = false;
@@ -817,7 +819,7 @@ namespace Cursed.AI
             public bool canJump;
             public bool canFall;
 
-            public threadLock(PathfindingAgent agent, Vector3 end, float jumpHeight, bool cMove, bool cJump, bool cFall)
+            public ThreadLock(PathfindingAgent agent, Vector3 end, float jumpHeight, bool cMove, bool cJump, bool cFall)
             {
                 this.agent = agent;
                 agentPos = agent.transform.position;
@@ -831,7 +833,7 @@ namespace Cursed.AI
         }
 
         [System.Serializable]
-        public class nodeWeight
+        public class NodeWeight
         {
             public float groundNode = 1f;
             public float jumpNode = 9.2f;

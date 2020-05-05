@@ -46,6 +46,12 @@ namespace Cursed.Character
             _input = new Vector2(x, y);
             _jump = false;
             _aiController.GetInput(ref _input, ref _jump);
+
+            x = _input.x;
+            y = _input.y;
+
+            if (_jump)
+                Jump.Trigger();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Cursed.AI
         /// </summary>
         [SerializeField] private GameObject _target;
 
+        [Header("Debug")]
         /// <summary>
         /// If follow target is this distance away, we start following
         /// </summary>
@@ -31,7 +32,7 @@ namespace Cursed.AI
         private bool _useStored = false;
         private Vector3 _storePoint;
 
-        //Pathfinding
+        [Header("Pathfinding")]
         private LineRenderer _pathLineRenderer;
         /// <summary>
         /// Index of the current order in the current orders list
@@ -68,7 +69,7 @@ namespace Cursed.AI
         /// </summary>
         private int _failAttemptCount = 0;
 
-        //Timers
+        [Header("Timers")]
         [SerializeField] private float followPathTimer = 0.5f;
         private float _fFollowPathTimer;
         [SerializeField] private float pathFailTimer = 0.25f;
@@ -401,6 +402,7 @@ namespace Cursed.AI
                 {
                     //velocity.x = 0f;
                     input.x = 0;
+                    Log("Prevent Overshooting");
                     transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                 }
 
@@ -409,6 +411,7 @@ namespace Cursed.AI
                     && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
+                    Log("Match X");
                     input.x = 0f;
                     if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
                     && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
@@ -463,6 +466,7 @@ namespace Cursed.AI
                     {
                         //velocity.x = 0;
                         input.x = 0;
+                        Log("Next order");
                         //Carry out orders when the node is finally reached...
                         PathCompleted();
                     }
