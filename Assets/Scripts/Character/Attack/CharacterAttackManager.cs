@@ -36,6 +36,10 @@ namespace Cursed.Character
         [SerializeField] private ShakeData _shakeDivekick = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
 
+        [Space]
+        [Header("Stats Vibration")]
+        [SerializeField] private VibrationEvent _onContrVibration = null;
+
         [Header("Unlocks")]
         [SerializeField] private bool _attacksUnlock = true;
 
@@ -152,10 +156,10 @@ namespace Cursed.Character
                 }
             }
             //Vibration
-            if (Combo != 3)     
-                ControllerVibration.Instance.StartVibration(weapon.ClassicVibration);
+            if (Combo != 3)
+                _onContrVibration?.Raise(weapon.ClassicVibration);
             else
-                ControllerVibration.Instance.StartVibration(weapon.Combo3Vibration);
+                _onContrVibration?.Raise(weapon.Combo3Vibration);
         }
 
         /// <summary>
