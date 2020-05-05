@@ -8,7 +8,12 @@ public enum TutorielType
     DoubleJump,
     WallRun,
     Dash,
-    Attack
+    Attack1,
+    Attack2,
+    Sonar,
+    CreatureDirection,
+    CreatureLaunch,
+    CreatureRecall
 }
 namespace Cursed.Tutoriel
 {
@@ -43,7 +48,7 @@ namespace Cursed.Tutoriel
                     _playerMovement.DashUnlock = true;
                     break;
 
-                case TutorielType.Attack:
+                case TutorielType.Attack1:
                     _playerAttacks.AttacksUnlock = true;
                     break;
 

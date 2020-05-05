@@ -1,12 +1,25 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using Cursed.Creature;
+using Cursed.Character;
 
 namespace Cursed.Tutoriel
 {
     public class TutorielUIInformation : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _tutorielText;
+        [Header("Tuto objects")]
+        [SerializeField] private GameObject _moveTuto;
+        [SerializeField] private GameObject _jumpTuto;
+        [SerializeField] private GameObject _doubleJumpTuto;
+        [SerializeField] private GameObject _wallRunTuto;
+        [SerializeField] private GameObject _dashTuto;
+        [SerializeField] private GameObject _attack1Tuto;
+        [SerializeField] private GameObject _attack2Tuto;
+        [SerializeField] private GameObject _sonarTuto;
+        [SerializeField] private GameObject _creatureDirectionTuto;
+        [SerializeField] private GameObject _creatureLaunchTuto;
+        [SerializeField] private GameObject _creatureRecallTuto;
+
+        private GameObject _tutoChild;
         private TutorielBox _tutorielBox;
         private TutorielType _tutorielType;
 
@@ -18,17 +31,15 @@ namespace Cursed.Tutoriel
 
         private void Start()
         {
-            _tutorielText.text = "";
-
             _tutorielBox.SpellUnlock += ShowTutorielInformation;
         }
 
         private void Update()
         {
-            UpdateTextInformations();
+            UpdateTutoInformation();
         }
 
-        private void UpdateTextInformations()
+        private void UpdateTutoInformation()
         {
             if (_tutorielBox.PlayerMovement == null || _tutorielBox.PlayerAttacks == null)
                 return;
@@ -38,7 +49,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Move:
                     if (_tutorielBox.PlayerMovement.XSpeed != 0)
                     {
-                        _tutorielText.text = "";
+                        HideTuto();
                         return;
                     }
                     break;
@@ -46,7 +57,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.Jump:
                     if (_tutorielBox.PlayerMovement.IsJumping)
                     {
-                        _tutorielText.text = "";
+                        HideTuto();
                         return;
                     }
                     break;
@@ -54,7 +65,7 @@ namespace Cursed.Tutoriel
                 case TutorielType.DoubleJump:
                     if (_tutorielBox.PlayerMovement.IsDoubleJumping)
                     {
-                        _tutorielText.text = "";
+                        HideTuto();
                         return;
                     }
                     break;
@@ -62,23 +73,65 @@ namespace Cursed.Tutoriel
                 case TutorielType.WallRun:
                     if (_tutorielBox.PlayerMovement.IsWallRun)
                     {
-                        _tutorielText.text = "";
+                        HideTuto();
                         return;
                     }
                     break;
+
 
                 case TutorielType.Dash:
                     if (_tutorielBox.PlayerMovement.IsDashing)
                     {
-                        _tutorielText.text = "";
+                        HideTuto();
                         return;
                     }
                     break;
 
-                case TutorielType.Attack:
-                    if (_tutorielBox.PlayerAttacks.IsAttacking)
+                case TutorielType.Attack1:
+                    if (_tutorielBox.PlayerAttacks.GetComponent<IInputController>().Attack_1)
                     {
-                        _tutorielText.text = "";
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.Attack2:
+                    if (_tutorielBox.PlayerAttacks.GetComponent<IInputController>().Attack_2)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+
+                case TutorielType.Sonar:
+                    if (FindObjectOfType<CreatureInputController>().Sonar)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.CreatureDirection:
+                    if (FindObjectOfType<CreatureJoystickDirection>().Direction != Vector3.zero)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.CreatureLaunch:
+                    if (FindObjectOfType<CreatureInputController>().Down)
+                    {
+                        HideTuto();
+                        return;
+                    }
+                    break;
+
+                case TutorielType.CreatureRecall:
+                    if (FindObjectOfType<CreatureInputController>().Down)
+                    {
+                        HideTuto();
                         return;
                     }
                     break;
@@ -87,33 +140,69 @@ namespace Cursed.Tutoriel
 
         private void ShowTutorielInformation(TutorielType type)
         {
-            switch(type)
+            switch (type)
             {
                 case TutorielType.Move:
-                    _tutorielText.text = "Use Left Joystick to move";
+                    ShowTuto(_moveTuto);
                     break;
 
                 case TutorielType.Jump:
-                    _tutorielText.text = "Press A to jump";
+                    ShowTuto(_jumpTuto);
                     break;
 
                 case TutorielType.DoubleJump:
-                    _tutorielText.text = "Press A in the air to double jump";
+                    ShowTuto(_doubleJumpTuto);
                     break;
 
                 case TutorielType.WallRun:
-                    _tutorielText.text = "Press Right Trigger to wall run close to a wall";
+                    ShowTuto(_wallRunTuto);
                     break;
 
                 case TutorielType.Dash:
-                    _tutorielText.text = "Press Right Trigger to dash on the ground and to dodge lasers";
+                    ShowTuto(_dashTuto);
                     break;
 
-                case TutorielType.Attack:
-                    _tutorielText.text = "Press X to attack with the first weapon";
+                case TutorielType.Attack1:
+                    ShowTuto(_attack1Tuto);
                     break;
 
+                case TutorielType.Attack2:
+                    ShowTuto(_attack2Tuto);
+                    break;
+
+                case TutorielType.CreatureDirection:
+                    ShowTuto(_creatureDirectionTuto);
+                    break;
+
+                case TutorielType.CreatureLaunch:
+                    ShowTuto(_creatureLaunchTuto);
+                    break;
+
+                case TutorielType.CreatureRecall:
+                    ShowTuto(_creatureRecallTuto);
+                    break;
+
+                case TutorielType.Sonar:
+                    ShowTuto(_sonarTuto);
+                    break;
             }
+        }
+
+        private void ShowTuto(GameObject tutoObject)
+        {
+            _tutoChild = Instantiate(tutoObject, transform.position, Quaternion.identity, transform);
+            _tutoChild.GetComponent<Animator>().SetBool("Open", true);
+        }
+
+        private void HideTuto()
+        {
+            if (_tutoChild == null)
+                return;
+
+            Animator animator = _tutoChild?.GetComponent<Animator>();
+            animator.SetBool("Close", true);
+            animator.SetBool("Open", false);
+            Destroy(_tutoChild, animator.GetCurrentAnimatorClipInfo(0).Length);
         }
     }
 
