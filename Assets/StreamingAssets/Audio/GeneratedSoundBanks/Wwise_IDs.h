@@ -13,9 +13,14 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID PAUSEALLSOUNDS = 1404684114U;
         static const AkUniqueID PLAY_ASSEMBLYLINE = 3793046172U;
         static const AkUniqueID PLAY_ATTACK_AXE_FIRSTSLICE = 1312214966U;
+        static const AkUniqueID PLAY_ATTACK_AXE_SECONDSLICE = 378405260U;
+        static const AkUniqueID PLAY_ATTACK_AXE_THIRDSLICE = 1892380385U;
         static const AkUniqueID PLAY_ATTACK_SWORD_FIRSTSLICE = 2804287435U;
+        static const AkUniqueID PLAY_ATTACK_SWORD_SECONDSLICE = 2641629647U;
+        static const AkUniqueID PLAY_ATTACK_SWORD_THIRDSLICE = 834008872U;
         static const AkUniqueID PLAY_BASICJUMP = 2216073360U;
         static const AkUniqueID PLAY_BEGIN_WALLSLIDE = 4060380671U;
         static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
@@ -35,8 +40,10 @@ namespace AK
         static const AkUniqueID PLAY_ELECTRICTRAP_INACTIVE = 1235386822U;
         static const AkUniqueID PLAY_ELECTRICTRAP_TRIGGERED = 3294792404U;
         static const AkUniqueID PLAY_END_WALLSLIDE = 2912867303U;
-        static const AkUniqueID PLAY_ENEMY_DAMAGE = 3570856298U;
         static const AkUniqueID PLAY_ENEMY_DEATH = 3046156865U;
+        static const AkUniqueID PLAY_ENEMY_FIRSTDAMAGE = 2563456942U;
+        static const AkUniqueID PLAY_ENEMY_SECONDDAMAGE = 1471082706U;
+        static const AkUniqueID PLAY_ENEMY_THIRDDAMAGE = 765570963U;
         static const AkUniqueID PLAY_LANDING = 2323405115U;
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
@@ -50,6 +57,7 @@ namespace AK
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
         static const AkUniqueID PLAY_STATICNOISE = 1913495746U;
+        static const AkUniqueID RESUMEALLSOUNDS = 3456043509U;
         static const AkUniqueID STOP_BEGIN_PLAY_LOOP_WALLSLIDE = 848533759U;
         static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
     } // namespace EVENTS
