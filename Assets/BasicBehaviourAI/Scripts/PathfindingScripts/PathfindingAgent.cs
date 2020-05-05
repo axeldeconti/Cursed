@@ -1,319 +1,344 @@
-﻿using System.Collections.Generic;
+﻿using Cursed.Character;
+using System.Collections.Generic;
 using UnityEngine;
-using Cursed.Character;
 
 
-    public class PathfindingAgent : MonoBehaviour
-    {
-        [System.NonSerialized]
-        public static Pathfinding _pathfindingManagerScript;
-        private CharacterController2D _controller;
-        private CollisionHandler _coll = null;
-        private AiController _aiControllerScript;
+public class PathfindingAgent : MonoBehaviour
+{
+    [System.NonSerialized]
+    public static Pathfinding _pathfindingManagerScript;
+    private CharacterController2D _controller;
+    private CollisionHandler _coll = null;
+    private AiController _aiControllerScript;
 
-        public GameObject pathfindingTarget; //Following / Chasing
+    public GameObject pathfindingTarget; //Following / Chasing
 
-        public float followDistance = 0.5f; //if follow target is this distance away, we start following
-        public bool debugBool = false; /*Very expensive if multiple characters have this enabled*/
-        public bool drawPath = false; /*Very expensive if multiple characters have this enabled*/
-        public Color drawColor = Color.red;
-        public bool endDrawComplete = true;
+    public float followDistance = 0.5f; //if follow target is this distance away, we start following
+    public bool debugBool = false; /*Very expensive if multiple characters have this enabled*/
+    public bool drawPath = false; /*Very expensive if multiple characters have this enabled*/
+    public Color drawColor = Color.red;
+    public bool endDrawComplete = true;
 
-        //Ensures starting position is grounded at the correct location.
-        private bool _useStored = false;
-        private Vector3 _storePoint;
+    //Ensures starting position is grounded at the correct location.
+    private bool _useStored = false;
+    private Vector3 _storePoint;
 
-        //Pathfinding
-        private LineRenderer _pathLineRenderer;
-        private int _orderNum = -1;
-        private List<instructions> _currentOrders = new List<instructions>();
-        private List<instructions> _waitingOrders = null; //Storage for the path until we're ready to use it
+    //Pathfinding
+    private LineRenderer _pathLineRenderer;
+    private int _orderNum = -1;
+    private List<instructions> _currentOrders = new List<instructions>();
+    private List<instructions> _waitingOrders = null; //Storage for the path until we're ready to use it
     private Vector3 _lastOrder;
-        private bool _pathIsDirty = false;
-        private float _oldDistance;
-        private int _newPathAttempts = 3;
-        private int _newPathAttemptCount = 0;
-        private int _failAttempts = 3;
-        private float _failAttemptCount = 0;
+    private bool _pathIsDirty = false;
+    private float _oldDistance;
+    private int _newPathAttempts = 3;
+    private int _newPathAttemptCount = 0;
+    private int _failAttempts = 3;
+    private float _failAttemptCount = 0;
 
-        //Timers
-        public float followPathTimer = 0.5f;
-        private float _fFollowPathTimer;
-        public float pathFailTimer = 0.25f;
-        private float _fPathFailTimer;
+    //Timers
+    public float followPathTimer = 0.5f;
+    private float _fFollowPathTimer;
+    public float pathFailTimer = 0.25f;
+    private float _fPathFailTimer;
 
-        //AI
-        [System.NonSerialized]
-        public float lastPointRandomAccuracy = 0.2f;
-        public static float pointAccuracy = 0.18f;
+    //AI
+    [System.NonSerialized]
+    public float lastPointRandomAccuracy = 0.2f;
+    public static float pointAccuracy = 0.18f;
 
-        [System.NonSerialized]
-        public bool pathCompleted = true;
+    [System.NonSerialized]
+    public bool pathCompleted = true;
 
-        private bool _stopPathing = true;
-        private bool _hasLastOrder = false;
-        private bool _aiJumped = false; //Is AI actually in jump
+    private bool _stopPathing = true;
+    private bool _hasLastOrder = false;
+    private bool _aiJumped = false; //Is AI actually in jump
 
-        //Get Components
-        private void Awake()
+    //Get Components
+    private void Awake()
+    {
+        if (_pathfindingManagerScript == null)
+            _pathfindingManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<Pathfinding>();
+
+        _aiControllerScript = GetComponent<AiController>();
+        _controller = GetComponent<CharacterController2D>();
+
+        if (drawPath)
+            AddLineRenderer();
+    }
+
+    private void Start()
+    {
+        CursedDebugger.Instance.Add("GoTarget", () => pathfindingTarget.ToString());
+        CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
+    }
+
+    public void CancelPathing()
+    {
+        if (debugBool)
+            Log("path canceled");
+
+        if (endDrawComplete && _pathLineRenderer)
+            _pathLineRenderer.positionCount = (1);
+
+        //Remove orders && Prevent pathfinding
+        _hasLastOrder = false;
+        _currentOrders = null;
+        _stopPathing = true;
+    }
+
+    //Called to see pathing on screen (when path start)
+    private void PathStarted()
+    {
+        if (debugBool)
+            Log("Path started");
+
+        if (drawPath)
         {
-            if (_pathfindingManagerScript == null) { _pathfindingManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<Pathfinding>(); }
-            _aiControllerScript = GetComponent<AiController>();
-            _controller = GetComponent<CharacterController2D>();
-            if (drawPath)
-            {
+            if (!_pathLineRenderer)
                 AddLineRenderer();
-            }
-        }
 
-        private void Start()
-        {
-            CursedDebugger.Instance.Add("GoTarget", () => pathfindingTarget.ToString());
-            CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
-        }
+            _pathLineRenderer.startColor = (drawColor);
+            _pathLineRenderer.endColor = (drawColor);
+            _pathLineRenderer.positionCount = (_currentOrders.Count);
 
-        public void CancelPathing()
-        {
-            if (debugBool) { Debug.Log("path canceled"); }
-            if (endDrawComplete && _pathLineRenderer) { _pathLineRenderer.positionCount = (1); }
-            //Remove orders && Prevent pathfinding
-            _hasLastOrder = false;
-            _currentOrders = null;
-            _stopPathing = true;
-        }
-
-        //Called to see pathing on screen (when path start)
-        private void PathStarted()
-        {
-            if (debugBool) { Debug.Log("path started"); }
-
-            if (drawPath)
+            for (int i = 0; i < _currentOrders.Count; i++)
             {
-                if (!_pathLineRenderer) { AddLineRenderer(); }
-                _pathLineRenderer.startColor = (drawColor);
-                _pathLineRenderer.endColor = (drawColor);
-                _pathLineRenderer.positionCount = (_currentOrders.Count);
-                for (int i = 0; i < _currentOrders.Count; i++)
+                _pathLineRenderer.SetPosition(i, new Vector3(_currentOrders[i].pos.x, _currentOrders[i].pos.y, 0));
+            }
+
+        }
+        if (!drawPath && _pathLineRenderer)
+            Destroy(gameObject.GetComponent<LineRenderer>());
+    }
+
+    //Called when the path has ended correctly (destination reached)
+    private void PathCompleted()
+    {
+        if (debugBool)
+            Log("Path completed");
+
+        if (!drawPath && _pathLineRenderer)
+            Destroy(gameObject.GetComponent<LineRenderer>());
+
+        CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
+    }
+
+    //Called if destination is unreachable
+    private void PathNotFound()
+    {
+        if (debugBool)
+            Log("Path not found");
+
+        _newPathAttemptCount++;
+        if (_newPathAttemptCount >= _newPathAttempts)
+        {
+            CancelPathing();
+
+            if (debugBool)
+                Log("Newpath attempt limit reached. cancelling path.");
+        }
+    }
+
+    //Used for refreshing paths, example : Chase behaviour 
+    public int GetNodesFromCompletion()
+    {
+        if (_currentOrders == null)
+            return 0;
+
+        int r = _currentOrders.Count - _orderNum;
+        return r;
+    }
+
+    //Request path towards Vector3
+    public void RequestPath(Vector3 pathVector)
+    {
+        if (_controller.collisions.below)
+        {
+            _useStored = false;
+            if (debugBool)
+                Log("Requeseting path vector");
+
+            _lastOrder = pathVector;
+            _pathfindingManagerScript.RequestPathInstructions(gameObject, _lastOrder, 20f //JumpHeight
+                , true //Movement        //All booleans tells if AI can use the capacity
+                , true //Jump
+                , true //Fall
+                );
+        }
+        else
+        {
+            _useStored = true;
+            _storePoint = pathVector;
+        }
+    }
+
+    //Request path towards GameObject
+    public void RequestPath(GameObject Go)
+    {
+        pathfindingTarget = Go;
+        if (_controller.collisions.below)
+        {
+            if (debugBool)
+                Log("Requesting path target");
+
+            _pathfindingManagerScript.RequestPathInstructions(gameObject, pathfindingTarget.transform.position, 20f //JumpHeight
+                , true //Same as RequestPath(Vector3 pathVector)
+                , true
+                , true
+                );
+        }
+    }
+
+    //Callback from Thread with path information
+    public void ReceivePathInstructions(List<instructions> instr, bool passed)
+    {
+        //Passed == false means incompleted / failure to reach node destination
+        if (!passed)
+        {
+            PathNotFound();
+            return;
+        }
+
+        _waitingOrders = instr; //Storage for the path until we're ready to use it
+    }
+
+    public void AiMovement(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
+    {
+        bool orderComplete = false;
+        if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
+        {
+
+            if (_currentOrders[_orderNum].order != "jump")
+                input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
+
+            //prevent overshooting jumps and moving backwards & overcorrecting
+            if (_orderNum - 1 > 0 && (_currentOrders[_orderNum - 1].order == "jump" || _currentOrders[_orderNum - 1].order == "fall") && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x &&
+                transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
+            {
+                velocity.x = 0f;
+                transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
+            }
+
+            //match X position of node (Ground, Fall)
+            if (_currentOrders[_orderNum].order != "jump"
+                && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
+                && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
+            {
+                input.x = 0f;
+                if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
+                && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
                 {
-                    _pathLineRenderer.SetPosition(i, new Vector3(_currentOrders[i].pos.x, _currentOrders[i].pos.y, 0));
-                }
-
-            }
-            if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
-        }
-
-        //Called when the path has ended correctly (destination reached)
-        private void PathCompleted()
-        {
-            if (debugBool) { Debug.Log("path completed"); }
-            if (!drawPath && _pathLineRenderer) { Destroy(gameObject.GetComponent<LineRenderer>()); }
-            CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
-        }
-
-        //Called if destination is unreachable
-        private void PathNotFound()
-        {
-            if (debugBool) { Debug.Log("path not found"); }
-            _newPathAttemptCount++;
-            if (_newPathAttemptCount >= _newPathAttempts)
-            {
-                CancelPathing(); if (debugBool) { Debug.Log("newpath attempt limit reached. cancelling path."); }
-            }
-        }
-
-        //Used for refreshing paths, example : Chase behaviour 
-        public int GetNodesFromCompletion()
-        {
-            if (_currentOrders == null) { return 0; }
-            int r = _currentOrders.Count - _orderNum;
-            return r;
-        }
-
-        //Request path towards Vector3
-        public void RequestPath(Vector3 pathVector)
-        {
-            if (_controller.collisions.below)
-            {
-                _useStored = false;
-                if (debugBool) { Debug.Log("requeseting path vector"); }
-                _lastOrder = pathVector;
-                _pathfindingManagerScript.RequestPathInstructions(gameObject, _lastOrder, 20f //JumpHeight
-                    , true //Movement        //All booleans tells if AI can use the capacity
-                    , true //Jump
-                    , true //Fall
-                    );
-            }
-            else
-            {
-                _useStored = true;
-                _storePoint = pathVector;
-            }
-        }
-
-        //Request path towards GameObject
-        public void RequestPath(GameObject Go)
-        {
-            pathfindingTarget = Go;
-            if (_controller.collisions.below)
-            {
-                if (debugBool) { Debug.Log("requesting path target"); }
-                _pathfindingManagerScript.RequestPathInstructions(gameObject, pathfindingTarget.transform.position, 20f //JumpHeight
-                    , true //Same as RequestPath(Vector3 pathVector)
-                    , true
-                    , true
-                    );
-            }
-        }
-
-        //Callback from Thread with path information
-        public void ReceivePathInstructions(List<instructions> instr, bool passed)
-        {
-            //Passed == false means incompleted / failure to reach node destination
-            if (!passed) { PathNotFound(); return; }
-            _waitingOrders = instr; //Storage for the path until we're ready to use it
-        }
-
-        public void AiMovement(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
-        {
-            bool orderComplete = false;
-            if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
-            {
-
-                if (_currentOrders[_orderNum].order != "jump") { input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1; }
-
-                //prevent overshooting jumps and moving backwards & overcorrecting
-                if (_orderNum - 1 > 0 && (_currentOrders[_orderNum - 1].order == "jump" || _currentOrders[_orderNum - 1].order == "fall") && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x &&
-                    transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
-                {
-                    velocity.x = 0f;
-                    transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
-                }
-                
-                //match X position of node (Ground, Fall)
-                if (_currentOrders[_orderNum].order != "jump"
-                    && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
-                    && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
-                {
-                    input.x = 0f;
-                    if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
-                    && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
+                    //if next node is a jump, remove velocity.x, and lerp position to point.
+                    if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "jump")
                     {
-                        //if next node is a jump, remove velocity.x, and lerp position to point.
-                        if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "jump")
-                        {
-                            velocity.x *= 0.0f;
-                            transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
-                        }
-                        //if last node was a jump, and next node is a fall, remove velocity.x, and lerp position to point
-                        if (_orderNum + 1 < _currentOrders.Count && _orderNum - 1 > 0 && _currentOrders[_orderNum + 1].order == "fall" && _currentOrders[_orderNum + -1].order == "jump")
-                        {
-                            velocity.x *= 0.0f;
-                            transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.5f), transform.position.y, transform.position.z);
-                        }
-                        if (_currentOrders[_orderNum].order != "jump")
-                        {
-                            orderComplete = true;
-                        }
+                        velocity.x *= 0.0f;
+                        transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                     }
-                }
-
-                //Jump
-                if (_currentOrders[_orderNum].order == "jump" && !_aiJumped && _controller.collisions.below)
-                {
-                    jumpRequest = true;
-                    _aiJumped = true;
-                    if (_orderNum + 1 < _currentOrders.Count && Mathf.Abs(_currentOrders[_orderNum + 1].pos.x - _currentOrders[_orderNum].pos.x) > 1f)
+                    //if last node was a jump, and next node is a fall, remove velocity.x, and lerp position to point
+                    if (_orderNum + 1 < _currentOrders.Count && _orderNum - 1 > 0 && _currentOrders[_orderNum + 1].order == "fall" && _currentOrders[_orderNum + -1].order == "jump")
+                    {
+                        velocity.x *= 0.0f;
+                        transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.5f), transform.position.y, transform.position.z);
+                    }
+                    if (_currentOrders[_orderNum].order != "jump")
                     {
                         orderComplete = true;
-                        _aiJumped = false;
                     }
                 }
-                else if (_aiJumped && transform.position.y + 1f > _currentOrders[_orderNum].pos.y && transform.position.y - 1f < _currentOrders[_orderNum].pos.y)
+            }
+
+            //Jump
+            if (_currentOrders[_orderNum].order == "jump" && !_aiJumped && _controller.collisions.below)
+            {
+                jumpRequest = true;
+                _aiJumped = true;
+                if (_orderNum + 1 < _currentOrders.Count && Mathf.Abs(_currentOrders[_orderNum + 1].pos.x - _currentOrders[_orderNum].pos.x) > 1f)
                 {
                     orderComplete = true;
                     _aiJumped = false;
                 }
+            }
+            else if (_aiJumped && transform.position.y + 1f > _currentOrders[_orderNum].pos.y && transform.position.y - 1f < _currentOrders[_orderNum].pos.y)
+            {
+                orderComplete = true;
+                _aiJumped = false;
+            }
 
-                //next order!
-                if (orderComplete)
+            //next order!
+            if (orderComplete)
+            {
+                _orderNum++;
+
+                if (_orderNum < _currentOrders.Count - 1)//used for DirtyPath
+                    _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
+
+                if (_orderNum >= _currentOrders.Count)
                 {
-                    _orderNum++;
-
-                    if (_orderNum < _currentOrders.Count - 1)
-                    { //used for DirtyPath
-                        _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
-                    }
-
-                    if (_orderNum >= _currentOrders.Count)
-                    {
-                        velocity.x = 0;
-                        //Carry out orders when the node is finally reached...
-                        PathCompleted();
-                    }
+                    velocity.x = 0;
+                    //Carry out orders when the node is finally reached...
+                    PathCompleted();
                 }
             }
         }
+    }
 
-        //Applying new paths when character is ready
-        void Update()
+    //Applying new paths when character is ready
+    void Update()
+    {
+        if (_useStored)
+            RequestPath(_storePoint);
+
+        //Only receive orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
+        if (_waitingOrders != null && (_controller.collisions.below))
         {
-            if (_useStored)
+            if (_aiControllerScript.NeedsPathfinding())
             {
-                RequestPath(_storePoint);
-            }
+                _currentOrders = _waitingOrders;
+                _waitingOrders = null;
+                pathCompleted = false;
+                _stopPathing = false;
 
-            //Only receive orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
-            if (_waitingOrders != null && (_controller.collisions.below))
-            {
-                if (_aiControllerScript.NeedsPathfinding())
+                if (!pathfindingTarget)
+                    _hasLastOrder = true;
+
+                _newPathAttemptCount = 0;
+                _orderNum = 0;
+
+                _failAttemptCount = 0;
+                if (_currentOrders != null && _orderNum < _currentOrders.Count - 1) //used for DirtyPath
+                    _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
+
+                //If character is nowhere near starting node, we try to salvage the path by picking the nearest node and setting it as the start.
+                if (Vector3.Distance(transform.position, _currentOrders[0].pos) > 2f)
                 {
-                    _currentOrders = _waitingOrders;
-                    _waitingOrders = null;
-                    pathCompleted = false;
-                    _stopPathing = false;
-                    if (!pathfindingTarget)
+                    float closest = float.MaxValue;
+                    for (int i = 0; i < _currentOrders.Count; i++)
                     {
-                        _hasLastOrder = true;
-                    }
-
-                    _newPathAttemptCount = 0;
-                    _orderNum = 0;
-
-                    _failAttemptCount = 0;
-                    if (_currentOrders != null && _orderNum < _currentOrders.Count - 1)
-                    { //used for DirtyPath
-                        _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
-                    }
-                    //If character is nowhere near starting node, we try to salvage the path by picking the nearest node and setting it as the start.
-                    if (Vector3.Distance(transform.position, _currentOrders[0].pos) > 2f)
-                    {
-                        float closest = float.MaxValue;
-                        for (int i = 0; i < _currentOrders.Count; i++)
+                        float distance = Vector3.Distance(_currentOrders[i].pos, transform.position);
+                        if ((_currentOrders[i].order == "walkable") && distance < closest)
                         {
-                            float distance = Vector3.Distance(_currentOrders[i].pos, transform.position);
-                            if ((_currentOrders[i].order == "walkable") && distance < closest)
-                            {
-                                closest = distance;
-                                _orderNum = i;
-                            }
+                            closest = distance;
+                            _orderNum = i;
                         }
                     }
-                    //If possible, we skip the first node, this prevents that character from walking backwards to first node.
-                    if (_currentOrders.Count > _orderNum + 1 && _currentOrders[_orderNum].order == _currentOrders[_orderNum + 1].order &&
-                        (_currentOrders[_orderNum].order == "walkable"))
-                    {
-                        _orderNum += 1;
-                    }
-                    //Add Random deviation to last node position to stagger paths (Staggers character positions / Looks better.)
-                    if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order == "walkable")
-                    {
-                        _currentOrders[_currentOrders.Count - 1].pos.x += Random.Range(-1, 1) * lastPointRandomAccuracy;
-                    }
-
-                    PathStarted();
                 }
+                //If possible, we skip the first node, this prevents that character from walking backwards to first node.
+                if (_currentOrders.Count > _orderNum + 1 && _currentOrders[_orderNum].order == _currentOrders[_orderNum + 1].order &&
+                    (_currentOrders[_orderNum].order == "walkable"))
+                {
+                    _orderNum += 1;
+                }
+                //Add Random deviation to last node position to stagger paths (Staggers character positions / Looks better.)
+                if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order == "walkable")
+                {
+                    _currentOrders[_currentOrders.Count - 1].pos.x += Random.Range(-1, 1) * lastPointRandomAccuracy;
+                }
+
+                PathStarted();
             }
         }
+    }
 
     //Requesting new path timers
     private void FixedUpdate()
@@ -333,7 +358,7 @@ using Cursed.Character;
                 }
             }
         }
-        
+
         //Unable to make progress on current path, Update Path
         if (!pathCompleted)
         {
@@ -352,7 +377,7 @@ using Cursed.Character;
                         if (_failAttemptCount >= _failAttempts && _controller.collisions.below)
                         {
                             _failAttemptCount = 0;
-                            _pathIsDirty = true;                            
+                            _pathIsDirty = true;
                         }
                     }
                     else { _failAttemptCount = 0; }
@@ -371,12 +396,10 @@ using Cursed.Character;
             { RequestPath(_lastOrder); }
 
             if (debugBool)
-            {
-                Debug.Log("path is dirty");
-            }
+                Log("Path is dirty");
         }
     }
-    #region Debugging visuals
+    #region Debugging && visuals
     //Debugging visuals
     private void OnDrawGizmos()
     {
@@ -421,5 +444,11 @@ using Cursed.Character;
             _pathLineRenderer.endWidth = (0.5f);
         }
     }
+
+    private void Log(string log)
+    {
+        Debug.Log("[PFAgent] " + gameObject.name + " : " + log);
+    }
+
     #endregion
 }

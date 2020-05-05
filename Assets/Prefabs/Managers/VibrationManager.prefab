@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4124318691559368755}
   - component: {fileID: 2713216360860092614}
+  - component: {fileID: 1955060914}
   m_Layer: 0
   m_Name: VibrationController
   m_TagString: Untagged
@@ -43,3 +44,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b820d366cc49574596056431eec54e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1955060914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6074502433782940207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5d877b7bfadbe4d897cb155e2ddd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 299dca7641a102b4db9a58f1032752dc, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2713216360860092614}
+        m_MethodName: StartVibration
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
