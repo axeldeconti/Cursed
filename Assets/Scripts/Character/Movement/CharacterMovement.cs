@@ -148,7 +148,11 @@ namespace Cursed.Character
             UpdateBools();
 
             if (_gameManager.State != GameManager.GameState.InGame)
+            {
+                _lastX = 0;
+                _currentVelocity = _rb.velocity;
                 return;
+            }
 
             UpdateWallGrab(x, y);
             UpdateJump();
@@ -167,8 +171,10 @@ namespace Cursed.Character
         private void FixedUpdate()
         {
             if (_gameManager.State != GameManager.GameState.InGame)
+            {
+                UpdateVelocity(0f, 0f);
                 return;
-
+            }
             //Get input
             float x = _isDiveKicking ? _lastX : _input.x;
             float y = _input.y;

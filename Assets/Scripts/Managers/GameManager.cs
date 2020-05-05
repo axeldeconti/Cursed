@@ -195,5 +195,5 @@ public class GameManager : Singleton<GameManager>
         } 
     }
 
-    public enum GameState { InGame, Pause, InDevConsole, WinLoose }
+    public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition }
 }
