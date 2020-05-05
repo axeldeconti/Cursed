@@ -71,14 +71,24 @@ namespace Cursed.AI
                 Debug.Break();
         }
 
-        public void RequestPathInstructions(GameObject character, Vector3 location, float jumpH,/*char abilities*/ bool movement, bool jump, bool fall)
+        /// <summary>
+        /// Request a new path
+        /// </summary>
+        /// <param name="agent">Agent asking for a path</param>
+        /// <param name="target"></param>
+        /// <param name="jumpH"></param>
+        /// <param name="movement"></param>
+        /// <param name="jump"></param>
+        /// <param name="fall"></param>
+        public void RequestPathInstructions(PathfindingAgent agent, Vector3 target, float jumpH, bool movement, bool jump, bool fall)
         {
             bool replaced = false;
-            threadLock newLocker = new threadLock(character, location, jumpH, movement, jump, fall);
+            threadLock newLocker = new threadLock(agent, target, jumpH, movement, jump, fall);
 
+            //Check if one order is present for this agent, if so, change it
             for (int i = 1; i < _orders.Count; i++)
             {
-                if (_orders[i].character == character)
+                if (_orders[i].agent == agent)
                 {
                     _orders[i] = newLocker; 
                     replaced = true; 
@@ -90,10 +100,14 @@ namespace Cursed.AI
                 _orders.Add(newLocker);
         }
 
+        /// <summary>
+        /// Find a path
+        /// </summary>
+        /// <param name="threadLocker"></param>
         public void FindPath(object threadLocker)
         {
             threadLock a = (threadLock)threadLocker;
-            Vector3 character = a.charPos;
+            Vector3 character = a.agentPos;
             Vector3 location = a.end;
             float characterJump = a.jump;
 
@@ -116,7 +130,7 @@ namespace Cursed.AI
                 a.passed = false;
                 a.instr = instr;
                 _readyOrders.Add(a);
-                Log("Path canceled");
+                Log("Path canceled : start node = " + startNode + " | end node = " + endNode + " | can move = " + a.canMove);
                 return;
             }
 
@@ -235,12 +249,9 @@ namespace Cursed.AI
         {
             for (int i = 0; i < _readyOrders.Count; i++)
             {
-                if (_readyOrders[i].character)
+                if (_readyOrders[i].agent)
                 {
-                    if (_readyOrders[i].character.transform.GetComponent<PathfindingAgent>() != null)
-                    {
-                        _readyOrders[i].character.transform.GetComponent<PathfindingAgent>().ReceivePathInstructions(_readyOrders[i].instr, _readyOrders[i].passed);
-                    }
+                    _readyOrders[i].agent.ReceivePathInstructions(_readyOrders[i].instr, _readyOrders[i].passed);
                 }
             }
             _readyOrders = new List<threadLock>();
@@ -726,9 +737,11 @@ namespace Cursed.AI
                     float temp = Vector3.Distance(obj, (Vector3)_groundNodes[i].pos);
                     if (dist > temp)
                     {
-                        if (obj.y >= _groundNodes[i].pos.y && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < _blockSize)
+                        //Added the -0.1f to account for the precision
+                        if (obj.y >= _groundNodes[i].pos.y - 0.1f && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < _blockSize)
                         {
-                            dist = temp; node = _groundNodes[i];
+                            dist = temp; 
+                            node = _groundNodes[i];
                         }
                     }
                 }
@@ -763,8 +776,12 @@ namespace Cursed.AI
             return returnNodes;
         }
 
+        /// <summary>
+        /// Create a thread to compute the FindPath
+        /// </summary>
         public void MakeThreadDoWork()
         {
+            //If there are orders and the thread is either null or not alive
             if ((_orders.Count > 0 && _t == null) || (_orders.Count > 0 && !_t.IsAlive))
             {
                 _t = new Thread(new ParameterizedThreadStart(FindPath));
@@ -788,22 +805,23 @@ namespace Cursed.AI
 
         public class threadLock
         {
-            public GameObject character;
+            public PathfindingAgent agent;
             public bool passed = false;
-            public Vector3 charPos, end;
+            public Vector3 agentPos;
+            public Vector3 end;
             public float jump;
             public List<instructions> instr = null;
 
-            //abilities
+            //Abilities
             public bool canMove;
             public bool canJump;
             public bool canFall;
 
-            public threadLock(GameObject pC, Vector3 pE, float jumpHeight, bool cMove, bool cJump, bool cFall)
+            public threadLock(PathfindingAgent agent, Vector3 end, float jumpHeight, bool cMove, bool cJump, bool cFall)
             {
-                character = pC;
-                charPos = pC.transform.position;
-                end = pE;
+                this.agent = agent;
+                agentPos = agent.transform.position;
+                this.end = end;
                 jump = jumpHeight;
 
                 canMove = cMove;
@@ -882,7 +900,10 @@ namespace Cursed.AI
         public pathNode parent = null;
         public GameObject gameObject;
 
-        public pathNode spawnedFrom = null; //the node that created this.
+        /// <summary>
+        /// The parent node
+        /// </summary>
+        public pathNode spawnedFrom = null;
         public List<pathNode> createdJumpNodes = new List<pathNode>();
         public List<pathNode> createdFallNodes = new List<pathNode>();
 

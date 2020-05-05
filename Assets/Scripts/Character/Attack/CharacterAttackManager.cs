@@ -141,7 +141,7 @@ namespace Cursed.Character
                 }
             }
             //Vibration
-            if (Combo != 3)
+            if (Combo != 3)     
                 ControllerVibration.Instance.StartVibration(weapon.ClassicVibration);
             else
                 ControllerVibration.Instance.StartVibration(weapon.Combo3Vibration);

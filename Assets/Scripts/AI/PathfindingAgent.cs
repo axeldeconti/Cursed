@@ -11,30 +11,62 @@ namespace Cursed.AI
         private AiController _aiController = null;
         private CollisionHandler _col = null;
 
-        [SerializeField] private GameObject _target; //Following / Chasing
+        /// <summary>
+        /// Target to follow and chase
+        /// </summary>
+        [SerializeField] private GameObject _target;
 
-        [SerializeField] private float followDistance = 0.5f; //if follow target is this distance away, we start following
-        [SerializeField] private bool debugBool = false; /*Very expensive if multiple characters have this enabled*/
-        [SerializeField] private bool drawPath = false; /*Very expensive if multiple characters have this enabled*/
-        [SerializeField] private Color drawColor = Color.red;
-        [SerializeField] private bool endDrawComplete = true;
+        /// <summary>
+        /// If follow target is this distance away, we start following
+        /// </summary>
+        [SerializeField] private float _followDistance = 0.5f;
+        [SerializeField] private bool _debugBool = false; /*Very expensive if multiple characters have this enabled*/
+        [SerializeField] private bool _drawPath = false; /*Very expensive if multiple characters have this enabled*/
+        [SerializeField] private Color _drawColor = Color.red;
+        [SerializeField] private bool _endDrawComplete = true;
 
-        //Ensures starting position is grounded at the correct location.
+        /// <summary>
+        /// Ensures starting position is grounded at the correct location.
+        /// </summary>
         private bool _useStored = false;
         private Vector3 _storePoint;
 
         //Pathfinding
         private LineRenderer _pathLineRenderer;
+        /// <summary>
+        /// Index of the current order in the current orders list
+        /// </summary>
         private int _orderNum = -1;
+        /// <summary>
+        /// Current orders that are beeing followed
+        /// </summary>
         private List<instructions> _currentOrders = new List<instructions>();
-        private List<instructions> _waitingOrders = null; //Storage for the path until we're ready to use it
+        /// <summary>
+        /// Storage for the path until we're ready to use it
+        /// </summary>
+        private List<instructions> _waitingOrders = null;
+        /// <summary>
+        /// Last order given from the last path request
+        /// </summary>
         private Vector3 _lastOrder;
+        /// <summary>
+        /// Is the current path dirty or not
+        /// </summary>
         private bool _pathIsDirty = false;
+        /// <summary>
+        /// Distance with the current order
+        /// </summary>
         private float _oldDistance;
         private int _newPathAttempts = 3;
         private int _newPathAttemptCount = 0;
+        /// <summary>
+        /// Number of failed attempts before the path is considered dirty
+        /// </summary>
         private int _failAttempts = 3;
-        private float _failAttemptCount = 0;
+        /// <summary>
+        /// Current number of failed attempts
+        /// </summary>
+        private int _failAttemptCount = 0;
 
         //Timers
         [SerializeField] private float followPathTimer = 0.5f;
@@ -62,7 +94,7 @@ namespace Cursed.AI
             _aiController = GetComponent<AiController>();
             _col = GetComponent<CollisionHandler>();
 
-            if (drawPath)
+            if (_drawPath)
                 AddLineRenderer();
         }
 
@@ -82,6 +114,7 @@ namespace Cursed.AI
             //Only receive orders if we're grounded, so we don't accidentally fall off a ledge mid-jump.
             if (_waitingOrders != null && _col.OnGround)
             {
+                //Check if the AI controller need a pathfinding
                 if (_aiController.NeedsPathfinding())
                 {
                     _currentOrders = _waitingOrders;
@@ -93,9 +126,9 @@ namespace Cursed.AI
                         _hasLastOrder = true;
 
                     _newPathAttemptCount = 0;
+                    _failAttemptCount = 0;
                     _orderNum = 0;
 
-                    _failAttemptCount = 0;
                     if (_currentOrders != null && _orderNum < _currentOrders.Count - 1) //used for DirtyPath
                         _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
 
@@ -113,12 +146,14 @@ namespace Cursed.AI
                             }
                         }
                     }
+
                     //If possible, we skip the first node, this prevents that character from walking backwards to first node.
                     if (_currentOrders.Count > _orderNum + 1 && _currentOrders[_orderNum].order == _currentOrders[_orderNum + 1].order &&
                         (_currentOrders[_orderNum].order == "walkable"))
                     {
-                        _orderNum += 1;
+                        _orderNum++;
                     }
+
                     //Add Random deviation to last node position to stagger paths (Staggers character positions / Looks better.)
                     if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order == "walkable")
                     {
@@ -141,10 +176,12 @@ namespace Cursed.AI
                 if (_fFollowPathTimer >= followPathTimer)
                 {
                     _fFollowPathTimer = 0f;
-                    if ((_currentOrders != null && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, _target.transform.position) > followDistance)
-                            || ((_currentOrders == null || _currentOrders.Count == 0)))
+                    //If need a new path (target not close to last order || no orders)
+                    if ((_currentOrders != null && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, _target.transform.position) > _followDistance)
+                            || _currentOrders == null || _currentOrders.Count == 0)
                     {
-                        if (Vector3.Distance(transform.position, _target.transform.position) > followDistance + 0.18f)
+                        //If not close enough from target
+                        if (Vector3.Distance(transform.position, _target.transform.position) > _followDistance + 0.18f)
                             _pathIsDirty = true;
                     }
                 }
@@ -155,23 +192,29 @@ namespace Cursed.AI
             {
                 _fPathFailTimer += Time.deltaTime;
 
+                //If it's time to check
                 if (_fPathFailTimer > pathFailTimer)
                 {
                     _fPathFailTimer = 0;
 
+                    //If there are still orders left
                     if (_currentOrders != null && _currentOrders.Count > _orderNum)
                     {
                         float newDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
+                        //If current distance is greater or equal to the old distance
                         if (_oldDistance <= newDistance)
                         {
                             _failAttemptCount++;
+                            //If tried enough times
                             if (_failAttemptCount >= _failAttempts && _col.OnGround)
                             {
                                 _failAttemptCount = 0;
                                 _pathIsDirty = true;
                             }
                         }
-                        else { _failAttemptCount = 0; }
+                        else 
+                            _failAttemptCount = 0;
+
                         _oldDistance = newDistance;
                     }
                 }
@@ -182,21 +225,21 @@ namespace Cursed.AI
             {
                 _pathIsDirty = false;
                 if (_target && _aiController.State == AIState.Chase)
-                { RequestPath(_target); }
+                    RequestPath(_target);
                 else if (_hasLastOrder && _aiController.State == AIState.GroundPatrol)
-                { RequestPath(_lastOrder); }
+                    RequestPath(_lastOrder);
 
-                if (debugBool)
+                if (_debugBool)
                     Log("Path is dirty");
             }
         }
 
         public void CancelPathing()
         {
-            if (debugBool)
+            if (_debugBool)
                 Log("path canceled");
 
-            if (endDrawComplete && _pathLineRenderer)
+            if (_endDrawComplete && _pathLineRenderer)
                 _pathLineRenderer.positionCount = (1);
 
             //Remove orders && Prevent pathfinding
@@ -210,16 +253,16 @@ namespace Cursed.AI
         /// </summary>
         private void PathStarted()
         {
-            if (debugBool)
+            if (_debugBool)
                 Log("Path started");
 
-            if (drawPath)
+            if (_drawPath)
             {
                 if (!_pathLineRenderer)
                     AddLineRenderer();
 
-                _pathLineRenderer.startColor = (drawColor);
-                _pathLineRenderer.endColor = (drawColor);
+                _pathLineRenderer.startColor = (_drawColor);
+                _pathLineRenderer.endColor = (_drawColor);
                 _pathLineRenderer.positionCount = (_currentOrders.Count);
 
                 for (int i = 0; i < _currentOrders.Count; i++)
@@ -228,7 +271,8 @@ namespace Cursed.AI
                 }
 
             }
-            if (!drawPath && _pathLineRenderer)
+
+            if (!_drawPath && _pathLineRenderer)
                 Destroy(gameObject.GetComponent<LineRenderer>());
         }
 
@@ -237,10 +281,10 @@ namespace Cursed.AI
         /// </summary>
         private void PathCompleted()
         {
-            if (debugBool)
+            if (_debugBool)
                 Log("Path completed");
 
-            if (!drawPath && _pathLineRenderer)
+            if (!_drawPath && _pathLineRenderer)
                 Destroy(gameObject.GetComponent<LineRenderer>());
 
             CancelPathing(); //Reset Variables && Clears the debugging gizmos from drawing
@@ -251,7 +295,7 @@ namespace Cursed.AI
         /// </summary>
         private void PathNotFound()
         {
-            if (debugBool)
+            if (_debugBool)
                 Log("Path not found");
 
             _newPathAttemptCount++;
@@ -259,7 +303,7 @@ namespace Cursed.AI
             {
                 CancelPathing();
 
-                if (debugBool)
+                if (_debugBool)
                     Log("Newpath attempt limit reached. cancelling path.");
             }
         }
@@ -285,11 +329,11 @@ namespace Cursed.AI
             if (_col.OnGround)
             {
                 _useStored = false;
-                if (debugBool)
+                if (_debugBool)
                     Log("Requeseting path vector");
 
                 _lastOrder = pathVector;
-                _pathfindingMgr.RequestPathInstructions(gameObject, _lastOrder, 20f //JumpHeight
+                _pathfindingMgr.RequestPathInstructions(this, _lastOrder, 20f //JumpHeight
                     , true //Movement        //All booleans tells if AI can use the capacity
                     , true //Jump
                     , true //Fall
@@ -310,17 +354,19 @@ namespace Cursed.AI
         {
             _target = go;
 
-            if (_col.OnGround)
-            {
-                if (debugBool)
-                    Log("Requesting path target");
+            RequestPath(go.transform.position);
 
-                _pathfindingMgr.RequestPathInstructions(gameObject, _target.transform.position, 20f //JumpHeight
-                    , true //Same as RequestPath(Vector3 pathVector)
-                    , true
-                    , true
-                    );
-            }
+            //if (_col.OnGround)
+            //{
+            //    if (debugBool)
+            //        Log("Requesting path target");
+
+            //    _pathfindingMgr.RequestPathInstructions(this, _target.transform.position, 20f //JumpHeight
+            //        , true //Same as RequestPath(Vector3 pathVector)
+            //        , true
+            //        , true
+            //        );
+            //}
         }
 
         /// <summary>
@@ -338,24 +384,27 @@ namespace Cursed.AI
             _waitingOrders = instr; //Storage for the path until we're ready to use it
         }
 
-        public void AiMovement(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
+        public void AiMovement(ref Vector2 input, ref bool jumpRequest)
         {
             bool orderComplete = false;
             if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
             {
-
+                //Set input to 1 or -1 if no need to jump
                 if (_currentOrders[_orderNum].order != "jump")
                     input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
 
-                //prevent overshooting jumps and moving backwards & overcorrecting
-                if (_orderNum - 1 > 0 && (_currentOrders[_orderNum - 1].order == "jump" || _currentOrders[_orderNum - 1].order == "fall") && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x &&
-                    transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
+                //Prevent overshooting jumps and moving backwards & overcorrecting
+                if (_orderNum - 1 > 0 
+                    && (_currentOrders[_orderNum - 1].order == "jump" || _currentOrders[_orderNum - 1].order == "fall") 
+                    && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x 
+                    && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
-                    velocity.x = 0f;
+                    //velocity.x = 0f;
+                    input.x = 0;
                     transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                 }
 
-                //match X position of node (Ground, Fall)
+                //Match X position of node (Ground, Fall)
                 if (_currentOrders[_orderNum].order != "jump"
                     && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
@@ -364,22 +413,21 @@ namespace Cursed.AI
                     if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
                     && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
                     {
-                        //if next node is a jump, remove velocity.x, and lerp position to point.
+                        //If next node is a jump, remove velocity.x, and lerp position to point.
                         if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "jump")
                         {
-                            velocity.x *= 0.0f;
+                            //velocity.x *= 0.0f;
                             transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                         }
-                        //if last node was a jump, and next node is a fall, remove velocity.x, and lerp position to point
+
+                        //If last node was a jump, and next node is a fall, remove velocity.x, and lerp position to point
                         if (_orderNum + 1 < _currentOrders.Count && _orderNum - 1 > 0 && _currentOrders[_orderNum + 1].order == "fall" && _currentOrders[_orderNum + -1].order == "jump")
                         {
-                            velocity.x *= 0.0f;
+                            //velocity.x *= 0.0f;
                             transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.5f), transform.position.y, transform.position.z);
                         }
-                        if (_currentOrders[_orderNum].order != "jump")
-                        {
-                            orderComplete = true;
-                        }
+
+                        orderComplete = true;
                     }
                 }
 
@@ -388,6 +436,7 @@ namespace Cursed.AI
                 {
                     jumpRequest = true;
                     _aiJumped = true;
+                    //Pourquoi ? Why ? Maybe not to jump when the ai needs to go through a jump node without jumping
                     if (_orderNum + 1 < _currentOrders.Count && Mathf.Abs(_currentOrders[_orderNum + 1].pos.x - _currentOrders[_orderNum].pos.x) > 1f)
                     {
                         orderComplete = true;
@@ -396,21 +445,24 @@ namespace Cursed.AI
                 }
                 else if (_aiJumped && transform.position.y + 1f > _currentOrders[_orderNum].pos.y && transform.position.y - 1f < _currentOrders[_orderNum].pos.y)
                 {
+                    //Ai has jumped, go to next order
                     orderComplete = true;
                     _aiJumped = false;
                 }
 
-                //next order!
+                //Next order!
                 if (orderComplete)
                 {
                     _orderNum++;
 
-                    if (_orderNum < _currentOrders.Count - 1)//used for DirtyPath
+                    //Used for DirtyPath
+                    if (_orderNum < _currentOrders.Count - 1)
                         _oldDistance = Vector3.Distance(transform.position, _currentOrders[_orderNum].pos);
 
                     if (_orderNum >= _currentOrders.Count)
                     {
-                        velocity.x = 0;
+                        //velocity.x = 0;
+                        input.x = 0;
                         //Carry out orders when the node is finally reached...
                         PathCompleted();
                     }
@@ -422,7 +474,7 @@ namespace Cursed.AI
 
         private void OnDrawGizmos()
         {
-            if (_currentOrders != null && !pathCompleted && debugBool)
+            if (_currentOrders != null && !pathCompleted && _debugBool)
             {
                 for (int i = 0; i < _currentOrders.Count; i++)
                 {

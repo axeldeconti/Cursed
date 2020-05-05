@@ -22,7 +22,6 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _jumpInputBufferTimer;
         [SerializeField] private FloatReference _dashInputBufferTimer;
 
-        private Vector3 _velocity = Vector3.zero;
         private Vector2 _input = Vector2.zero;
         private bool _jump = false;
 
@@ -33,14 +32,12 @@ namespace Cursed.Character
 
         private void Start()
         {
-            _velocity = Vector3.zero;
             _input = Vector2.zero;
 
             Jump = new BoolBuffer(_jumpInputBufferTimer);
             Dash = new BoolBuffer(_dashInputBufferTimer);
 
             CursedDebugger.Instance.Add("Input", () => _input.ToString());
-            CursedDebugger.Instance.Add("Velocity", () => _velocity.ToString());
         }
 
         private void FixedUpdate()
@@ -48,7 +45,7 @@ namespace Cursed.Character
             //Retrieve value from AiController
             _input = new Vector2(x, y);
             _jump = false;
-            _aiController.GetInput(ref _velocity, ref _input, ref _jump);
+            _aiController.GetInput(ref _input, ref _jump);
         }
     }
 }

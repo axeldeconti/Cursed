@@ -64,7 +64,7 @@ namespace Cursed.AI
             return false;
         }
 
-        public void GetInput(ref Vector3 velocity, ref Vector2 input, ref bool jumpRequest)
+        public void GetInput(ref Vector2 input, ref bool jumpRequest)
         {
             switch (_state)
             {
@@ -72,11 +72,11 @@ namespace Cursed.AI
                     break;
                 case AIState.GroundPatrol:
                     GroundPatrol(ref input);
-                    _pathAgent.AiMovement(ref velocity, ref input, ref jumpRequest);
+                    _pathAgent.AiMovement(ref input, ref jumpRequest);
                     break;
                 case AIState.Chase:
                     Chase();
-                    _pathAgent.AiMovement(ref velocity, ref input, ref jumpRequest);
+                    _pathAgent.AiMovement(ref input, ref jumpRequest);
                     break;
                 case AIState.Attack:
                     AttackOnRange();
