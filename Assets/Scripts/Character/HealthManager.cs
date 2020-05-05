@@ -132,11 +132,14 @@ namespace Cursed.Character
 
                 if (gameObject.tag.Equals("Enemy"))
                 {
+                    if ((!attacker.tag.Equals("Player")) && (!attacker.tag.Equals("Creature")))
+                        _sfx.FirstEnemyDamageSFX();
+
                     if (attacker.tag.Equals("Player"))
                     {
                         if (atkMgr)
                         {
-                            _sfx.EnemyDamageSFX();
+                            _sfx.FirstEnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
 
                             if(!atkMgr.IsDiveKicking)
@@ -151,10 +154,17 @@ namespace Cursed.Character
                                 _onCamShake?.Raise(_shakeCritic);
                             }
 
+                            //Do something for Combo 2
+                            if (atkMgr.Combo == 2)
+                            {
+                                _sfx.SecondEnemyDamageSFX();
+                            }
+
                             //Do something for Combo 3
-                            if(atkMgr.Combo == 3)
+                            if (atkMgr.Combo == 3)
                             {
                                 _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
+                                _sfx.ThirdEnemyDamageSFX();
                                 _onCamShake?.Raise(_shakeCombo3);
                             }
 
