@@ -140,7 +140,7 @@ namespace Cursed.AI
                         for (int i = 0; i < _currentOrders.Count; i++)
                         {
                             float distance = Vector3.Distance(_currentOrders[i].pos, transform.position);
-                            if ((_currentOrders[i].order == "walkable") && distance < closest)
+                            if ((_currentOrders[i].order.Equals(OrderType.Walkable)) && distance < closest)
                             {
                                 closest = distance;
                                 _orderNum = i;
@@ -150,13 +150,13 @@ namespace Cursed.AI
 
                     //If possible, we skip the first node, this prevents that character from walking backwards to first node.
                     if (_currentOrders.Count > _orderNum + 1 && _currentOrders[_orderNum].order == _currentOrders[_orderNum + 1].order &&
-                        (_currentOrders[_orderNum].order == "walkable"))
+                        (_currentOrders[_orderNum].order.Equals(OrderType.Walkable)))
                     {
                         _orderNum++;
                     }
 
                     //Add Random deviation to last node position to stagger paths (Staggers character positions / Looks better.)
-                    if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order == "walkable")
+                    if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order.Equals(OrderType.Walkable))
                     {
                         _currentOrders[_currentOrders.Count - 1].pos.x += Random.Range(-1, 1) * lastPointRandomAccuracy;
                     }
@@ -390,41 +390,63 @@ namespace Cursed.AI
             bool orderComplete = false;
             if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
             {
-                //Set input to 1 or -1 if no need to jump
-                if (_currentOrders[_orderNum].order != "jump")
-                    input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
+                //Move
+                if (!_currentOrders[_orderNum].order.Equals(OrderType.Jump))
+                {
+                    if (_orderNum < _currentOrders.Count - 1)
+                    {
+                        bool goingRight = _currentOrders[_orderNum + 1].pos.x > _currentOrders[_orderNum].pos.x ? true : false;
+
+                        //If going right and the position is more on the right than the current order
+                        //Or if going lift and the position is more on the left than the current order
+                        if ((goingRight && transform.position.x > _currentOrders[_orderNum].pos.x) || (!goingRight && transform.position.x < _currentOrders[_orderNum].pos.x))
+                        {
+                            //Go to next order
+                            input.x = 0;
+                            orderComplete = true;
+                        }
+                        else
+                        {
+                            //Move to the current order pos
+                            input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
+                        }
+                    }
+                    else
+                    {
+                        //Move to the current order pos
+                        input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
+                    }
+                }
 
                 //Prevent overshooting jumps and moving backwards & overcorrecting
                 if (_orderNum - 1 > 0 
-                    && (_currentOrders[_orderNum - 1].order == "jump" || _currentOrders[_orderNum - 1].order == "fall") 
+                    && (_currentOrders[_orderNum - 1].order.Equals(OrderType.Jump) || _currentOrders[_orderNum - 1].order.Equals(OrderType.Fall)) 
                     && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x 
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
                     //velocity.x = 0f;
                     input.x = 0;
-                    Log("Prevent Overshooting");
                     transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                 }
 
                 //Match X position of node (Ground, Fall)
-                if (_currentOrders[_orderNum].order != "jump"
+                if (!_currentOrders[_orderNum].order.Equals(OrderType.Jump)
                     && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
-                    Log("Match X");
                     input.x = 0f;
                     if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
                     && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
                     {
                         //If next node is a jump, remove velocity.x, and lerp position to point.
-                        if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order == "jump")
+                        if (_orderNum + 1 < _currentOrders.Count && _currentOrders[_orderNum + 1].order.Equals(OrderType.Jump))
                         {
                             //velocity.x *= 0.0f;
                             transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                         }
 
                         //If last node was a jump, and next node is a fall, remove velocity.x, and lerp position to point
-                        if (_orderNum + 1 < _currentOrders.Count && _orderNum - 1 > 0 && _currentOrders[_orderNum + 1].order == "fall" && _currentOrders[_orderNum + -1].order == "jump")
+                        if (_orderNum + 1 < _currentOrders.Count && _orderNum - 1 > 0 && _currentOrders[_orderNum + 1].order.Equals(OrderType.Fall) && _currentOrders[_orderNum + -1].order.Equals(OrderType.Jump))
                         {
                             //velocity.x *= 0.0f;
                             transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.5f), transform.position.y, transform.position.z);
@@ -435,7 +457,7 @@ namespace Cursed.AI
                 }
 
                 //Jump
-                if (_currentOrders[_orderNum].order == "jump" && !_aiJumped && _col.OnGround)
+                if (_currentOrders[_orderNum].order.Equals(OrderType.Jump) && !_aiJumped && _col.OnGround)
                 {
                     jumpRequest = true;
                     _aiJumped = true;
@@ -466,7 +488,6 @@ namespace Cursed.AI
                     {
                         //velocity.x = 0;
                         input.x = 0;
-                        Log("Next order");
                         //Carry out orders when the node is finally reached...
                         PathCompleted();
                     }

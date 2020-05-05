@@ -64,7 +64,15 @@ namespace Cursed.AI
             return false;
         }
 
-        public void GetInput(ref Vector2 input, ref bool jumpRequest)
+        /// <summary>
+        /// Retrieve the inputs
+        /// </summary>
+        /// <param name="input">Input like the joystick [-1, 0, 1]</param>
+        /// <param name="jumpRequest"></param>
+        /// <param name="dashRequest"></param>
+        /// <param name="attack1"></param>
+        /// <param name="attack2"></param>
+        public void GetInput(ref Vector2 input, ref bool jumpRequest, ref bool dashRequest, ref bool attack1, ref bool attack2)
         {
             switch (_state)
             {

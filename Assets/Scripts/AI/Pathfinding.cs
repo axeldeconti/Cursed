@@ -119,7 +119,7 @@ namespace Cursed.AI
 
             ResetLists();
 
-            pathNode startNode = new pathNode("", Vector3.zero);
+            pathNode startNode = new pathNode(OrderType.None, Vector3.zero);
             startNode = GetNearestGroundNode(character);
 
             pathNode endNode = GetNearestNode(location);
@@ -140,7 +140,7 @@ namespace Cursed.AI
             openNodes.Add(startNode);
 
 
-            pathNode currentNode = new pathNode("0", Vector3.zero);
+            pathNode currentNode = new pathNode(OrderType.None, Vector3.zero);
             while (openNodes.Count > 0)
             {
                 float lowestScore = float.MaxValue;
@@ -163,16 +163,16 @@ namespace Cursed.AI
                     openNodes.Remove(currentNode);
 
                     //Check if character can use this node
-                    if (currentNode.type != "jump" || (currentNode.type == "jump" && 
+                    if (!currentNode.type.Equals(OrderType.Jump) || (currentNode.type.Equals(OrderType.Jump) && 
                         Mathf.Abs(currentNode.realHeight - characterJump) < _jumpHeightIncrement * 0.92) && 
                         characterJump <= currentNode.realHeight + _jumpHeightIncrement * 0.08)
                     {
                         for (int i = 0; i < currentNode.neighbours.Count; i++)
                         {
                             //Check if node can be used by character
-                            if (!a.canJump && currentNode.neighbours[i].type == "jump")
+                            if (!a.canJump && currentNode.neighbours[i].type.Equals(OrderType.Jump))
                                 continue;
-                            if (!a.canFall && currentNode.neighbours[i].type == "fall")
+                            if (!a.canFall && currentNode.neighbours[i].type == OrderType.Fall)
                                 continue;
 
                             if (currentNode.neighbours[i].parent == null)
@@ -180,7 +180,7 @@ namespace Cursed.AI
                                 currentNode.neighbours[i].g = currentNode.neighbours[i].c + currentNode.g;
                                 currentNode.neighbours[i].h = Vector3.Distance(currentNode.neighbours[i].pos, endNode.pos);
 
-                                if (currentNode.neighbours[i].type == "jump") 
+                                if (currentNode.neighbours[i].type.Equals(OrderType.Jump)) 
                                     currentNode.neighbours[i].h += currentNode.neighbours[i].realHeight; 
 
                                 currentNode.neighbours[i].f = currentNode.neighbours[i].g + currentNode.neighbours[i].h;
@@ -281,10 +281,10 @@ namespace Cursed.AI
             //add the ground node, 
 
             Vector3 ground = newGameObject.transform.position; ground.y += _blockSize * 0.5f + _blockSize * _groundNodeHeight;
-            pathNode newGroundNode = new pathNode("walkable", ground);
+            pathNode newGroundNode = new pathNode(OrderType.Walkable, ground);
             _groundNodes.Add(newGroundNode);
 
-            newGroundNode.c = _nodeWeights.GetNodeWeightByString(newGroundNode.type);
+            newGroundNode.c = _nodeWeights.GetNodeWeightByOrder(newGroundNode.type);
             _nodes.Add(newGroundNode);
 
             newGroundNode.gameObject = newGameObject;
@@ -389,10 +389,10 @@ namespace Cursed.AI
             {
                 Vector3 ground = objects[i].transform.position; 
                 ground.y += _blockSize * 0.5f + _blockSize * _groundNodeHeight;
-                pathNode newGroundNode = new pathNode("walkable", ground);
+                pathNode newGroundNode = new pathNode(OrderType.Walkable, ground);
                 _groundNodes.Add(newGroundNode);
 
-                newGroundNode.c = _nodeWeights.GetNodeWeightByString(newGroundNode.type);
+                newGroundNode.c = _nodeWeights.GetNodeWeightByOrder(newGroundNode.type);
                 _nodes.Add(newGroundNode);
 
                 newGroundNode.gameObject = objects[i];
@@ -417,12 +417,12 @@ namespace Cursed.AI
                     //raycheck down
                     if (!Physics2D.Linecast(leftNode, colliderCheck, _groundLayer))
                     {
-                        pathNode newFallNode = new pathNode("fall", leftNode);
+                        pathNode newFallNode = new pathNode(OrderType.Fall, leftNode);
 
                         newFallNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
                                                                  //fallNodes.Add(newFallNode);
 
-                        newFallNode.c = _nodeWeights.GetNodeWeightByString(newFallNode.type);
+                        newFallNode.c = _nodeWeights.GetNodeWeightByOrder(newFallNode.type);
                         _nodes.Add(newFallNode);
 
                         newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
@@ -438,11 +438,11 @@ namespace Cursed.AI
                     //raycheck down
                     if (!Physics2D.Linecast(rightNode, colliderCheck, _groundLayer))
                     {
-                        pathNode newFallNode = new pathNode("fall", rightNode);
+                        pathNode newFallNode = new pathNode(OrderType.Fall, rightNode);
 
                         newFallNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
 
-                        newFallNode.c = _nodeWeights.GetNodeWeightByString(newFallNode.type);
+                        newFallNode.c = _nodeWeights.GetNodeWeightByOrder(newFallNode.type);
                         _nodes.Add(newFallNode);
 
                         newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
@@ -465,11 +465,11 @@ namespace Cursed.AI
 
                         if (!Physics2D.Linecast(searchList[i].pos, air, _groundLayer))
                         {
-                            pathNode newJumpNode = new pathNode("jump", air);
+                            pathNode newJumpNode = new pathNode(OrderType.Jump, air);
 
                             newJumpNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
                                                                      //jumpNodes.Add(newJumpNode);
-                            newJumpNode.c = _nodeWeights.GetNodeWeightByString(newJumpNode.type);
+                            newJumpNode.c = _nodeWeights.GetNodeWeightByOrder(newJumpNode.type);
                             newJumpNode.height = curHeight;
                             newJumpNode.realHeight = curHeight;
                             _nodes.Add(newJumpNode);
@@ -485,11 +485,11 @@ namespace Cursed.AI
                                 Vector3 newHeight = new Vector3(air.x, air.y - (curHeight - h), air.z);
                                 if (!Physics2D.Linecast(searchList[i].pos, newHeight, _groundLayer))
                                 {
-                                    pathNode newJumpNode = new pathNode("jump", newHeight);
+                                    pathNode newJumpNode = new pathNode(OrderType.Jump, newHeight);
 
                                     newJumpNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
                                                                              //jumpNodes.Add(newJumpNode);
-                                    newJumpNode.c = _nodeWeights.GetNodeWeightByString(newJumpNode.type);
+                                    newJumpNode.c = _nodeWeights.GetNodeWeightByOrder(newJumpNode.type);
                                     newJumpNode.realHeight = curHeight;
                                     newJumpNode.height = h;
                                     _nodes.Add(newJumpNode);
@@ -760,7 +760,6 @@ namespace Cursed.AI
             List<pathNode> returnNodes = new List<pathNode>();
             for (int i = 0; i < pGround.Count; i++)
             {
-
                 returnNodes.AddRange(pGround[i].createdJumpNodes);
             }
             return returnNodes;
@@ -799,7 +798,7 @@ namespace Cursed.AI
             {
                 for (int i = 0; i < _nodes.Count; i++)
                 {
-                    Gizmos.color = _nodeWeights.GetNodeColorByString(_nodes[i].type);
+                    Gizmos.color = _nodeWeights.GetNodeColorByOrder(_nodes[i].type);
                     Gizmos.DrawSphere(_nodes[i].pos, 0.5f);
                 }
             }
@@ -835,30 +834,42 @@ namespace Cursed.AI
         [System.Serializable]
         public class NodeWeight
         {
-            public float groundNode = 1f;
-            public float jumpNode = 9.2f;
-            public float fallNode = 1f;
+            public float groundNode = 1f;   //2
+            public float jumpNode = 9.2f;   //18.4
+            public float fallNode = 1f;     //2
 
-            public float GetNodeWeightByString(string nodeType)
+            public float GetNodeWeightByOrder(OrderType nodeType)
             {
                 switch (nodeType)
                 {
-                    case "walkable": return groundNode;
-                    case "jump": return jumpNode;
-                    case "fall": return fallNode;
+                    case OrderType.None:
+                        return 0f;
+                    case OrderType.Walkable:
+                        return groundNode;
+                    case OrderType.Jump:
+                        return jumpNode;
+                    case OrderType.Fall:
+                        return fallNode;
+                    default:
+                        return 0f;
                 }
-                return 0f;
             }
 
-            public Color GetNodeColorByString(string nodeType)
+            public Color GetNodeColorByOrder(OrderType nodeType)
             {
                 switch (nodeType)
                 {
-                    case "walkable": return Color.yellow;
-                    case "jump": return Color.blue;
-                    case "fall": return Color.black;
+                    case OrderType.None:
+                        return Color.white;
+                    case OrderType.Walkable:
+                        return Color.yellow;
+                    case OrderType.Jump:
+                        return Color.blue;
+                    case OrderType.Fall:
+                        return Color.black;
+                    default:
+                        return Color.white;
                 }
-                return Color.white;
             }
         }
 
@@ -878,7 +889,7 @@ namespace Cursed.AI
     public class pathNode
     {
         public Vector3 pos;
-        public string type;
+        public OrderType type;
         public float realHeight = 0f;
         public float height = 0f;
 
@@ -911,7 +922,7 @@ namespace Cursed.AI
 
         public List<pathNode> neighbours = new List<pathNode>();
 
-        public pathNode(string typeOfNode, Vector3 position)
+        public pathNode(OrderType typeOfNode, Vector3 position)
         {
             pos = position;
             type = typeOfNode;
@@ -921,12 +932,14 @@ namespace Cursed.AI
     public class instructions
     {
         public Vector3 pos = Vector3.zero;
-        public string order = "none";
+        public OrderType order = OrderType.None;
 
-        public instructions(Vector3 position, string pOrder)
+        public instructions(Vector3 position, OrderType order)
         {
             pos = position;
-            order = pOrder;
+            this.order = order;
         }
     }
+
+    public enum OrderType { None, Walkable, Jump, Fall }
 }
