@@ -10,6 +10,9 @@ namespace Cursed.Combat
     public class DestructibleBox : MonoBehaviour, IAttackable
     {
         private int _wallLife = 3;
+        private SpriteRenderer _spriteR;
+        private int _spriteVersion = 0;
+        [SerializeField] private Sprite[] _spriteArray;
         [SerializeField] private GameObject _destructionEffect;
         [SerializeField] private GameObject _destructionImpact;
         [SerializeField] private GameObject _destructionImpactDivekick;
@@ -19,21 +22,32 @@ namespace Cursed.Combat
         [SerializeField] private ShakeData _shakeDestructibleWall = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
 
+        private void Start()
+        {
+            _spriteR = gameObject.GetComponent<SpriteRenderer>();
+        }
+
         private void Update()
         {
             if(_wallLife == 3)
             {
-                //sprite 3hp
+                //sprite 1hp
+                _spriteVersion = 0;
+                _spriteR.sprite = _spriteArray[_spriteVersion];
             }
 
             if (_wallLife == 2)
             {
                 //sprite 2hp
+                _spriteVersion = 1;
+                _spriteR.sprite = _spriteArray[_spriteVersion];
             }
 
             if (_wallLife == 1)
             {
                 //sprite 1hp
+                _spriteVersion = 2;
+                _spriteR.sprite = _spriteArray[_spriteVersion];
             }
         }
 
