@@ -9,6 +9,7 @@ namespace Cursed.Combat
 {
     public class DestructibleBox : MonoBehaviour, IAttackable
     {
+        private int _wallLife = 3;
         [SerializeField] private GameObject _destructionEffect;
         [SerializeField] private GameObject _destructionImpact;
         [SerializeField] private GameObject _destructionImpactDivekick;
@@ -18,12 +19,43 @@ namespace Cursed.Combat
         [SerializeField] private ShakeData _shakeDestructibleWall = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
 
+        private void Update()
+        {
+            if(_wallLife == 3)
+            {
+                //sprite 3hp
+            }
+
+            if (_wallLife == 2)
+            {
+                //sprite 2hp
+            }
+
+            if (_wallLife == 1)
+            {
+                //sprite 1hp
+            }
+        }
+
         public void OnAttack(GameObject attacker, Attack attack)
         {
-            CreateImpactEffect(attacker.transform);
-            CreateDestroyEffect(attacker.transform);
-            _onCamShake?.Raise(_shakeDestructibleWall);
-            Destroy(this.gameObject);
+            if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
+            {
+                _wallLife -= 3;
+                CreateImpactEffect(attacker.transform);
+            }
+            else
+            {
+                _wallLife -= 1;
+                CreateImpactEffect(attacker.transform);
+            }
+
+            if (_wallLife <= 0)
+            {
+                CreateDestroyEffect(attacker.transform);
+                _onCamShake?.Raise(_shakeDestructibleWall);
+                Destroy(this.gameObject);
+            }
         }
 
         private GameObject CreateImpactEffect(Transform attacker)
