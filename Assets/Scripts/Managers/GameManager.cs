@@ -14,14 +14,14 @@ public class GameManager : Singleton<GameManager>
     private List<GameObject> _instancedSystemPrefabs = null;
 
     private string _currentLevelName = string.Empty;
-    private List<AsyncOperation> _loadOperations = null;
+    private Dictionary<AsyncOperation, UnloadInfo> _loadOperations = null;
     private List<string> _loadedScene = null;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
 
-        _loadOperations = new List<AsyncOperation>();
+        _loadOperations = new Dictionary<AsyncOperation, UnloadInfo>();
         _loadedScene = new List<string>();
 
         InstatiateSystemPrefabs();
@@ -33,8 +33,8 @@ public class GameManager : Singleton<GameManager>
         if (_showFPS)
             CursedDebugger.Instance.Add("FPS", () => FPS.ToString());
 
-        if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Boot"))
-            LoadLevel("Main");
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Boot"))
+            LoadLevel("Main", true);
     }
 
     private void Update()
@@ -64,7 +64,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel(string levelName, bool unloadAll)
     {
         _loadingLevel.Raise();
 
@@ -72,37 +72,44 @@ public class GameManager : Singleton<GameManager>
 
         if(ao == null || _loadedScene.Contains(levelName))
         {
-            Debug.LogError("[GameManager] Unable to load leve " + levelName);
+            Debug.LogError("[GameManager] Unable to load level " + levelName);
             return;
         }
 
         ao.completed += OnLoadOperationComplete;
-        _loadOperations.Add(ao);
+        _loadOperations.Add(ao, new UnloadInfo(levelName, unloadAll));
         _loadedScene.Add(levelName);
         _currentLevelName = levelName;
 
-        //Handle he button sound issue
+        //Handle the button sound issue
         ButtonHandler.isFirstSelected = true;
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
-        if (_loadOperations.Contains(ao))
+        if (_loadOperations.ContainsKey(ao))
         {
+            UnloadAll(_loadOperations[ao]);
             _loadOperations.Remove(ao);
-
-            //Transition between level
-            //Change all this
-            if (_currentLevelName == "Scene_Proto_Game")
-                UnloadLevel("Main");
-
-            if (_currentLevelName == "Main" && HasScene("Scene_Proto_Game"))
-                UnloadLevel("Scene_Proto_Game");
         }
 
-        Debug.Log("Load complete");
+        Debug.Log("[GameManager] Load complete");
         State = GameState.InGame;
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
+    }
+
+    private void UnloadAll(UnloadInfo info)
+    {
+        if (!info.UnloadAll)
+            return;
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            if (!SceneManager.GetSceneAt(i).name.Equals("Boot") && !SceneManager.GetSceneAt(i).name.Equals(info.Name))
+            {
+                UnloadLevel(SceneManager.GetSceneAt(i).name);
+            }
+        }
     }
 
     public void UnloadLevel(string levelName)
@@ -122,7 +129,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnUnloadOperationComplete(AsyncOperation ao)
     {
-        Debug.Log("Unload complete");
+        Debug.Log("[GameManager] Unload complete");
     }
 
     private bool HasScene(string sceneName)
@@ -143,7 +150,7 @@ public class GameManager : Singleton<GameManager>
 
     public void QuitGame()
     {
-        Debug.Log("!! Quit Game !!");
+        Debug.Log("[GameManager] !! Quit Game !!");
         Application.Quit();
     }
 
@@ -199,4 +206,16 @@ public class GameManager : Singleton<GameManager>
     }
 
     public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition }
+
+    private struct UnloadInfo
+    {
+        public string Name;
+        public bool UnloadAll;
+
+        public UnloadInfo(string name, bool unloadAll)
+        {
+            Name = name;
+            UnloadAll = unloadAll;
+        }
+    }
 }

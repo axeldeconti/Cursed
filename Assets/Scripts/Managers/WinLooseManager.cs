@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WinLooseManager : MonoBehaviour
 {
@@ -34,6 +32,6 @@ public class WinLooseManager : MonoBehaviour
 
     public void Return()
     {
-        GameManager.Instance.LoadLevel("Main");
+        GameManager.Instance.LoadLevel("Main", true);
     }
 }

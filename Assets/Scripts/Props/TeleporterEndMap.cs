@@ -37,7 +37,7 @@ namespace Cursed.Props
         private void CheckDistanceFromTarget()
         {
             if (transform.position.y == _targetLaunch.position.y)
-                GameManager.Instance.LoadLevel(_sceneToLaunch);
+                GameManager.Instance.LoadLevel(_sceneToLaunch, true);
         }
 
         private void CloseWindows()
@@ -61,7 +61,7 @@ namespace Cursed.Props
         {
             yield return new WaitForSeconds(delay);
             Debug.Log("Load map : " + _sceneToLaunch);
-            GameManager.Instance.LoadLevel(_sceneToLaunch);
+            GameManager.Instance.LoadLevel(_sceneToLaunch, true);
             //_launchTeleporter = true;
         }
     }

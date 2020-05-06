@@ -24,7 +24,6 @@ public class CameraTargetManager : MonoBehaviour
     public void GetEnemyList()
     {
        _enemyList = FindObjectsOfType<EnemyRegister>();
-        Debug.Log("Enemy list update");
     }
 
     private void ChangeTarget()

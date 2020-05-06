@@ -65,7 +65,7 @@ namespace Cursed.UI
         IEnumerator WaitBeforeLoad(float delay)
         {
             yield return new WaitForSeconds(delay);
-            _gameManager.LoadLevel("Scene_Proto_Game");
+            _gameManager.LoadLevel("Scene_Proto_Game", true);
         }
 
         IEnumerator WaitForActive(GameObject go, bool active, float delay)
