@@ -87,8 +87,23 @@ namespace Cursed.Creature
                     AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
                 }
             }
+            if(collision.gameObject.GetComponent<DoorSwitch>())
+            {
+                if (_creatureManager.CurrentState != CreatureState.OnComeBack)
+                {
+                    collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                    CollideWithCharacter(CreatureState.OnDoorSwitch, collision.transform);
+                }
+            }
         }
 
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.GetComponent<DoorSwitch>())
+            {
+                collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+            }
+        }
 
         // COLLISIONS
         private void OnCollisionEnter2D(Collision2D collision)

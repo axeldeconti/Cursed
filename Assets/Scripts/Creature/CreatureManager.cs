@@ -15,6 +15,7 @@ namespace Cursed.Creature
         Chasing,
         OnPausing,
         OnWall,
+        OnDoorSwitch
     }
 
     public class CreatureManager : MonoBehaviour
@@ -273,6 +274,15 @@ namespace Cursed.Creature
                     case CreatureState.OnWall:
                         _animator.SetBool("OnWall", true);
                         _animator.SetBool("Moving", false);
+                        _animator.SetBool("Chasing", false);
+                        Destroy(_refCreatureTrailEffect);
+                        break;
+
+                    case CreatureState.OnDoorSwitch:
+                        //_vfx.CreatureTouchImpactParticle(_collision.HitTransform.GetChild(0));
+                        _animator.SetBool("GoToCharacter", true);
+                        _animator.SetBool("Moving", false);
+                        _animator.SetBool("OnWall", false);
                         _animator.SetBool("Chasing", false);
                         Destroy(_refCreatureTrailEffect);
                         break;

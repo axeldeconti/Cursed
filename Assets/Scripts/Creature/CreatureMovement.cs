@@ -128,7 +128,19 @@ namespace Cursed.Creature
             else
                 _rb.constraints = RigidbodyConstraints2D.None;
             #endregion
+
+            #region ON DOOR SWITCH
+            if(_creatureManager.CurrentState == CreatureState.OnDoorSwitch)
+            {
+                MoveToTargetPosition(_collision.HitTransform.position, 150f); 
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else
+                _rb.constraints = RigidbodyConstraints2D.None;
+
+            #endregion
         }
+
 
         #region MOVE FUNCTIONS
         public void MoveToDirection(Vector2 direction)
