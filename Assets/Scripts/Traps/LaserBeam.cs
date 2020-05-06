@@ -11,11 +11,19 @@ namespace Cursed.Traps
         [Header("Data")]
         [SerializeField] private Transform _start = null;
         [SerializeField] private Transform _end = null;
+        [SerializeField] private ParticleSystem _groundParticles;
+        [SerializeField] private ParticleSystem _laserParticles;
 
         [SerializeField] private FloatReference _colliderSize = null;
 
         private BoxCollider2D _coll = null;
+        private Animator _animator;
 
+        private void Awake()
+        {
+            if(!_animator)
+                _animator = GetComponent<Animator>();
+        }
 
         public void UpdateCollider()
         {
@@ -35,7 +43,26 @@ namespace Cursed.Traps
 
         }
 
-        public float ColliderSize => _colliderSize;
+        public void ActiveLaser()
+        {
+            _animator.SetTrigger("Active");
+            _groundParticles.Play();
+            _laserParticles.Play();
 
+            UpdateCollider();
+        }
+
+        public void DeActiveLaser()
+        {
+            _animator.SetTrigger("Deactive");
+
+            if (!_coll)
+                _coll = GetComponent<BoxCollider2D>();
+
+            _coll.size = new Vector2(0, 0);
+        }
+
+        public float ColliderSize => _colliderSize;
+        public Transform End => _end;
     }
 }

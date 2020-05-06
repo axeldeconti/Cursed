@@ -87,7 +87,7 @@ namespace Cursed.Creature
             #region ON WALL
             if (_creatureManager.CurrentState == CreatureState.OnWall)
             {
-                StuckOnWall();
+                StuckOnWall(_collision.WallPoint);
             }
 
             #endregion
@@ -139,6 +139,15 @@ namespace Cursed.Creature
                 _rb.constraints = RigidbodyConstraints2D.None;
 
             #endregion
+
+            #region ON LASER
+
+            if(_creatureManager.CurrentState == CreatureState.OnLaser)
+            {
+                MoveToTargetPosition(_collision.HitTransform.position, 150f);
+            }
+
+            #endregion
         }
 
 
@@ -173,10 +182,10 @@ namespace Cursed.Creature
             transform.position = Vector3.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
         }
 
-        public void StuckOnWall()
+        public void StuckOnWall(Vector2 target)
         {
             //Move to wall point
-            MoveToTargetPosition(_collision.WallPoint, 150f);
+            MoveToTargetPosition(target, 150f);
 
             //Stop movement
             _rb.velocity = Vector2.zero;

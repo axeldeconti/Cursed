@@ -40,7 +40,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621114379}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 0.15
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -4859,7 +4859,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4293629071441281002}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 0.15
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -9537,6 +9537,7 @@ GameObject:
   - component: {fileID: 4760907442156372458}
   - component: {fileID: -4261646193983801752}
   - component: {fileID: 3461949765157409822}
+  - component: {fileID: 2071730747}
   m_Layer: 0
   m_Name: LaserBeam
   m_TagString: Traps
@@ -9574,7 +9575,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 4.495}
+  m_Offset: {x: 0, y: 5.095}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -9585,7 +9586,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 8.99}
+  m_Size: {x: 0.8, y: 10.19}
   m_EdgeRadius: 0
 --- !u!50 &7508274013006548733
 Rigidbody2D:
@@ -9624,6 +9625,8 @@ MonoBehaviour:
   _laserType: 0
   _start: {fileID: 6822036367087453406}
   _end: {fileID: 6822036367104137532}
+  _groundParticles: {fileID: 621114382}
+  _laserParticles: {fileID: 4598639951990873849}
   _colliderSize:
     UseConstant: 1
     ConstantValue: 0.8
@@ -9665,6 +9668,25 @@ MonoBehaviour:
   unloadTriggerList: 
   bankNameInternal: 
   valueGuidInternal: 
+--- !u!95 &2071730747
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822036365946996676}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ed8b4bf1b8cdb848916e80fda2d290a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6822036367081881870
 GameObject:
   m_ObjectHideFlags: 0
@@ -9915,6 +9937,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6822036367104137532}
   - component: {fileID: 1452107111}
+  - component: {fileID: 1305168197}
+  - component: {fileID: 1305168198}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -9930,7 +9954,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6822036367104137507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.99, z: 0}
+  m_LocalPosition: {x: 0, y: 10.19, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 6822036365946996677}
@@ -9986,3 +10010,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1305168197
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822036367104137507}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0035390258, y: -0.09274116}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 1}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4792564, y: 0.18548232}
+  m_EdgeRadius: 0
+--- !u!114 &1305168198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822036367104137507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c11c3c378a8ad4d8b7a8b84253e12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

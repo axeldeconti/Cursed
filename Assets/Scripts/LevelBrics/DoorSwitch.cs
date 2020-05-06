@@ -8,7 +8,6 @@ public class DoorSwitch : MonoBehaviour
 
     public void ToggleDoors()
     {
-        Debug.Log("Toggle");
         for(int i = 0; i < _interactiveDoors.Length; i++)
         {
             _interactiveDoors[i].ToggleDoor();
