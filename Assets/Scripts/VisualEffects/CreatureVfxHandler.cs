@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cursed.PostProcess;
 
 namespace Cursed.Creature
 {
@@ -12,6 +13,10 @@ namespace Cursed.Creature
 
         [Header("Referencies")]
         [SerializeField] private Transform _creatureBack;
+        [SerializeField] private ChromaticAberrationChanging _chromaticAberrationChanging;
+
+        public float _lowerChromacticAberrationValue { get; private set; } = .1f;
+        public float _higherChromacticAberrationValue { get; private set; } = .5f;
 
 
         public void CreatureMoveParticle()
@@ -33,6 +38,11 @@ namespace Cursed.Creature
         public void CreatureTouchImpactParticle(Transform hit)
         {
             Instantiate(_vfxTouchImpactParticle, hit.position, Quaternion.identity);
+        }
+
+        public void CreatureAberration(float value)
+        {
+            _chromaticAberrationChanging?.LerpToValue(value);
         }
     }
 }

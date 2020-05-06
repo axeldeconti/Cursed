@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cursed.Combat;
 using Cursed.Character;
+using Cursed.VisualEffect;
 
 namespace Cursed.Combat
 {
@@ -12,16 +13,22 @@ namespace Cursed.Combat
         [SerializeField] private GameObject _destructionImpact;
         [SerializeField] private GameObject _destructionImpactDivekick;
 
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeDestructibleWall = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
+
         public void OnAttack(GameObject attacker, Attack attack)
         {
             CreateImpactEffect(attacker.transform);
             CreateDestroyEffect(attacker.transform);
+            _onCamShake?.Raise(_shakeDestructibleWall);
             Destroy(this.gameObject);
         }
 
         private GameObject CreateImpactEffect(Transform attacker)
         {
-            if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
+            if (attacker.GetComponent<CharacterMovement>().IsDiveKicking)
             {
                 GameObject go = Instantiate(_destructionImpactDivekick, this.transform.position, Quaternion.identity);
                 return go;

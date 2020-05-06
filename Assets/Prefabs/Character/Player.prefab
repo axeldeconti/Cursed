@@ -418,6 +418,8 @@ MonoBehaviour:
   _canDash: 0
   _isDiveKicking: 0
   _isInvincible: 0
+  _jumpUnlock: 1
+  _wallRunUnlock: 1
   _dashUnlock: 1
   _doubleJumpUnlock: 1
 --- !u!114 &8498843447298849142
@@ -518,11 +520,17 @@ MonoBehaviour:
   - {fileID: 2787424099464129439, guid: decbd7ae61dedea4ca8b5449c6613dba, type: 3}
   - {fileID: 766887639296522203, guid: 38552f38aa9066a44a2041e925b0d779, type: 3}
   - {fileID: 766887639296522203, guid: 06721cff0e73b924fb316f2e8b08bbf1, type: 3}
-  _vfxBloodParticle: {fileID: 8619041140878793685, guid: 92c0693d18761634c8bb356afb57d280,
-    type: 3}
   _vfxBloodProjection:
   - {fileID: 8197729329596060421, guid: 5316613bca74f544faef059789fd5b77, type: 3}
   - {fileID: 8197729329596060421, guid: ad1d776ca82b4474d85fb2c0f13eb19d, type: 3}
+  _vfxBloodParticle: {fileID: 8619041140878793685, guid: 92c0693d18761634c8bb356afb57d280,
+    type: 3}
+  _vfxDeathEffect: {fileID: 4810634002622866826, guid: 5a49b5c32d0a7204cb6f981b2a12d8f6,
+    type: 3}
+  _vfxBloodExplosion: {fileID: 987511664429150224, guid: 2de9be9fa338aff48b95704e834bbaf6,
+    type: 3}
+  _vfxAndroidPartExplosion: {fileID: 8051251058266920337, guid: 6ae6fc9307335fc408c436c8f1a6bf5f,
+    type: 3}
   _refFlashScreen: {fileID: 0}
 --- !u!114 &3300097278112753336
 MonoBehaviour:
@@ -569,6 +577,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: a00a3acedd6d7df49ada474f8405a3a2, type: 2}
+  _shakeDivekick: {fileID: 11400000, guid: 00ee4123e00be2742b79b954cec756cc, type: 2}
+  _onCamShake: {fileID: 11400000, guid: 8a79bf79c1417ee438404cab95d4a731, type: 2}
+  _onContrVibration: {fileID: 11400000, guid: 299dca7641a102b4db9a58f1032752dc, type: 2}
+  _attacksUnlock: 1
 --- !u!114 &7314641780241306975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,13 +621,15 @@ MonoBehaviour:
     Variable: {fileID: 11400000, guid: 3bd9c869979bc854b8863bae69dcafff, type: 2}
   _takeDamageVibration: {fileID: 11400000, guid: dcb66c20196f42640b21d0a3479e9419,
     type: 2}
+  _divekickTouchVibration: {fileID: 11400000, guid: 19e82ce1ca73db2449e33afaf03621ba,
+    type: 2}
   _headLight: {fileID: 8601726806201649843}
   _lightGradient:
     serializedVersion: 2
     key0: {r: 0, g: 0.8627451, b: 1, a: 1}
-    key1: {r: 0.49616745, g: 0.7132816, b: 0.47109044, a: 1}
-    key2: {r: 0.9339623, g: 0.58140194, b: 0.004405493, a: 1}
-    key3: {r: 0.8962264, g: 0, b: 0.050532054, a: 1}
+    key1: {r: 0, g: 0.9803922, b: 0.7019608, a: 1}
+    key2: {r: 1, g: 0.5246148, b: 0.25943398, a: 1}
+    key3: {r: 1, g: 0.30403924, b: 0.21226418, a: 1}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
@@ -681,7 +695,7 @@ MonoBehaviour:
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
-  unloadTriggerList: 
+  unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
 --- !u!114 &27705149

@@ -31,6 +31,18 @@ namespace Cursed.Character
         private int _combo = 0;
         private bool _canCombo = false;
 
+        [Space]
+        [Header("Stats Camera Shake")]
+        [SerializeField] private ShakeData _shakeDivekick = null;
+        [SerializeField] private ShakeDataEvent _onCamShake = null;
+
+        [Space]
+        [Header("Stats Vibration")]
+        [SerializeField] private VibrationEvent _onContrVibration = null;
+
+        [Header("Unlocks")]
+        [SerializeField] private bool _attacksUnlock = true;
+
         private void Awake()
         {
             _anim = GetComponentInChildren<AnimationHandler>();
@@ -69,6 +81,9 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateAttack(int attackNb)
         {
+            if (!_attacksUnlock)
+                return;
+
             if (_coll.OnGround)
             {
                 if (_move.IsDashing)
@@ -141,10 +156,10 @@ namespace Cursed.Character
                 }
             }
             //Vibration
-            if (Combo != 3)     
-                ControllerVibration.Instance.StartVibration(weapon.ClassicVibration);
+            if (Combo != 3)
+                _onContrVibration?.Raise(weapon.ClassicVibration);
             else
-                ControllerVibration.Instance.StartVibration(weapon.Combo3Vibration);
+                _onContrVibration?.Raise(weapon.Combo3Vibration);
         }
 
         /// <summary>
@@ -164,6 +179,7 @@ namespace Cursed.Character
             _isAttacking = true;
             _isDiveKicking = true;
             _anim.LaunchAttack(0, ++_combo);
+            _onCamShake?.Raise(_shakeDivekick);
         }
 
         /// <summary>
@@ -253,9 +269,18 @@ namespace Cursed.Character
             return CurrentWeapon.VfxCombo3;
         }
 
+        #region GETTERS & SETTERS
+
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);
         public int Combo => _combo;
+        public bool AttacksUnlock
+        {
+            get => _attacksUnlock;
+            set => _attacksUnlock = value;
+        }
+
+        #endregion
     }
 }

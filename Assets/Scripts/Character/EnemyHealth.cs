@@ -19,6 +19,7 @@ namespace Cursed.Character
                     attacker.GetComponent<CreatureManager>().CurrentState = CreatureState.OnComeBack;
 
                     // LAUNCH SFX & VFX
+                    AkSoundEngine.PostEvent("Play_Creature_EndDrain", gameObject);
                 }
             }
             else

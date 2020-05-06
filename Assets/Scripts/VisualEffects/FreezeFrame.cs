@@ -24,14 +24,13 @@ namespace Cursed.VisualEffect
         {
             _isFrozen = true;
             Time.timeScale = 0;
-            Debug.Log("Freeze");
 
             yield return new WaitForSecondsRealtime (_duration);
 
             _isFrozen = false;            
             Time.timeScale = 1;
             _pendingFreeze = false;
-            Debug.Log("Not Freeze");
+
         }
     }
 }

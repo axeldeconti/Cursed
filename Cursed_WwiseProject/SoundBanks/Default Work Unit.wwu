@@ -5,14 +5,17 @@
 			<ChildrenList>
 				<SoundBank Name="Characters" ID="{DF7ED07C-D3A3-431D-B773-8D06E66FB061}">
 					<ObjectInclusionList>
+						<ObjectRef Name="Play_Attack_Sword_SecondSlice" ID="{8EEE54A4-0818-40AE-8BA6-38AEDDA17982}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Landing" ID="{B8746FD6-8B1C-4130-ACF1-B2FB10DFDCA5}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_End_WallSlide" ID="{6E9F5483-2DDF-417E-BFF4-DDEABCAF6BE3}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Enemy_Death" ID="{B2A7B1C1-A016-4237-9978-C49DAA3FBA99}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Damage" ID="{A39E0433-D659-4275-A4D6-939788913329}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Attack_Sword_FirstSlice" ID="{1F11C626-6B9F-4295-B7EF-7AC85FCEC1FE}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_BasicJump" ID="{39718B7A-311B-44BC-9375-5856F2FBE211}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Play_Enemy_Damage" ID="{86A9902F-5FCB-44E1-83CB-871E7FBBD995}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Enemy_FirstDamage" ID="{86A9902F-5FCB-44E1-83CB-871E7FBBD995}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Character" ID="{83F65F58-7F83-464F-A064-A1DE8EF06026}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Enemy_SecondDamage" ID="{530706F1-4646-4753-AE16-42DA000F129A}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Enemy_ThirdDamage" ID="{E3EC2696-7CE6-47AD-829A-18681E8273E2}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_DoubleJump" ID="{E3C8EB75-1058-47DC-96BD-B9C9933B39BA}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="LowHealth" ID="{63D9F7E3-4F27-47EB-BDC4-2B6A7C2F1B13}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_LowHealth1" ID="{594CC9FC-2EC2-4803-A3F7-4181EB8D6EE2}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
@@ -27,6 +30,7 @@
 						<ObjectRef Name="Play_Attack_Axe_FirstSlice" ID="{11497DDA-A151-4D78-BD90-EB4546A5B703}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="WallSlide" ID="{537BDD75-9EED-4DDF-AE20-30C5D45CB485}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_LowHealth2" ID="{60963FAA-0D91-4F52-A8E2-190FF3A505EA}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Attack_Sword_ThirdSlice" ID="{E46A0BF8-E037-4F78-8D62-B85933532E3F}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Death" ID="{BAF35F67-E5C7-4FC8-9FFB-C43E4B7CFA10}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
@@ -34,10 +38,16 @@
 				</SoundBank>
 				<SoundBank Name="Spatialized" ID="{94F5952C-1BDA-4CB2-B214-6ADFD23FB61B}">
 					<ObjectInclusionList>
+						<ObjectRef Name="Play_DeathAnnouncement" ID="{3FE0F0A3-C399-4174-88F5-B5E483F401AC}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="ElectricTrap" ID="{5655E081-EA9B-427A-865F-D797F14E5AF7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_MapGenerator_On" ID="{447AA28E-4264-44CA-97D8-A5E9C99A9DF9}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Laser" ID="{7270FB66-C97D-4513-9AEA-4BAB9495FD27}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_StaticNoise" ID="{BCB9A590-7AA5-45B6-A884-08EE78C13D83}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_ElectricTrap_Triggered" ID="{3CA9790A-A0CF-46A4-B76F-462A36F0DEF2}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_AssemblyLine" ID="{DAB1B1FD-ED1D-46B0-B21E-786CAA2AB2B6}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MultiLaser" ID="{8492670A-9B07-4745-95BB-AFFEC8289111}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_AssemblyLine" ID="{CE7AA058-9ABE-4CAE-8B94-ED115F8D0F09}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_MapGenerator_Off" ID="{81744432-15CB-4E3E-A1AD-51AC500A0A7A}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_ElectricTrap_Inactive" ID="{21AC3B9F-78E3-4EF4-9CD6-00D53F8A4128}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_ElectricTrap_Active" ID="{605A4D3D-2D07-4F27-AE2E-615F4474854C}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
@@ -51,6 +61,7 @@
 						<ObjectRef Name="Play_Creature_Grabbing" ID="{7E830C3A-7478-4423-8CD2-AF07196E41DA}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Stop_Creature_OnChar" ID="{0E9F4501-6099-48A6-84CD-000BCE1650AF}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Creature_Launch" ID="{BE7E044D-78B5-4B4A-BD30-94CF252F2CDB}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Creature_EndDrain" ID="{3953CEF8-86DA-4C5A-A924-283240C6E9D7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Creature_Call" ID="{59DF8224-C06B-4F4E-A224-9386C6A4D458}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
@@ -68,6 +79,9 @@
 				<SoundBank Name="UI" ID="{1042F6EB-8A11-45C2-A899-C95ED89DF09D}">
 					<ObjectInclusionList>
 						<ObjectRef Name="Play_Button_Selected" ID="{0DC10D72-5D56-4028-A9E8-45D77ACCD2F1}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="ResumeAllSounds" ID="{0298F1C7-F0D3-49B0-BD2D-552CA6EDECCF}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="PauseMenu" ID="{C056298C-08A1-49C4-8AFF-3818427CCC8A}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="PauseAllSounds" ID="{98E5CCA4-5843-4C2C-AACE-80BB64A93D06}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Button_Pressed" ID="{2159BA94-D09C-4FB6-AC74-41FE36CF2908}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>

@@ -16,6 +16,7 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _invincibleTime;
         [SerializeField] private FloatReference _freezeFrameKill;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
+        [SerializeField] private VibrationData_SO _divekickTouchVibration;
 
         [Space]
         [Header("Head light")]
@@ -38,6 +39,7 @@ namespace Cursed.Character
         private InvincibilityAnimation _invAnim;
 
         public Action<int> onEnemyHealthUpdate;
+
         [Space]
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeCombo3 = null;
@@ -130,26 +132,39 @@ namespace Cursed.Character
 
                 if (gameObject.tag.Equals("Enemy"))
                 {
+                    if ((!attacker.tag.Equals("Player")) && (!attacker.tag.Equals("Creature")))
+                        _sfx.FirstEnemyDamageSFX();
+
                     if (attacker.tag.Equals("Player"))
                     {
                         if (atkMgr)
                         {
-                            _sfx.EnemyDamageSFX();
+                            _sfx.FirstEnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
+
                             if(!atkMgr.IsDiveKicking)
                                 _vfx.AttackEffect(transform.position, attacker);
+                            if(atkMgr.IsDiveKicking)
+                                ControllerVibration.Instance.StartVibration(_divekickTouchVibration);
 
                             //Do something is critical
-                            if(attack.IsCritical && atkMgr.Combo != 3)
+                            if (attack.IsCritical && atkMgr.Combo != 3)
                             {
                                 _vfx.CriticalEffect(transform.position, attacker);
                                 _onCamShake?.Raise(_shakeCritic);
                             }
 
+                            //Do something for Combo 2
+                            if (atkMgr.Combo == 2)
+                            {
+                                _sfx.SecondEnemyDamageSFX();
+                            }
+
                             //Do something for Combo 3
-                            if(atkMgr.Combo == 3)
+                            if (atkMgr.Combo == 3)
                             {
                                 _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
+                                _sfx.ThirdEnemyDamageSFX();
                                 _onCamShake?.Raise(_shakeCombo3);
                             }
 
@@ -270,6 +285,9 @@ namespace Cursed.Character
             {
                 _sfx.EnemyDeathSFX();
                 _vfx.DeathEffect(transform.position);
+                _vfx.BloodExplosion(transform.position);
+                _vfx.AndroidPartExplosion(transform.position);
+
                 Destroy(gameObject);
                 if (_freezeFrameKill != null)
                     FreezeFrame.Instance.Freeze(_freezeFrameKill);

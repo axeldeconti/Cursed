@@ -21,6 +21,7 @@
 			<ShortName>UI</ShortName>
 			<Path>UI.bnk</Path>
 			<IncludedEvents>
+				<Event Id="1404684114" Name="PauseAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\PauseAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980">
 					<IncludedMemoryFiles>
 						<File Id="1057618011" Language="SFX">
@@ -37,6 +38,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3456043509" Name="ResumeAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\ResumeAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 		</SoundBank>
 		<SoundBank Id="1557941045" Language="SFX">
@@ -52,11 +54,43 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="378405260" Name="Play_Attack_Axe_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_SecondSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+					<IncludedMemoryFiles>
+						<File Id="390725724" Language="SFX">
+							<ShortName>Weapon_FirstSlice.wav</ShortName>
+							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1892380385" Name="Play_Attack_Axe_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_ThirdSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+					<IncludedMemoryFiles>
+						<File Id="390725724" Language="SFX">
+							<ShortName>Weapon_FirstSlice.wav</ShortName>
+							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2804287435" Name="Play_Attack_Sword_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
 					<IncludedMemoryFiles>
 						<File Id="390725724" Language="SFX">
 							<ShortName>Weapon_FirstSlice.wav</ShortName>
 							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2641629647" Name="Play_Attack_Sword_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_SecondSlice" DurationType="OneShot" DurationMin="0.436145" DurationMax="0.436145">
+					<IncludedMemoryFiles>
+						<File Id="546199730" Language="SFX">
+							<ShortName>Weapon_SecondSlice.wav</ShortName>
+							<Path>SFX\Weapon_SecondSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="834008872" Name="Play_Attack_Sword_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_ThirdSlice" DurationType="OneShot" DurationMin="0.418073" DurationMax="0.418073">
+					<IncludedMemoryFiles>
+						<File Id="666528824" Language="SFX">
+							<ShortName>Weapon_ThirdSlice.wav</ShortName>
+							<Path>SFX\Weapon_ThirdSlice_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -120,14 +154,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3570856298" Name="Play_Enemy_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_Damage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
-					<IncludedMemoryFiles>
-						<File Id="13990874" Language="SFX">
-							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
-							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="3046156865" Name="Play_Enemy_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Enemy_Death" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.507506" DurationMax="0.781474">
 					<IncludedMemoryFiles>
 						<File Id="120410151" Language="SFX">
@@ -141,6 +167,30 @@
 						<File Id="820326928" Language="SFX">
 							<ShortName>Death\Enemy\Enemy_Death02.wav</ShortName>
 							<Path>SFX\Death\Enemy\Enemy_Death02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2563456942" Name="Play_Enemy_FirstDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_FirstDamage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.135011" DurationMax="0.135011">
+					<IncludedMemoryFiles>
+						<File Id="266893339" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_FirstHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1471082706" Name="Play_Enemy_SecondDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_SecondDamage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
+					<IncludedMemoryFiles>
+						<File Id="13990874" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="765570963" Name="Play_Enemy_ThirdDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_ThirdDamage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.174218" DurationMax="0.174218">
+					<IncludedMemoryFiles>
+						<File Id="630155253" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_ThirdHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_ThirdHit01_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -243,6 +293,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3331455763" Name="Play_Creature_EndDrain" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_EndDrain" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873">
+					<IncludedMemoryFiles>
+						<File Id="327802423" Language="SFX">
+							<ShortName>SFX_Creature_EndDrain.wav</ShortName>
+							<Path>SFX\SFX_Creature_EndDrain_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="3373431376" Name="Play_Creature_Grabbing" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Grabbing" DurationType="OneShot" DurationMin="0.662222" DurationMax="0.662222">
 					<IncludedMemoryFiles>
 						<File Id="99906037" Language="SFX">
@@ -307,6 +365,22 @@
 			<ShortName>Spatialized</ShortName>
 			<Path>Spatialized.bnk</Path>
 			<IncludedEvents>
+				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
+					<IncludedMemoryFiles>
+						<File Id="447976717" Language="SFX">
+							<ShortName>SFX_AssemblyLine.wav</ShortName>
+							<Path>SFX\SFX_AssemblyLine_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3531069449" Name="Play_DeathAnnouncement" ObjectPath="\Events\Default Work Unit\Spatial\Play_DeathAnnouncement" DurationType="OneShot" DurationMin="4.028662" DurationMax="4.028662">
+					<IncludedMemoryFiles>
+						<File Id="912044876" Language="SFX">
+							<ShortName>SFX_DeathAnnouncement.wav</ShortName>
+							<Path>SFX\SFX_DeathAnnouncement_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="742247423" Language="SFX">
@@ -351,11 +425,35 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2809729569" Name="Play_MapGenerator_Off" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_Off" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.430295" DurationMax="0.430295">
+					<IncludedMemoryFiles>
+						<File Id="3225159" Language="SFX">
+							<ShortName>SFX_MapGenerator_Off.wav</ShortName>
+							<Path>SFX\SFX_MapGenerator_Off_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1701637365" Name="Play_MapGenerator_On" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_On" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.434286" DurationMax="0.434286">
+					<IncludedMemoryFiles>
+						<File Id="1048841554" Language="SFX">
+							<ShortName>SFX_MapGenerator_On.wav</ShortName>
+							<Path>SFX\SFX_MapGenerator_On_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" MaxAttenuation="45.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="738182096" Language="SFX">
 							<ShortName>Laser.wav</ShortName>
 							<Path>SFX\Laser_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
+					<IncludedMemoryFiles>
+						<File Id="452589518" Language="SFX">
+							<ShortName>SFX_StaticNoise.wav</ShortName>
+							<Path>SFX\SFX_StaticNoise_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -368,17 +466,17 @@
 			<IncludedEvents>
 				<Event Id="962944353" Name="Play_Music_InGame" ObjectPath="\Events\Default Work Unit\Music\Play_Music_InGame" DurationType="Infinite">
 					<IncludedMemoryFiles>
-						<File Id="607350317" Language="SFX">
-							<ShortName>Cursed_Theme_01_Mixing_02.wav</ShortName>
-							<Path>SFX\Cursed_Theme_01_Mixing_02_D79FB2B7.wem</Path>
+						<File Id="170720435" Language="SFX">
+							<ShortName>Mus_Level01_Theme.wav</ShortName>
+							<Path>SFX\Mus_Level01_Theme_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="Infinite">
 					<IncludedMemoryFiles>
-						<File Id="89892569" Language="SFX">
-							<ShortName>MainMenu_Full.wav</ShortName>
-							<Path>SFX\MainMenu_Full_D79FB2B7.wem</Path>
+						<File Id="235091105" Language="SFX">
+							<ShortName>Mus_MainMenu_Theme.wav</ShortName>
+							<Path>SFX\Mus_MainMenu_Theme_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
