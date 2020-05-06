@@ -15,7 +15,6 @@ namespace Cursed.Creature
         private CharacterMovement _characterMovemenent;
         private int _side;
 
-
         void Awake()
         {
             if (Instance == null)
