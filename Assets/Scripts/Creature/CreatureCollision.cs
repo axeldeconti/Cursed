@@ -99,9 +99,12 @@ namespace Cursed.Creature
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.GetComponent<DoorSwitch>())
+            if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
-                collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                if (collision.gameObject.GetComponent<DoorSwitch>())
+                {
+                    collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                }
             }
         }
 
