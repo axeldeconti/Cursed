@@ -53,12 +53,12 @@ namespace Cursed.Character
             CursedDebugger.Instance.Add("Input", () => _input.ToString());
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             //Retrieve value from AiController
             _input = new Vector2(x, y);
             _jump = false;
-            _aiController.GetInput(ref _input, ref _jump, ref _dash, ref _attack1, ref _attack2);
+            _aiController.GetInputs(ref _input, ref _jump, ref _dash, ref _attack1, ref _attack2);
 
             x = _input.x;
             y = _input.y;

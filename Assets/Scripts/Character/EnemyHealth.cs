@@ -6,6 +6,7 @@ namespace Cursed.Character
 {
     public class EnemyHealth : HealthManager
     {
+        [Header("Creature")]
         [SerializeField] private IntReference _minCreatureAmountHealth;
 
         public override void OnAttack(GameObject attacker, Attack attack)

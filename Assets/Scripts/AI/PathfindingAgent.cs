@@ -1,4 +1,5 @@
 ﻿using Cursed.Character;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Cursed.AI
         /// <summary>
         /// Target to follow and chase
         /// </summary>
-        [SerializeField] private GameObject _target;
+        [SerializeField] private Transform _target;
 
         [Header("Debug")]
         /// <summary>
@@ -82,6 +83,7 @@ namespace Cursed.AI
 
         [System.NonSerialized]
         public bool pathCompleted = true;
+        public Action OnPathCompleted = null;
 
         private bool _stopPathing = true;
         private bool _hasLastOrder = false;
@@ -158,7 +160,7 @@ namespace Cursed.AI
                     //Add Random deviation to last node position to stagger paths (Staggers character positions / Looks better.)
                     if (_currentOrders.Count - 1 > 0 && _currentOrders[_currentOrders.Count - 1].order.Equals(OrderType.Walkable))
                     {
-                        _currentOrders[_currentOrders.Count - 1].pos.x += Random.Range(-1, 1) * lastPointRandomAccuracy;
+                        _currentOrders[_currentOrders.Count - 1].pos.x += UnityEngine.Random.Range(-1, 1) * lastPointRandomAccuracy;
                     }
 
                     PathStarted();
@@ -282,6 +284,8 @@ namespace Cursed.AI
         /// </summary>
         private void PathCompleted()
         {
+            OnPathCompleted.Invoke();
+
             if (_debugBool)
                 Log("Path completed");
 
@@ -348,14 +352,14 @@ namespace Cursed.AI
         }
 
         /// <summary>
-        /// Request path towards GameObject
+        /// Request path towards a target and set it as the current target
         /// </summary>
-        /// <param name="go">Target</param>
-        public void RequestPath(GameObject go)
+        /// <param name="target">Target</param>
+        public void RequestPath(Transform target)
         {
-            _target = go;
+            _target = target;
 
-            RequestPath(go.transform.position);
+            RequestPath(target.position);
 
             //if (_col.OnGround)
             //{
@@ -550,7 +554,7 @@ namespace Cursed.AI
 
         #region Getters & Setters
 
-        public GameObject Target
+        public Transform Target
         {
             get => _target;
             set => _target = value;

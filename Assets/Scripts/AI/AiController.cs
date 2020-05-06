@@ -7,26 +7,33 @@ namespace Cursed.AI
     public class AiController : MonoBehaviour
     {
         private static Pathfinding _pathfindingMgr;
-        private static GameObject _player;
-
-        [SerializeField] private AIState _state = AIState.GroundPatrol;
 
         private PathfindingAgent _pathAgent = null;
         private CollisionHandler _col = null;
 
+        [SerializeField] private AIState _state = AIState.GroundPatrol;
+
+        [Header("Data")]
+        [SerializeField] private FloatReference _aggroRange = null;
+        [SerializeField] private FloatReference _timeToChangePlatformTarget = null;
+
+        private Transform _target = null;
+        private bool _isMoving = false;
+
+        //Chase
+        private float _currentTimeToChangePlatformTarget = 0f;
+
         private bool _destroy = false;
-        private bool _timerChangeTarget = false;
 
         private void Awake()
         {
-            if (_player == null)
-                _player = GameObject.FindGameObjectWithTag("Player");
-
             _pathAgent = GetComponent<PathfindingAgent>();
             _col = GetComponent<CollisionHandler>();
 
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
+
+            _pathAgent.OnPathCompleted += OnPathCompleted;
         }
 
         private void LateUpdate()
@@ -37,13 +44,13 @@ namespace Cursed.AI
         }
 
         /// <summary>
-        /// Check player distance and do what told to wether or not player is in distance
+        /// Check player distance with a check on line of sight
         /// </summary>
         private bool PlayerInRange(float range, bool raycastOn)
         {
-            if (_player && Vector3.Distance(_player.transform.position, transform.position) < range)
+            if (_target && Vector3.Distance(_target.transform.position, transform.position) < range)
             {
-                if (raycastOn && !Physics2D.Linecast(transform.position, _player.transform.position, _pathfindingMgr.GroundLayer))
+                if (raycastOn && !Physics2D.Linecast(transform.position, _target.transform.position, _pathfindingMgr.GroundLayer))
                 {
                     return true;
                 }
@@ -55,6 +62,10 @@ namespace Cursed.AI
             return false;
         }
 
+        /// <summary>
+        /// Called by the Pathfinding Agent to check if a path is needed
+        /// </summary>
+        /// <returns></returns>
         public bool NeedsPathfinding()
         {
             if (_state == AIState.GroundPatrol || _state == AIState.Chase)
@@ -72,7 +83,7 @@ namespace Cursed.AI
         /// <param name="dashRequest"></param>
         /// <param name="attack1"></param>
         /// <param name="attack2"></param>
-        public void GetInput(ref Vector2 input, ref bool jumpRequest, ref bool dashRequest, ref bool attack1, ref bool attack2)
+        public void GetInputs(ref Vector2 input, ref bool jumpRequest, ref bool dashRequest, ref bool attack1, ref bool attack2)
         {
             switch (_state)
             {
@@ -94,64 +105,118 @@ namespace Cursed.AI
             }
         }
 
+        #region Ground Patrol
+        private void GroundPatrol(ref Vector2 input)
+        {
+            //Switch to chase if player in range
+            if (PlayerInRange(_aggroRange, true))
+            {
+                State = AIState.Chase;
+                return;
+            }
+
+            if(!_isMoving)
+                _currentTimeToChangePlatformTarget -= Time.deltaTime;
+
+            //It's time to change target
+            if(_currentTimeToChangePlatformTarget <= 0)
+            {
+                //Change target
+                _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform;
+                _pathAgent.RequestPath(_pathAgent.Target.transform.position + new Vector3(0, 3, 0));
+
+                //Reset timer
+                _currentTimeToChangePlatformTarget = _timeToChangePlatformTarget;
+
+                _isMoving = true;
+            }
+        }
+
+        #endregion
+
+        #region Chase
         private void Chase()
         {
             if (!PlayerInRange(30f, false)) //Change boolean to true for OnSight aggro / 6f-30f
             {
-                _state = AIState.GroundPatrol;
+                State = AIState.GroundPatrol;
                 return;
             }
             if (PlayerInRange(5f, true)) //Change boolean to true for OnSight aggro / 1f-5f
             {
-                _state = AIState.Attack;
+                State = AIState.Attack;
                 return;
             }
 
-            _pathAgent.Target = _player;
-            _state = AIState.Chase;
+            _pathAgent.Target = _target;
+            State = AIState.Chase;
         }
 
-        private void GroundPatrol(ref Vector2 input)
-        {
-            //Switch to chase if player in range
-            if (PlayerInRange(30f, true)) //Change boolean to true for OnSight aggro / 6f-30f
-            {
-                _state = AIState.Chase;
-                return;
-            }
+        #endregion
 
-            //Coroutine for changing targeted platform
-            if (_timerChangeTarget == false)
-            {
-                StartCoroutine(TimerForSwitchTarget());
-            }
-        }
-
-        /// <summary>
-        /// Coroutine to switch tile/node target
-        /// </summary>
-        private IEnumerator TimerForSwitchTarget()
-        {
-            _timerChangeTarget = true;
-            yield return new WaitForSeconds(5f);
-            _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject;
-            _pathAgent.RequestPath(_pathAgent.Target.transform.position + new Vector3(0, 3, 0));
-            _timerChangeTarget = false;
-        }
-
+        #region Attack
         private void AttackOnRange()
         {
             if (!PlayerInRange(5f, true)) //Change boolean to true for OnSight aggro / 1f-5f
             {
-                _state = AIState.Chase;
+                State = AIState.Chase;
                 return;
             }
             //Insert attack behavior
         }
 
+        #endregion
+
+        /// <summary>
+        /// Called by the Path Agent when the path is completed
+        /// </summary>
+        private void OnPathCompleted()
+        {
+            _isMoving = false;
+
+            switch (_state)
+            {
+                case AIState.None:
+                    break;
+                case AIState.GroundPatrol:
+                    break;
+                case AIState.Chase:
+                    break;
+                case AIState.Attack:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ExitState(AIState exitState)
+        {
+            switch (exitState)
+            {
+                case AIState.None:
+                    break;
+                case AIState.GroundPatrol:
+                    break;
+                case AIState.Chase:
+                    break;
+                case AIState.Attack:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #region Getters & Setters
 
-        public AIState State => _state;
+        public AIState State
+        {
+            get => _state;
+            set
+            {
+                ExitState(_state);
+                _state = value;
+            }
+        }
 
         #endregion
     }
