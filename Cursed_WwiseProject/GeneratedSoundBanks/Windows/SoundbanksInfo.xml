@@ -21,6 +21,7 @@
 			<ShortName>UI</ShortName>
 			<Path>UI.bnk</Path>
 			<IncludedEvents>
+				<Event Id="1404684114" Name="PauseAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\PauseAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980">
 					<IncludedMemoryFiles>
 						<File Id="1057618011" Language="SFX">
@@ -37,6 +38,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="3456043509" Name="ResumeAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\ResumeAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 		</SoundBank>
 		<SoundBank Id="1557941045" Language="SFX">
@@ -52,11 +54,43 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="378405260" Name="Play_Attack_Axe_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_SecondSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+					<IncludedMemoryFiles>
+						<File Id="390725724" Language="SFX">
+							<ShortName>Weapon_FirstSlice.wav</ShortName>
+							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1892380385" Name="Play_Attack_Axe_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_ThirdSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+					<IncludedMemoryFiles>
+						<File Id="390725724" Language="SFX">
+							<ShortName>Weapon_FirstSlice.wav</ShortName>
+							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2804287435" Name="Play_Attack_Sword_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
 					<IncludedMemoryFiles>
 						<File Id="390725724" Language="SFX">
 							<ShortName>Weapon_FirstSlice.wav</ShortName>
 							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2641629647" Name="Play_Attack_Sword_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_SecondSlice" DurationType="OneShot" DurationMin="0.436145" DurationMax="0.436145">
+					<IncludedMemoryFiles>
+						<File Id="546199730" Language="SFX">
+							<ShortName>Weapon_SecondSlice.wav</ShortName>
+							<Path>SFX\Weapon_SecondSlice_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="834008872" Name="Play_Attack_Sword_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_ThirdSlice" DurationType="OneShot" DurationMin="0.418073" DurationMax="0.418073">
+					<IncludedMemoryFiles>
+						<File Id="666528824" Language="SFX">
+							<ShortName>Weapon_ThirdSlice.wav</ShortName>
+							<Path>SFX\Weapon_ThirdSlice_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -120,14 +154,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3570856298" Name="Play_Enemy_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_Damage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
-					<IncludedMemoryFiles>
-						<File Id="13990874" Language="SFX">
-							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
-							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="3046156865" Name="Play_Enemy_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Enemy_Death" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.507506" DurationMax="0.781474">
 					<IncludedMemoryFiles>
 						<File Id="120410151" Language="SFX">
@@ -141,6 +167,30 @@
 						<File Id="820326928" Language="SFX">
 							<ShortName>Death\Enemy\Enemy_Death02.wav</ShortName>
 							<Path>SFX\Death\Enemy\Enemy_Death02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2563456942" Name="Play_Enemy_FirstDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_FirstDamage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.135011" DurationMax="0.135011">
+					<IncludedMemoryFiles>
+						<File Id="266893339" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_FirstHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1471082706" Name="Play_Enemy_SecondDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_SecondDamage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
+					<IncludedMemoryFiles>
+						<File Id="13990874" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="765570963" Name="Play_Enemy_ThirdDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_ThirdDamage" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.174218" DurationMax="0.174218">
+					<IncludedMemoryFiles>
+						<File Id="630155253" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_ThirdHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_ThirdHit01_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>

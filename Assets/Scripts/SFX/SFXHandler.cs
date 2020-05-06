@@ -117,14 +117,35 @@ public class SFXHandler : MonoBehaviour
         AkSoundEngine.PostEvent("Play_Landing", gameObject);
     }
 
-    public void SwordAttackSFX()
+    #region Attack
+    public void FirstSwordAttackSFX()
     {
         AkSoundEngine.PostEvent("Play_Attack_Sword_FirstSlice", gameObject);
     }
 
-    public void AxeAttackSFX()
+    public void SecondSwordAttackSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Attack_Sword_SecondSlice", gameObject);
+    }
+
+    public void ThirdSwordAttackSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Attack_Sword_ThirdSlice", gameObject);
+    }
+
+    public void FirstAxeAttackSFX()
     {
         AkSoundEngine.PostEvent("Play_Attack_Axe_FirstSlice", gameObject);
+    }
+
+    public void SecondAxeAttackSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Attack_Axe_SecondSlice", gameObject);
+    }
+
+    public void ThirdAxeAttackSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Attack_Axe_ThirdSlice", gameObject);
     }
 
     public void DiveKickSFX()
@@ -135,15 +156,26 @@ public class SFXHandler : MonoBehaviour
             _myIsDiveKicking = true;
         }
     }
+    #endregion
 
     public void PlayerDamageSFX()
     {
         AkSoundEngine.PostEvent("Play_Player_Damage", gameObject);
     }
 
-    public void EnemyDamageSFX()
+    public void FirstEnemyDamageSFX()
     {
-        AkSoundEngine.PostEvent("Play_Enemy_Damage", gameObject);
+        AkSoundEngine.PostEvent("Play_Enemy_FirstDamage", gameObject);
+    }
+
+    public void SecondEnemyDamageSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Enemy_SecondDamage", gameObject);
+    }
+
+    public void ThirdEnemyDamageSFX()
+    {
+        AkSoundEngine.PostEvent("Play_Enemy_ThirdDamage", gameObject);
     }
 
     public void PlayerDeathSFX()

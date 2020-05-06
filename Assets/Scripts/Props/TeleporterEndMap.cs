@@ -61,7 +61,7 @@ namespace Cursed.Props
         {
             yield return new WaitForSeconds(delay);
             Debug.Log("Load map : " + _sceneToLaunch);
-            //GameManager.Instance.LoadLevel(_sceneToLaunch);
+            GameManager.Instance.LoadLevel(_sceneToLaunch);
             //_launchTeleporter = true;
         }
     }

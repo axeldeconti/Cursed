@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     public static int FPS = 0;
 
     [SerializeField] GameObject[] _systemPrefabs = null;
+    [SerializeField] private VoidEvent _loadingLevel;
     private List<GameObject> _instancedSystemPrefabs = null;
 
     private string _currentLevelName = string.Empty;
@@ -65,6 +66,8 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadLevel(string levelName)
     {
+        _loadingLevel.Raise();
+
         AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 
         if(ao == null || _loadedScene.Contains(levelName))
