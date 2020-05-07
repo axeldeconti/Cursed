@@ -93,7 +93,7 @@ namespace Cursed.Creature
                 if (_creatureManager.CurrentState != CreatureState.OnComeBack)
                 {
                     collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
-                    CollideWithObject(CreatureState.OnDoorSwitch, collision.transform);
+                    CollideWithObject(CreatureState.OnDoorSwitch, collision.transform, true);
                 }
             }
             if (collision.gameObject.GetComponent<EndLaserBeam>())
