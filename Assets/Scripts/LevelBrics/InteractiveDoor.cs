@@ -15,13 +15,13 @@ public class InteractiveDoor : MonoBehaviour
     private void Start()
     {
         _animator.SetBool("Toggle", _activeDoor);
-        doorToggle.Invoke(_activeDoor);
+        doorToggle?.Invoke(_activeDoor);
     }
 
     public void ToggleDoor()
     {
         _activeDoor = !_activeDoor;
         _animator.SetBool("Toggle", _activeDoor);
-        doorToggle.Invoke(_activeDoor);
+        doorToggle?.Invoke(_activeDoor);
     }
 }

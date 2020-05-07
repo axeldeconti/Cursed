@@ -19,6 +19,8 @@ namespace Cursed.Creature
         private Vector3 _wallNormalPoint;
         private Vector2 _wallPoint;
         private Transform _hitTransform;
+        private bool _alreadyExitFromLaser;
+        private bool _alreadyExitFromDoorSwitch;
 
         private void Awake()
         {
@@ -94,6 +96,7 @@ namespace Cursed.Creature
                 {
                     collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
                     CollideWithObject(CreatureState.OnDoorSwitch, collision.transform, true);
+                    _alreadyExitFromDoorSwitch = false;
                 }
             }
             if (collision.gameObject.GetComponent<EndLaserBeam>())
@@ -103,6 +106,7 @@ namespace Cursed.Creature
                     _hitTransform = collision.transform;
                     collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
                     CollideWithObject(CreatureState.OnLaser, collision.transform, true);
+                    _alreadyExitFromLaser = false;
                 }
             }
         }
@@ -111,14 +115,16 @@ namespace Cursed.Creature
         {
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
-                if (collision.gameObject.GetComponent<DoorSwitch>())
+                if (collision.gameObject.GetComponent<DoorSwitch>() && !_alreadyExitFromDoorSwitch)
                 {
                     collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                    _alreadyExitFromDoorSwitch = true;
                 }
 
-                if (collision.gameObject.GetComponent<EndLaserBeam>())
+                if (collision.gameObject.GetComponent<EndLaserBeam>() && !_alreadyExitFromLaser)
                 {
                     collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
+                    _alreadyExitFromLaser = true;
                 }
             }
         }
