@@ -23,13 +23,9 @@ namespace Cursed.Character
         [SerializeField] private FloatReference _jumpInputBufferTimer;
         [SerializeField] private FloatReference _dashInputBufferTimer;
 
-        private Vector2 _input = Vector2.zero;
-        private bool _jump = false;
+        private AIData _data;
         private bool _wasJumping = false;
-        private bool _dash = false;
         private bool _wasDashing = false;
-        private bool _attack1 = false;
-        private bool _attack2 = false;
 
         private void Awake()
         {
@@ -39,32 +35,29 @@ namespace Cursed.Character
 
         private void Start()
         {
-            _input = Vector2.zero;
-            _jump = false;
+            _data = new AIData();
             _wasJumping = false;
             _wasDashing = false;
-            _dash = false;
-            _attack1 = false;
-            _attack2 = false;
 
             Jump = new BoolBuffer(_jumpInputBufferTimer);
             Dash = new BoolBuffer(_dashInputBufferTimer);
 
-            CursedDebugger.Instance.Add("Input", () => _input.ToString());
+            CursedDebugger.Instance.Add("Input", () => _data.input.ToString());
         }
 
         private void Update()
         {
-            //Retrieve value from AiController
-            _input = new Vector2(x, y);
-            _jump = false;
-            _aiController.GetInputs(ref _input, ref _jump, ref _dash, ref _attack1, ref _attack2);
+            //Reset data
+            _data.Reset();
 
-            x = _input.x;
-            y = _input.y;
+            //Retrieve value from AiController
+            _aiController.GetInputs(ref _data);
+
+            x = _data.input.x;
+            y = _data.input.y;
 
             //Jump
-            if (_jump)
+            if (_data.jump)
             {
                 Jump.Trigger();
                 _wasJumping = true;
@@ -74,10 +67,10 @@ namespace Cursed.Character
                 _wasJumping = _move.IsJumping;
             }
 
-            HoldJump = _jump;
+            HoldJump = _data.jump;
 
             //Dash
-            if (_dash && !_wasDashing)
+            if (_data.dash && !_wasDashing)
             {
                 Dash.Trigger();
                 _wasDashing = true;
@@ -88,8 +81,31 @@ namespace Cursed.Character
             }
 
             //Attacks
-            Attack_1 = _attack1;
-            Attack_2 = _attack2;
+            Attack_1 = _data.attack1;
+            Attack_2 = _data.attack2;
+        }
+    }
+
+    public class AIData
+    {
+        public Vector2 input;
+        public bool jump;
+        public bool dash;
+        public bool attack1;
+        public bool attack2;
+
+        public AIData()
+        {
+            Reset();
+        }
+
+        public void Reset()
+        {
+            input = Vector2.zero;
+            jump = false;
+            dash = false;
+            attack1 = false;
+            attack2 = false;
         }
     }
 }

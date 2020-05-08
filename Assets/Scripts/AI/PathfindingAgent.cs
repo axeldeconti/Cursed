@@ -389,7 +389,7 @@ namespace Cursed.AI
             _waitingOrders = instr; //Storage for the path until we're ready to use it
         }
 
-        public void AiMovement(ref Vector2 input, ref bool jumpRequest)
+        public void AiMovement(ref AIData data)
         {
             bool orderComplete = false;
             if (!_stopPathing && _currentOrders != null && _orderNum < _currentOrders.Count)
@@ -406,19 +406,19 @@ namespace Cursed.AI
                         if ((goingRight && transform.position.x > _currentOrders[_orderNum].pos.x) || (!goingRight && transform.position.x < _currentOrders[_orderNum].pos.x))
                         {
                             //Go to next order
-                            input.x = 0;
+                            data.input.x = 0;
                             orderComplete = true;
                         }
                         else
                         {
                             //Move to the current order pos
-                            input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
+                            data.input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
                         }
                     }
                     else
                     {
                         //Move to the current order pos
-                        input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
+                        data.input.x = transform.position.x > _currentOrders[_orderNum].pos.x ? -1 : 1;
                     }
                 }
 
@@ -429,7 +429,7 @@ namespace Cursed.AI
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
                     //velocity.x = 0f;
-                    input.x = 0;
+                    data.input.x = 0;
                     transform.position = new Vector3(Mathf.Lerp(transform.position.x, _currentOrders[_orderNum].pos.x, 0.2f), transform.position.y, transform.position.z);
                 }
 
@@ -438,7 +438,7 @@ namespace Cursed.AI
                     && transform.position.x + pointAccuracy > _currentOrders[_orderNum].pos.x
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
-                    input.x = 0f;
+                    data.input.x = 0f;
                     if (transform.position.y + 0.866f > _currentOrders[_orderNum].pos.y
                     && transform.position.y - 0.866f < _currentOrders[_orderNum].pos.y)
                     {
@@ -463,7 +463,7 @@ namespace Cursed.AI
                 //Jump
                 if (_currentOrders[_orderNum].order.Equals(OrderType.Jump) && !_aiJumped && _col.OnGround)
                 {
-                    jumpRequest = true;
+                    data.jump = true;
                     _aiJumped = true;
                     //Pourquoi ? Why ? Maybe not to jump when the ai needs to go through a jump node without jumping
                     if (_orderNum + 1 < _currentOrders.Count && Mathf.Abs(_currentOrders[_orderNum + 1].pos.x - _currentOrders[_orderNum].pos.x) > 1f)
@@ -491,7 +491,7 @@ namespace Cursed.AI
                     if (_orderNum >= _currentOrders.Count)
                     {
                         //velocity.x = 0;
-                        input.x = 0;
+                        data.input.x = 0;
                         //Carry out orders when the node is finally reached...
                         PathCompleted();
                     }

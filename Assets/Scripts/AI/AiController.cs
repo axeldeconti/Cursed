@@ -83,19 +83,19 @@ namespace Cursed.AI
         /// <param name="dashRequest"></param>
         /// <param name="attack1"></param>
         /// <param name="attack2"></param>
-        public void GetInputs(ref Vector2 input, ref bool jumpRequest, ref bool dashRequest, ref bool attack1, ref bool attack2)
+        public void GetInputs(ref AIData data)
         {
             switch (_state)
             {
                 case AIState.None:
                     break;
                 case AIState.GroundPatrol:
-                    GroundPatrol(ref input);
-                    _pathAgent.AiMovement(ref input, ref jumpRequest);
+                    GroundPatrol(ref data);
+                    _pathAgent.AiMovement(ref data);
                     break;
                 case AIState.Chase:
                     Chase();
-                    _pathAgent.AiMovement(ref input, ref jumpRequest);
+                    _pathAgent.AiMovement(ref data);
                     break;
                 case AIState.Attack:
                     AttackOnRange();
@@ -106,7 +106,7 @@ namespace Cursed.AI
         }
 
         #region Ground Patrol
-        private void GroundPatrol(ref Vector2 input)
+        private void GroundPatrol(ref AIData data)
         {
             //Switch to chase if player in range
             if (PlayerInRange(_aggroRange, true))
