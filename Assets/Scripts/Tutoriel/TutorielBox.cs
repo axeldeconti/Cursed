@@ -13,7 +13,9 @@ public enum TutorielType
     Sonar,
     CreatureDirection,
     CreatureLaunch,
-    CreatureRecall
+    CreatureRecall,
+    InteractiveDoor
+
 }
 namespace Cursed.Tutoriel
 {
