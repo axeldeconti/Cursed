@@ -89,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1332896277261204383}
 --- !u!114 &3943252665438454491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1332896277261204383}
 --- !u!114 &1332896276799201535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1332896277261204383}
 --- !u!114 &1332896277170985922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +362,9 @@ GameObject:
   - component: {fileID: 1332896277261204382}
   - component: {fileID: 1332896277261204383}
   - component: {fileID: 1681786518870303902}
+  - component: {fileID: 2872697988569217471}
+  - component: {fileID: 7722122768660174117}
+  - component: {fileID: 5808008087271637880}
   m_Layer: 0
   m_Name: Creature_Stamina
   m_TagString: Untagged
@@ -427,6 +433,55 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2872697988569217471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332896277261204381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
+--- !u!222 &7722122768660174117
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332896277261204381}
+  m_CullTransparentMesh: 0
+--- !u!114 &5808008087271637880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332896277261204381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.003921569}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c6d588d88a4c48d48bc2020bd01742ea, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1332896277608514276
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1332896277261204383}
 --- !u!114 &1332896277608514278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,6 +688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1332896277261204383}
 --- !u!114 &3744173888582129857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1332896277261204383}
 --- !u!114 &3482295524646784316
 MonoBehaviour:
   m_ObjectHideFlags: 0

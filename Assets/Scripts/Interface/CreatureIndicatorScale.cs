@@ -12,9 +12,13 @@ namespace Cursed.UI
 
         private void Awake()
         {
+            _initialSize = GetComponent<RectTransform>().sizeDelta.x;
+        }
+
+        private void Start()
+        {
             _creature = GameObject.FindGameObjectWithTag("Creature").transform;
             _player = GameObject.FindGameObjectWithTag("Player").transform;
-            _initialSize = GetComponent<RectTransform>().sizeDelta.x;
         }
 
         private void Update()

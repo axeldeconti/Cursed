@@ -14,17 +14,13 @@ namespace Cursed.UI
         private bool _updateValue;
         private float _currentValue;
 
-        private UpdateMaxBar _updateMaxBar;
-
+       [SerializeField] private UpdateMaxBar _updateMaxBar;
 
         private void Start()
         {
             _fillImage = GetComponent<Image>();
-            _updateMaxBar = GetComponentInParent<UpdateMaxBar>();
 
             EnemyHealth enemyHealth = GetComponentInParent<EnemyHealth>();
-            
-
             if (enemyHealth != null)
                 enemyHealth.onEnemyHealthUpdate += UpdateValue;
         }
@@ -40,6 +36,7 @@ namespace Cursed.UI
 
         public void UpdateValue(int value)
         {
+            _fillImage.fillAmount = _currentValue;
             float f = (float)value / (float)_updateMaxBar.LastMaxValue;
 
             if (!_lerpValues)

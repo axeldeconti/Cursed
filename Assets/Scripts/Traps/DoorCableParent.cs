@@ -23,6 +23,7 @@ public class DoorCableParent : MonoBehaviour
 
     private void UpdateCableColor(bool toggle)
     {
+        toggle = !toggle;
         if (toggle)
         {
             for (int i = 0; i < _cablesSprites.Length; i++)
