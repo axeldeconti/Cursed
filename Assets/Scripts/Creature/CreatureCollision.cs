@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using Cursed.Character;
+﻿using Cursed.Traps;
+using UnityEngine;
 
 namespace Cursed.Creature
 {
     public class CreatureCollision : MonoBehaviour
     {
-        [Header ("Referencies")]
+        [Header("Referencies")]
         [SerializeField] private GameObject _creatureOnCharacter;
         [SerializeField] private GameObject _creaturePart;
         [SerializeField] private LayerMask _wallLayer;
@@ -19,6 +19,8 @@ namespace Cursed.Creature
         private Vector3 _wallNormalPoint;
         private Vector2 _wallPoint;
         private Transform _hitTransform;
+        private bool _alreadyExitFromLaser;
+        private bool _alreadyExitFromDoorSwitch;
 
         private void Awake()
         {
@@ -39,7 +41,7 @@ namespace Cursed.Creature
                 return;
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, _creatureManager.LaunchDirection, 10f, _wallLayer);
-            if(hit.collider != null && Vector2.Distance(transform.position, hit.point) <= .6f)
+            if (hit.collider != null && Vector2.Distance(transform.position, hit.point) <= .6f)
             {
                 _wallPoint = hit.point;
                 _wallNormalPoint = hit.normal;
@@ -48,11 +50,12 @@ namespace Cursed.Creature
             }
         }
 
-        public void CollideWithCharacter(CreatureState type, Transform target)
+        public void CollideWithObject(CreatureState type, Transform target, bool flip = false)
         {
             _hitTransform = target;
             _creatureManager.CurrentState = type;
-            Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target);
+            CreatureOnCharacter creatureOnCharacter = Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target).GetComponent<CreatureOnCharacter>();
+            creatureOnCharacter.GetComponent<SpriteRenderer>().flipY = flip;
         }
 
         private void CollideWithWall()
@@ -71,7 +74,7 @@ namespace Cursed.Creature
             {
                 if (_creatureManager.CurrentState == CreatureState.OnComeBack || _creatureManager.CurrentState == CreatureState.OnWall)
                 {
-                    CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
+                    CollideWithObject(CreatureState.OnCharacter, collision.transform);
                     AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
                 }
             }
@@ -83,19 +86,55 @@ namespace Cursed.Creature
                     if (_creatureSearching.Enemy == null)
                         _creatureSearching.Enemy = collision.transform;
 
-                    CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
+                    CollideWithObject(CreatureState.OnEnemy, collision.transform);
                     AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
+                }
+            }
+            if (collision.gameObject.GetComponent<DoorSwitch>())
+            {
+                if (_creatureManager.CurrentState != CreatureState.OnComeBack)
+                {
+                    collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                    CollideWithObject(CreatureState.OnDoorSwitch, collision.transform, true);
+                    _alreadyExitFromDoorSwitch = false;
+                }
+            }
+            if (collision.gameObject.GetComponent<EndLaserBeam>())
+            {
+                if (_creatureManager.CurrentState != CreatureState.OnComeBack)
+                {
+                    _hitTransform = collision.transform;
+                    collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
+                    CollideWithObject(CreatureState.OnLaser, collision.transform, true);
+                    _alreadyExitFromLaser = false;
                 }
             }
         }
 
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (_creatureManager.CurrentState == CreatureState.OnComeBack)
+            {
+                if (collision.gameObject.GetComponent<DoorSwitch>() && !_alreadyExitFromDoorSwitch)
+                {
+                    collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                    _alreadyExitFromDoorSwitch = true;
+                }
+
+                if (collision.gameObject.GetComponent<EndLaserBeam>() && !_alreadyExitFromLaser)
+                {
+                    collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
+                    _alreadyExitFromLaser = true;
+                }
+            }
+        }
 
         // COLLISIONS
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
-            { 
-                CollideWithCharacter(CreatureState.OnCharacter, collision.transform);
+            {
+                CollideWithObject(CreatureState.OnCharacter, collision.transform);
                 AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
             }
 
@@ -106,7 +145,7 @@ namespace Cursed.Creature
                     if (_creatureSearching.Enemy == null)
                         _creatureSearching.Enemy = collision.transform;
 
-                    CollideWithCharacter(CreatureState.OnEnemy, collision.transform);
+                    CollideWithObject(CreatureState.OnEnemy, collision.transform);
                     AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
                 }
             }

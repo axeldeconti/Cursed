@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.421
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lerpValues: 1
   _lerpSpeed: 8
+  _updateMaxBar: {fileID: 1003574989951168878}
 --- !u!114 &1003574989563240693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1003574989951168879}
   - component: {fileID: 1003574989951168878}
+  - component: {fileID: 611149249289143191}
   m_Layer: 0
   m_Name: Creature_Life
   m_TagString: Untagged
@@ -246,6 +248,25 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: ecd1f0268e6df094f89d154aa8cfc81f, type: 2}
   _lerpSpeed: 5
+--- !u!95 &611149249289143191
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003574989951168864}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f2a52317e3657e4898fabe58285dd85, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1003574990198045654
 GameObject:
   m_ObjectHideFlags: 0

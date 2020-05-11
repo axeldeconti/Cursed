@@ -65,7 +65,7 @@ namespace Cursed.UI
 
         public void Quit()
         {
-            _gameManager.LoadLevel("Main");
+            _gameManager.LoadLevel("Main", true);
         }
     }
 }
