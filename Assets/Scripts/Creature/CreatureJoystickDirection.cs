@@ -69,7 +69,12 @@ namespace Cursed.Creature
 
                 if (_direction != Vector2.zero && _target == null)
                 {
-                    _target = Instantiate(_targetLine, _origin.position, Quaternion.identity, this.transform);
+                    if(_origin != null)
+                        _target = Instantiate(_targetLine, _origin.position, Quaternion.identity, this.transform);
+                    else
+                        _origin = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
+
+
                     if (_target.GetComponent<CreatureJoystickLine>() != null) _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
                     //UpdateTargetPosition(_direction);
                 }

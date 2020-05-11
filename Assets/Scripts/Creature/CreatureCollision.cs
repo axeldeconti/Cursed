@@ -55,6 +55,7 @@ namespace Cursed.Creature
             _hitTransform = target;
             _creatureManager.CurrentState = type;
             CreatureOnCharacter creatureOnCharacter = Instantiate(_creatureOnCharacter, target.position, Quaternion.identity, target).GetComponent<CreatureOnCharacter>();
+            creatureOnCharacter.transform.localEulerAngles = Vector3.zero;
             creatureOnCharacter.GetComponent<SpriteRenderer>().flipY = flip;
         }
 

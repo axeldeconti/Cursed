@@ -36,6 +36,12 @@ namespace Cursed.UI
 
         private float GetDistancePlayerFromCreature()
         {
+            if(_creature == null)
+                _creature = GameObject.FindGameObjectWithTag("Creature").transform;
+
+            if(_player == null)
+                _player = GameObject.FindGameObjectWithTag("Player").transform;
+
             return Vector2.Distance(_creature.position, _player.position);
         }
     }

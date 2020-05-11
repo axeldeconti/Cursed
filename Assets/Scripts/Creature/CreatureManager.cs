@@ -77,6 +77,13 @@ namespace Cursed.Creature
 
         private void Update()
         {
+            #region GET PLAYER MOVEMENT
+
+            if(_characterMovement == null)
+                _characterMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
+
+            #endregion
+
             UpdateInput();
             CameraZoom();
 

@@ -34,6 +34,13 @@ namespace Cursed.Creature
 
         private void Update()
         {
+            #region GET PLAYER POSITION
+
+            if (_playerPosition == null)
+                _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+
+            #endregion
+
             #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
