@@ -77,21 +77,30 @@ namespace Cursed.Combat
 
         private GameObject CreateImpactEffect(Transform attacker)
         {
-            if (attacker.GetComponent<CharacterMovement>().Side == -1)
+            if (attacker.GetComponent<CharacterMovement>().IsDiveKicking)
             {
-                GameObject go = Instantiate(_destructionImpact, this.transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
-                ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
-                rendererParticle.flip = new Vector3(0, 0, 0);
-                rendererParticle.pivot = new Vector3(-0.5f, 0, 0);
+                GameObject go = Instantiate(_destructionImpactDivekick, this.transform.position, Quaternion.identity);
                 return go;
             }
+
             else
             {
-                GameObject go = Instantiate(_destructionImpact, this.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
-                ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
-                rendererParticle.flip = new Vector3(1, 0, 0);
-                rendererParticle.pivot = new Vector3(0.5f, 0, 0);
-                return go;
+                if (attacker.GetComponent<CharacterMovement>().Side == -1)
+                {
+                    GameObject go = Instantiate(_destructionImpact, this.transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
+                    ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
+                    rendererParticle.flip = new Vector3(0, 0, 0);
+                    rendererParticle.pivot = new Vector3(-0.5f, 0, 0);
+                    return go;
+                }
+                else
+                {
+                    GameObject go = Instantiate(_destructionImpact, this.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+                    ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
+                    rendererParticle.flip = new Vector3(1, 0, 0);
+                    rendererParticle.pivot = new Vector3(0.5f, 0, 0);
+                    return go;
+                }
             }
         }
         private GameObject CreateDestroyEffect(Transform attacker)
