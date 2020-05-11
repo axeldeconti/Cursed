@@ -104,10 +104,13 @@ namespace Cursed.Creature
             {
                 if (_creatureManager.CurrentState != CreatureState.OnComeBack)
                 {
-                    _hitTransform = collision.transform;
-                    collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
-                    CollideWithObject(CreatureState.OnLaser, collision.transform, true);
-                    _alreadyExitFromLaser = false;
+                    if (_creatureManager.CurrentState != CreatureState.OnLaser)
+                    {
+                        _hitTransform = collision.transform;
+                        collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
+                        CollideWithObject(CreatureState.OnLaser, collision.transform, true);
+                        _alreadyExitFromLaser = false;
+                    }
                 }
             }
         }
