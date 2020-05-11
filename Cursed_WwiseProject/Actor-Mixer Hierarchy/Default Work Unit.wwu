@@ -534,6 +534,72 @@
 										<ActiveSource Name="Weapon_ThirdSlice" ID="{FA0437B1-108D-48AD-B297-687FF28DC8A3}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="SFX_Player_AxeFirstSlice" ID="{2C9F0B06-1B97-42E4-8E57-EE51398A8DC3}" ShortID="402093139">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Player_AxeFirstSlice" ID="{FBC9695C-8CA2-4A8E-AFF3-8D2F788FF731}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Player_AxeFirstSlice.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="986840092"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Player_AxeFirstSlice" ID="{FBC9695C-8CA2-4A8E-AFF3-8D2F788FF731}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_Player_AxeSecondSlice" ID="{BB7504A2-7F64-45F8-9536-E0779A1F40B0}" ShortID="181360668">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Player_AxeSecondSlice" ID="{77246E68-D741-4E4B-B30B-B491D8BAD722}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Player_AxeSecondSlice.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="779863955"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Player_AxeSecondSlice" ID="{77246E68-D741-4E4B-B30B-B491D8BAD722}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_Player_AxeThirdSlice" ID="{1C284C33-FA63-4465-8EF3-866E541073FB}" ShortID="741217347">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Player_AxeThirdSlice" ID="{B363838D-6622-4AB4-9CB1-EB682155F958}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Player_AxeThirdSlice.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="547091505"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Player_AxeThirdSlice" ID="{B363838D-6622-4AB4-9CB1-EB682155F958}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="WallSlide" ID="{C8692C41-2FFA-4E66-923E-FEBA3F8DB3E7}" ShortID="755976540">
@@ -1207,7 +1273,7 @@
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-10</Value>
+										<Value>-15</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -1475,7 +1541,7 @@
 								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-10</Value>
+										<Value>-15</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -1585,7 +1651,7 @@
 							<PropertyList>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-25</Value>
+										<Value>-17</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -1614,7 +1680,7 @@
 							<PropertyList>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-25</Value>
+										<Value>-17</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
