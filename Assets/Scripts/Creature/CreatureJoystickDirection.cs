@@ -74,9 +74,11 @@ namespace Cursed.Creature
                     else
                         _origin = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
 
-
-                    if (_target.GetComponent<CreatureJoystickLine>() != null) _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
-                    //UpdateTargetPosition(_direction);
+                    if (_target != null)
+                    {
+                        if (_target.GetComponent<CreatureJoystickLine>() != null)
+                            _target.GetComponent<CreatureJoystickLine>().LerpSize(false);
+                    }
                 }
 
 

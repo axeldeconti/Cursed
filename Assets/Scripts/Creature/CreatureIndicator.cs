@@ -22,7 +22,7 @@ namespace Cursed.Creature
 
         private void Start()
         {
-            if(GameObject.FindGameObjectWithTag("Creature") != null)
+            if(GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>() != null)
                 targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
 
             if (targetPosition == null)
@@ -33,7 +33,7 @@ namespace Cursed.Creature
         {
             if (targetPosition == null)
             {
-                if (GameObject.FindGameObjectWithTag("Creature") != null)
+                if (GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>() != null)
                     targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
             }
 
