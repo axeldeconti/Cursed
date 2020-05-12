@@ -1,6 +1,7 @@
 ﻿using Cursed.Character;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace Cursed.AI
@@ -42,11 +43,11 @@ namespace Cursed.AI
         /// <summary>
         /// Current orders that are beeing followed
         /// </summary>
-        private List<instructions> _currentOrders = new List<instructions>();
+        private List<Instructions> _currentOrders = new List<Instructions>();
         /// <summary>
         /// Storage for the path until we're ready to use it
         /// </summary>
-        private List<instructions> _waitingOrders = null;
+        private List<Instructions> _waitingOrders = null;
         /// <summary>
         /// Last order given from the last path request
         /// </summary>
@@ -175,10 +176,10 @@ namespace Cursed.AI
             //Update Follow/Chase Path
             if (_target)
             {
-                _fFollowPathTimer += Time.deltaTime;
-                if (_fFollowPathTimer >= followPathTimer)
+                _fFollowPathTimer -= Time.deltaTime;
+                if (_fFollowPathTimer <= 0f)
                 {
-                    _fFollowPathTimer = 0f;
+                    _fFollowPathTimer = followPathTimer;
                     //If need a new path (target not close to last order || no orders)
                     if ((_currentOrders != null && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, _target.transform.position) > _followDistance)
                             || _currentOrders == null || _currentOrders.Count == 0)
@@ -186,6 +187,8 @@ namespace Cursed.AI
                         //If not close enough from target
                         if (Vector3.Distance(transform.position, _target.transform.position) > _followDistance + 0.18f)
                             _pathIsDirty = true;
+
+                        Log("Not close enough to target");
                     }
                 }
             }
@@ -193,12 +196,12 @@ namespace Cursed.AI
             //Unable to make progress on current path, Update Path
             if (!pathCompleted)
             {
-                _fPathFailTimer += Time.deltaTime;
+                _fPathFailTimer -= Time.deltaTime;
 
                 //If it's time to check
-                if (_fPathFailTimer > pathFailTimer)
+                if (_fPathFailTimer < 0f)
                 {
-                    _fPathFailTimer = 0;
+                    _fPathFailTimer = pathFailTimer;
 
                     //If there are still orders left
                     if (_currentOrders != null && _currentOrders.Count > _orderNum)
@@ -213,6 +216,7 @@ namespace Cursed.AI
                             {
                                 _failAttemptCount = 0;
                                 _pathIsDirty = true;
+                                Log("Tried enough times");
                             }
                         }
                         else 
@@ -335,7 +339,7 @@ namespace Cursed.AI
             {
                 _useStored = false;
                 if (_debugBool)
-                    Log("Requeseting path vector");
+                    Log("Requesting path vector");
 
                 _lastOrder = pathVector;
                 _pathfindingMgr.RequestPathInstructions(this, _lastOrder, 20f //JumpHeight
@@ -377,16 +381,17 @@ namespace Cursed.AI
         /// <summary>
         /// Callback from Thread with path information
         /// </summary>
-        public void ReceivePathInstructions(List<instructions> instr, bool passed)
+        public void ReceivePathInstructions(List<Instructions> instr, bool passed)
         {
-            //Passed == false means incompleted / failure to reach node destination
+            //Flag if not passed
             if (!passed)
             {
                 PathNotFound();
                 return;
             }
 
-            _waitingOrders = instr; //Storage for the path until we're ready to use it
+            //Storage for the path until we're ready to use it
+            _waitingOrders = instr;
         }
 
         public void AiMovement(ref AIData data)

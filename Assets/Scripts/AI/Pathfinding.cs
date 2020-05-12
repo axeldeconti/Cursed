@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cursed.Character;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -10,16 +11,43 @@ namespace Cursed.AI
 
         public GameObject _currentMap;
 
-        [SerializeField] private float _blockSize = 1f; //each block is square. This should probably match your square 2dCollider on a tile.
-        [SerializeField] private float _jumpHeight = 3.8f; //the maximum jump height of a character
-        [SerializeField] private float _maxJumpBlocksX = 3f; //the furthest a character can jump without momentum
+        /// <summary>
+        /// Each block is square. This should probably match your square 2dCollider on a tile.
+        /// </summary>
+        [SerializeField] private float _blockSize = 1f;
+        /// <summary>
+        /// The maximum jump height of a character
+        /// </summary>
+        //[SerializeField] private float _jumpHeight = 3.8f;
+        /// <summary>
+        /// The furthest a character can jump without momentum
+        /// </summary>
+        //[SerializeField] private float _maxJumpBlocksX = 3f;
+        /// <summary>
+        /// Normal jump data to place jump nodes
+        /// </summary>
+        [SerializeField] private JumpData _normalJump = null;
         [SerializeField] private float _jumpHeightIncrement = 1f;
         [SerializeField] private float _minimumJump = 1.8f;
 
-        [SerializeField] private float _groundNodeHeight = 0.01f; //percentage of blockSize (Determines height off ground level for a groundNode)
-        private float _groundMaxWidth = 0.35f; //percentage of blockSize (Determines max spacing allowed between two groundNodes)
-        private float _fall_X_Spacing = 0.25f; //percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
-        private float _fall_Y_GrndDist = 0.02f; //percentage of blockSize (Determines space away from groundNode's top to place the fallNode)
+        /// <summary>
+        /// Percentage of blockSize (Determines height off ground level for a groundNode)
+        /// </summary>
+        [SerializeField] private float _groundNodeHeight = 0.01f;
+
+        /// <summary>
+        /// Percentage of blockSize (Determines max spacing allowed between two groundNodes)
+        /// </summary>
+        private float _groundMaxWidth = 0.35f;
+        /// <summary>
+        /// Percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
+        /// </summary>
+        private float _fall_X_Spacing = 0.25f;
+        /// <summary>
+        /// Percentage of blockSize (Determines space away from groundNode's top to place the fallNode)
+        /// </summary>
+        private float _fall_Y_GrndDist = 0.02f;
+
         private Thread _t;
 
         private List<pathNode> _nodes = new List<pathNode>();
@@ -30,10 +58,15 @@ namespace Cursed.AI
 
         [SerializeField] private NodeWeight _nodeWeights;
 
-        [SerializeField] private bool _debugTools = false; /*Pauses game on runtime and displays pathnode connections*/
+        /// <summary>
+        /// Pauses game on runtime and displays pathnode connections
+        /// </summary>
+        [SerializeField] private bool _debugTools = false;
 
         private void Start()
         {
+            _minimumJump = 1.8f;
+
             CreateNodeMap();
         }
 
@@ -60,7 +93,7 @@ namespace Cursed.AI
             }
 
             FindGroundNodes(groundObjects);
-            FindFallNodes(_groundNodes); //@param list of nodes to search (tiles)
+            FindFallNodes(_groundNodes);
             FindJumpNodes(_groundNodes);
 
             GroundNeighbors(_groundNodes, _groundNodes);
@@ -111,7 +144,7 @@ namespace Cursed.AI
             Vector3 location = a.end;
             float characterJump = a.jump;
 
-            List<instructions> instr = new List<instructions>();
+            List<Instructions> instr = new List<Instructions>();
 
             List<pathNode> openNodes = new List<pathNode>();
             List<pathNode> closedNodes = new List<pathNode>();
@@ -224,6 +257,7 @@ namespace Cursed.AI
             }
 
             //Mark the thread as passed
+            Log("pathNode[0] : " + pathNodes[0].pos + " | endNode : " + endNode.pos);
             if (pathNodes[0] != endNode)
             {
                 a.passed = false;
@@ -237,7 +271,7 @@ namespace Cursed.AI
             //Create all instructions
             for (int i = 0; i < pathNodes.Count; i++)
             {
-                instructions temp = new instructions(pathNodes[i].pos, pathNodes[i].type);
+                Instructions temp = new Instructions(pathNodes[i].pos, pathNodes[i].type);
                 instr.Add(temp);
             }
 
@@ -453,15 +487,16 @@ namespace Cursed.AI
 
         private void FindJumpNodes(List<pathNode> searchList)
         {
-            if (_jumpHeight > 0)
+            if (_normalJump.Height * 8 > 0)
             {
                 for (int i = 0; i < searchList.Count; i++)
                 {
-                    float curHeight = _jumpHeight;
+                    float curHeight = _normalJump.Height * 8;
 
                     while (curHeight >= _minimumJump)
                     {
-                        Vector3 air = searchList[i].pos; air.y += curHeight;
+                        Vector3 air = searchList[i].pos; 
+                        air.y += curHeight;
 
                         if (!Physics2D.Linecast(searchList[i].pos, air, _groundLayer))
                         {
@@ -562,7 +597,7 @@ namespace Cursed.AI
 
                     float xDistance = Mathf.Abs(a.pos.x - b.pos.x);
 
-                    if (xDistance < _blockSize * _maxJumpBlocksX + _blockSize + _groundMaxWidth) //the x distance modifier used to be 0.72!
+                    if (xDistance < _blockSize * _normalJump.Distance * 8 + _blockSize + _groundMaxWidth) //the x distance modifier used to be 0.72!
 
                         if (b != a.spawnedFrom && a.pos.y > b.pos.y + _blockSize * 0.5f && 
                             a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 0.9f - _blockSize * 1f &&
@@ -811,7 +846,7 @@ namespace Cursed.AI
             public Vector3 agentPos;
             public Vector3 end;
             public float jump;
-            public List<instructions> instr = null;
+            public List<Instructions> instr = null;
 
             //Abilities
             public bool canMove;
@@ -929,12 +964,12 @@ namespace Cursed.AI
         }
     }
 
-    public class instructions
+    public class Instructions
     {
         public Vector3 pos = Vector3.zero;
         public OrderType order = OrderType.None;
 
-        public instructions(Vector3 position, OrderType order)
+        public Instructions(Vector3 position, OrderType order)
         {
             pos = position;
             this.order = order;
