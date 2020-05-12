@@ -16,8 +16,8 @@ public class ScientistSpawnerMenu : MonoBehaviour
     {
         ScientistMovement scientist = Instantiate(_scientist[Random.Range(0, _scientist.Length)], this.transform.position, Quaternion.identity, transform).GetComponent<ScientistMovement>();
         scientist.target = _target;
-        scientist.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-19, 0);
-
+        //scientist.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(-19, 0);
+        scientist.GetComponent<SpriteRenderer>().sortingOrder = -21;
 
         if (_flip)
             scientist.flip = -1;

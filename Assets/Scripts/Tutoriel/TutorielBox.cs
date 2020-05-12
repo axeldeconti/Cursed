@@ -13,7 +13,9 @@ public enum TutorielType
     Sonar,
     CreatureDirection,
     CreatureLaunch,
-    CreatureRecall
+    CreatureRecall,
+    InteractiveDoor
+
 }
 namespace Cursed.Tutoriel
 {
@@ -65,7 +67,7 @@ namespace Cursed.Tutoriel
                 _playerMovement = collision.GetComponent<CharacterMovement>();
                 _playerAttacks = collision.GetComponent<CharacterAttackManager>();
                 UnlockSpell(_tutorielType);
-                _alreadyTriggered = true;
+                //_alreadyTriggered = true;
             }
         }
 

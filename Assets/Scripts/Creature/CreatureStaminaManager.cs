@@ -37,11 +37,6 @@ namespace Cursed.Creature
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.K))
-                _stats.ModifyStat(CreatureStat.Energy, -5);
-            if (Input.GetKeyDown(KeyCode.L))
-                _stats.ModifyStat(CreatureStat.Energy, 5);
-
             if (_manager.CurrentState != CreatureState.OnCharacter)
             {
                 _gainStaminaTimer = _stats.CurrentFrequencyGainStamina;

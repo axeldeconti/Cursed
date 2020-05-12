@@ -65,6 +65,9 @@ namespace Cursed.UI
 
         public void Quit()
         {
+            if (_gameManager.CurrentLevelName == "Tuto")
+                _gameManager.UnloadLevel("Main");
+
             _gameManager.LoadLevel("Main", true);
         }
     }

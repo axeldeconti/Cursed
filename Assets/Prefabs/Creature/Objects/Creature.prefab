@@ -163,7 +163,7 @@ MonoBehaviour:
   onMaxHealthUpdate: {fileID: 11400000, guid: cfa5c906dd84816439d90bb3dfba15f1, type: 2}
   onHeal: {fileID: 11400000, guid: 6db6c90e0c7a762458ac75b5d3717642, type: 2}
   onPlayer: {fileID: 11400000, guid: 1fb53936dbe269e4c81c408b8f09e9f8, type: 2}
-  _canAttackPlayer: 0
+  _canAttackPlayer: 1
   _playerAttack: {fileID: 11400000, guid: 9d7985057aedb334c8c2d3619f404f9e, type: 2}
   _enemyAttack: {fileID: 11400000, guid: d414f77f91b3a27499df5f0b1b627094, type: 2}
 --- !u!114 &495610366346164372
@@ -241,7 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d0c45e94fe52d4d8546c5814ddbef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceToPlayer: 2.5
+  _minLeftAngle: -150
+  _minRightAngle: -30
   _targetLine: {fileID: 5906497462142018816, guid: 4f32d6df71ee6534b9445cfcdbca868f,
     type: 3}
 --- !u!114 &7973523159910993283

@@ -12,9 +12,13 @@ namespace Cursed.UI
 
         private void Awake()
         {
+            _initialSize = GetComponent<RectTransform>().sizeDelta.x;
+        }
+
+        private void Start()
+        {
             _creature = GameObject.FindGameObjectWithTag("Creature").transform;
             _player = GameObject.FindGameObjectWithTag("Player").transform;
-            _initialSize = GetComponent<RectTransform>().sizeDelta.x;
         }
 
         private void Update()
@@ -32,6 +36,12 @@ namespace Cursed.UI
 
         private float GetDistancePlayerFromCreature()
         {
+            if(_creature == null)
+                _creature = GameObject.FindGameObjectWithTag("Creature").transform;
+
+            if(_player == null)
+                _player = GameObject.FindGameObjectWithTag("Player").transform;
+
             return Vector2.Distance(_creature.position, _player.position);
         }
     }

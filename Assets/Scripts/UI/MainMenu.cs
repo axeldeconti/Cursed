@@ -14,6 +14,13 @@ namespace Cursed.UI
         [SerializeField] private Animator _creditsAnimator;
         [SerializeField] private Animator _controlsAnimator;
 
+        [SerializeField] private string Level_Tuto;
+        [SerializeField] private string Level_Intro;
+        [SerializeField] private string Level_1;
+
+        [SerializeField] private GameObject _mainCameraMenu;
+        [SerializeField] private GameObject _virtualCameraMenu;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
@@ -26,7 +33,21 @@ namespace Cursed.UI
         {
             _mainMenuAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_1, true));
+        }
+
+        public void Tuto()
+        {
+            _mainMenuAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
+        }
+
+        public void Intro()
+        {
+            _mainMenuAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
         }
 
         public void CreditsToHome()
@@ -62,10 +83,12 @@ namespace Cursed.UI
             _gameManager.QuitGame();
         }
 
-        IEnumerator WaitBeforeLoad(float delay)
+        IEnumerator WaitBeforeLoad(float delay, string sceneName, bool unloadAll)
         {
             yield return new WaitForSeconds(delay);
-            _gameManager.LoadLevel("Scene_Proto_Game", true);
+            _gameManager.LoadLevel(sceneName, unloadAll);
+            Destroy(_mainCameraMenu);
+            Destroy(_virtualCameraMenu);
         }
 
         IEnumerator WaitForActive(GameObject go, bool active, float delay)

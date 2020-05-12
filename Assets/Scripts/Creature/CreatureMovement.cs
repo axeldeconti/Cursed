@@ -34,6 +34,13 @@ namespace Cursed.Creature
 
         private void Update()
         {
+            #region GET PLAYER POSITION
+
+            if (_playerPosition == null)
+                _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+
+            #endregion
+
             #region COME BACK
             if (_creatureManager.CurrentState == CreatureState.OnComeBack)
             {
@@ -87,7 +94,7 @@ namespace Cursed.Creature
             #region ON WALL
             if (_creatureManager.CurrentState == CreatureState.OnWall)
             {
-                StuckOnWall();
+                StuckOnWall(_collision.WallPoint);
             }
 
             #endregion
@@ -128,7 +135,28 @@ namespace Cursed.Creature
             else
                 _rb.constraints = RigidbodyConstraints2D.None;
             #endregion
+
+            #region ON DOOR SWITCH
+            if(_creatureManager.CurrentState == CreatureState.OnDoorSwitch)
+            {
+                MoveToTargetPosition(_collision.HitTransform.position, 150f); 
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            else
+                _rb.constraints = RigidbodyConstraints2D.None;
+
+            #endregion
+
+            #region ON LASER
+
+            if(_creatureManager.CurrentState == CreatureState.OnLaser)
+            {
+                MoveToTargetPosition(_collision.HitTransform.position, 150f);
+            }
+
+            #endregion
         }
+
 
         #region MOVE FUNCTIONS
         public void MoveToDirection(Vector2 direction)
@@ -161,10 +189,10 @@ namespace Cursed.Creature
             transform.position = Vector3.MoveTowards(this.transform.position, target, speed * Time.deltaTime);
         }
 
-        public void StuckOnWall()
+        public void StuckOnWall(Vector2 target)
         {
             //Move to wall point
-            MoveToTargetPosition(_collision.WallPoint, 150f);
+            MoveToTargetPosition(target, 150f);
 
             //Stop movement
             _rb.velocity = Vector2.zero;

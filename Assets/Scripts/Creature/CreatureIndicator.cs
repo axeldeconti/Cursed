@@ -16,15 +16,27 @@ namespace Cursed.Creature
 
         private void Awake()
         {
-            //Hide();
-
             //pointerRectTransform = GetComponentInChildren<RectTransform>();
             pointerImage = GetComponentInChildren<Image>();
-            targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
+        }
+
+        private void Start()
+        {
+            if(GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>() != null)
+                targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
+
+            if (targetPosition == null)
+                this.gameObject.SetActive(false);
         }
 
         private void Update()
         {
+            if (targetPosition == null)
+            {
+                if (GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>() != null)
+                    targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
+            }
+
             float borderSize = 0f;
             Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);
             bool isOffScreen = targetPositionScreenPoint.x <= borderSize || targetPositionScreenPoint.x >= Screen.width - borderSize || targetPositionScreenPoint.y <= borderSize || targetPositionScreenPoint.y >= Screen.height - borderSize;

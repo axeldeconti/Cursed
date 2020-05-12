@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Cursed.Character;
 using Cursed.Creature;
-using Cursed.Character;
+using UnityEngine;
 
 namespace Cursed.Tutoriel
 {
@@ -18,6 +18,7 @@ namespace Cursed.Tutoriel
         [SerializeField] private GameObject _creatureDirectionTuto;
         [SerializeField] private GameObject _creatureLaunchTuto;
         [SerializeField] private GameObject _creatureRecallTuto;
+        [SerializeField] private GameObject _interactiveDoorTuto;
 
         private GameObject _tutoChild;
         private TutorielBox _tutorielBox;
@@ -135,6 +136,13 @@ namespace Cursed.Tutoriel
                         return;
                     }
                     break;
+
+                case TutorielType.InteractiveDoor:
+                    if (FindObjectOfType<CreatureManager>().CurrentState == CreatureState.OnDoorSwitch)
+                    {
+                        HideTuto();
+                    }
+                    break;
             }
         }
 
@@ -184,6 +192,10 @@ namespace Cursed.Tutoriel
 
                 case TutorielType.Sonar:
                     ShowTuto(_sonarTuto);
+                    break;
+
+                case TutorielType.InteractiveDoor:
+                    ShowTuto(_interactiveDoorTuto);
                     break;
             }
         }
