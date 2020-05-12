@@ -126,7 +126,7 @@ namespace Cursed.Creature
                         _currentTimerBeforeZoom += Time.deltaTime;
                         if (_currentTimerBeforeZoom >= _timeBeforeZoom)
                         {
-                            CameraZoomController.Instance.Zoom(false);
+                            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomCreature, CameraZoomController.Instance._zoomOutCreatureSpeed);
                         }
                     }
                     else
@@ -142,7 +142,7 @@ namespace Cursed.Creature
         private void ResetZoom()
         {
             _currentTimerBeforeZoom = 0f;
-            CameraZoomController.Instance.Zoom(true);
+            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomInCreatureSpeed);
         }
 
         private void CheckDistanceFromPlayer()
