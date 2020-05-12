@@ -30,6 +30,17 @@ namespace Cursed.UI
             _credits.SetActive(false);
         }
 
+        private void Update()
+        {
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if(_controls.activeSelf)
+                    ControlsToHome();
+                if (_credits.activeSelf)
+                    CreditsToHome();
+            }
+        }
+
         public void Play()
         {
             _mainMenuAnimator.SetTrigger("Close");
