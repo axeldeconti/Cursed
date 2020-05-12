@@ -17,6 +17,8 @@ namespace Cursed.UI
         [SerializeField] private Volume _globalVolume = null;
         private DepthOfField _depthOfField;
 
+        private bool _optionsToogle;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
@@ -33,6 +35,14 @@ namespace Cursed.UI
         {
             if (Input.GetButtonDown("Pause"))
                 TooglePause();
+
+            if(Input.GetButtonDown("Cancel"))
+            {
+                if (_gameManager.State == GameManager.GameState.Pause && !_controlsMenu.activeSelf)
+                    TooglePause();
+                if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
+                    ToogleOptions();
+            }
         }
 
         public void TooglePause()
@@ -61,6 +71,13 @@ namespace Cursed.UI
                 default:
                     break;
             }
+        }
+
+        public void ToogleOptions()
+        {
+            _optionsToogle = !_optionsToogle;
+            _controlsMenu.SetActive(_optionsToogle);
+            _pauseMenu.SetActive(!_optionsToogle);
         }
 
         public void Quit()
