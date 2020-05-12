@@ -14,7 +14,7 @@ namespace Cursed.Character
 
         [SerializeField] private IntReference _maxHealth;
         [SerializeField] private FloatReference _invincibleTime;
-        [SerializeField] private FloatReference _freezeFrameKill;
+        [SerializeField] private FloatReference _slowMotionDuration;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
         [SerializeField] private VibrationData_SO _divekickTouchVibration;
 
@@ -289,8 +289,8 @@ namespace Cursed.Character
                 _vfx.AndroidPartExplosion(transform.position);
 
                 Destroy(gameObject);
-                if (_freezeFrameKill != null)
-                    FreezeFrame.Instance.Freeze(_freezeFrameKill);
+                if (_slowMotionDuration != null)
+                    SlowMotion.Instance.Freeze(_slowMotionDuration);
             }
 
             onDeath?.Raise();
