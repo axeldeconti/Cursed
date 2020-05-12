@@ -98,6 +98,7 @@ namespace Cursed.Character
         private float _oldY;
         private Vector2 _capsuleOffset = Vector2.zero;
         private Vector2 _capsuleSize = Vector2.zero;
+        private bool _isKnockback;
 
         [Space]
         private float _currentGravity = 0f;
@@ -129,6 +130,7 @@ namespace Cursed.Character
             _groundTouch = true;
             _canStillJump = true;
             _wasOnWall = false;
+            _isKnockback = false;
             _side = 1;
             _capsuleOffset = _capsuleCollider.offset;
             _capsuleSize = _capsuleCollider.size;
@@ -722,7 +724,10 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateVelocity(float Vx, float Vy)
         {
-            _rb.velocity = new Vector2(Vx, Vy);
+            if (!_isKnockback)
+                _rb.velocity = new Vector2(Vx, Vy);
+            else
+                _rb.velocity = new Vector2(_rb.velocity.x, Vy);
         }
 
         /// <summary>
@@ -791,6 +796,21 @@ namespace Cursed.Character
             _canMove = false;
             yield return new WaitForSeconds(time);
             _canMove = true;
+        }
+
+        public void Knockback(Vector2 knockbackPower, float knockbackTime, GameObject attacker)
+        {
+            Vector2 difference = transform.position - attacker.transform.position;
+            int dir = difference.x > 0 ? 1 : -1;
+            UpdateVelocity(knockbackPower.x * dir, knockbackPower.y);
+            _isKnockback = true;
+            StartCoroutine(WaitForUnKnockback(knockbackTime));
+        }
+
+        private IEnumerator WaitForUnKnockback(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            _isKnockback = false;
         }
 
         private void StartInvincibleMovement()
