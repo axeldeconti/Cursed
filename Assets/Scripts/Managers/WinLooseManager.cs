@@ -28,6 +28,13 @@ public class WinLooseManager : MonoBehaviour
     {
         GameManager.Instance.State = GameManager.GameState.WinLoose;
         _looseScreen.SetActive(true);
+        UpdateEnemyCountLose();
+    }
+
+    private void UpdateEnemyCountLose()
+    {
+        foreach (EnemyCountText text in GetComponentsInChildren<EnemyCountText>())
+            text.UpdateText();
     }
 
     public void Return()
