@@ -10,13 +10,14 @@ namespace Cursed.UI
         [SerializeField] private GameObject _mainMenu = null;
         [SerializeField] private GameObject _controls = null;
         [SerializeField] private GameObject _credits = null;
+        [SerializeField] private GameObject _tuto = null;
         [SerializeField] private Animator _mainMenuAnimator;
         [SerializeField] private Animator _creditsAnimator;
         [SerializeField] private Animator _controlsAnimator;
+        [SerializeField] private Animator _tutoAnimator;
 
         [SerializeField] private string Level_Tuto;
         [SerializeField] private string Level_Intro;
-        [SerializeField] private string Level_1;
 
         [SerializeField] private GameObject _mainCameraMenu;
         [SerializeField] private GameObject _virtualCameraMenu;
@@ -33,21 +34,21 @@ namespace Cursed.UI
         {
             _mainMenuAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_1, true));
+            StartCoroutine(WaitForActive(_tuto, true, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void Tuto()
         {
             _mainMenuAnimator.SetTrigger("Close");
-            StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
+            StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
         }
 
         public void Intro()
         {
             _mainMenuAnimator.SetTrigger("Close");
-            StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitBeforeLoad(_mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
+            StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
         }
 
         public void CreditsToHome()
@@ -62,6 +63,13 @@ namespace Cursed.UI
             _controlsAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_mainMenu, true, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitForActive(_controls, false, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+        }
+
+        public void TutoToHome()
+        {
+            _tutoAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_mainMenu, true, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void Credits()
