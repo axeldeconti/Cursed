@@ -9,7 +9,7 @@ namespace Cursed.VisualEffect
         private bool _pendingFreeze = false;
         private float _currentFreezeTime;
 
-        [SerializeField] private FloatReference _slowMotionPower;
+        [Range(0, 1)] public float _slowMotionPower;
 
         public void Freeze (FloatReference _freezeData)
         {
