@@ -791,11 +791,30 @@ namespace Cursed.Character
         /// <summary>
         /// Disable the movement input for the duration in parameter
         /// </summary>
+        /// 
+        public void CallDisableMovement(float time)
+        {
+            StartCoroutine(DisableAllMovements(time));
+        }
         private IEnumerator DisableMovement(float time)
         {
             _canMove = false;
             yield return new WaitForSeconds(time);
             _canMove = true;
+        }
+
+        private IEnumerator DisableAllMovements(float time)
+        {
+            UpdateVelocity(0, 0);
+            _canMove = false;
+            _dashUnlock = false;
+            _jumpUnlock = false;
+            _wallRunUnlock = false;
+            yield return new WaitForSeconds(time);
+            _canMove = true;
+            _dashUnlock = true;
+            _jumpUnlock = true;
+            _wallRunUnlock = true;
         }
 
         public void Knockback(Vector2 knockbackPower, float knockbackTime, GameObject attacker)
