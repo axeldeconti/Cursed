@@ -1,4 +1,5 @@
 ﻿using Cursed.Traps;
+using Cursed.Props;
 using UnityEngine;
 
 namespace Cursed.Creature
@@ -112,6 +113,12 @@ namespace Cursed.Creature
                         _alreadyExitFromLaser = false;
                     }
                 }
+            }
+            if(collision.gameObject.GetComponent<CameraRotation>())
+            {
+                Destroy(collision.gameObject);
+
+                // LAUNCH SFX & VFX EFFECTS
             }
         }
 

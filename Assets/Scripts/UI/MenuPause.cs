@@ -26,9 +26,12 @@ namespace Cursed.UI
             _controlsMenu.SetActive(false);
 
             // SET BLUR EFFECT 
-            DepthOfField depthOfField;
-            if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
-                _depthOfField = depthOfField;
+            if (_globalVolume != null)
+            {
+                DepthOfField depthOfField;
+                if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
+                    _depthOfField = depthOfField;
+            }
         }
 
         private void Update()

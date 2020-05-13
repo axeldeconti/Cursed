@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 9004379424126882479}
   - component: {fileID: 9004379424126882464}
   - component: {fileID: 2730414050487547139}
+  - component: {fileID: 4626509719253817533}
   m_Layer: 0
   m_Name: MainCam
   m_TagString: Untagged
@@ -245,6 +246,32 @@ MonoBehaviour:
   _minSpeed: 0.5
   _maxSpeed: 0.7
   _angleOffset: 50
+--- !u!61 &4626509719253817533
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004379424126882478}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.097133115, y: -0.07794817}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.27139607, y: 0.6645885}
+    oldSize: {x: 0.36571428, y: 0.36571428}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.35557976, y: 0.24532565}
+  m_EdgeRadius: 0
 --- !u!1 &9004379425157734004
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +354,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9004379426159613903}
   - component: {fileID: 9004379426159613902}
-  - component: {fileID: 563676439818400025}
   m_Layer: 0
   m_Name: Props_Camera
   m_TagString: Untagged
@@ -400,29 +426,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &563676439818400025
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9004379426159613901}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.080457136, y: -0.18285714}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.28, y: 1}
-    oldSize: {x: 0.36571428, y: 0.36571428}
-    newSize: {x: 0.64, y: 0.64}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.36571428, y: 0.36571428}
-  m_EdgeRadius: 0
