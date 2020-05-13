@@ -819,6 +819,9 @@ namespace Cursed.Character
 
         public void Knockback(Vector2 knockbackPower, float knockbackTime, GameObject attacker)
         {
+            if (_isKnockback || _isDashing)
+                return;
+
             Vector2 difference = transform.position - attacker.transform.position;
             int dir = difference.x > 0 ? 1 : -1;
             UpdateVelocity(knockbackPower.x * dir, knockbackPower.y);
