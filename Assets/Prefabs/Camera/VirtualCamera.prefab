@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8730689587570718609}
   - component: {fileID: 8730689587570718604}
   - component: {fileID: 2084804046}
-  - component: {fileID: 631435965}
+  - component: {fileID: 466694801}
   m_Layer: 11
   m_Name: cm
   m_TagString: Untagged
@@ -139,19 +139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LookaheadTime: 0.4
-  m_LookaheadSmoothing: 15
+  m_LookaheadSmoothing: 6
   m_LookaheadIgnoreY: 1
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.65
+  m_ScreenY: 0.7
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.12
-  m_DeadZoneHeight: 0.15
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.66
+  m_SoftZoneWidth: 0.6
   m_SoftZoneHeight: 0.4
   m_BiasX: 0
   m_BiasY: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!114 &631435965
+--- !u!114 &466694801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 7995757295950576009}
   - component: {fileID: 6120795904322465381}
   - component: {fileID: 2046883824675334429}
+  - component: {fileID: 1897711621}
   m_Layer: 11
   m_Name: VirtualCamera
   m_TagString: MainCamera
@@ -307,13 +308,49 @@ MonoBehaviour:
     m_TimeEnvelope:
       m_AttackShape:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_DecayShape:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -380,7 +417,22 @@ MonoBehaviour:
   _initialZoom: 0
   _maxZoomCreature: 130
   _maxZoomKill: 1
-  _zoomInCreatureSpeed: 4
+  _zoomInCreatureSpeed: 5
   _zoomOutCreatureSpeed: 2
-  _zoomInKillSpeed: 6
-  _zoomOutKillSpeed: 6
+  _zoomInKillSpeed: 10
+  _zoomOutKillSpeed: 10
+--- !u!114 &1897711621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8730689588609704943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d78142d175c68d45b99c48f237e12f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _refPlayer: {fileID: 0}
+  _initialLookahead: 0.4
+  _attackLookahead: 0.6
