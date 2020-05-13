@@ -10,7 +10,8 @@ namespace Cursed.Utilities
 
         private CinemachineVirtualCamera _camera;
         [SerializeField] private GameObject _refPlayer;
-        [SerializeField] private float _initialLookahead;
+        [Range(0, 1)] public float _initialLookahead;
+        [Range(0, 1)] public float _attackLookahead;
 
         private void Awake()
         {
@@ -20,14 +21,13 @@ namespace Cursed.Utilities
 
         private void Update()
         {
-            //Camera Center if player stay in place
-            CameraCenter();
-        }
-
-        public void CameraCenter()
-        {
-            if (_refPlayer.GetComponent<CharacterMovement>().State == CharacterMovementState.Idle)
+            //Camera center if character didn't move and attack
+            if (_refPlayer.GetComponent<CharacterMovement>().State == CharacterMovementState.Idle && _refPlayer.GetComponent<CharacterAttackManager>().IsAttacking == false)
                 _camera.GetCinemachineComponent<CinemachineFramingTransposer>().m_LookaheadTime = 0f;
+            //Camera move if character attack
+            else if (_refPlayer.GetComponent<CharacterAttackManager>().IsAttacking == true && _refPlayer.GetComponent<CharacterMovement>().XSpeed == 0)
+                _camera.GetCinemachineComponent<CinemachineFramingTransposer>().m_LookaheadTime = _attackLookahead;
+            //Camera initial lookahead if character move
             else
                 _camera.GetCinemachineComponent<CinemachineFramingTransposer>().m_LookaheadTime = _initialLookahead;
         }
