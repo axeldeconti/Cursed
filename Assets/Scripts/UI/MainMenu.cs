@@ -50,14 +50,14 @@ namespace Cursed.UI
 
         public void Tuto()
         {
-            _mainMenuAnimator.SetTrigger("Close");
+            _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
         }
 
         public void Intro()
         {
-            _mainMenuAnimator.SetTrigger("Close");
+            _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
         }
