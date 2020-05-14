@@ -17,6 +17,7 @@ namespace Cursed.AI
         /// Target to follow and chase
         /// </summary>
         [SerializeField] private Transform _target;
+        [SerializeField] private JumpData _normalJump = null;
 
         [Header("Debug")]
         /// <summary>
@@ -85,10 +86,11 @@ namespace Cursed.AI
         [System.NonSerialized]
         public bool pathCompleted = true;
         public Action OnPathCompleted = null;
+        public Action OnPathDirty = null;
 
         private bool _stopPathing = true;
         private bool _hasLastOrder = false;
-        private bool _aiJumped = false; //Is AI actually in jump
+        private bool _aiJumped = false;
 
         private void Awake()
         {
@@ -235,6 +237,8 @@ namespace Cursed.AI
                     RequestPath(_target);
                 else if (_hasLastOrder && _aiController.State == AIState.GroundPatrol)
                     RequestPath(_lastOrder);
+                else
+                    OnPathDirty?.Invoke();
 
                 if (_debugBool)
                     Log("Path is dirty");
@@ -342,7 +346,7 @@ namespace Cursed.AI
                     Log("Requesting path vector");
 
                 _lastOrder = pathVector;
-                _pathfindingMgr.RequestPathInstructions(this, _lastOrder, 20f //JumpHeight
+                _pathfindingMgr.RequestPathInstructions(this, _lastOrder, _normalJump.Height * 8 //JumpHeight //20
                     , true //Movement        //All booleans tells if AI can use the capacity
                     , true //Jump
                     , true //Fall

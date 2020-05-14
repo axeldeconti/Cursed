@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cursed.AI;
+using System.Collections;
 
 namespace Cursed.Character 
 { 
@@ -22,10 +23,12 @@ namespace Cursed.Character
 
         [SerializeField] private FloatReference _jumpInputBufferTimer;
         [SerializeField] private FloatReference _dashInputBufferTimer;
+        [SerializeField] private FloatReference _jumpTimeForceInput;
 
         private AIData _data;
         private bool _wasJumping = false;
         private bool _wasDashing = false;
+        private bool _forceJump = false;
 
         private void Awake()
         {
@@ -38,6 +41,7 @@ namespace Cursed.Character
             _data = new AIData();
             _wasJumping = false;
             _wasDashing = false;
+            _forceJump = false;
 
             Jump = new BoolBuffer(_jumpInputBufferTimer);
             Dash = new BoolBuffer(_dashInputBufferTimer);
@@ -61,13 +65,16 @@ namespace Cursed.Character
             {
                 Jump.Trigger();
                 _wasJumping = true;
+
+                StopCoroutine(JumpCoroutine());
+                StartCoroutine(JumpCoroutine());
             }
             else if (_wasJumping)
             {
                 _wasJumping = _move.IsJumping;
             }
 
-            HoldJump = _data.jump;
+            HoldJump = _forceJump ? true : _data.jump;
 
             //Dash
             if (_data.dash && !_wasDashing)
@@ -84,6 +91,13 @@ namespace Cursed.Character
             Attack_1 = _data.attack1;
             Attack_2 = _data.attack2;
         }
+
+        private IEnumerator JumpCoroutine()
+        {
+            _forceJump = true;
+            yield return new WaitForSeconds(_jumpTimeForceInput);
+            _forceJump = false;
+        }
     }
 
     public class AIData
@@ -94,10 +108,7 @@ namespace Cursed.Character
         public bool attack1;
         public bool attack2;
 
-        public AIData()
-        {
-            Reset();
-        }
+        public AIData() => Reset();
 
         public void Reset()
         {

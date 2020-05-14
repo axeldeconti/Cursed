@@ -19,6 +19,7 @@ namespace Cursed.AI
 
         private Transform _target = null;
         private bool _isMoving = false;
+        private int _nbOfDirties = 0;
 
         //Chase
         private float _currentTimeToChangePlatformTarget = 0f;
@@ -34,6 +35,15 @@ namespace Cursed.AI
                 _pathfindingMgr = Pathfinding.Instance;
 
             _pathAgent.OnPathCompleted += OnPathCompleted;
+            _pathAgent.OnPathDirty += OnPathDirty;
+        }
+
+        private void Start()
+        {
+            _isMoving = false;
+            _nbOfDirties = 0;
+            _currentTimeToChangePlatformTarget = 0;
+            _destroy = false;
         }
 
         private void LateUpdate()
@@ -122,14 +132,22 @@ namespace Cursed.AI
             if(_currentTimeToChangePlatformTarget <= 0)
             {
                 //Change target
-                _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform;
-                _pathAgent.RequestPath(_pathAgent.Target.transform.position + new Vector3(0, 3, 0));
+                FindRandomPathTarget();
 
                 //Reset timer
                 _currentTimeToChangePlatformTarget = _timeToChangePlatformTarget;
 
                 _isMoving = true;
             }
+        }
+
+        /// <summary>
+        /// Set the Path Agent target to a random tile
+        /// </summary>
+        private void FindRandomPathTarget()
+        {
+            _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform;
+            _pathAgent.RequestPath(_pathAgent.Target.transform.position + new Vector3(0, 1, 0));
         }
 
         #endregion
@@ -186,6 +204,20 @@ namespace Cursed.AI
                     break;
                 default:
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Called by the Path Agent when the path is dirty
+        /// </summary>
+        private void OnPathDirty()
+        {
+            _nbOfDirties++;
+
+            if(_nbOfDirties > 20)
+            {
+                FindRandomPathTarget();
+                _nbOfDirties = 0;
             }
         }
 
