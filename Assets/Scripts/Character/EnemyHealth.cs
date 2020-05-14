@@ -35,6 +35,11 @@ namespace Cursed.Character
                 base.OnAttack(attacker, attack);
             }
         }
+
+        public override void Die()
+        {
+            base.Die();
+        }
     }
 }
 

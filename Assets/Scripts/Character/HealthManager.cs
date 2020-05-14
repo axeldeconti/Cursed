@@ -273,7 +273,7 @@ namespace Cursed.Character
 
         #region Death
 
-        private void Die()
+        public virtual void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
 

@@ -10,7 +10,7 @@ public class CellInfo : MonoBehaviour
 
     [HideInInspector] public bool _playerOnThisCell;
     public bool _emptyCell { get; private set; }
-    [HideInInspector] public int _enemyCount;
+    public int _enemyCount { get; private set; }
 
     public event System.Action _onEnemyCellCountUpdate;
 
