@@ -27,7 +27,7 @@ namespace Cursed.Tutoriel
         private CharacterMovement _playerMovement;
         private CharacterAttackManager _playerAttacks;
 
-        private bool _alreadyTriggered;
+        [HideInInspector] public bool _alreadyTriggered;
         public event System.Action<TutorielType> SpellUnlock;
 
         private void UnlockSpell(TutorielType type)
@@ -67,7 +67,7 @@ namespace Cursed.Tutoriel
                 _playerMovement = collision.GetComponent<CharacterMovement>();
                 _playerAttacks = collision.GetComponent<CharacterAttackManager>();
                 UnlockSpell(_tutorielType);
-                //_alreadyTriggered = true;
+                _alreadyTriggered = true;
             }
         }
 

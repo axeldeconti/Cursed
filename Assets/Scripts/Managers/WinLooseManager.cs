@@ -20,7 +20,10 @@ public class WinLooseManager : MonoBehaviour
 
     public void OnEnemyDeath()
     {
-        if(--_enemyCount <= 0)
+        if (_gameManager.CurrentLevelName == "Tuto" || _gameManager.CurrentLevelName == "Intro")
+            return;
+
+        if (--_enemyCount <= 0)
         {
             GameManager.Instance.State = GameManager.GameState.WinLoose;
             _winScreen.SetActive(true);
