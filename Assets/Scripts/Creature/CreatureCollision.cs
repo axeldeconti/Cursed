@@ -19,7 +19,7 @@ namespace Cursed.Creature
         private Transform _wallCollision;
         private Vector3 _wallNormalPoint;
         private Vector2 _wallPoint;
-        private Transform _hitTransform;
+        private Transform _hitTransform = null;
         private bool _alreadyExitFromLaser;
         private bool _alreadyExitFromDoorSwitch;
 
@@ -66,6 +66,24 @@ namespace Cursed.Creature
             AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
         }
 
+        public void CheckCreatureOnObject()
+        {
+            if (_hitTransform != null)
+            {
+                if (_hitTransform.gameObject.GetComponent<DoorSwitch>() != null && !_alreadyExitFromDoorSwitch)
+                {
+                    _hitTransform.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                    _alreadyExitFromDoorSwitch = true;
+                }
+
+                if (_hitTransform.gameObject.GetComponent<EndLaserBeam>() != null && !_alreadyExitFromLaser)
+                {
+                    _hitTransform.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
+                    _alreadyExitFromLaser = true;
+                }
+            }
+        }
+
 
         #region COLLISIONS & TRIGGERS
 
@@ -107,7 +125,6 @@ namespace Cursed.Creature
                 {
                     if (_creatureManager.CurrentState != CreatureState.OnLaser)
                     {
-                        _hitTransform = collision.transform;
                         collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
                         CollideWithObject(CreatureState.OnLaser, collision.transform, true);
                         _alreadyExitFromLaser = false;
@@ -124,20 +141,20 @@ namespace Cursed.Creature
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (_creatureManager.CurrentState == CreatureState.OnComeBack)
+            /*if (_creatureManager.CurrentState == CreatureState.OnComeBack && _hitTransform != null)
             {
-                if (collision.gameObject.GetComponent<DoorSwitch>() && !_alreadyExitFromDoorSwitch)
+                if (_hitTransform.gameObject.GetComponent<DoorSwitch>() != null && !_alreadyExitFromDoorSwitch)
                 {
-                    collision.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
+                    _hitTransform.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
                     _alreadyExitFromDoorSwitch = true;
                 }
 
-                if (collision.gameObject.GetComponent<EndLaserBeam>() && !_alreadyExitFromLaser)
+                if (_hitTransform.gameObject.GetComponent<EndLaserBeam>() != null && !_alreadyExitFromLaser)
                 {
-                    collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
+                    _hitTransform.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
                     _alreadyExitFromLaser = true;
                 }
-            }
+            }*/
         }
 
         // COLLISIONS

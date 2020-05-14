@@ -254,6 +254,7 @@ namespace Cursed.Creature
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
+                        _collision.CheckCreatureOnObject();
                         if (_refCreatureTrailEffect == null)
                             _refCreatureTrailEffect = _vfx.CreatureTrailParticle();
                         break;
