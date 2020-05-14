@@ -2,6 +2,8 @@
 
 public class WinLooseManager : MonoBehaviour
 {
+    private GameManager _gameManager = null;
+
     [SerializeField] private GameObject _winScreen = null;
     [SerializeField] private GameObject _looseScreen = null;
 
@@ -9,6 +11,7 @@ public class WinLooseManager : MonoBehaviour
 
     private void Start()
     {
+        _gameManager = GameManager.Instance;
         _winScreen.SetActive(false);
         _looseScreen.SetActive(false);
     }
@@ -39,6 +42,9 @@ public class WinLooseManager : MonoBehaviour
 
     public void Return()
     {
+        if (_gameManager.CurrentLevelName == "Tuto" || _gameManager.CurrentLevelName == "Intro")
+            _gameManager.UnloadLevel("Main");
+
         GameManager.Instance.LoadLevel("Main", true);
     }
 }
