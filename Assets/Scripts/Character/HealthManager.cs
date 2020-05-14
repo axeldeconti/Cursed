@@ -54,7 +54,7 @@ namespace Cursed.Character
             _move = GetComponent<CharacterMovement>();
         }
 
-        private void Start()
+        public virtual void Start()
         {
             _vfx = GetComponent<VfxHandler>();
             _sfx = GetComponent<SFXHandler>();

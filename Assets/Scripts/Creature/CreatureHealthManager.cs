@@ -127,9 +127,12 @@ namespace Cursed.Creature
                 case CreatureState.OnEnemy:
                     if (_currentTimer >= _enemyAttack.TimeBetweenAttack)
                     {
+                        EnemyHealth enemyHealth = _creatureSearching.Enemy.gameObject.GetComponent<EnemyHealth>();
                         _alreadyOnPlayer = false;
-                        Attack attack = _enemyAttack.InflictDamage(this.gameObject, _creatureSearching.Enemy.gameObject);
-                        AddCurrentHealth(attack.Damage);
+                        Attack attack = _enemyAttack.InflictDamage(this.gameObject, enemyHealth.gameObject);
+                        if (enemyHealth._canBeAttackable)
+                            AddCurrentHealth(attack.Damage);
+
                         ResetTimer();
                     }
                     break;

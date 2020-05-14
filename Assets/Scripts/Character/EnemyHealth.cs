@@ -7,6 +7,13 @@ namespace Cursed.Character
     public class EnemyHealth : HealthManager
     {
         [SerializeField] private IntReference _minCreatureAmountHealth;
+        public bool _canBeAttackable { get; private set; }
+
+        public override void Start()
+        {
+            _canBeAttackable = true;
+            base.Start();
+        }
 
         public override void OnAttack(GameObject attacker, Attack attack)
         {
@@ -16,6 +23,7 @@ namespace Cursed.Character
                     UpdateCurrentHealth(_currentHealth - attack.Damage);
                 else
                 {
+                    _canBeAttackable = false;
                     attacker.GetComponent<CreatureManager>().CurrentState = CreatureState.OnComeBack;
 
                     // LAUNCH SFX & VFX
