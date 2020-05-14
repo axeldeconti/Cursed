@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Cursed.Combat;
 using Cursed.Character;
+using System.Collections;
 
 namespace Cursed.Traps
 {
@@ -17,6 +18,7 @@ namespace Cursed.Traps
         [SerializeField] private Transform _end = null;
         [SerializeField] private ParticleSystem _groundParticles;
         [SerializeField] private ParticleSystem _laserParticles;
+        [SerializeField] private float _timeBeforeReactivation = 1f;
 
         [SerializeField] private FloatReference _colliderSize = null;
 
@@ -59,21 +61,33 @@ namespace Cursed.Traps
 
         public void ActiveLaser()
         {
-            _animator.SetTrigger("Active");
-            _groundParticles.Play();
-            _laserParticles.Play();
-
-            UpdateCollider();
+            StartCoroutine("WaitForActive");
         }
 
         public void DeActiveLaser()
         {
-            _animator.SetTrigger("Deactive");
+            StopCoroutine("WaitForActive");
+            Debug.Log("Unactive");
+            _animator.SetBool("Deactive", true);
+            _animator.SetBool("Active", false);
 
             if (!_coll)
                 _coll = GetComponent<BoxCollider2D>();
 
             _coll.size = new Vector2(0, 0);
+        }
+
+        IEnumerator WaitForActive()
+        {
+            Debug.Log("Wait for Active");
+            yield return new WaitForSeconds(_timeBeforeReactivation);
+            Debug.Log("Active");
+            _animator.SetBool("Deactive", false);
+            _animator.SetBool("Active", true);
+            _groundParticles.Play();
+            _laserParticles.Play();
+
+            UpdateCollider();
         }
 
         public float ColliderSize => _colliderSize;
