@@ -22,6 +22,7 @@ namespace Cursed.Creature
         private Transform _hitTransform = null;
         private bool _alreadyExitFromLaser;
         private bool _alreadyExitFromDoorSwitch;
+        private CreatureVfxHandler _creatureVfx;
 
         private void Awake()
         {
@@ -29,6 +30,7 @@ namespace Cursed.Creature
             _animator = GetComponentInParent<Animator>();
             _creatureSearching = GetComponentInParent<CreatureSearching>();
             _canCollideWithPlayer = _canCollideWithEnemy = true;
+            _creatureVfx = GetComponentInParent<CreatureVfxHandler>();
         }
 
         private void FixedUpdate()
@@ -133,9 +135,10 @@ namespace Cursed.Creature
             }
             if(collision.gameObject.GetComponent<CameraRotation>())
             {
-                Destroy(collision.gameObject);
-
                 // LAUNCH SFX & VFX EFFECTS
+                _creatureVfx.DestructionCamera(collision.gameObject.transform.position);
+
+                Destroy(collision.gameObject);
             }
         }
 
