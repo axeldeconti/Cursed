@@ -99,6 +99,7 @@ namespace Cursed.Character
         private Vector2 _capsuleOffset = Vector2.zero;
         private Vector2 _capsuleSize = Vector2.zero;
         private bool _isKnockback;
+        private bool _isStunned;
 
         [Space]
         private float _currentGravity = 0f;
@@ -131,6 +132,7 @@ namespace Cursed.Character
             _canStillJump = true;
             _wasOnWall = false;
             _isKnockback = false;
+            _isStunned = false;
             _side = 1;
             _capsuleOffset = _capsuleCollider.offset;
             _capsuleSize = _capsuleCollider.size;
@@ -794,6 +796,9 @@ namespace Cursed.Character
         /// 
         public void CallDisableMovement(float time)
         {
+            if (_isStunned)
+                return;
+
             StartCoroutine(DisableAllMovements(time));
         }
         private IEnumerator DisableMovement(float time)
@@ -805,6 +810,7 @@ namespace Cursed.Character
 
         private IEnumerator DisableAllMovements(float time)
         {
+            _isStunned = true;
             UpdateVelocity(0, 0);
             _canMove = false;
             _dashUnlock = false;
@@ -815,6 +821,9 @@ namespace Cursed.Character
             _dashUnlock = true;
             _jumpUnlock = true;
             _wallRunUnlock = true;
+
+            yield return new WaitForSeconds(.5f);
+            _isStunned = false;
         }
 
         public void Knockback(Vector2 knockbackPower, float knockbackTime, GameObject attacker)
