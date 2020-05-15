@@ -15,6 +15,8 @@ namespace Cursed.Creature
         [SerializeField] private Transform _creatureBack;
         [SerializeField] private ChromaticAberrationChanging _chromaticAberrationChanging;
 
+        [SerializeField] private GameObject _vfxCameraDestruction;
+
         public float _lowerChromacticAberrationValue { get; private set; } = .1f;
         public float _higherChromacticAberrationValue { get; private set; } = .5f;
 
@@ -43,6 +45,11 @@ namespace Cursed.Creature
         public void CreatureAberration(float value)
         {
             _chromaticAberrationChanging?.LerpToValue(value);
+        }
+
+        public void DestructionCamera(Vector3 pos)
+        {
+            Instantiate(_vfxCameraDestruction, pos, Quaternion.identity);
         }
     }
 }
