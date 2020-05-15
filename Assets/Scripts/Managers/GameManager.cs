@@ -207,7 +207,7 @@ public class GameManager : Singleton<GameManager>
 
     public string CurrentLevelName => _currentLevelName;
 
-    public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition }
+    public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition, Cinematic }
 
     private struct UnloadInfo
     {
