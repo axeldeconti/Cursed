@@ -8,6 +8,12 @@
 
         public event System.Action enemyCountUpdate;
 
+        private void Start()
+        {
+            _numberOfEnemy = 0;
+            _myNumberOfEnemy = _numberOfEnemy;
+        }
+
         public int GetEnemyCount(CountType type)
         {
             int count = 0;
