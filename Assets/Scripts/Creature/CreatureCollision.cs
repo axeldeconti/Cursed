@@ -81,6 +81,7 @@ namespace Cursed.Creature
                 if (_hitTransform.gameObject.GetComponent<EndLaserBeam>() != null && !_alreadyExitFromLaser)
                 {
                     _hitTransform.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
+                    _hitTransform.gameObject.GetComponent<Collider2D>().enabled = true;
                     _alreadyExitFromLaser = true;
                 }
             }
@@ -128,6 +129,7 @@ namespace Cursed.Creature
                     if (_creatureManager.CurrentState != CreatureState.OnLaser)
                     {
                         collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
+                        collision.gameObject.GetComponent<Collider2D>().enabled = false;
                         CollideWithObject(CreatureState.OnLaser, collision.transform, true);
                         _alreadyExitFromLaser = false;
                     }
