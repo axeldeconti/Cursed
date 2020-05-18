@@ -21,5 +21,8 @@ namespace Cursed.Character
 
             return g;
         }
+
+        public float Height => _height;
+        public float Distance => _distance;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Cursed.Character;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
@@ -10,30 +11,63 @@ namespace Cursed.AI
 
         public GameObject _currentMap;
 
-        [SerializeField] private float _blockSize = 1f; //each block is square. This should probably match your square 2dCollider on a tile.
-        [SerializeField] private float _jumpHeight = 3.8f; //the maximum jump height of a character
-        [SerializeField] private float _maxJumpBlocksX = 3f; //the furthest a character can jump without momentum
-        [SerializeField] private float _jumpHeightIncrement = 1f;
-        [SerializeField] private float _minimumJump = 1.8f;
+        /// <summary>
+        /// Each block is square. This should probably match your square 2dCollider on a tile.
+        /// </summary>
+        [SerializeField] private float _blockSize = 1f;
+        /// <summary>
+        /// The maximum jump height of a character
+        /// </summary>
+        //[SerializeField] private float _jumpHeight = 3.8f;
+        /// <summary>
+        /// The furthest a character can jump without momentum
+        /// </summary>
+        //[SerializeField] private float _maxJumpBlocksX = 3f;
+        /// <summary>
+        /// Normal jump data to place jump nodes
+        /// </summary>
+        [SerializeField] private JumpData _normalJump = null;
+        [SerializeField] private float _jumpHeightIncrement;
+        [SerializeField] private float _minimumJump;
 
-        [SerializeField] private float _groundNodeHeight = 0.01f; //percentage of blockSize (Determines height off ground level for a groundNode)
-        private float _groundMaxWidth = 0.35f; //percentage of blockSize (Determines max spacing allowed between two groundNodes)
-        private float _fall_X_Spacing = 0.25f; //percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
-        private float _fall_Y_GrndDist = 0.02f; //percentage of blockSize (Determines space away from groundNode's top to place the fallNode)
+        /// <summary>
+        /// Percentage of blockSize (Determines height off ground level for a groundNode)
+        /// </summary>
+        [SerializeField] private float _groundNodeHeight = 0.01f;
+
+        /// <summary>
+        /// Percentage of blockSize (Determines max spacing allowed between two groundNodes)
+        /// </summary>
+        private float _groundMaxWidth = 0.35f;
+        /// <summary>
+        /// Percentage of blockSize (Determines space away from groundNode's side to place the fallNode)
+        /// </summary>
+        private float _fall_X_Spacing = 0.25f;
+        /// <summary>
+        /// Percentage of blockSize (Determines space away from groundNode's top to place the fallNode)
+        /// </summary>
+        private float _fall_Y_GrndDist = 0.02f;
+
         private Thread _t;
 
         private List<pathNode> _nodes = new List<pathNode>();
         private List<pathNode> _groundNodes = new List<pathNode>();
 
-        [SerializeField] private List<threadLock> _orders = new List<threadLock>();
-        [SerializeField] private List<threadLock> _readyOrders = new List<threadLock>();
+        [SerializeField] private List<ThreadLock> _orders = new List<ThreadLock>();
+        [SerializeField] private List<ThreadLock> _readyOrders = new List<ThreadLock>();
 
-        [SerializeField] private nodeWeight _nodeWeights;
+        [SerializeField] private NodeWeight _nodeWeights;
 
-        [SerializeField] private bool _debugTools = false; /*Pauses game on runtime and displays pathnode connections*/
+        /// <summary>
+        /// Pauses game on runtime and displays pathnode connections
+        /// </summary>
+        [SerializeField] private bool _debugTools = false;
 
         private void Start()
         {
+            _minimumJump = 1.8f;
+            _jumpHeightIncrement = 2;
+
             CreateNodeMap();
         }
 
@@ -60,12 +94,12 @@ namespace Cursed.AI
             }
 
             FindGroundNodes(groundObjects);
-            FindFallNodes(_groundNodes); //@param list of nodes to search (tiles)
+            FindFallNodes(_groundNodes);
             FindJumpNodes(_groundNodes);
 
             GroundNeighbors(_groundNodes, _groundNodes);
-            JumpNeighbors(attachedJumpNodes(_groundNodes), _groundNodes); //CHANGE this function to find all jump nodes attached to ground nodes **********TODO
-            FallNeighbors(attachedFallNodes(_groundNodes), _groundNodes);  //CHANGE this function to find all fall nodes attached to ground nodes **********TODO
+            JumpNeighbors(AttachedJumpNodes(_groundNodes), _groundNodes); //CHANGE this function to find all jump nodes attached to ground nodes **********TODO
+            FallNeighbors(AttachedFallNodes(_groundNodes), _groundNodes);  //CHANGE this function to find all fall nodes attached to ground nodes **********TODO
 
             if (_debugTools)
                 Debug.Break();
@@ -83,15 +117,15 @@ namespace Cursed.AI
         public void RequestPathInstructions(PathfindingAgent agent, Vector3 target, float jumpH, bool movement, bool jump, bool fall)
         {
             bool replaced = false;
-            threadLock newLocker = new threadLock(agent, target, jumpH, movement, jump, fall);
+            ThreadLock newLocker = new ThreadLock(agent, target, jumpH, movement, jump, fall);
 
             //Check if one order is present for this agent, if so, change it
             for (int i = 1; i < _orders.Count; i++)
             {
                 if (_orders[i].agent == agent)
                 {
-                    _orders[i] = newLocker; 
-                    replaced = true; 
+                    _orders[i] = newLocker;
+                    replaced = true;
                     break;
                 }
             }
@@ -106,12 +140,12 @@ namespace Cursed.AI
         /// <param name="threadLocker"></param>
         public void FindPath(object threadLocker)
         {
-            threadLock a = (threadLock)threadLocker;
+            ThreadLock a = (ThreadLock)threadLocker;
             Vector3 character = a.agentPos;
             Vector3 location = a.end;
             float characterJump = a.jump;
 
-            List<instructions> instr = new List<instructions>();
+            List<Instructions> instr = new List<Instructions>();
 
             List<pathNode> openNodes = new List<pathNode>();
             List<pathNode> closedNodes = new List<pathNode>();
@@ -119,10 +153,10 @@ namespace Cursed.AI
 
             ResetLists();
 
-            pathNode startNode = new pathNode("", Vector3.zero);
-            startNode = getNearestGroundNode(character);
+            pathNode startNode = new pathNode(OrderType.None, Vector3.zero);
+            startNode = GetNearestGroundNode(character);
 
-            pathNode endNode = getNearestNode(location);
+            pathNode endNode = GetNearestNode(location);
 
             //If a point couldnt be found or if character can't move cancel path
             if (endNode == null || startNode == null || !a.canMove)
@@ -130,7 +164,10 @@ namespace Cursed.AI
                 a.passed = false;
                 a.instr = instr;
                 _readyOrders.Add(a);
-                Log("Path canceled : start node = " + startNode + " | end node = " + endNode + " | can move = " + a.canMove);
+
+                string sn = startNode == null ? "null" : startNode.ToString();
+                string en = endNode == null ? "null" : endNode.ToString();
+                Log("Path canceled : start node = " + sn + " | end node = " + en + " | can move = " + a.canMove);
                 return;
             }
 
@@ -140,7 +177,7 @@ namespace Cursed.AI
             openNodes.Add(startNode);
 
 
-            pathNode currentNode = new pathNode("0", Vector3.zero);
+            pathNode currentNode = new pathNode(OrderType.None, Vector3.zero);
             while (openNodes.Count > 0)
             {
                 float lowestScore = float.MaxValue;
@@ -148,14 +185,14 @@ namespace Cursed.AI
                 {
                     if (openNodes[i].f < lowestScore)
                     {
-                        currentNode = openNodes[i]; 
+                        currentNode = openNodes[i];
                         lowestScore = currentNode.f;
                     }
                 }
-                if (currentNode == endNode) 
-                { 
-                    closedNodes.Add(currentNode); 
-                    break; 
+                if (currentNode == endNode)
+                {
+                    closedNodes.Add(currentNode);
+                    break;
                 }
                 else
                 {
@@ -163,16 +200,16 @@ namespace Cursed.AI
                     openNodes.Remove(currentNode);
 
                     //Check if character can use this node
-                    if (currentNode.type != "jump" || (currentNode.type == "jump" && 
-                        Mathf.Abs(currentNode.realHeight - characterJump) < _jumpHeightIncrement * 0.92) && 
+                    if (!currentNode.type.Equals(OrderType.Jump) || (currentNode.type.Equals(OrderType.Jump) &&
+                        Mathf.Abs(currentNode.realHeight - characterJump) < _jumpHeightIncrement * 0.92) &&
                         characterJump <= currentNode.realHeight + _jumpHeightIncrement * 0.08)
                     {
                         for (int i = 0; i < currentNode.neighbours.Count; i++)
                         {
                             //Check if node can be used by character
-                            if (!a.canJump && currentNode.neighbours[i].type == "jump")
+                            if (!a.canJump && currentNode.neighbours[i].type.Equals(OrderType.Jump))
                                 continue;
-                            if (!a.canFall && currentNode.neighbours[i].type == "fall")
+                            if (!a.canFall && currentNode.neighbours[i].type == OrderType.Fall)
                                 continue;
 
                             if (currentNode.neighbours[i].parent == null)
@@ -180,8 +217,8 @@ namespace Cursed.AI
                                 currentNode.neighbours[i].g = currentNode.neighbours[i].c + currentNode.g;
                                 currentNode.neighbours[i].h = Vector3.Distance(currentNode.neighbours[i].pos, endNode.pos);
 
-                                if (currentNode.neighbours[i].type == "jump") 
-                                    currentNode.neighbours[i].h += currentNode.neighbours[i].realHeight; 
+                                if (currentNode.neighbours[i].type.Equals(OrderType.Jump))
+                                    currentNode.neighbours[i].h += currentNode.neighbours[i].realHeight;
 
                                 currentNode.neighbours[i].f = currentNode.neighbours[i].g + currentNode.neighbours[i].h;
                                 currentNode.neighbours[i].parent = currentNode;
@@ -202,17 +239,15 @@ namespace Cursed.AI
             }
 
             //Makes sure the path doesn't have a loop or something wrong and can return to the start or to a node without parent
-            for (int i = 0; i < 700; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                if (i > 600)
+                if (i > 800)
                     Log("Something's wrong");
 
                 pathNodes.Add(currentNode);
 
                 if (currentNode.parent != null)
-                {
                     currentNode = currentNode.parent;
-                }
                 else
                     break;
 
@@ -225,11 +260,11 @@ namespace Cursed.AI
 
             //Mark the thread as passed
             if (pathNodes[0] != endNode)
-            {
                 a.passed = false;
-            }
-            else 
+            else
                 a.passed = true;
+
+            Log("pathNode[0] : " + pathNodes[0].pos + " | endNode : " + endNode.pos + " | passed : " + a.passed);
 
             //Reverse the pathNodes list to start at the begining
             pathNodes.Reverse();
@@ -237,12 +272,14 @@ namespace Cursed.AI
             //Create all instructions
             for (int i = 0; i < pathNodes.Count; i++)
             {
-                instructions temp = new instructions(pathNodes[i].pos, pathNodes[i].type);
+                Instructions temp = new Instructions(pathNodes[i].pos, pathNodes[i].type);
                 instr.Add(temp);
             }
 
             a.instr = instr;
             _readyOrders.Add(a);
+
+            Log("Path found");
         }
 
         public void DeliverPathfindingInstructions()
@@ -254,7 +291,7 @@ namespace Cursed.AI
                     _readyOrders[i].agent.ReceivePathInstructions(_readyOrders[i].instr, _readyOrders[i].passed);
                 }
             }
-            _readyOrders = new List<threadLock>();
+            _readyOrders = new List<ThreadLock>();
         }
 
         /// <summary>
@@ -279,10 +316,10 @@ namespace Cursed.AI
             //add the ground node, 
 
             Vector3 ground = newGameObject.transform.position; ground.y += _blockSize * 0.5f + _blockSize * _groundNodeHeight;
-            pathNode newGroundNode = new pathNode("walkable", ground);
+            pathNode newGroundNode = new pathNode(OrderType.Walkable, ground);
             _groundNodes.Add(newGroundNode);
 
-            newGroundNode.c = _nodeWeights.GetNodeWeightByString(newGroundNode.type);
+            newGroundNode.c = _nodeWeights.GetNodeWeightByOrder(newGroundNode.type);
             _nodes.Add(newGroundNode);
 
             newGroundNode.gameObject = newGameObject;
@@ -371,8 +408,8 @@ namespace Cursed.AI
 
             GroundNeighbors(collection, largerCollection);
 
-            JumpNeighbors(attachedJumpNodes(collection), largerCollection);
-            FallNeighbors(attachedFallNodes(collection), largerCollection);
+            JumpNeighbors(AttachedJumpNodes(collection), largerCollection);
+            FallNeighbors(AttachedFallNodes(collection), largerCollection);
 
             //Make node neighbor mesh visible
             if (Input.GetKey(KeyCode.LeftShift))
@@ -385,12 +422,12 @@ namespace Cursed.AI
 
             for (int i = 0; i < objects.Count; i++)
             {
-                Vector3 ground = objects[i].transform.position; 
+                Vector3 ground = objects[i].transform.position;
                 ground.y += _blockSize * 0.5f + _blockSize * _groundNodeHeight;
-                pathNode newGroundNode = new pathNode("walkable", ground);
+                pathNode newGroundNode = new pathNode(OrderType.Walkable, ground);
                 _groundNodes.Add(newGroundNode);
 
-                newGroundNode.c = _nodeWeights.GetNodeWeightByString(newGroundNode.type);
+                newGroundNode.c = _nodeWeights.GetNodeWeightByOrder(newGroundNode.type);
                 _nodes.Add(newGroundNode);
 
                 newGroundNode.gameObject = objects[i];
@@ -415,12 +452,12 @@ namespace Cursed.AI
                     //raycheck down
                     if (!Physics2D.Linecast(leftNode, colliderCheck, _groundLayer))
                     {
-                        pathNode newFallNode = new pathNode("fall", leftNode);
+                        pathNode newFallNode = new pathNode(OrderType.Fall, leftNode);
 
                         newFallNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
                                                                  //fallNodes.Add(newFallNode);
 
-                        newFallNode.c = _nodeWeights.GetNodeWeightByString(newFallNode.type);
+                        newFallNode.c = _nodeWeights.GetNodeWeightByOrder(newFallNode.type);
                         _nodes.Add(newFallNode);
 
                         newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
@@ -436,11 +473,11 @@ namespace Cursed.AI
                     //raycheck down
                     if (!Physics2D.Linecast(rightNode, colliderCheck, _groundLayer))
                     {
-                        pathNode newFallNode = new pathNode("fall", rightNode);
+                        pathNode newFallNode = new pathNode(OrderType.Fall, rightNode);
 
                         newFallNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
 
-                        newFallNode.c = _nodeWeights.GetNodeWeightByString(newFallNode.type);
+                        newFallNode.c = _nodeWeights.GetNodeWeightByOrder(newFallNode.type);
                         _nodes.Add(newFallNode);
 
                         newFallNode.spawnedFrom.createdFallNodes.Add(newFallNode);
@@ -451,23 +488,26 @@ namespace Cursed.AI
 
         private void FindJumpNodes(List<pathNode> searchList)
         {
-            if (_jumpHeight > 0)
+            float jumpHeight = _normalJump.Height * 8;
+
+            if (jumpHeight > 0)
             {
                 for (int i = 0; i < searchList.Count; i++)
                 {
-                    float curHeight = _jumpHeight;
+                    float curHeight = jumpHeight;
 
                     while (curHeight >= _minimumJump)
                     {
-                        Vector3 air = searchList[i].pos; air.y += curHeight;
+                        Vector3 air = searchList[i].pos;
+                        air.y += curHeight;
 
                         if (!Physics2D.Linecast(searchList[i].pos, air, _groundLayer))
                         {
-                            pathNode newJumpNode = new pathNode("jump", air);
+                            pathNode newJumpNode = new pathNode(OrderType.Jump, air);
 
                             newJumpNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
                                                                      //jumpNodes.Add(newJumpNode);
-                            newJumpNode.c = _nodeWeights.GetNodeWeightByString(newJumpNode.type);
+                            newJumpNode.c = _nodeWeights.GetNodeWeightByOrder(newJumpNode.type);
                             newJumpNode.height = curHeight;
                             newJumpNode.realHeight = curHeight;
                             _nodes.Add(newJumpNode);
@@ -477,17 +517,17 @@ namespace Cursed.AI
                         else
                         {
                             float h = curHeight;
-                            float minHeight = _blockSize * 1f; //2f
+                            float minHeight = _blockSize * 0.8f; //2f
                             while (h > minHeight)
                             {
                                 Vector3 newHeight = new Vector3(air.x, air.y - (curHeight - h), air.z);
                                 if (!Physics2D.Linecast(searchList[i].pos, newHeight, _groundLayer))
                                 {
-                                    pathNode newJumpNode = new pathNode("jump", newHeight);
+                                    pathNode newJumpNode = new pathNode(OrderType.Jump, newHeight);
 
                                     newJumpNode.spawnedFrom = searchList[i]; //this node has been spawned from a groundNode
                                                                              //jumpNodes.Add(newJumpNode);
-                                    newJumpNode.c = _nodeWeights.GetNodeWeightByString(newJumpNode.type);
+                                    newJumpNode.c = _nodeWeights.GetNodeWeightByOrder(newJumpNode.type);
                                     newJumpNode.realHeight = curHeight;
                                     newJumpNode.height = h;
                                     _nodes.Add(newJumpNode);
@@ -523,6 +563,10 @@ namespace Cursed.AI
 
                     //PREFORM A - > B TESTING HERE
 
+                    //Is the nodes are the same, continue
+                    if (a.pos.x == b.pos.x && a.pos.y == b.pos.y)
+                        continue;
+
                     //Testing distance between nodes
                     if (Mathf.Abs(a.pos.y - b.pos.y) < _blockSize * 0.7 && Vector3.Distance(a.pos, b.pos) < distanceBetween)
                     {
@@ -547,26 +591,26 @@ namespace Cursed.AI
             {
                 pathNode a = fromNodes[i];
 
+                //Add jump node as neigbour of the ground node
+                a.spawnedFrom.neighbours.Add(a);
+
+                if (_debugTools)
+                    Debug.DrawLine(a.pos, a.spawnedFrom.pos, Color.red);
+
                 for (int t = 0; t < toNodes.Count; t++)
                 {
                     pathNode b = toNodes[t];
 
                     //PREFORM A - > B TESTING HERE
 
-                    a.spawnedFrom.neighbours.Add(a);
-
-                    if (_debugTools)
-                        Debug.DrawLine(a.pos, a.spawnedFrom.pos, Color.red);
-
                     float xDistance = Mathf.Abs(a.pos.x - b.pos.x);
 
-                    if (xDistance < _blockSize * _maxJumpBlocksX + _blockSize + _groundMaxWidth) //the x distance modifier used to be 0.72!
+                    if (xDistance < _blockSize * _normalJump.Distance * 8 + _blockSize + _groundMaxWidth) //the x distance modifier used to be 0.72!
 
-                        if (b != a.spawnedFrom && a.pos.y > b.pos.y + _blockSize * 0.5f && 
-                            a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 0.9f - _blockSize * 1f &&
+                        if (b != a.spawnedFrom && a.pos.y > b.pos.y + _blockSize * 0.2f &&
+                            a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 0.9f - _blockSize * 1.8f &&
                             Mathf.Abs(a.pos.x - b.pos.x) < _blockSize * 4f + _groundMaxWidth)
                         {
-                            //4.7, 4Xjump, +1Y isnt working
                             if (!Physics2D.Linecast(a.pos, b.pos, _groundLayer))
                             {
                                 bool hitTest = true;
@@ -576,7 +620,7 @@ namespace Cursed.AI
                                     hitTest = false;
                                 }
 
-                                //hit head code... jump height must be above 2.5 to move Xdistance2.5 else you can only move 1 block when hitting head.
+                                //hit head code... jump height must be above 2.5 to move Xdistance, 2.5 else you can only move 1 block when hitting head.
                                 if (a.realHeight > a.height)
                                 {
                                     float tempFloat = a.height > 2.5f ? 3.5f : 1.5f;
@@ -616,8 +660,7 @@ namespace Cursed.AI
 
                                                 (xDistance > _blockSize * 1f + _groundMaxWidth &&
                                              a.spawnedFrom.pos.y >= b.pos.y &&
-                                              Physics2D.Linecast(b.pos, straightUp, _groundLayer))
-                                           )
+                                              Physics2D.Linecast(b.pos, straightUp, _groundLayer)))
                                         {
                                             hitTest = false;
                                         }
@@ -634,6 +677,7 @@ namespace Cursed.AI
                         }
 
                     //END TESTING
+
                 }
             }
         }
@@ -644,22 +688,23 @@ namespace Cursed.AI
             {
                 pathNode a = fromNodes[i];
 
+                //Add fall node as neigbour of the ground node
+                a.spawnedFrom.neighbours.Add(a);
+
+                if (_debugTools)
+                    Debug.DrawLine(a.spawnedFrom.pos, a.pos, Color.blue);
+
                 for (int t = 0; t < toNodes.Count; t++)
                 {
                     pathNode b = toNodes[t];
 
                     //PREFORM A - > B TESTING HERE
                     float xDistance = Mathf.Abs(a.pos.x - b.pos.x);
-                    a.spawnedFrom.neighbours.Add(a);
-                    if (_debugTools)
-                    {
-                        Debug.DrawLine(a.spawnedFrom.pos, a.pos, Color.blue);
-                    }
 
                     //FALL NODES REQUIRE TESTING
                     //CHARACTER WIDTH!
                     //probably a similar formula to jumpnode neighbors
-                    if ((xDistance < _blockSize * 1f + _groundMaxWidth && a.pos.y > b.pos.y) || (a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 2.2f + _blockSize * 1f && //2.2 + blocksize * 1f
+                    if ((xDistance < _blockSize * 2 + _groundMaxWidth && a.pos.y > b.pos.y) || (a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 2.2f + _blockSize * 1f && //2.2 + blocksize * 1f
                         xDistance < _blockSize * 4f))
                     {
                         if (!Physics2D.Linecast(a.pos, b.pos, _groundLayer))
@@ -675,22 +720,24 @@ namespace Cursed.AI
                             Vector3 quarterPointTop = new Vector3(a.pos.x + quarter, a.pos.y, a.pos.z);
                             Vector3 quarterPointBot = new Vector3(b.pos.x - quarter, b.pos.y, b.pos.z);
 
-                            Vector3 corner = new Vector3(b.pos.x, (a.pos.y - _blockSize * xDistance - _blockSize * 0.5f) - _groundNodeHeight, a.pos.z);
+                            //Vector3 corner = new Vector3(b.pos.x, (a.pos.y - _blockSize * xDistance - _blockSize * 0.5f) - _groundNodeHeight, a.pos.z);
 
+                            //Got rid od the corner linecast and the y pos check, didn't know why they were here and made it bug
                             if (Physics2D.Linecast(quarterPointTop, b.pos, _groundLayer) ||
                                 Physics2D.Linecast(middlePointDrop, b.pos, _groundLayer) ||
-                                a.pos.y > b.pos.y + _blockSize + _groundNodeHeight && Physics2D.Linecast(corner, b.pos, _groundLayer) ||
+                                //a.pos.y > b.pos.y + _blockSize + _groundNodeHeight &&
+                                //Physics2D.Linecast(corner, b.pos, _groundLayer) ||
                                 Physics2D.Linecast(quarterPointBot, a.pos, _groundLayer))
                             {
                                 hitTest = false;
                             }
+
                             if (hitTest)
                             {
                                 a.neighbours.Add(b);
+
                                 if (_debugTools)
-                                {
                                     Debug.DrawLine(a.pos, b.pos, Color.black);
-                                }
                             }
                         }
                     }
@@ -703,20 +750,21 @@ namespace Cursed.AI
         /// <summary>
         /// Get nearest node ground. Useful for finding start and end points of the path
         /// </summary>
-        private pathNode getNearestNode(Vector3 obj)
+        private pathNode GetNearestNode(Vector3 obj)
         {
             float dist = float.MaxValue;
             pathNode node = null;
 
             for (int i = 0; i < _groundNodes.Count; i++)
             {
-                if (_groundNodes[i].neighbours.Count > 0 && obj.y > _groundNodes[i].pos.y && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < _blockSize
-                    /*only find ground nodes that are within 4f*/&& obj.y - _groundNodes[i].pos.y < 10000f)
+                if (_groundNodes[i].neighbours.Count > 0 && obj.y > _groundNodes[i].pos.y - _blockSize * 0.8f && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < _blockSize
+                    /*only find ground nodes that are within 4f*/&& obj.y - _groundNodes[i].pos.y < 1000f)
                 {
                     float temp = Vector3.Distance(obj, (Vector3)_groundNodes[i].pos);
                     if (dist > temp)
                     {
-                        dist = temp; node = _groundNodes[i];
+                        dist = temp;
+                        node = _groundNodes[i];
                     }
                 }
             }
@@ -725,7 +773,7 @@ namespace Cursed.AI
             return node;
         }
 
-        private pathNode getNearestGroundNode(Vector3 obj)
+        private pathNode GetNearestGroundNode(Vector3 obj)
         {
             float dist = float.MaxValue;
             pathNode node = null;
@@ -734,13 +782,13 @@ namespace Cursed.AI
             {
                 if (_groundNodes[i].neighbours.Count > 0)
                 {
-                    float temp = Vector3.Distance(obj, (Vector3)_groundNodes[i].pos);
+                    float temp = Vector3.Distance(obj, _groundNodes[i].pos);
                     if (dist > temp)
                     {
                         //Added the -0.1f to account for the precision
-                        if (obj.y >= _groundNodes[i].pos.y - 0.1f && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < _blockSize)
+                        if (obj.y >= _groundNodes[i].pos.y - _blockSize * 0.8f && Mathf.Abs(obj.x - _groundNodes[i].pos.x) < _blockSize)
                         {
-                            dist = temp; 
+                            dist = temp;
                             node = _groundNodes[i];
                         }
                     }
@@ -752,19 +800,18 @@ namespace Cursed.AI
         /// <summary>
         /// Used when reconstructing pathnode connections
         /// </summary>
-        private List<pathNode> attachedJumpNodes(List<pathNode> pGround)
+        private List<pathNode> AttachedJumpNodes(List<pathNode> pGround)
         {
 
             List<pathNode> returnNodes = new List<pathNode>();
             for (int i = 0; i < pGround.Count; i++)
             {
-
                 returnNodes.AddRange(pGround[i].createdJumpNodes);
             }
             return returnNodes;
         }
 
-        private List<pathNode> attachedFallNodes(List<pathNode> pGround)
+        private List<pathNode> AttachedFallNodes(List<pathNode> pGround)
         {
 
             List<pathNode> returnNodes = new List<pathNode>();
@@ -797,27 +844,27 @@ namespace Cursed.AI
             {
                 for (int i = 0; i < _nodes.Count; i++)
                 {
-                    Gizmos.color = _nodeWeights.GetNodeColorByString(_nodes[i].type);
+                    Gizmos.color = _nodeWeights.GetNodeColorByOrder(_nodes[i].type);
                     Gizmos.DrawSphere(_nodes[i].pos, 0.5f);
                 }
             }
         }
 
-        public class threadLock
+        public class ThreadLock
         {
             public PathfindingAgent agent;
             public bool passed = false;
             public Vector3 agentPos;
             public Vector3 end;
             public float jump;
-            public List<instructions> instr = null;
+            public List<Instructions> instr = null;
 
             //Abilities
             public bool canMove;
             public bool canJump;
             public bool canFall;
 
-            public threadLock(PathfindingAgent agent, Vector3 end, float jumpHeight, bool cMove, bool cJump, bool cFall)
+            public ThreadLock(PathfindingAgent agent, Vector3 end, float jumpHeight, bool cMove, bool cJump, bool cFall)
             {
                 this.agent = agent;
                 agentPos = agent.transform.position;
@@ -831,32 +878,44 @@ namespace Cursed.AI
         }
 
         [System.Serializable]
-        public class nodeWeight
+        public class NodeWeight
         {
-            public float groundNode = 1f;
-            public float jumpNode = 9.2f;
-            public float fallNode = 1f;
+            public float groundNode = 1f;   //2
+            public float jumpNode = 9.2f;   //18.4
+            public float fallNode = 1f;     //2
 
-            public float GetNodeWeightByString(string nodeType)
+            public float GetNodeWeightByOrder(OrderType nodeType)
             {
                 switch (nodeType)
                 {
-                    case "walkable": return groundNode;
-                    case "jump": return jumpNode;
-                    case "fall": return fallNode;
+                    case OrderType.None:
+                        return 0f;
+                    case OrderType.Walkable:
+                        return groundNode;
+                    case OrderType.Jump:
+                        return jumpNode;
+                    case OrderType.Fall:
+                        return fallNode;
+                    default:
+                        return 0f;
                 }
-                return 0f;
             }
 
-            public Color GetNodeColorByString(string nodeType)
+            public Color GetNodeColorByOrder(OrderType nodeType)
             {
                 switch (nodeType)
                 {
-                    case "walkable": return Color.yellow;
-                    case "jump": return Color.blue;
-                    case "fall": return Color.black;
+                    case OrderType.None:
+                        return Color.white;
+                    case OrderType.Walkable:
+                        return Color.yellow;
+                    case OrderType.Jump:
+                        return Color.blue;
+                    case OrderType.Fall:
+                        return Color.black;
+                    default:
+                        return Color.white;
                 }
-                return Color.white;
             }
         }
 
@@ -876,7 +935,7 @@ namespace Cursed.AI
     public class pathNode
     {
         public Vector3 pos;
-        public string type;
+        public OrderType type;
         public float realHeight = 0f;
         public float height = 0f;
 
@@ -909,22 +968,24 @@ namespace Cursed.AI
 
         public List<pathNode> neighbours = new List<pathNode>();
 
-        public pathNode(string typeOfNode, Vector3 position)
+        public pathNode(OrderType typeOfNode, Vector3 position)
         {
             pos = position;
             type = typeOfNode;
         }
     }
 
-    public class instructions
+    public class Instructions
     {
         public Vector3 pos = Vector3.zero;
-        public string order = "none";
+        public OrderType order = OrderType.None;
 
-        public instructions(Vector3 position, string pOrder)
+        public Instructions(Vector3 position, OrderType order)
         {
             pos = position;
-            order = pOrder;
+            this.order = order;
         }
     }
+
+    public enum OrderType { None, Walkable, Jump, Fall }
 }

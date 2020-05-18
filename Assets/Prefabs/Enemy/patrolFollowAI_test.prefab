@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7148813450785064788}
   - component: {fileID: 2987228160341031770}
   - component: {fileID: 8239339684578294684}
-  - component: {fileID: 1256613417554009364}
+  - component: {fileID: 2152373866174149749}
   - component: {fileID: 5268360098289650286}
   - component: {fileID: 499512345018928843}
   - component: {fileID: 5437460959326776374}
@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 4745543872232184749}
   - component: {fileID: 5257384259050955424}
   - component: {fileID: 4899068109193366447}
+  - component: {fileID: 330731327431944237}
   m_Layer: 0
   m_Name: patrolFollowAI_test
   m_TagString: Untagged
@@ -97,11 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  followDistance: 0.5
-  debugBool: 0
-  drawPath: 0
-  drawColor: {r: 1, g: 0, b: 0, a: 1}
-  endDrawComplete: 1
+  _normalJump: {fileID: 11400000, guid: fc3e26308e6583a48b7890b1249a9e24, type: 2}
+  _followDistance: 0.5
+  _debugBool: 0
+  _drawPath: 1
+  _drawColor: {r: 1, g: 0, b: 0, a: 1}
+  _endDrawComplete: 1
   followPathTimer: 0.5
   pathFailTimer: 0.25
 --- !u!114 &7148813450785064788
@@ -117,6 +119,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 1
+  _aggroRange:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 196b30d9db9fe0b48a409273c90c8720, type: 2}
+  _timeToChangePlatformTarget:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 86a65608391953e4a9c51cfa9a81d30a, type: 2}
 --- !u!114 &2987228160341031770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,9 +227,11 @@ MonoBehaviour:
   _canDash: 0
   _isDiveKicking: 0
   _isInvincible: 0
+  _jumpUnlock: 1
+  _wallRunUnlock: 1
   _dashUnlock: 1
   _doubleJumpUnlock: 1
---- !u!114 &1256613417554009364
+--- !u!114 &2152373866174149749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,7 +240,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 275295404781019534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd40fd21f91096742ad813a1c3e8cd51, type: 3}
+  m_Script: {fileID: 11500000, guid: 02465c875b4543c4cb2256c030d2ec68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth:
@@ -244,6 +256,8 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 3bd9c869979bc854b8863bae69dcafff, type: 2}
   _takeDamageVibration: {fileID: 11400000, guid: dcb66c20196f42640b21d0a3479e9419,
+    type: 2}
+  _divekickTouchVibration: {fileID: 11400000, guid: 19e82ce1ca73db2449e33afaf03621ba,
     type: 2}
   _headLight: {fileID: 8351062123240793123}
   _lightGradient:
@@ -275,13 +289,17 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  onHealthUpdate: {fileID: 11400000, guid: 4859836420cc5c340a2f67959dce997f, type: 2}
+  onHealthUpdate: {fileID: 11400000, guid: e106ea63c24baf94aa383ddb24e84a19, type: 2}
   onMaxHealthUpdate: {fileID: 11400000, guid: b5fee7cf59cd11248b8af9464356b12f, type: 2}
   onDeath: {fileID: 11400000, guid: 1838cfb5a6dbdb24fbb4ed68d2220252, type: 2}
-  addEnemy: {fileID: 11400000, guid: 5168d2ca87a54e2459cbee161a2bf055, type: 2}
+  addEnemy: {fileID: 11400000, guid: b79507f460c093541bbf931d0628676d, type: 2}
   _shakeCombo3: {fileID: 11400000, guid: 5cd8781a3152b9542956a9e3077a9180, type: 2}
   _shakeCritic: {fileID: 11400000, guid: 9f81ee01cb0b3d94797c0d528f6839c5, type: 2}
   _onCamShake: {fileID: 11400000, guid: 8a79bf79c1417ee438404cab95d4a731, type: 2}
+  _minCreatureAmountHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 316664d227ec1864f9ce5fc1d443bb2f, type: 2}
 --- !u!114 &5268360098289650286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +345,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: a00a3acedd6d7df49ada474f8405a3a2, type: 2}
+  _shakeDivekick: {fileID: 0}
+  _onCamShake: {fileID: 0}
+  _onContrVibration: {fileID: 0}
+  _attacksUnlock: 1
 --- !u!114 &5437460959326776374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +385,7 @@ Animator:
   m_GameObject: {fileID: 275295404781019534}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78b177f095db27044ae80a6211d24513, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -480,8 +502,25 @@ MonoBehaviour:
   - {fileID: 8197729329596060421, guid: ad1d776ca82b4474d85fb2c0f13eb19d, type: 3}
   _vfxBloodParticle: {fileID: 8619041140878793685, guid: 92c0693d18761634c8bb356afb57d280,
     type: 3}
-  _vfxEnemyDeathEffect: {fileID: 0}
+  _vfxDeathEffect: {fileID: 4810634002622866826, guid: 5a49b5c32d0a7204cb6f981b2a12d8f6,
+    type: 3}
+  _vfxBloodExplosion: {fileID: 987511664429150224, guid: 2de9be9fa338aff48b95704e834bbaf6,
+    type: 3}
+  _vfxAndroidPartExplosion: {fileID: 8051251058266920337, guid: 6ae6fc9307335fc408c436c8f1a6bf5f,
+    type: 3}
   _refFlashScreen: {fileID: 0}
+--- !u!114 &330731327431944237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275295404781019534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f395b4231886f7d48ad9802781c8c5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &275295404781033898
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +625,7 @@ GameObject:
   - component: {fileID: 4938160598896659474}
   - component: {fileID: 8351062123240793123}
   m_Layer: 0
-  m_Name: Point Light 2D
+  m_Name: HeadLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

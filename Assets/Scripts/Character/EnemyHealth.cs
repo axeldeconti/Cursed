@@ -6,6 +6,7 @@ namespace Cursed.Character
 {
     public class EnemyHealth : HealthManager
     {
+        [Header("Creature")]
         [SerializeField] private IntReference _minCreatureAmountHealth;
         public bool _canBeAttackable { get; private set; }
 
