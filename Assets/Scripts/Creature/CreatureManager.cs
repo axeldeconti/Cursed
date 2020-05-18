@@ -3,6 +3,7 @@ using Cursed.Utilities;
 using System.Collections;
 using UnityEngine;
 using Cursed.VisualEffect;
+using Cursed.Managers;
 
 namespace Cursed.Creature
 {

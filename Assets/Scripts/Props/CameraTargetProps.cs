@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Cursed.Character;
+using Cursed.Managers;
 
 public class CameraTargetProps : MonoBehaviour
 {

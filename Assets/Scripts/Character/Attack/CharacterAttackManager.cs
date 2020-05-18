@@ -2,6 +2,7 @@
 using Cursed.VisualEffect;
 using System.Collections;
 using UnityEngine;
+using Cursed.Managers;
 
 namespace Cursed.Character
 {

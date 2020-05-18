@@ -1,23 +1,26 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class EnemyCountText : MonoBehaviour
+namespace Cursed.Props
 {
-    private TMP_Text _text;
-    [SerializeField] private EnemyCount.CountType _enemyCountType;
-
-    private void Awake()
+    public class EnemyCountText : MonoBehaviour
     {
-        _text = GetComponent<TMP_Text>();
-    }
+        private TMP_Text _text;
+        [SerializeField] private EnemyCount.CountType _enemyCountType;
 
-    private void Start()
-    {
-        EnemyCount.Instance.enemyCountUpdate += () => UpdateText();
-    }
+        private void Awake()
+        {
+            _text = GetComponent<TMP_Text>();
+        }
 
-    public void UpdateText()
-    {
-        _text.text = EnemyCount.Instance.GetEnemyCount(_enemyCountType).ToString();
+        private void Start()
+        {
+            EnemyCount.Instance.enemyCountUpdate += () => UpdateText();
+        }
+
+        public void UpdateText()
+        {
+            _text.text = EnemyCount.Instance.GetEnemyCount(_enemyCountType).ToString();
+        }
     }
 }

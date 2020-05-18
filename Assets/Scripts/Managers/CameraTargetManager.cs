@@ -2,52 +2,55 @@
 using System.Collections;
 using UnityEngine;
 
-public class CameraTargetManager : MonoBehaviour
+namespace Cursed.Managers
 {
-    public float _noiseDuration = 2f;
-    public float _timeBeforeSwitchTarget = 7f;
-
-    private EnemyRegister[] _enemyList;
-    public EnemyRegister _enemyChosen { get; private set; }
-    public event System.Action _onChangeTarget;
-
-    private void Awake()
+    public class CameraTargetManager : MonoBehaviour
     {
-        GetEnemyList();
-    }
+        public float _noiseDuration = 2f;
+        public float _timeBeforeSwitchTarget = 7f;
 
-    private void Start()
-    {
-        ChangeTarget();
-    }
+        private EnemyRegister[] _enemyList;
+        public EnemyRegister _enemyChosen { get; private set; }
+        public event System.Action _onChangeTarget;
 
-    public void GetEnemyList()
-    {
-       _enemyList = FindObjectsOfType<EnemyRegister>();
-    }
+        private void Awake()
+        {
+            GetEnemyList();
+        }
 
-    private void ChangeTarget()
-    {
-        if (GameManager.Instance.State == GameManager.GameState.WinLoose)
-            return;
+        private void Start()
+        {
+            ChangeTarget();
+        }
 
-        _enemyChosen = _enemyList[Random.Range(0, _enemyList.Length)];
-        CheckEnemyChosen();
+        public void GetEnemyList()
+        {
+            _enemyList = FindObjectsOfType<EnemyRegister>();
+        }
 
-        _onChangeTarget?.Invoke();
-        StartCoroutine(TimerForSwitchTarget());
-    }
+        private void ChangeTarget()
+        {
+            if (GameManager.Instance.State == GameManager.GameState.WinLoose)
+                return;
 
-    private void CheckEnemyChosen()
-    {
-        while (_enemyChosen == null)
             _enemyChosen = _enemyList[Random.Range(0, _enemyList.Length)];
-    }
+            CheckEnemyChosen();
 
-    IEnumerator TimerForSwitchTarget()
-    {
-        yield return new WaitForSeconds(_noiseDuration);
-        yield return new WaitForSeconds(_timeBeforeSwitchTarget);
-        ChangeTarget();
+            _onChangeTarget?.Invoke();
+            StartCoroutine(TimerForSwitchTarget());
+        }
+
+        private void CheckEnemyChosen()
+        {
+            while (_enemyChosen == null)
+                _enemyChosen = _enemyList[Random.Range(0, _enemyList.Length)];
+        }
+
+        IEnumerator TimerForSwitchTarget()
+        {
+            yield return new WaitForSeconds(_noiseDuration);
+            yield return new WaitForSeconds(_timeBeforeSwitchTarget);
+            ChangeTarget();
+        }
     }
 }
