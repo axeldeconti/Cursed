@@ -29,6 +29,9 @@ namespace Cursed.Character
         [SerializeField] private GameObject _vfxBloodExplosion;
         [SerializeField] private GameObject _vfxAndroidPartExplosion;
 
+        [Header("Others")]
+        [SerializeField] private GameObject _vfxUnlockComp;
+
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
         private CollisionHandler _coll;
@@ -270,6 +273,12 @@ namespace Cursed.Character
         }
 
         #endregion
+
+        public void UnlockComp(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            Instantiate(_vfxUnlockComp, pos + offset, Quaternion.identity, transform);
+        }
 
         #region Getters & Setters
         public GameObject VfxDoubleJump => _vfxDoubleJump;

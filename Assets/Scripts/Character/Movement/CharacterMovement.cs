@@ -808,7 +808,6 @@ namespace Cursed.Character
             yield return new WaitForSeconds(time);
             _canMove = true;
         }
-
         private IEnumerator DisableAllMovements(float time)
         {
             _isStunned = true;
