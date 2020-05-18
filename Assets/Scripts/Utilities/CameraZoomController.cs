@@ -8,10 +8,17 @@ namespace Cursed.Utilities
         public static CameraZoomController Instance;
 
         private CinemachineVirtualCamera _camera;
-        private float _initialZoom;
-        [SerializeField] private float _maxZoom = 22f;
-        [SerializeField] private float _zoomInSpeed = 1f;
-        [SerializeField] private float _zoomOutSpeed = .5f;
+        public float _initialZoom;
+
+        [Space]
+        public float _maxZoomCreature;
+        public float _maxZoomKill;
+
+        [Space]
+        public float _zoomInCreatureSpeed;
+        public float _zoomOutCreatureSpeed;
+        public float _zoomInKillSpeed;
+        public float _zoomOutKillSpeed;
 
         private void Awake()
         {
@@ -21,21 +28,13 @@ namespace Cursed.Utilities
 
         private void Start()
         {
-            _initialZoom = _camera.m_Lens.OrthographicSize;
+            _initialZoom = _camera.m_Lens.FieldOfView;
         }
 
-        public void Zoom(bool reverse)
+        public void Zoom(float targetFOV, float speedFOV)
         {
-            if (!reverse)
-            {
-                float currentSize = Mathf.Lerp(_camera.m_Lens.OrthographicSize, _maxZoom, _zoomOutSpeed * Time.deltaTime);
-                _camera.m_Lens.OrthographicSize = currentSize;
-            }
-            else
-            {
-                float currentSize = Mathf.Lerp(_camera.m_Lens.OrthographicSize, _initialZoom, _zoomInSpeed * Time.deltaTime);
-                _camera.m_Lens.OrthographicSize = currentSize;
-            }
+            float currentSize = Mathf.Lerp(_camera.m_Lens.FieldOfView, targetFOV, speedFOV * Time.deltaTime);
+            _camera.m_Lens.FieldOfView = currentSize;
         }
     }
 }

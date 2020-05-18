@@ -27,7 +27,7 @@ namespace Cursed.Tutoriel
         private CharacterMovement _playerMovement;
         private CharacterAttackManager _playerAttacks;
 
-        private bool _alreadyTriggered;
+        [HideInInspector] public bool _alreadyTriggered;
         public event System.Action<TutorielType> SpellUnlock;
 
         private void UnlockSpell(TutorielType type)

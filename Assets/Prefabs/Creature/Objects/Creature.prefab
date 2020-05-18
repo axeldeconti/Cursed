@@ -241,7 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d0c45e94fe52d4d8546c5814ddbef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceToPlayer: 2.5
+  _minLeftAngle: -150
+  _minRightAngle: -30
   _targetLine: {fileID: 5906497462142018816, guid: 4f32d6df71ee6534b9445cfcdbca868f,
     type: 3}
 --- !u!114 &7973523159910993283
@@ -292,6 +293,8 @@ MonoBehaviour:
     type: 3}
   _creatureBack: {fileID: 2324769279063736866}
   _chromaticAberrationChanging: {fileID: 0}
+  _vfxCameraDestruction: {fileID: 4810634002622866826, guid: b3d171dbb5ac7334da42c97aa2361775,
+    type: 3}
 --- !u!114 &4650846219107832707
 MonoBehaviour:
   m_ObjectHideFlags: 0

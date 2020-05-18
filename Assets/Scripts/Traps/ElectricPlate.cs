@@ -59,7 +59,6 @@ namespace Cursed.Traps
             {
                 if (!HasAttackable(a))
                 {
-
                     _currentAttackables.Add(new ElectricPlateAttackable(a, _timBetweenDamage));
 
                     if (_isActive)

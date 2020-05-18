@@ -17,6 +17,8 @@ namespace Cursed.UI
         [SerializeField] private Volume _globalVolume = null;
         private DepthOfField _depthOfField;
 
+        private bool _optionsToogle;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
@@ -24,15 +26,26 @@ namespace Cursed.UI
             _controlsMenu.SetActive(false);
 
             // SET BLUR EFFECT 
-            DepthOfField depthOfField;
-            if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
-                _depthOfField = depthOfField;
+            if (_globalVolume != null)
+            {
+                DepthOfField depthOfField;
+                if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
+                    _depthOfField = depthOfField;
+            }
         }
 
         private void Update()
         {
             if (Input.GetButtonDown("Pause"))
                 TooglePause();
+
+            if(Input.GetButtonDown("Cancel"))
+            {
+                if (_gameManager.State == GameManager.GameState.Pause && !_controlsMenu.activeSelf)
+                    TooglePause();
+                if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
+                    ToogleOptions();
+            }
         }
 
         public void TooglePause()
@@ -63,8 +76,18 @@ namespace Cursed.UI
             }
         }
 
+        public void ToogleOptions()
+        {
+            _optionsToogle = !_optionsToogle;
+            _controlsMenu.SetActive(_optionsToogle);
+            _pauseMenu.SetActive(!_optionsToogle);
+        }
+
         public void Quit()
         {
+            if (_gameManager.CurrentLevelName == "Tuto" || _gameManager.CurrentLevelName == "Intro")
+                _gameManager.UnloadLevel("Main");
+
             _gameManager.LoadLevel("Main", true);
         }
     }

@@ -56,17 +56,20 @@ namespace Cursed.Combat
             if(attacker.GetComponent<CharacterMovement>().IsDiveKicking)
             {
                 _wallLife -= 3;
+                AkSoundEngine.PostEvent("Play_DestructibleWall", gameObject);
                 CreateImpactEffect(attacker.transform);
+                CreateDestroyEffect(attacker.transform);
             }
             else
             {
                 _wallLife -= 1;
+                AkSoundEngine.PostEvent("Play_DestructibleWall", gameObject);
                 CreateImpactEffect(attacker.transform);
+                CreateDestroyEffect(attacker.transform);
             }
 
             if (_wallLife <= 0)
             {
-                CreateDestroyEffect(attacker.transform);
                 _onCamShake?.Raise(_shakeDestructibleWall);
                 Destroy(this.gameObject);
             }
@@ -79,11 +82,12 @@ namespace Cursed.Combat
                 GameObject go = Instantiate(_destructionImpactDivekick, this.transform.position, Quaternion.identity);
                 return go;
             }
+
             else
             {
                 if (attacker.GetComponent<CharacterMovement>().Side == -1)
                 {
-                    GameObject go = Instantiate(_destructionImpact, this.transform.position, Quaternion.identity);
+                    GameObject go = Instantiate(_destructionImpact, this.transform.position + new Vector3(-1, 0, 0), Quaternion.identity);
                     ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
                     rendererParticle.flip = new Vector3(0, 0, 0);
                     rendererParticle.pivot = new Vector3(-0.5f, 0, 0);
@@ -91,7 +95,7 @@ namespace Cursed.Combat
                 }
                 else
                 {
-                    GameObject go = Instantiate(_destructionImpact, this.transform.position, Quaternion.identity);
+                    GameObject go = Instantiate(_destructionImpact, this.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
                     ParticleSystemRenderer rendererParticle = go.GetComponent<ParticleSystemRenderer>();
                     rendererParticle.flip = new Vector3(1, 0, 0);
                     rendererParticle.pivot = new Vector3(0.5f, 0, 0);
@@ -101,13 +105,25 @@ namespace Cursed.Combat
         }
         private GameObject CreateDestroyEffect(Transform attacker)
         {
-            GameObject go = Instantiate(_destructionEffect, this.transform.position, Quaternion.identity);
-            AkSoundEngine.PostEvent("Play_DestructibleWall", gameObject);
-            Vector2 direction = this.transform.position - attacker.GetChild(0).position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            go.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
-            return go;
+            if (attacker.GetComponent<CharacterMovement>().Side == -1)
+            {
+                GameObject go = Instantiate(_destructionEffect, this.transform.position + new Vector3(-3, 0, 0), Quaternion.identity);
+                Vector2 direction = this.transform.position - attacker.GetChild(0).position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                go.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
+                return go;
+            }
+            else
+            {
+                GameObject go = Instantiate(_destructionEffect, this.transform.position + new Vector3(3, 0, 0), Quaternion.identity);
+                Vector2 direction = this.transform.position - attacker.GetChild(0).position;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                go.transform.rotation = Quaternion.Euler(rotation.eulerAngles);
+                return go;
+            }
+                
         }
     }
 }

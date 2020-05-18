@@ -214,6 +214,7 @@ namespace Cursed.Tutoriel
             Animator animator = _tutoChild?.GetComponent<Animator>();
             animator.SetBool("Close", true);
             animator.SetBool("Open", false);
+            _tutorielBox._alreadyTriggered = false;
             Destroy(_tutoChild, animator.GetCurrentAnimatorClipInfo(0).Length);
         }
     }

@@ -22,7 +22,7 @@ namespace Cursed.Creature
 
         private void Start()
         {
-            if(GameObject.FindGameObjectWithTag("Creature") != null)
+            if(GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>() != null)
                 targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
 
             if (targetPosition == null)
@@ -32,7 +32,10 @@ namespace Cursed.Creature
         private void Update()
         {
             if (targetPosition == null)
-                return;
+            {
+                if (GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>() != null)
+                    targetPosition = GameObject.FindGameObjectWithTag("Creature").GetComponentInChildren<Collider2D>().transform;
+            }
 
             float borderSize = 0f;
             Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition.position);

@@ -14,7 +14,8 @@ namespace Cursed.Character
 
         [SerializeField] private IntReference _maxHealth;
         [SerializeField] private FloatReference _invincibleTime;
-        [SerializeField] private FloatReference _freezeFrameKill;
+        [SerializeField] private FloatReference _zoomDuration;
+        [SerializeField] private FloatReference _slowMotionDuration;
         [SerializeField] private VibrationData_SO _takeDamageVibration;
         [SerializeField] private VibrationData_SO _divekickTouchVibration;
 
@@ -53,7 +54,7 @@ namespace Cursed.Character
             _move = GetComponent<CharacterMovement>();
         }
 
-        private void Start()
+        public virtual void Start()
         {
             _vfx = GetComponent<VfxHandler>();
             _sfx = GetComponent<SFXHandler>();
@@ -272,7 +273,7 @@ namespace Cursed.Character
 
         #region Death
 
-        private void Die()
+        public virtual void Die()
         {
             Debug.Log(gameObject.name + " is dead :(");
 
@@ -288,12 +289,27 @@ namespace Cursed.Character
                 _vfx.BloodExplosion(transform.position);
                 _vfx.AndroidPartExplosion(transform.position);
 
+                if (_zoomDuration != null)
+                {
+                    CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed);
+                    StartCoroutine(DoUnZoom(_zoomDuration.Value));
+                }
+
+                if (_slowMotionDuration != null)
+                {
+                    SlowMotion.Instance.Freeze(_slowMotionDuration);
+                }
+
                 Destroy(gameObject);
-                if (_freezeFrameKill != null)
-                    FreezeFrame.Instance.Freeze(_freezeFrameKill);
             }
 
             onDeath?.Raise();
+        }
+
+        private IEnumerator DoUnZoom(float _duration)
+        {
+            yield return new WaitForSecondsRealtime(_duration);
+            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed);
         }
 
         #endregion

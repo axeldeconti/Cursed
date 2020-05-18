@@ -2,6 +2,8 @@
 
 public class WinLooseManager : MonoBehaviour
 {
+    private GameManager _gameManager = null;
+
     [SerializeField] private GameObject _winScreen = null;
     [SerializeField] private GameObject _looseScreen = null;
 
@@ -9,6 +11,7 @@ public class WinLooseManager : MonoBehaviour
 
     private void Start()
     {
+        _gameManager = GameManager.Instance;
         _winScreen.SetActive(false);
         _looseScreen.SetActive(false);
     }
@@ -17,7 +20,10 @@ public class WinLooseManager : MonoBehaviour
 
     public void OnEnemyDeath()
     {
-        if(--_enemyCount <= 0)
+        if (_gameManager.CurrentLevelName == "Tuto" || _gameManager.CurrentLevelName == "Intro")
+            return;
+
+        if (--_enemyCount <= 0)
         {
             GameManager.Instance.State = GameManager.GameState.WinLoose;
             _winScreen.SetActive(true);
@@ -28,10 +34,20 @@ public class WinLooseManager : MonoBehaviour
     {
         GameManager.Instance.State = GameManager.GameState.WinLoose;
         _looseScreen.SetActive(true);
+        UpdateEnemyCountLose();
+    }
+
+    private void UpdateEnemyCountLose()
+    {
+        foreach (EnemyCountText text in GetComponentsInChildren<EnemyCountText>())
+            text.UpdateText();
     }
 
     public void Return()
     {
+        if (_gameManager.CurrentLevelName == "Tuto" || _gameManager.CurrentLevelName == "Intro")
+            _gameManager.UnloadLevel("Main");
+
         GameManager.Instance.LoadLevel("Main", true);
     }
 }

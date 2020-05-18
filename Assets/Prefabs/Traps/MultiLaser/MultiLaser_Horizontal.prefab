@@ -4779,6 +4779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470206079598661877}
   - component: {fileID: 6470206079598661878}
+  - component: {fileID: 3563569483424615605}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -4850,6 +4851,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &3563569483424615605
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470206079598661876}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00049066544, y: 0.04131879}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.32, y: 0.16}
+    newSize: {x: 0.32, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.348459, y: 0.1518467}
+  m_EdgeRadius: 0
 --- !u!1 &6470206079673675994
 GameObject:
   m_ObjectHideFlags: 0
@@ -9629,6 +9656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470206079932081217}
   - component: {fileID: 6470206079932081218}
+  - component: {fileID: 5564351684751235481}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -9700,6 +9728,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &5564351684751235481
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470206079932081216}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00049066544, y: 0.04131879}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.32, y: 0.16}
+    newSize: {x: 0.32, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.348459, y: 0.1518467}
+  m_EdgeRadius: 0
 --- !u!1 &6470206080042550795
 GameObject:
   m_ObjectHideFlags: 0
@@ -14751,8 +14805,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attack: {fileID: 11400000, guid: f5b192af562f9a2418ef8d46541624f7, type: 2}
   _laserType: 2
+  _knockBackForce: {x: 3, y: 40}
   _start: {fileID: 6470206079932081217}
   _end: {fileID: 6470206079598661877}
+  _groundParticles: {fileID: 0}
+  _laserParticles: {fileID: 0}
   _colliderSize:
     UseConstant: 1
     ConstantValue: 1.2

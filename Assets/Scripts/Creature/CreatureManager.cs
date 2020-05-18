@@ -77,6 +77,13 @@ namespace Cursed.Creature
 
         private void Update()
         {
+            #region GET PLAYER MOVEMENT
+
+            if(_characterMovement == null)
+                _characterMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
+
+            #endregion
+
             UpdateInput();
             CameraZoom();
 
@@ -119,7 +126,7 @@ namespace Cursed.Creature
                         _currentTimerBeforeZoom += Time.deltaTime;
                         if (_currentTimerBeforeZoom >= _timeBeforeZoom)
                         {
-                            CameraZoomController.Instance.Zoom(false);
+                            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomCreature, CameraZoomController.Instance._zoomOutCreatureSpeed);
                         }
                     }
                     else
@@ -135,7 +142,7 @@ namespace Cursed.Creature
         private void ResetZoom()
         {
             _currentTimerBeforeZoom = 0f;
-            CameraZoomController.Instance.Zoom(true);
+            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomInCreatureSpeed);
         }
 
         private void CheckDistanceFromPlayer()
@@ -247,6 +254,7 @@ namespace Cursed.Creature
                         _animator.SetBool("GoToCharacter", false);
                         _animator.SetBool("OnWall", false);
                         _animator.SetBool("Moving", true);
+                        _collision.CheckCreatureOnObject();
                         if (_refCreatureTrailEffect == null)
                             _refCreatureTrailEffect = _vfx.CreatureTrailParticle();
                         break;

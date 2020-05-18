@@ -4,59 +4,59 @@ using System.Collections;
 
 public class TextChanger : MonoBehaviour
 {
-    private TextMeshProUGUI _remainingAndroid;
-    private static int _numberOfEnemy;
-    private int _myNumberOfEnemy;
-    [SerializeField] private Material _myBaseShader;
-    [SerializeField] private float _changingShaderDuration = 1f;
-    [SerializeField] private Shader _shaderGlitch;
-    [SerializeField] private Shader _shaderTextMeshPro;
+/*        [SerializeField] private Material _myBaseShader;
+        [SerializeField] private Shader _shaderGlitch;
+        [SerializeField] private Shader _shaderTextMeshPro;
+
+
+        
+
+        IEnumerator TimerForSwitchShader()
+        {
+            _myBaseShader.shader = _shaderGlitch;
+            yield return new WaitForSeconds(_changingShaderDuration);
+            _myBaseShader.shader = _shaderTextMeshPro;        
+        }*/
+
+    public TMP_FontAsset FontAssetA;
+    public TMP_FontAsset FontAssetB;
+
+    public Material _shaderMat;
+    public Material _TMPMat;
+
+    private TMP_Text m_TextComponent;
+
+    [SerializeField] private float _changingShaderDuration = 0.5f;
+
 
     private void Awake()
     {
-        _remainingAndroid = GetComponent<TextMeshProUGUI>();
-        _numberOfEnemy = 0;
-        _myNumberOfEnemy = 0;
-    }
-
-    private void UpdateText()
-    {
-        _remainingAndroid.text = (_numberOfEnemy + 1).ToString();
-    }
-
-    public void AddEnemy()
-    {
-        if (_myNumberOfEnemy == _numberOfEnemy)
-        {
-            _numberOfEnemy++;
-            _myNumberOfEnemy++;
-        }
-        else
-        {
-            _myNumberOfEnemy = _numberOfEnemy;
-        }
-        UpdateText();
+        m_TextComponent = GetComponent<TMP_Text>();
     }
 
     public void OnEnemyDeath()
     {
-        if (_myNumberOfEnemy == _numberOfEnemy)
-        {
-            _numberOfEnemy--;
-            _myNumberOfEnemy--;
-        }
-        else
-        {
-            _myNumberOfEnemy = _numberOfEnemy;
-        }
         StartCoroutine(TimerForSwitchShader());
     }
 
+
     IEnumerator TimerForSwitchShader()
     {
-        _myBaseShader.shader = _shaderGlitch;
+        // Assign the new font asset.
+        m_TextComponent.font = FontAssetA;
+
+        // Use a different material preset which was derived from this font asset and created using the Create Material Preset Context Menu.
+        m_TextComponent.fontSharedMaterial = _shaderMat;
+
         yield return new WaitForSeconds(_changingShaderDuration);
-        UpdateText();
-        _myBaseShader.shader = _shaderTextMeshPro;        
+
+        m_TextComponent.font = FontAssetB;
+        m_TextComponent.fontSharedMaterial = _TMPMat;
     }
 }
+
+
+
+
+
+

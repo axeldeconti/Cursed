@@ -29,10 +29,10 @@ public class SFXHandler : MonoBehaviour
         #region Spatialized
         if (_laserBeam != null)
         {
-            if (_laserBeam._laserType == LaserType.laser)
+            if (_laserBeam._laserType == LaserType.Laser)
                 AkSoundEngine.PostEvent("Play_Laser", gameObject);
 
-            if (_laserBeam._laserType == LaserType.multilaserHorizontal || _laserBeam._laserType == LaserType.multiLaserVertical)
+            if (_laserBeam._laserType == LaserType.MultilaserHorizontal || _laserBeam._laserType == LaserType.MultiLaserVertical)
                 AkSoundEngine.PostEvent("Play_MultiLaser", gameObject);
         }
 

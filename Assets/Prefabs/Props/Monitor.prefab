@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1231328754203005794}
   - component: {fileID: 5394319594146422144}
   - component: {fileID: 811465851947450477}
-  - component: {fileID: 553407258}
   - component: {fileID: 553407259}
   - component: {fileID: 553407262}
+  - component: {fileID: 4317748934695804167}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -159,33 +159,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &553407258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3107577647042198351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: b79507f460c093541bbf931d0628676d, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 553407259}
-        m_MethodName: AddEnemy
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &553407259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,11 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c67a9e515975894ca29652842854c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _myBaseShader: {fileID: 4888874663065191303, guid: 95e460b022e661946a87d0e834564581,
-    type: 2}
+  FontAssetA: {fileID: 11400000, guid: 95e460b022e661946a87d0e834564581, type: 2}
+  FontAssetB: {fileID: 11400000, guid: 95e460b022e661946a87d0e834564581, type: 2}
+  _shaderMat: {fileID: 2100000, guid: 4407dc865a5a1a74e834fd53c14518f9, type: 2}
+  _TMPMat: {fileID: 4888874663065191303, guid: 95e460b022e661946a87d0e834564581, type: 2}
   _changingShaderDuration: 0.5
-  _shaderGlitch: {fileID: 4800000, guid: a8395e3d670a16a4b8c7b88f250a0b78, type: 3}
-  _shaderTextMeshPro: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
 --- !u!114 &553407262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +203,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4317748934695804167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3107577647042198351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cfe288376207143b26742e6c55abb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyCountType: 0
 --- !u!1 &3593868173074661677
 GameObject:
   m_ObjectHideFlags: 0

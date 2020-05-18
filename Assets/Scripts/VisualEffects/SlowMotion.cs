@@ -3,11 +3,13 @@ using UnityEngine;
 
 namespace Cursed.VisualEffect
 {
-    public class FreezeFrame : Singleton<FreezeFrame>
+    public class SlowMotion : Singleton<SlowMotion>
     {
         private bool _isFrozen = false;
         private bool _pendingFreeze = false;
         private float _currentFreezeTime;
+
+        [Range(0, 1)] public float _slowMotionPower;
 
         public void Freeze (FloatReference _freezeData)
         {
@@ -23,7 +25,7 @@ namespace Cursed.VisualEffect
         private IEnumerator DoFreeze (float _duration)
         {
             _isFrozen = true;
-            Time.timeScale = 0;
+            Time.timeScale = _slowMotionPower;
 
             yield return new WaitForSecondsRealtime (_duration);
 
