@@ -26,6 +26,7 @@ namespace AK
         static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
         static const AkUniqueID PLAY_BUTTON_SELECTED = 3882482286U;
         static const AkUniqueID PLAY_CREATURE_CALL = 1776683280U;
+        static const AkUniqueID PLAY_CREATURE_CAMERA = 446620581U;
         static const AkUniqueID PLAY_CREATURE_ENDDRAIN = 3331455763U;
         static const AkUniqueID PLAY_CREATURE_GRABBING = 3373431376U;
         static const AkUniqueID PLAY_CREATURE_HITWALL = 1251478039U;
@@ -40,6 +41,7 @@ namespace AK
         static const AkUniqueID PLAY_ELECTRICTRAP_INACTIVE = 1235386822U;
         static const AkUniqueID PLAY_ELECTRICTRAP_TRIGGERED = 3294792404U;
         static const AkUniqueID PLAY_END_WALLSLIDE = 2912867303U;
+        static const AkUniqueID PLAY_ENDLEVELDOOR = 2268596465U;
         static const AkUniqueID PLAY_ENEMY_DEATH = 3046156865U;
         static const AkUniqueID PLAY_ENEMY_FIRSTDAMAGE = 2563456942U;
         static const AkUniqueID PLAY_ENEMY_SECONDDAMAGE = 1471082706U;
@@ -53,8 +55,12 @@ namespace AK
         static const AkUniqueID PLAY_MULTILASER = 2996732270U;
         static const AkUniqueID PLAY_MUSIC_INGAME = 962944353U;
         static const AkUniqueID PLAY_MUSIC_MAINMENU = 1566693136U;
+        static const AkUniqueID PLAY_PAUSEMENU_OFF = 2956896607U;
+        static const AkUniqueID PLAY_PAUSEMENU_ON = 1184864651U;
         static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
+        static const AkUniqueID PLAY_PUZZLEDOOR_CLOSE = 3056885643U;
+        static const AkUniqueID PLAY_PUZZLEDOOR_OPEN = 973976397U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
         static const AkUniqueID PLAY_STATICNOISE = 1913495746U;
         static const AkUniqueID RESUMEALLSOUNDS = 3456043509U;

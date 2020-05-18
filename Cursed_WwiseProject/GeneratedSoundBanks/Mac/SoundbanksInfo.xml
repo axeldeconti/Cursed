@@ -38,6 +38,22 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2956896607" Name="Play_PauseMenu_Off" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_Off" DurationType="OneShot" DurationMin="0.240544" DurationMax="0.240544">
+					<IncludedMemoryFiles>
+						<File Id="898334294" Language="SFX">
+							<ShortName>SFX_PauseMenu_Off.wav</ShortName>
+							<Path>SFX\SFX_PauseMenu_Off_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1184864651" Name="Play_PauseMenu_On" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_On" DurationType="OneShot" DurationMin="0.198095" DurationMax="0.198095">
+					<IncludedMemoryFiles>
+						<File Id="543115641" Language="SFX">
+							<ShortName>SFX_PauseMenu_On.wav</ShortName>
+							<Path>SFX\SFX_PauseMenu_On_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="3456043509" Name="ResumeAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\ResumeAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 		</SoundBank>
@@ -46,27 +62,27 @@
 			<ShortName>Characters</ShortName>
 			<Path>Characters.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.449161" DurationMax="0.449161">
 					<IncludedMemoryFiles>
-						<File Id="390725724" Language="SFX">
-							<ShortName>Weapon_FirstSlice.wav</ShortName>
-							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						<File Id="986840092" Language="SFX">
+							<ShortName>SFX_Player_AxeFirstSlice.wav</ShortName>
+							<Path>SFX\SFX_Player_AxeFirstSlice_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="378405260" Name="Play_Attack_Axe_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_SecondSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+				<Event Id="378405260" Name="Play_Attack_Axe_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_SecondSlice" DurationType="OneShot" DurationMin="0.539546" DurationMax="0.539546">
 					<IncludedMemoryFiles>
-						<File Id="390725724" Language="SFX">
-							<ShortName>Weapon_FirstSlice.wav</ShortName>
-							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						<File Id="779863955" Language="SFX">
+							<ShortName>SFX_Player_AxeSecondSlice.wav</ShortName>
+							<Path>SFX\SFX_Player_AxeSecondSlice_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1892380385" Name="Play_Attack_Axe_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_ThirdSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320">
+				<Event Id="1892380385" Name="Play_Attack_Axe_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_ThirdSlice" DurationType="OneShot" DurationMin="0.522585" DurationMax="0.522585">
 					<IncludedMemoryFiles>
-						<File Id="390725724" Language="SFX">
-							<ShortName>Weapon_FirstSlice.wav</ShortName>
-							<Path>SFX\Weapon_FirstSlice_10C4C929.wem</Path>
+						<File Id="547091505" Language="SFX">
+							<ShortName>SFX_Player_AxeThirdSlice.wav</ShortName>
+							<Path>SFX\SFX_Player_AxeThirdSlice_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -285,11 +301,19 @@
 			<ShortName>Creature</ShortName>
 			<Path>Creature.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1776683280" Name="Play_Creature_Call" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Call" DurationType="OneShot" DurationMin="0.291701" DurationMax="0.291701">
+				<Event Id="1776683280" Name="Play_Creature_Call" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Call" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873">
 					<IncludedMemoryFiles>
-						<File Id="352268105" Language="SFX">
-							<ShortName>Creature\Creature_Call.wav</ShortName>
-							<Path>SFX\Creature\Creature_Call_10C4C929.wem</Path>
+						<File Id="327802423" Language="SFX">
+							<ShortName>SFX_Creature_EndDrain.wav</ShortName>
+							<Path>SFX\SFX_Creature_EndDrain_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="446620581" Name="Play_Creature_Camera" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Camera" DurationType="OneShot" DurationMin="0.959592" DurationMax="0.959592">
+					<IncludedMemoryFiles>
+						<File Id="703791471" Language="SFX">
+							<ShortName>SFX_Creature_Camera.wav</ShortName>
+							<Path>SFX\SFX_Creature_Camera_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -417,6 +441,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2268596465" Name="Play_EndLevelDoor" ObjectPath="\Events\Default Work Unit\Spatial\Play_EndLevelDoor" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="1.056508" DurationMax="1.056508">
+					<IncludedMemoryFiles>
+						<File Id="207810947" Language="SFX">
+							<ShortName>SFX_EndLevelDoor.wav</ShortName>
+							<Path>SFX\SFX_EndLevelDoor_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" MaxAttenuation="45.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="738182096" Language="SFX">
@@ -446,6 +478,22 @@
 						<File Id="738182096" Language="SFX">
 							<ShortName>Laser.wav</ShortName>
 							<Path>SFX\Laser_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3056885643" Name="Play_PuzzleDoor_Close" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Close" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.734331" DurationMax="0.734331">
+					<IncludedMemoryFiles>
+						<File Id="1000476603" Language="SFX">
+							<ShortName>SFX_PuzzleDoor_Close.wav</ShortName>
+							<Path>SFX\SFX_PuzzleDoor_Close_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="973976397" Name="Play_PuzzleDoor_Open" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Open" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.413605" DurationMax="0.413605">
+					<IncludedMemoryFiles>
+						<File Id="703962044" Language="SFX">
+							<ShortName>SFX_PuzzleDoor_Open.wav</ShortName>
+							<Path>SFX\SFX_PuzzleDoor_Open_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
