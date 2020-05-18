@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 563207110752459398}
   - component: {fileID: 563207110752459399}
   - component: {fileID: 563207110752459448}
+  - component: {fileID: 3073232302221775626}
+  - component: {fileID: 2194949591034473434}
   m_Layer: 0
   m_Name: Props_Cuve_Android
   m_TagString: Untagged
@@ -102,3 +104,44 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3073232302221775626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563207110752459449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d6ae91183118f4684a41a8fcbbe5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _normalCuve: {fileID: 9100000, guid: 9884f679189e8d84b840394ff6371406, type: 2}
+  _brokenCuve: {fileID: 9100000, guid: 4a3b4d051828cc74581dc432ec2e43ab, type: 2}
+--- !u!114 &2194949591034473434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563207110752459449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94daa22747162a74ca66507461e0911e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 316284405f2175f418850ecabcb8af38, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3073232302221775626}
+        m_MethodName: CheckScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

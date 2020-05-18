@@ -12,7 +12,7 @@ namespace Cursed.Managers
         public static int FPS = 0;
 
         [SerializeField] GameObject[] _systemPrefabs = null;
-        [SerializeField] private VoidEvent _loadingLevel;
+        [SerializeField] private VoidEvent _levelLoaded;
         private List<GameObject> _instancedSystemPrefabs = null;
 
         private string _currentLevelName = string.Empty;
@@ -68,7 +68,6 @@ namespace Cursed.Managers
 
         public void LoadLevel(string levelName, bool unloadAll)
         {
-            _loadingLevel.Raise();
 
             AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 
@@ -98,6 +97,7 @@ namespace Cursed.Managers
             Debug.Log("[GameManager] Load complete");
             State = GameState.InGame;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
+            _levelLoaded.Raise();
         }
 
         private void UnloadAll(UnloadInfo info)
