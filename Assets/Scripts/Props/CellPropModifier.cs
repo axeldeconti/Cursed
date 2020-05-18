@@ -17,7 +17,7 @@ namespace Cursed.Props
 
         private void Awake()
         {
-            _isActivated = false;
+            _isActivated = true;
         }
 
         private void Start()
