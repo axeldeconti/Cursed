@@ -33,7 +33,7 @@ namespace Cursed.Utilities
 
         private void Start()
         {
-            _initialZoom = _camera.m_Lens.FieldOfView;
+            _initialZoom = 115f;
         }
 
         private void Update()
