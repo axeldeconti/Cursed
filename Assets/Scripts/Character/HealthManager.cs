@@ -287,8 +287,8 @@ namespace Cursed.Character
 
                 if (_zoomDuration != null)
                 {
-                    CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed);
-                    StartCoroutine(DoUnZoom(_zoomDuration.Value));
+                    CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed, true);
+                    CameraZoomController.Instance.CallWaitForZoom(_zoomDuration.Value, CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed, true);
                 }
 
                 if (_slowMotionDuration != null)
@@ -300,12 +300,6 @@ namespace Cursed.Character
             }
 
             onDeath?.Raise();
-        }
-
-        private IEnumerator DoUnZoom(float _duration)
-        {
-            yield return new WaitForSecondsRealtime(_duration);
-            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed);
         }
 
         #endregion
