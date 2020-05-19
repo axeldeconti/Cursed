@@ -10,8 +10,11 @@
 
         protected override void Awake()
         {
+            base.Awake();
+
             _numberOfEnemy = 0;
             _myNumberOfEnemy = _numberOfEnemy;
+
         }
 
         public int GetEnemyCount(CountType type)
