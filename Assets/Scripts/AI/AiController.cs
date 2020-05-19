@@ -292,7 +292,7 @@ namespace Cursed.AI
 
         private void OnDrawGizmos()
         {
-            if (!_debugDraws)
+            if (!_debugDraws || _move == null)
                 return;
 
             switch (_state)
@@ -301,6 +301,7 @@ namespace Cursed.AI
                     break;
                 case AIState.GroundPatrol:
                     Gizmos.color = Color.red;
+                    int i = _move.Side;
                     Vector3 pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
                     Gizmos.DrawLine(pos, pos + Vector3.right * _move.Side * _aggroRange);
                     break;
