@@ -10,12 +10,14 @@ namespace Cursed.AI
         private PathfindingAgent _pathAgent = null;
         private CollisionHandler _col = null;
         private CharacterMovement _move = null;
+        private CharacterAttackManager _atk = null;
 
         [SerializeField] private AIState _state = AIState.GroundPatrol;
         [SerializeField] private AiTarget _target = null;
 
         [Header("Data")]
         [SerializeField] private FloatReference _aggroRange = null;
+        [SerializeField] private FloatReference _attackRange = null;
         [SerializeField] private FloatReference _timeToChangePlatformTarget = null;
 
         [Header("Debug")]
@@ -35,6 +37,7 @@ namespace Cursed.AI
             _pathAgent = GetComponent<PathfindingAgent>();
             _col = GetComponent<CollisionHandler>();
             _move = GetComponent<CharacterMovement>();
+            _atk = GetComponent<CharacterAttackManager>();
 
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
@@ -128,7 +131,7 @@ namespace Cursed.AI
                     _pathAgent.AiMovement(ref data);
                     break;
                 case AIState.Attack:
-                    AttackOnRange();
+                    AttackOnRange(ref data);
                     break;
                 default:
                     break;
@@ -186,12 +189,12 @@ namespace Cursed.AI
         #region Chase
         private void Chase()
         {
-            if (!TargetInRange(30f, false))
+            if (!TargetInRange(_aggroRange, false))
             {
                 State = AIState.GroundPatrol;
                 return;
             }
-            if (TargetInRange(5f, true))
+            if (TargetInRange(_attackRange, true))
             {
                 State = AIState.Attack;
                 return;
@@ -205,16 +208,42 @@ namespace Cursed.AI
         #endregion
 
         #region Attack
-        private void AttackOnRange()
+        private void AttackOnRange(ref AIData data)
         {
-            if (!TargetInRange(5f, true)) //Change boolean to true for OnSight aggro / 1f-5f
+            if (!TargetInRange(_attackRange, true))
             {
                 State = AIState.Chase;
                 return;
             }
-            //Insert attack behavior
+
+            if (_atk.IsAttacking)
+            {
+                //Is attacking
+            }
+            else
+            {
+                //Is not attacking, go attack
+                int nb = ChooseAttack();
+
+                if (nb == 1)
+                    data.attack1 = true;
+                else
+                    data.attack2 = true;
+            }
         }
 
+        /// <summary>
+        /// Choose a weapon to attack with
+        /// </summary>
+        /// <returns>Number of the choosen weapon</returns>
+        private int ChooseAttack()
+        {
+            int nb = 0;
+
+            nb = Random.Range(0, 100) <= 50 ? 1 : 2;
+
+            return nb;
+        }
         #endregion
 
         /// <summary>
@@ -295,17 +324,28 @@ namespace Cursed.AI
             if (!_debugDraws || _move == null)
                 return;
 
+            Vector3 pos = Vector3.zero;
+
             switch (_state)
             {
                 case AIState.None:
                     break;
                 case AIState.GroundPatrol:
+                    pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+
                     Gizmos.color = Color.red;
-                    int i = _move.Side;
-                    Vector3 pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
                     Gizmos.DrawLine(pos, pos + Vector3.right * _move.Side * _aggroRange);
                     break;
                 case AIState.Chase:
+                    pos = transform.position + Vector3.up * 2;
+                    Vector3 dir = (_target.Position - pos).normalized;
+                    Vector3 aggroRangePos = pos + dir * _aggroRange;
+                    Vector3 attackRangePos = pos + dir * _attackRange;
+
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(pos, aggroRangePos);
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(pos, attackRangePos);
                     break;
                 case AIState.Attack:
                     break;
