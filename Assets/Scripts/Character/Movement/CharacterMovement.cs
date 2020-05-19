@@ -804,16 +804,16 @@ namespace Cursed.Character
         }
 
         /// <summary>
-        /// Used when dash cancel with attack to attack in the right direction
+        /// Used when attacking to attack in the right direction
         /// </summary>
-        private void ForceFlip(float x)
+        public void ForceFlip(float x)
         {
-            if (x > .1f)
+            if (x > .1f && _side < 0)
             {
                 _side = 1;
                 _anim.Flip(_side);
             }
-            if (x < -.1f)
+            if (x < -.1f && _side > 0)
             {
                 _side = -1;
                 _anim.Flip(_side);

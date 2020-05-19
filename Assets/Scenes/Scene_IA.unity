@@ -976,6 +976,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &561381354
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1498573965}
+    m_Modifications:
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074502433782940207, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+        type: 3}
+      propertyPath: m_Name
+      value: VibrationManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5c6ecd0d282d09e46bbeff946e2747e7, type: 3}
+--- !u!4 &561381355 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4124318691559368755, guid: 5c6ecd0d282d09e46bbeff946e2747e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 561381354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &834075991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1715,7 @@ Transform:
   - {fileID: 1816956622}
   - {fileID: 1663888080}
   - {fileID: 1842157583}
+  - {fileID: 561381355}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2529,7 +2605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2049733373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.43, y: -4.42, z: 3.7}
+  m_LocalPosition: {x: -5, y: -4.42, z: 3.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2545,12 +2621,12 @@ PrefabInstance:
     - target: {fileID: 275295404780806690, guid: 39cc6f3b7d7baa747996960059627610,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.91
+      value: -29.59
       objectReference: {fileID: 0}
     - target: {fileID: 275295404780806690, guid: 39cc6f3b7d7baa747996960059627610,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.77
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 275295404780806690, guid: 39cc6f3b7d7baa747996960059627610,
         type: 3}
@@ -2601,51 +2677,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: patrolFollowAI_test
-      objectReference: {fileID: 0}
-    - target: {fileID: 275295404781019534, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 502983778585291273, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: _debugBool
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7148813450785064788, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: _debugDraws
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351062123240793123, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_FalloffIntensity
-      value: 0.935
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351062123240793123, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351062123240793123, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.86225843
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351062123240793123, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 2.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351062123240793123, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_LightVolumeOpacity
-      value: 0.246
-      objectReference: {fileID: 0}
-    - target: {fileID: 8351062123240793123, guid: 39cc6f3b7d7baa747996960059627610,
-        type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 1.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39cc6f3b7d7baa747996960059627610, type: 3}

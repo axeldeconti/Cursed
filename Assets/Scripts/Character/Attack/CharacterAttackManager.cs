@@ -1,6 +1,8 @@
-﻿using Cursed.Combat;
+﻿using Cursed.AI;
+using Cursed.Combat;
 using Cursed.VisualEffect;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cursed.Character
@@ -24,6 +26,7 @@ namespace Cursed.Character
 
         [SerializeField] private AttackDefinition _divekickAttack = null;
         [SerializeField] private FloatReference _timeAfterCombo = null;
+        [SerializeField] private FloatReference _forceFlipThreshold = null;
 
         private bool _isAttacking = false;
         private bool _isDiveKicking = false;
@@ -155,6 +158,7 @@ namespace Cursed.Character
                     _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
                 }
             }
+
             //Vibration
             if (Combo != 3)
                 _onContrVibration?.Raise(weapon.ClassicVibration);
@@ -196,6 +200,55 @@ namespace Cursed.Character
             }
 
             EndAttack();
+        }
+
+        /// <summary>
+        /// Check if the character needs to flip to attack the right target
+        /// </summary>
+        /// <param name="x">X input</param>
+        public void CheckForFlipWhenAttack(float x)
+        {
+            //If a direction is inputed, force flip in this direction
+            if(x > _forceFlipThreshold)
+            {
+                _move.ForceFlip(x);
+                return;
+            }
+
+            RaycastHit2D[] allColliders = Physics2D.CircleCastAll((Vector2)transform.position + Vector2.up * 2, 10, Vector2.zero);
+
+            if (allColliders.Length == 0)
+                return;
+
+            List<AiTarget> targets = new List<AiTarget>();
+            AiTarget target = null;
+
+            //Get all targets
+            foreach (RaycastHit2D hit in allColliders)
+            {
+                target = hit.transform.GetComponent<AiTarget>();
+                if (target && target.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                    targets.Add(target);
+            }
+
+            if (targets.Count == 0)
+                return;
+
+            float dist = float.MaxValue;
+            float currentDist = 0;
+
+            //Get closest target
+            foreach (AiTarget t in targets)
+            {
+                currentDist = Vector3.Distance(transform.position, t.Position);
+                if (currentDist < dist)
+                {
+                    dist = currentDist;
+                    target = t;
+                }
+            }
+
+            _move.ForceFlip(target.Position.x - transform.position.x);
         }
 
         /// <summary>
@@ -269,12 +322,13 @@ namespace Cursed.Character
             return CurrentWeapon.VfxCombo3;
         }
 
-        #region GETTERS & SETTERS
+        #region Getters & Setters
 
         public bool IsAttacking => _isAttacking;
         public bool IsDiveKicking => _isDiveKicking;
         public Weapon CurrentWeapon => _weaponInv.GetWeapon(_weaponNb);
         public int Combo => _combo;
+        public bool CanICombo => _canCombo;
         public bool AttacksUnlock
         {
             get => _attacksUnlock;
