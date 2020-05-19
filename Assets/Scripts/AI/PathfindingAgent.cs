@@ -1,7 +1,6 @@
 ﻿using Cursed.Character;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace Cursed.AI
@@ -16,18 +15,8 @@ namespace Cursed.AI
         /// <summary>
         /// Target to follow and chase
         /// </summary>
-        [SerializeField] private Transform _target;
+        [SerializeField] private Vector3 _target;
         [SerializeField] private JumpData _normalJump = null;
-
-        [Header("Debug")]
-        /// <summary>
-        /// If follow target is this distance away, we start following
-        /// </summary>
-        [SerializeField] private float _followDistance = 0.5f;
-        [SerializeField] private bool _debugBool = false; /*Very expensive if multiple characters have this enabled*/
-        [SerializeField] private bool _drawPath = false; /*Very expensive if multiple characters have this enabled*/
-        [SerializeField] private Color _drawColor = Color.red;
-        [SerializeField] private bool _endDrawComplete = true;
 
         /// <summary>
         /// Ensures starting position is grounded at the correct location.
@@ -77,6 +66,16 @@ namespace Cursed.AI
         private float _fFollowPathTimer;
         [SerializeField] private float pathFailTimer = 0.25f;
         private float _fPathFailTimer;
+
+        [Header("Debug")]
+        /// <summary>
+        /// If follow target is this distance away, we start following
+        /// </summary>
+        [SerializeField] private float _followDistance = 0.5f;
+        [SerializeField] private bool _debugLogs = false;
+        [SerializeField] private bool _drawPath = false;
+        [SerializeField] private Color _drawColor = Color.red;
+        [SerializeField] private bool _endDrawComplete = true;
 
         //AI
         [System.NonSerialized]
@@ -128,7 +127,7 @@ namespace Cursed.AI
                     pathCompleted = false;
                     _stopPathing = false;
 
-                    if (!_target)
+                    if (_target == null)
                         _hasLastOrder = true;
 
                     _newPathAttemptCount = 0;
@@ -176,21 +175,22 @@ namespace Cursed.AI
             //Requesting new path timers
 
             //Update Follow/Chase Path
-            if (_target)
+            if (_target != null)
             {
                 _fFollowPathTimer -= Time.deltaTime;
                 if (_fFollowPathTimer <= 0f)
                 {
                     _fFollowPathTimer = followPathTimer;
                     //If need a new path (target not close to last order || no orders)
-                    if ((_currentOrders != null && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, _target.transform.position) > _followDistance)
+                    if ((_currentOrders != null && _currentOrders.Count > 0 && Vector3.Distance(_currentOrders[_currentOrders.Count - 1].pos, _target) > _followDistance)
                             || _currentOrders == null || _currentOrders.Count == 0)
                     {
                         //If not close enough from target
-                        if (Vector3.Distance(transform.position, _target.transform.position) > _followDistance + 0.18f)
+                        if (Vector3.Distance(transform.position, _target) > _followDistance + 0.18f)
                             _pathIsDirty = true;
 
-                        Log("Not close enough to target");
+                        if(_debugLogs)
+                            Log("Not close enough to target");
                     }
                 }
             }
@@ -221,7 +221,7 @@ namespace Cursed.AI
                                 Log("Tried enough times");
                             }
                         }
-                        else 
+                        else
                             _failAttemptCount = 0;
 
                         _oldDistance = newDistance;
@@ -233,21 +233,21 @@ namespace Cursed.AI
             if (_pathIsDirty)
             {
                 _pathIsDirty = false;
-                if (_target && _aiController.State == AIState.Chase)
+                if (_target != null && _aiController.State == AIState.Chase)
                     RequestPath(_target);
                 else if (_hasLastOrder && _aiController.State == AIState.GroundPatrol)
                     RequestPath(_lastOrder);
                 else
                     OnPathDirty?.Invoke();
 
-                if (_debugBool)
+                if (_debugLogs)
                     Log("Path is dirty");
             }
         }
 
         public void CancelPathing()
         {
-            if (_debugBool)
+            if (_debugLogs)
                 Log("path canceled");
 
             if (_endDrawComplete && _pathLineRenderer)
@@ -264,7 +264,7 @@ namespace Cursed.AI
         /// </summary>
         private void PathStarted()
         {
-            if (_debugBool)
+            if (_debugLogs)
                 Log("Path started");
 
             if (_drawPath)
@@ -294,7 +294,7 @@ namespace Cursed.AI
         {
             OnPathCompleted.Invoke();
 
-            if (_debugBool)
+            if (_debugLogs)
                 Log("Path completed");
 
             if (!_drawPath && _pathLineRenderer)
@@ -308,7 +308,7 @@ namespace Cursed.AI
         /// </summary>
         private void PathNotFound()
         {
-            if (_debugBool)
+            if (_debugLogs)
                 Log("Path not found");
 
             _newPathAttemptCount++;
@@ -316,7 +316,7 @@ namespace Cursed.AI
             {
                 CancelPathing();
 
-                if (_debugBool)
+                if (_debugLogs)
                     Log("Newpath attempt limit reached. cancelling path.");
             }
         }
@@ -342,7 +342,8 @@ namespace Cursed.AI
             if (_col.OnGround)
             {
                 _useStored = false;
-                if (_debugBool)
+
+                if (_debugLogs)
                     Log("Requesting path vector");
 
                 _lastOrder = pathVector;
@@ -363,23 +364,11 @@ namespace Cursed.AI
         /// Request path towards a target and set it as the current target
         /// </summary>
         /// <param name="target">Target</param>
-        public void RequestPath(Transform target)
+        public void RequestPath(AiTarget target)
         {
-            _target = target;
+            _target = target.Position;
 
-            RequestPath(target.position);
-
-            //if (_col.OnGround)
-            //{
-            //    if (debugBool)
-            //        Log("Requesting path target");
-
-            //    _pathfindingMgr.RequestPathInstructions(this, _target.transform.position, 20f //JumpHeight
-            //        , true //Same as RequestPath(Vector3 pathVector)
-            //        , true
-            //        , true
-            //        );
-            //}
+            RequestPath(target.Position);
         }
 
         /// <summary>
@@ -432,9 +421,9 @@ namespace Cursed.AI
                 }
 
                 //Prevent overshooting jumps and moving backwards & overcorrecting
-                if (_orderNum - 1 > 0 
-                    && (_currentOrders[_orderNum - 1].order.Equals(OrderType.Jump) || _currentOrders[_orderNum - 1].order.Equals(OrderType.Fall)) 
-                    && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x 
+                if (_orderNum - 1 > 0
+                    && (_currentOrders[_orderNum - 1].order.Equals(OrderType.Jump) || _currentOrders[_orderNum - 1].order.Equals(OrderType.Fall))
+                    && transform.position.x + 0.18f > _currentOrders[_orderNum].pos.x
                     && transform.position.x - pointAccuracy < _currentOrders[_orderNum].pos.x)
                 {
                     //velocity.x = 0f;
@@ -512,11 +501,10 @@ namespace Cursed.AI
 
         private void OnDrawGizmos()
         {
-            if (_currentOrders != null && !pathCompleted && _debugBool)
+            if (_currentOrders != null && !pathCompleted && _debugLogs)
             {
                 for (int i = 0; i < _currentOrders.Count; i++)
                 {
-
                     if (i == _orderNum)
                     {
                         Gizmos.color = Color.cyan;
@@ -563,7 +551,7 @@ namespace Cursed.AI
 
         #region Getters & Setters
 
-        public Transform Target
+        public Vector3 Target
         {
             get => _target;
             set => _target = value;

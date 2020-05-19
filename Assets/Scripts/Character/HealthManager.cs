@@ -38,8 +38,6 @@ namespace Cursed.Character
         private SFXHandler _sfx = null;
         private InvincibilityAnimation _invAnim;
 
-        public Action<int> onEnemyHealthUpdate;
-
         [Space]
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeCombo3 = null;
@@ -181,7 +179,7 @@ namespace Cursed.Character
             }
         }
 
-        public void UpdateCurrentHealth(int health)
+        public virtual void UpdateCurrentHealth(int health)
         {
             //Check if dead or not
             if (health <= 0)
@@ -195,8 +193,6 @@ namespace Cursed.Character
 
                 _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
                 onHealthUpdate?.Raise(_currentHealth);
-                onEnemyHealthUpdate?.Invoke(_currentHealth);
-
             }
         }
 

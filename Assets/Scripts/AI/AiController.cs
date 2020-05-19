@@ -1,5 +1,4 @@
 ﻿using Cursed.Character;
-using System.Collections;
 using UnityEngine;
 
 namespace Cursed.AI
@@ -10,14 +9,19 @@ namespace Cursed.AI
 
         private PathfindingAgent _pathAgent = null;
         private CollisionHandler _col = null;
+        private CharacterMovement _move = null;
 
         [SerializeField] private AIState _state = AIState.GroundPatrol;
+        [SerializeField] private AiTarget _target = null;
 
         [Header("Data")]
         [SerializeField] private FloatReference _aggroRange = null;
         [SerializeField] private FloatReference _timeToChangePlatformTarget = null;
 
-        private Transform _target = null;
+        [Header("Debug")]
+        [SerializeField] private bool _debugLogs = false;
+        [SerializeField] private bool _debugDraws = false;
+
         private bool _isMoving = false;
         private int _nbOfDirties = 0;
 
@@ -30,6 +34,7 @@ namespace Cursed.AI
         {
             _pathAgent = GetComponent<PathfindingAgent>();
             _col = GetComponent<CollisionHandler>();
+            _move = GetComponent<CharacterMovement>();
 
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
@@ -54,13 +59,15 @@ namespace Cursed.AI
         }
 
         /// <summary>
-        /// Check player distance with a check on line of sight
+        /// Check target distance with a check on line of sight
         /// </summary>
-        private bool PlayerInRange(float range, bool raycastOn)
+        private bool TargetInRange(float range, bool raycastOn)
         {
-            if (_target && Vector3.Distance(_target.transform.position, transform.position) < range)
+            if (_target && Vector3.Distance(_target.Position, transform.position) < range)
             {
-                if (raycastOn && !Physics2D.Linecast(transform.position, _target.transform.position, _pathfindingMgr.GroundLayer))
+                //Transform at character's feet so up the position a bit
+                Vector3 pos = transform.position + Vector3.up * 2;
+                if (raycastOn && !Physics2D.Linecast(pos, _target.Position, _pathfindingMgr.GroundLayer))
                 {
                     return true;
                 }
@@ -69,7 +76,20 @@ namespace Cursed.AI
                     return true;
                 }
             }
+
             return false;
+        }
+
+        /// <summary>
+        /// Create a raycast in front of the AI and returns the result
+        /// </summary>
+        /// <param name="distance">Distance of the raycast</param>
+        /// <returns></returns>
+        private RaycastHit2D RaycastInFront(float distance)
+        {
+            //Transform at character's feet so up the position a bit
+            Vector3 pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+            return Physics2D.Linecast(pos, pos + Vector3.right * _move.Side * distance);
         }
 
         /// <summary>
@@ -118,18 +138,29 @@ namespace Cursed.AI
         #region Ground Patrol
         private void GroundPatrol(ref AIData data)
         {
+            //Check for a target if I have none
+            if (!_target)
+            {
+                RaycastHit2D hit = RaycastInFront(_aggroRange);
+                if (hit)
+                {
+                    //Set target to the AiTarget if one is hit
+                    _target = hit.collider.GetComponent<AiTarget>();
+                }
+            }
+
             //Switch to chase if player in range
-            if (PlayerInRange(_aggroRange, true))
+            if (TargetInRange(_aggroRange, true))
             {
                 State = AIState.Chase;
                 return;
             }
 
-            if(!_isMoving)
+            if (!_isMoving)
                 _currentTimeToChangePlatformTarget -= Time.deltaTime;
 
             //It's time to change target
-            if(_currentTimeToChangePlatformTarget <= 0)
+            if (_currentTimeToChangePlatformTarget <= 0)
             {
                 //Change target
                 FindRandomPathTarget();
@@ -146,8 +177,8 @@ namespace Cursed.AI
         /// </summary>
         private void FindRandomPathTarget()
         {
-            _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform;
-            _pathAgent.RequestPath(_pathAgent.Target.transform.position + new Vector3(0, 1, 0));
+            _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform.position;
+            _pathAgent.RequestPath(_pathAgent.Target + new Vector3(0, 1, 0));
         }
 
         #endregion
@@ -155,19 +186,20 @@ namespace Cursed.AI
         #region Chase
         private void Chase()
         {
-            if (!PlayerInRange(30f, false)) //Change boolean to true for OnSight aggro / 6f-30f
+            if (!TargetInRange(30f, false))
             {
                 State = AIState.GroundPatrol;
                 return;
             }
-            if (PlayerInRange(5f, true)) //Change boolean to true for OnSight aggro / 1f-5f
+            if (TargetInRange(5f, true))
             {
                 State = AIState.Attack;
                 return;
             }
 
-            _pathAgent.Target = _target;
-            State = AIState.Chase;
+            int side = _target.Position.x > transform.position.x ? -1 : 1;
+            _pathAgent.Target = _target.Position;
+            _pathAgent.Target = _pathAgent.Target + Vector3.right * side * 4;
         }
 
         #endregion
@@ -175,7 +207,7 @@ namespace Cursed.AI
         #region Attack
         private void AttackOnRange()
         {
-            if (!PlayerInRange(5f, true)) //Change boolean to true for OnSight aggro / 1f-5f
+            if (!TargetInRange(5f, true)) //Change boolean to true for OnSight aggro / 1f-5f
             {
                 State = AIState.Chase;
                 return;
@@ -191,6 +223,7 @@ namespace Cursed.AI
         private void OnPathCompleted()
         {
             _isMoving = false;
+            _nbOfDirties = 0;
 
             switch (_state)
             {
@@ -214,7 +247,7 @@ namespace Cursed.AI
         {
             _nbOfDirties++;
 
-            if(_nbOfDirties > 20)
+            if (_nbOfDirties > 20)
             {
                 FindRandomPathTarget();
                 _nbOfDirties = 0;
@@ -238,6 +271,11 @@ namespace Cursed.AI
             }
         }
 
+        private void Log(string log)
+        {
+            Debug.Log("[AIC] : " + log);
+        }
+
         #region Getters & Setters
 
         public AIState State
@@ -251,6 +289,29 @@ namespace Cursed.AI
         }
 
         #endregion
+
+        private void OnDrawGizmos()
+        {
+            if (!_debugDraws)
+                return;
+
+            switch (_state)
+            {
+                case AIState.None:
+                    break;
+                case AIState.GroundPatrol:
+                    Gizmos.color = Color.red;
+                    Vector3 pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+                    Gizmos.DrawLine(pos, pos + Vector3.right * _move.Side * _aggroRange);
+                    break;
+                case AIState.Chase:
+                    break;
+                case AIState.Attack:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public enum AIState { None, GroundPatrol, Chase, Attack }
