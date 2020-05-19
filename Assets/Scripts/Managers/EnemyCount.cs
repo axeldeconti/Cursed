@@ -8,7 +8,7 @@
 
         public event System.Action enemyCountUpdate;
 
-        private void Start()
+        protected override void Awake()
         {
             _numberOfEnemy = 0;
             _myNumberOfEnemy = _numberOfEnemy;
