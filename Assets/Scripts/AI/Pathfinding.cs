@@ -9,7 +9,7 @@ namespace Cursed.AI
     {
         [SerializeField] private LayerMask _groundLayer;
 
-        public GameObject _currentMap;
+        [SerializeField] private GameObject _currentMap;
 
         /// <summary>
         /// Each block is square. This should probably match your square 2dCollider on a tile.
@@ -62,6 +62,7 @@ namespace Cursed.AI
         /// Pauses game on runtime and displays pathnode connections
         /// </summary>
         [SerializeField] private bool _debugTools = false;
+        [SerializeField] private bool _debugLogs = false;
 
         private void Start()
         {
@@ -165,9 +166,12 @@ namespace Cursed.AI
                 a.instr = instr;
                 _readyOrders.Add(a);
 
-                string sn = startNode == null ? "null" : startNode.ToString();
-                string en = endNode == null ? "null" : endNode.ToString();
-                Log("Path canceled : start node = " + sn + " | end node = " + en + " | can move = " + a.canMove);
+                if (_debugLogs)
+                {
+                    string sn = startNode == null ? "null" : startNode.ToString();
+                    string en = endNode == null ? "null" : endNode.ToString();
+                    Log("Path canceled : start node = " + sn + " | end node = " + en + " | can move = " + a.canMove);
+                }
                 return;
             }
 
@@ -241,7 +245,7 @@ namespace Cursed.AI
             //Makes sure the path doesn't have a loop or something wrong and can return to the start or to a node without parent
             for (int i = 0; i < 1000; i++)
             {
-                if (i > 800)
+                if (i > 800 && _debugLogs)
                     Log("Something's wrong");
 
                 pathNodes.Add(currentNode);
@@ -264,8 +268,6 @@ namespace Cursed.AI
             else
                 a.passed = true;
 
-            Log("pathNode[0] : " + pathNodes[0].pos + " | endNode : " + endNode.pos + " | passed : " + a.passed);
-
             //Reverse the pathNodes list to start at the begining
             pathNodes.Reverse();
 
@@ -279,7 +281,8 @@ namespace Cursed.AI
             a.instr = instr;
             _readyOrders.Add(a);
 
-            Log("Path found");
+            if(_debugLogs)
+                Log("Path found");
         }
 
         public void DeliverPathfindingInstructions()

@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 5257384259050955424}
   - component: {fileID: 4899068109193366447}
   - component: {fileID: 330731327431944237}
+  - component: {fileID: 6443285607939143391}
   m_Layer: 0
   m_Name: patrolFollowAI_test
   m_TagString: Untagged
@@ -97,15 +98,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bea418f815d36848937c4d85262f744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  _target: {x: 0, y: 0, z: 0}
   _normalJump: {fileID: 11400000, guid: fc3e26308e6583a48b7890b1249a9e24, type: 2}
+  followPathTimer: 0.5
+  pathFailTimer: 0.25
   _followDistance: 0.5
-  _debugBool: 0
+  _debugLogs: 0
   _drawPath: 1
   _drawColor: {r: 1, g: 0, b: 0, a: 1}
   _endDrawComplete: 1
-  followPathTimer: 0.5
-  pathFailTimer: 0.25
 --- !u!114 &7148813450785064788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 1
+  _target: {fileID: 0}
   _aggroRange:
     UseConstant: 0
     ConstantValue: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 86a65608391953e4a9c51cfa9a81d30a, type: 2}
+  _debugLogs: 0
+  _debugDraws: 0
 --- !u!114 &2987228160341031770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +151,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 795e928226313924b844f42dd6d841f9, type: 2}
+  _jumpTimeForceInput:
+    UseConstant: 0
+    ConstantValue: 1
+    Variable: {fileID: 11400000, guid: d6340ac09bda8a949880deca7099c373, type: 2}
 --- !u!114 &8239339684578294684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,9 +260,9 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 02c31bfef828c414ca58cc3c00c69f65, type: 2}
   _freezeFrameKill:
-    UseConstant: 0
+    UseConstant: 1
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 3bd9c869979bc854b8863bae69dcafff, type: 2}
+    Variable: {fileID: 0}
   _takeDamageVibration: {fileID: 11400000, guid: dcb66c20196f42640b21d0a3479e9419,
     type: 2}
   _divekickTouchVibration: {fileID: 11400000, guid: 19e82ce1ca73db2449e33afaf03621ba,
@@ -521,6 +529,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f395b4231886f7d48ad9802781c8c5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6443285607939143391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275295404781019534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bad31077f44c44b8e5f5af386f60b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 2, z: 0}
 --- !u!1 &275295404781033898
 GameObject:
   m_ObjectHideFlags: 0

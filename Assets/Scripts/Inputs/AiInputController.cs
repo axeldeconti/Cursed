@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using Cursed.AI;
+﻿using Cursed.AI;
 using System.Collections;
+using UnityEngine;
 
-namespace Cursed.Character 
-{ 
+namespace Cursed.Character
+{
     [RequireComponent(typeof(AiController))]
     public class AiInputController : MonoBehaviour, IInputController
     {
