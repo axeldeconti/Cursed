@@ -68,6 +68,11 @@ namespace AK
         static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
     } // namespace EVENTS
 
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID LASERMUFFLE = 643273893U;
+    } // namespace GAME_PARAMETERS
+
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
