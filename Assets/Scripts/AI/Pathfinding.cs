@@ -680,7 +680,6 @@ namespace Cursed.AI
                         }
 
                     //END TESTING
-
                 }
             }
         }

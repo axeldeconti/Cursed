@@ -242,6 +242,7 @@ namespace Cursed.Character
             foreach (AiTarget t in targets)
             {
                 currentDist = Vector3.Distance(transform.position, t.Position);
+
                 if (currentDist < dist)
                 {
                     dist = currentDist;

@@ -1,4 +1,6 @@
 ﻿using Cursed.Character;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cursed.AI
@@ -12,23 +14,20 @@ namespace Cursed.AI
         private CharacterMovement _move = null;
         private CharacterAttackManager _atk = null;
 
-        [SerializeField] private AIState _state = AIState.GroundPatrol;
         [SerializeField] private AiTarget _target = null;
 
-        [Header("Data")]
-        [SerializeField] private FloatReference _aggroRange = null;
-        [SerializeField] private FloatReference _attackRange = null;
-        [SerializeField] private FloatReference _timeToChangePlatformTarget = null;
+        [Header("States")]
+        [SerializeField] private string _state = "None";
+        [SerializeField] private List<AiState> _allStates = null;
 
         [Header("Debug")]
         [SerializeField] private bool _debugLogs = false;
         [SerializeField] private bool _debugDraws = false;
+        [SerializeField] private FloatReference _aggroRange = null;
+        [SerializeField] private FloatReference _attackRange = null;
 
         private bool _isMoving = false;
         private int _nbOfDirties = 0;
-
-        //Chase
-        private float _currentTimeToChangePlatformTarget = 0f;
 
         private bool _destroy = false;
 
@@ -50,8 +49,10 @@ namespace Cursed.AI
         {
             _isMoving = false;
             _nbOfDirties = 0;
-            _currentTimeToChangePlatformTarget = 0;
             _destroy = false;
+
+            if (_allStates.Count > 0)
+                _state = _allStates[0].Name;
         }
 
         private void LateUpdate()
@@ -64,7 +65,7 @@ namespace Cursed.AI
         /// <summary>
         /// Check target distance with a check on line of sight
         /// </summary>
-        private bool TargetInRange(float range, bool raycastOn)
+        public bool TargetInRange(float range, bool raycastOn)
         {
             if (_target && Vector3.Distance(_target.Position, transform.position) < range)
             {
@@ -88,7 +89,7 @@ namespace Cursed.AI
         /// </summary>
         /// <param name="distance">Distance of the raycast</param>
         /// <returns></returns>
-        private RaycastHit2D RaycastInFront(float distance)
+        public RaycastHit2D RaycastInFront(float distance)
         {
             //Transform at character's feet so up the position a bit
             Vector3 pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
@@ -101,7 +102,7 @@ namespace Cursed.AI
         /// <returns></returns>
         public bool NeedsPathfinding()
         {
-            if (_state == AIState.GroundPatrol || _state == AIState.Chase)
+            if (_state == "GroundPatrol" || _state == "Chase")
                 return true;
 
             _pathAgent.CancelPathing();
@@ -118,131 +119,69 @@ namespace Cursed.AI
         /// <param name="attack2"></param>
         public void GetInputs(ref AIData data)
         {
-            switch (_state)
-            {
-                case AIState.None:
-                    break;
-                case AIState.GroundPatrol:
-                    GroundPatrol(ref data);
-                    _pathAgent.AiMovement(ref data);
-                    break;
-                case AIState.Chase:
-                    Chase();
-                    _pathAgent.AiMovement(ref data);
-                    break;
-                case AIState.Attack:
-                    AttackOnRange(ref data);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        #region Ground Patrol
-        private void GroundPatrol(ref AIData data)
-        {
-            //Check for a target if I have none
-            if (!_target)
-            {
-                RaycastHit2D hit = RaycastInFront(_aggroRange);
-                if (hit)
-                {
-                    //Set target to the AiTarget if one is hit
-                    _target = hit.collider.GetComponent<AiTarget>();
-                }
-            }
-
-            //Switch to chase if player in range
-            if (TargetInRange(_aggroRange, true))
-            {
-                State = AIState.Chase;
-                return;
-            }
-
-            if (!_isMoving)
-                _currentTimeToChangePlatformTarget -= Time.deltaTime;
-
-            //It's time to change target
-            if (_currentTimeToChangePlatformTarget <= 0)
-            {
-                //Change target
-                FindRandomPathTarget();
-
-                //Reset timer
-                _currentTimeToChangePlatformTarget = _timeToChangePlatformTarget;
-
-                _isMoving = true;
-            }
+            UpdateState(ref data);
         }
 
         /// <summary>
         /// Set the Path Agent target to a random tile
         /// </summary>
-        private void FindRandomPathTarget()
+        public void FindRandomPathTarget()
         {
-            _pathAgent.Target = _pathfindingMgr.GroundNodes[Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform.position;
+            _pathAgent.Target = _pathfindingMgr.GroundNodes[UnityEngine.Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform.position;
             _pathAgent.RequestPath(_pathAgent.Target + new Vector3(0, 1, 0));
         }
 
-        #endregion
-
-        #region Chase
-        private void Chase()
-        {
-            if (!TargetInRange(_aggroRange, false))
-            {
-                State = AIState.GroundPatrol;
-                return;
-            }
-            if (TargetInRange(_attackRange, true))
-            {
-                State = AIState.Attack;
-                return;
-            }
-
-            int side = _target.Position.x > transform.position.x ? -1 : 1;
-            _pathAgent.Target = _target.Position;
-            _pathAgent.Target = _pathAgent.Target + Vector3.right * side * 4;
-        }
-
-        #endregion
-
-        #region Attack
-        private void AttackOnRange(ref AIData data)
-        {
-            if (!TargetInRange(_attackRange, true))
-            {
-                State = AIState.Chase;
-                return;
-            }
-
-            if (_atk.IsAttacking)
-            {
-                //Is attacking
-            }
-            else
-            {
-                //Is not attacking, go attack
-                int nb = ChooseAttack();
-
-                if (nb == 1)
-                    data.attack1 = true;
-                else
-                    data.attack2 = true;
-            }
-        }
-
+        #region States
         /// <summary>
-        /// Choose a weapon to attack with
+        /// Changes state to a new one
         /// </summary>
-        /// <returns>Number of the choosen weapon</returns>
-        private int ChooseAttack()
+        /// <param name="newState">New current state</param>
+        public void SetState(AiState oldState, string newState)
         {
-            int nb = 0;
+            if (!HasState(newState))
+                throw new ArgumentException("[AI " + gameObject.name + "] : Can't go to " + newState + " from " + oldState.Name);
 
-            nb = Random.Range(0, 100) <= 50 ? 1 : 2;
+            oldState.OnStateExit(this);
+            _state = newState;
+            CurrentState().OnStateEnter(this);
+        }
 
-            return nb;
+        private void UpdateState(ref AIData data)
+        {
+            if (_state.Equals("None") || !HasState(_state))
+                return;
+
+            CurrentState().OnStateUpdate(this, ref data);
+        }
+
+        private AiState CurrentState()
+        {
+            for (int i = 0; i < _allStates.Count; i++)
+            {
+                if (_allStates[i].Name.Equals(_state))
+                    return _allStates[i];
+            }
+            return null;
+        }
+
+        private AiState GetState(string state)
+        {
+            for (int i = 0; i < _allStates.Count; i++)
+            {
+                if (_allStates[i].Name.Equals(state))
+                    return _allStates[i];
+            }
+            return null;
+        }
+
+        public bool HasState(string state)
+        {
+            for (int i = 0; i < _allStates.Count; i++)
+            {
+                if (_allStates[i].Name.Equals(state))
+                    return true;
+            }
+            return false;
         }
         #endregion
 
@@ -256,13 +195,11 @@ namespace Cursed.AI
 
             switch (_state)
             {
-                case AIState.None:
+                case "GroundPatrol":
                     break;
-                case AIState.GroundPatrol:
+                case "Chase":
                     break;
-                case AIState.Chase:
-                    break;
-                case AIState.Attack:
+                case "Attack":
                     break;
                 default:
                     break;
@@ -283,40 +220,25 @@ namespace Cursed.AI
             }
         }
 
-        private void ExitState(AIState exitState)
-        {
-            switch (exitState)
-            {
-                case AIState.None:
-                    break;
-                case AIState.GroundPatrol:
-                    break;
-                case AIState.Chase:
-                    break;
-                case AIState.Attack:
-                    break;
-                default:
-                    break;
-            }
-        }
-
         private void Log(string log)
         {
             Debug.Log("[AIC] : " + log);
         }
 
         #region Getters & Setters
-
-        public AIState State
+        public PathfindingAgent PathAgent => _pathAgent;
+        public CharacterAttackManager Atk => _atk;
+        public string State => _state;
+        public AiTarget Target
         {
-            get => _state;
-            set
-            {
-                ExitState(_state);
-                _state = value;
-            }
+            get => _target;
+            set => _target = value;
         }
-
+        public bool IsMoving
+        {
+            get => _isMoving;
+            set => _isMoving = value;
+        }
         #endregion
 
         private void OnDrawGizmos()
@@ -328,15 +250,13 @@ namespace Cursed.AI
 
             switch (_state)
             {
-                case AIState.None:
-                    break;
-                case AIState.GroundPatrol:
+                case "GroundPatrol":
                     pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
 
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(pos, pos + Vector3.right * _move.Side * _aggroRange);
                     break;
-                case AIState.Chase:
+                case "Chase":
                     pos = transform.position + Vector3.up * 2;
                     Vector3 dir = (_target.Position - pos).normalized;
                     Vector3 aggroRangePos = pos + dir * _aggroRange;
@@ -347,13 +267,11 @@ namespace Cursed.AI
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(pos, attackRangePos);
                     break;
-                case AIState.Attack:
+                case "Attack":
                     break;
                 default:
                     break;
             }
         }
     }
-
-    public enum AIState { None, GroundPatrol, Chase, Attack }
 }

@@ -120,8 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3b98bc352a93541a9da7c8ae5cffae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 1
   _target: {fileID: 0}
+  _state: None
+  _allStates:
+  - {fileID: 11400000, guid: 557d3872a0f669d42977341454a1d749, type: 2}
+  - {fileID: 11400000, guid: 1bfe37e11f237a846bb2bc8f71463b1d, type: 2}
+  - {fileID: 11400000, guid: 0e4d59d548f910e42827a6dc2dd2217d, type: 2}
+  _debugLogs: 0
+  _debugDraws: 1
   _aggroRange:
     UseConstant: 0
     ConstantValue: 0
@@ -130,12 +136,6 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: c14f3522cb9984d469969948d828a77e, type: 2}
-  _timeToChangePlatformTarget:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 86a65608391953e4a9c51cfa9a81d30a, type: 2}
-  _debugLogs: 0
-  _debugDraws: 1
 --- !u!114 &2987228160341031770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +264,11 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 02c31bfef828c414ca58cc3c00c69f65, type: 2}
-  _freezeFrameKill:
+  _zoomDuration:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _slowMotionDuration:
     UseConstant: 1
     ConstantValue: 0
     Variable: {fileID: 0}
@@ -525,6 +529,7 @@ MonoBehaviour:
     type: 3}
   _vfxAndroidPartExplosion: {fileID: 8051251058266920337, guid: 6ae6fc9307335fc408c436c8f1a6bf5f,
     type: 3}
+  _vfxUnlockComp: {fileID: 0}
   _refFlashScreen: {fileID: 0}
 --- !u!114 &330731327431944237
 MonoBehaviour:

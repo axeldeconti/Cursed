@@ -49,7 +49,7 @@ namespace Cursed.Character
         {
             base.UpdateCurrentHealth(health);
 
-            onEnemyHealthUpdate.Invoke(health);
+            onEnemyHealthUpdate?.Invoke(health);
         }
     }
 }
