@@ -305,7 +305,7 @@
 								<ActiveSource Name="SFX_Creature_EndDrain" ID="{CE4A5EAF-0E84-41B8-BA54-2C31E246F24D}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="SFX_Creature_Camera" ID="{7EC69AF1-46DB-4FA1-A339-5D68ED23574B}" ShortID="362578926">
+						<Sound Name="SFX_Creature_Camera" ID="{A07AE0FD-DE45-44BA-9170-D63A7F7D1B4F}" ShortID="712900691">
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -315,16 +315,16 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="SFX_Creature_Camera" ID="{DBBF1617-FF76-4010-93B3-E3B1739BC480}">
+								<AudioFileSource Name="SFX_Creature_Camera_V2" ID="{77CAFBD1-384F-40A5-AABD-070F7917CC21}">
 									<Language>SFX</Language>
-									<AudioFile>SFX_Creature_Camera.wav</AudioFile>
+									<AudioFile>SFX_Creature_Camera_V2.wav</AudioFile>
 									<MediaIDList>
-										<MediaID ID="703791471"/>
+										<MediaID ID="951068667"/>
 									</MediaIDList>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="SFX_Creature_Camera" ID="{DBBF1617-FF76-4010-93B3-E3B1739BC480}" Platform="Linked"/>
+								<ActiveSource Name="SFX_Creature_Camera_V2" ID="{77CAFBD1-384F-40A5-AABD-070F7917CC21}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>
@@ -1872,6 +1872,20 @@
 										<MediaID ID="912044876"/>
 									</MediaIDList>
 								</AudioFileSource>
+								<AudioFileSource Name="SFX_PuzzleDoor_Close" ID="{8FD2E4FC-B871-4DD4-8FB6-582BEB774066}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PuzzleDoor_Close.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1000476603"/>
+									</MediaIDList>
+								</AudioFileSource>
+								<AudioFileSource Name="SFX_PuzzleDoor_Open" ID="{2DB1C7C3-2F2D-4B5A-AC91-042F7FF68E6E}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PuzzleDoor_Open.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="703962044"/>
+									</MediaIDList>
+								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
 								<ActiveSource Name="SFX_DeathAnnouncement" ID="{43B37693-1B52-436A-A41C-35A112004E4C}" Platform="Linked"/>
@@ -1959,66 +1973,14 @@
 										<MediaID ID="207810947"/>
 									</MediaIDList>
 								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="SFX_EndLevelDoor" ID="{2AD598AB-963B-4E0A-A8FF-6518E52C6F10}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="SFX_PuzzleDoor_Close" ID="{A6799BC8-C1B8-4B4C-B15D-DF6020785AF2}" ShortID="622546812">
-							<PropertyList>
-								<Property Name="3DSpatialization" Type="int16" Value="1"/>
-								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>-10</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Attenuation">
-									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-								</Reference>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="SFX_PuzzleDoor_Close" ID="{6967DB94-0FC8-456A-B55F-0EE097F1A2F4}">
+								<AudioFileSource Name="SFX_PuzzleDoor_Close" ID="{52FA3503-FA1B-4CD6-BF9E-230B10D3A89A}">
 									<Language>SFX</Language>
 									<AudioFile>SFX_PuzzleDoor_Close.wav</AudioFile>
 									<MediaIDList>
 										<MediaID ID="1000476603"/>
 									</MediaIDList>
 								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="SFX_PuzzleDoor_Close" ID="{6967DB94-0FC8-456A-B55F-0EE097F1A2F4}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="SFX_PuzzleDoor_Open" ID="{5EC9CBFB-C68C-4B59-B3CE-88011E35D7DB}" ShortID="85536165">
-							<PropertyList>
-								<Property Name="3DSpatialization" Type="int16" Value="1"/>
-								<Property Name="Volume" Type="Real64">
-									<ValueList>
-										<Value>-10</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
-							<ReferenceList>
-								<Reference Name="Attenuation">
-									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-								</Reference>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="SFX_PuzzleDoor_Open" ID="{02F28F1F-AAA4-4D0D-9411-EFEB0AFAB2E4}">
+								<AudioFileSource Name="SFX_PuzzleDoor_Open" ID="{818D286D-982E-494D-83FF-BE12A0D4C531}">
 									<Language>SFX</Language>
 									<AudioFile>SFX_PuzzleDoor_Open.wav</AudioFile>
 									<MediaIDList>
@@ -2027,7 +1989,73 @@
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="SFX_PuzzleDoor_Open" ID="{02F28F1F-AAA4-4D0D-9411-EFEB0AFAB2E4}" Platform="Linked"/>
+								<ActiveSource Name="SFX_EndLevelDoor" ID="{2AD598AB-963B-4E0A-A8FF-6518E52C6F10}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_PuzzleDoor_Close" ID="{7BE6C7E0-FB27-4FF7-BADE-4866638B26DF}" ShortID="717705112">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_PuzzleDoor_Close" ID="{8942F92E-9801-4776-82EC-B85728234270}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PuzzleDoor_Close.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1000476603"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_PuzzleDoor_Close" ID="{8942F92E-9801-4776-82EC-B85728234270}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_PuzzleDoor_Open" ID="{0E995838-6E68-4921-82B8-8EBF34B3FC7B}" ShortID="343176887">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_PuzzleDoor_Open" ID="{649B5F28-3153-443C-A731-E88B07BF900E}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PuzzleDoor_Open.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="703962044"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_PuzzleDoor_Open" ID="{649B5F28-3153-443C-A731-E88B07BF900E}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
 					</ChildrenList>
