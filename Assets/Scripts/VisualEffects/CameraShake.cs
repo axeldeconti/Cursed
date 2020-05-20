@@ -20,6 +20,7 @@ namespace Cursed.VisualEffect
 
             _impulseSource.m_ImpulseDefinition.m_AmplitudeGain = shake.AmplitudeGain;
             _impulseSource.m_ImpulseDefinition.m_FrequencyGain = shake.FrequenceGain;
+            _impulseSource.m_ImpulseDefinition.m_TimeEnvelope.m_SustainTime = shake.Duration;
 
             _impulseSource.GenerateImpulse(v);
         }
