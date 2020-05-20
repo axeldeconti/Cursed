@@ -42,13 +42,16 @@
 						<ObjectRef Name="ElectricTrap" ID="{5655E081-EA9B-427A-865F-D797F14E5AF7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MapGenerator_On" ID="{447AA28E-4264-44CA-97D8-A5E9C99A9DF9}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Laser" ID="{7270FB66-C97D-4513-9AEA-4BAB9495FD27}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_PuzzleDoor_Open" ID="{3DDF5669-16D6-4534-8C39-287C17BE58D0}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_StaticNoise" ID="{BCB9A590-7AA5-45B6-A884-08EE78C13D83}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_ElectricTrap_Triggered" ID="{3CA9790A-A0CF-46A4-B76F-462A36F0DEF2}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MultiLaser" ID="{8492670A-9B07-4745-95BB-AFFEC8289111}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_AssemblyLine" ID="{CE7AA058-9ABE-4CAE-8B94-ED115F8D0F09}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_MapGenerator_Off" ID="{81744432-15CB-4E3E-A1AD-51AC500A0A7A}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_EndLevelDoor" ID="{8E0C41A3-D57B-4E86-B22F-47E3E346ECA7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_ElectricTrap_Inactive" ID="{21AC3B9F-78E3-4EF4-9CD6-00D53F8A4128}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_ElectricTrap_Active" ID="{605A4D3D-2D07-4F27-AE2E-615F4474854C}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_PuzzleDoor_Close" ID="{4424D1BC-E282-4F8A-960F-B86D06DC3DC1}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
@@ -58,6 +61,7 @@
 						<ObjectRef Name="Play_Creature_OnChar" ID="{D4414AA0-EC7B-421A-A292-24AFE5BCD3D7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Creature_HitWall" ID="{0F811855-8F4A-429A-BCD3-0D0709326CA4}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Creature_Grabbing" ID="{7E830C3A-7478-4423-8CD2-AF07196E41DA}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_Creature_Camera" ID="{00AE3A15-F0C4-4679-AF09-7A6871D7DDB7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Stop_Creature_OnChar" ID="{0E9F4501-6099-48A6-84CD-000BCE1650AF}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Creature_Launch" ID="{BE7E044D-78B5-4B4A-BD30-94CF252F2CDB}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Creature_EndDrain" ID="{3953CEF8-86DA-4C5A-A924-283240C6E9D7}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
@@ -78,8 +82,10 @@
 				<SoundBank Name="UI" ID="{1042F6EB-8A11-45C2-A899-C95ED89DF09D}">
 					<ObjectInclusionList>
 						<ObjectRef Name="Play_Button_Selected" ID="{0DC10D72-5D56-4028-A9E8-45D77ACCD2F1}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_PauseMenu_On" ID="{742414E8-8225-40DD-B306-55FA1BDDA469}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="ResumeAllSounds" ID="{0298F1C7-F0D3-49B0-BD2D-552CA6EDECCF}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="PauseMenu" ID="{C056298C-08A1-49C4-8AFF-3818427CCC8A}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_PauseMenu_Off" ID="{C1298601-8147-49FD-A33B-2F534E08C468}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="PauseAllSounds" ID="{98E5CCA4-5843-4C2C-AACE-80BB64A93D06}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Button_Pressed" ID="{2159BA94-D09C-4FB6-AC74-41FE36CF2908}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>

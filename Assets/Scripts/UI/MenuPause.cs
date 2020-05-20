@@ -55,6 +55,7 @@ namespace Cursed.UI
             {
                 case GameManager.GameState.InGame:
                     _gameManager.State = GameManager.GameState.Pause;
+                    AkSoundEngine.PostEvent("Play_PauseMenu_Off", gameObject);
                     _pauseMenu.SetActive(true);
                     _controlsMenu.SetActive(false);
                     _inGameMenu.SetActive(false);
@@ -63,6 +64,7 @@ namespace Cursed.UI
                     break;
                 case GameManager.GameState.Pause:
                     _gameManager.State = GameManager.GameState.InGame;
+                    AkSoundEngine.PostEvent("Play_PauseMenu_On", gameObject);
                     _pauseMenu.SetActive(false);
                     _controlsMenu.SetActive(false);
                     _inGameMenu.SetActive(true);

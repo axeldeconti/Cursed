@@ -138,6 +138,7 @@ namespace Cursed.Creature
             if(collision.gameObject.GetComponent<CameraRotation>())
             {
                 // LAUNCH SFX & VFX EFFECTS
+                AkSoundEngine.PostEvent("Play_Creature_Camera", gameObject);
                 _creatureVfx.DestructionCamera(collision.gameObject.transform.position);
 
                 Destroy(collision.gameObject);

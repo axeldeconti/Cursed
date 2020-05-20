@@ -305,6 +305,28 @@
 								<ActiveSource Name="SFX_Creature_EndDrain" ID="{CE4A5EAF-0E84-41B8-BA54-2C31E246F24D}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<Sound Name="SFX_Creature_Camera" ID="{7EC69AF1-46DB-4FA1-A339-5D68ED23574B}" ShortID="362578926">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_Creature_Camera" ID="{DBBF1617-FF76-4010-93B3-E3B1739BC480}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_Creature_Camera.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="703791471"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_Creature_Camera" ID="{DBBF1617-FF76-4010-93B3-E3B1739BC480}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Character" ID="{034E77AB-C3EB-457C-897D-8829ECECF5E4}" ShortID="740000020">
@@ -1705,6 +1727,64 @@
 								<ActiveSource Name="SFX_Button_Pressed" ID="{ABB109BD-4736-4626-ACD3-F5BBA028E535}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<Sound Name="SFX_PauseMenu_Off" ID="{4CC0D05A-3D2B-4B0C-A8A8-EC8EAC78F09E}" ShortID="674038247">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_PauseMenu_Off" ID="{F06DC8FF-AF75-40B8-A157-EA23D6DAA149}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PauseMenu_Off.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="898334294"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_PauseMenu_Off" ID="{F06DC8FF-AF75-40B8-A157-EA23D6DAA149}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_PauseMenu_On" ID="{0B8F31C3-1607-40CE-B928-FEE7FC48C227}" ShortID="201376924">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_PauseMenu_On" ID="{DEE10FBB-7143-4072-93A3-5FA2E6AD703F}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PauseMenu_On.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="543115641"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_PauseMenu_On" ID="{DEE10FBB-7143-4072-93A3-5FA2E6AD703F}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Props" ID="{8C480922-D6A2-4CFB-AD10-72485040B726}" ShortID="1049714708">
@@ -1851,6 +1931,90 @@
 								</Sound>
 							</ChildrenList>
 						</Folder>
+						<Sound Name="SFX_EndLevelDoor" ID="{15243984-CCBC-41C3-9EC3-AE63ADAE7BAC}" ShortID="639562565">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_EndLevelDoor" ID="{2AD598AB-963B-4E0A-A8FF-6518E52C6F10}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_EndLevelDoor.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="207810947"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_EndLevelDoor" ID="{2AD598AB-963B-4E0A-A8FF-6518E52C6F10}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_PuzzleDoor_Close" ID="{A6799BC8-C1B8-4B4C-B15D-DF6020785AF2}" ShortID="622546812">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_PuzzleDoor_Close" ID="{6967DB94-0FC8-456A-B55F-0EE097F1A2F4}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PuzzleDoor_Close.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="1000476603"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_PuzzleDoor_Close" ID="{6967DB94-0FC8-456A-B55F-0EE097F1A2F4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="SFX_PuzzleDoor_Open" ID="{5EC9CBFB-C68C-4B59-B3CE-88011E35D7DB}" ShortID="85536165">
+							<PropertyList>
+								<Property Name="3DSpatialization" Type="int16" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Laser" ID="{5E8D6BAA-5011-442D-885C-23A2E583CBE6}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_PuzzleDoor_Open" ID="{02F28F1F-AAA4-4D0D-9411-EFEB0AFAB2E4}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_PuzzleDoor_Open.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="703962044"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_PuzzleDoor_Open" ID="{02F28F1F-AAA4-4D0D-9411-EFEB0AFAB2E4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>

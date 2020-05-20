@@ -16,6 +16,10 @@ public class InteractiveDoor : MonoBehaviour
     {
         _animator.SetBool("Toggle", _activeDoor);
         doorToggle?.Invoke(_activeDoor);
+        if (_activeDoor)
+            AkSoundEngine.PostEvent("Play_PuzzleDoor_Open", gameObject);
+        if (!_activeDoor)
+            AkSoundEngine.PostEvent("Play_PuzzleDoor_Close", gameObject);
     }
 
     public void ToggleDoor()
@@ -23,5 +27,9 @@ public class InteractiveDoor : MonoBehaviour
         _activeDoor = !_activeDoor;
         _animator.SetBool("Toggle", _activeDoor);
         doorToggle?.Invoke(_activeDoor);
+        if (_activeDoor)
+            AkSoundEngine.PostEvent("Play_PuzzleDoor_Open", gameObject);
+        if (!_activeDoor)
+            AkSoundEngine.PostEvent("Play_PuzzleDoor_Close", gameObject);
     }
 }

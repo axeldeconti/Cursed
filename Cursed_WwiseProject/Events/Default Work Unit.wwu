@@ -365,7 +365,7 @@
 								<Action Name="" ID="{96EE6F51-F614-413A-88D7-A513C97EAFF7}" ShortID="972264454">
 									<ReferenceList>
 										<Reference Name="Target">
-											<ObjectRef Name="SFX_Creature_Call" ID="{625EDA9D-2E47-4BA7-BC15-5C882A1DF5DA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+											<ObjectRef Name="SFX_Creature_EndDrain" ID="{37168FC7-5DBB-4323-A7FD-38A929176A82}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -402,6 +402,17 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="SFX_Creature_EndDrain" ID="{37168FC7-5DBB-4323-A7FD-38A929176A82}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_Creature_Camera" ID="{00AE3A15-F0C4-4679-AF09-7A6871D7DDB7}">
+							<ChildrenList>
+								<Action Name="" ID="{70F2598C-18E4-4FAC-9675-C5E0EDE07431}" ShortID="849291878">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_Creature_Camera" ID="{7EC69AF1-46DB-4FA1-A339-5D68ED23574B}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -555,6 +566,39 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Play_PuzzleDoor_Close" ID="{4424D1BC-E282-4F8A-960F-B86D06DC3DC1}">
+							<ChildrenList>
+								<Action Name="" ID="{21879D9E-111A-42F4-9554-AF42CB3D6433}" ShortID="771437055">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_PuzzleDoor_Close" ID="{A6799BC8-C1B8-4B4C-B15D-DF6020785AF2}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_EndLevelDoor" ID="{8E0C41A3-D57B-4E86-B22F-47E3E346ECA7}">
+							<ChildrenList>
+								<Action Name="" ID="{C6857B8D-1578-4226-8CAF-C51AB3C0C759}" ShortID="402819615">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_EndLevelDoor" ID="{15243984-CCBC-41C3-9EC3-AE63ADAE7BAC}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Play_PuzzleDoor_Open" ID="{3DDF5669-16D6-4534-8C39-287C17BE58D0}">
+							<ChildrenList>
+								<Action Name="" ID="{8CD9FD72-E185-4DB2-A9F4-813DB5DD40C0}" ShortID="297618050">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_PuzzleDoor_Open" ID="{5EC9CBFB-C68C-4B59-B3CE-88011E35D7DB}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Music" ID="{3A0C98F5-66D1-4B97-A8CC-037372EC8133}" ShortID="286614591">
@@ -685,6 +729,28 @@
 													</ReferenceList>
 												</EventActionException>
 											</ChildrenList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_PauseMenu_Off" ID="{C1298601-8147-49FD-A33B-2F534E08C468}">
+									<ChildrenList>
+										<Action Name="" ID="{5C2E7D00-4713-4015-92F7-B9FA7031B0B1}" ShortID="383558681">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_PauseMenu_Off" ID="{4CC0D05A-3D2B-4B0C-A8A8-EC8EAC78F09E}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_PauseMenu_On" ID="{742414E8-8225-40DD-B306-55FA1BDDA469}">
+									<ChildrenList>
+										<Action Name="" ID="{ECC19D1D-EFC3-44B0-8977-F55D18F5EFE1}" ShortID="170679818">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_PauseMenu_On" ID="{0B8F31C3-1607-40CE-B928-FEE7FC48C227}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
 										</Action>
 									</ChildrenList>
 								</Event>
