@@ -3,6 +3,7 @@ using Cursed.Utilities;
 using System.Collections;
 using UnityEngine;
 using Cursed.VisualEffect;
+using Cursed.Managers;
 
 namespace Cursed.Creature
 {
@@ -126,7 +127,7 @@ namespace Cursed.Creature
                         _currentTimerBeforeZoom += Time.deltaTime;
                         if (_currentTimerBeforeZoom >= _timeBeforeZoom)
                         {
-                            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomCreature, CameraZoomController.Instance._zoomOutCreatureSpeed);
+                            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomCreature, CameraZoomController.Instance._zoomOutCreatureSpeed, false);
                         }
                     }
                     else
@@ -141,8 +142,16 @@ namespace Cursed.Creature
 
         private void ResetZoom()
         {
+            if (CameraZoomController.Instance._updateZoom)
+                return;
+
             _currentTimerBeforeZoom = 0f;
-            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomInCreatureSpeed);
+
+            if (CameraZoomController.Instance._camera.m_Lens.FieldOfView - CameraZoomController.Instance._initialZoom < .1f)
+                return;
+
+            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomInCreatureSpeed, false);
+
         }
 
         private void CheckDistanceFromPlayer()

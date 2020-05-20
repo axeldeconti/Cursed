@@ -4,6 +4,8 @@ namespace Cursed.Character
 {
     public class PlayerInputController : MonoBehaviour, IInputController
     {
+        private CharacterAttackManager _atk = null;
+
         [SerializeField] private FloatReference _joystickDeadzone;
 
         public float x { get; private set; }
@@ -23,6 +25,8 @@ namespace Cursed.Character
 
         private void Start()
         {
+            _atk = GetComponent<CharacterAttackManager>();
+
             _hasDashed = false;
 
             Jump = new BoolBuffer(_jumpInputBufferTimer);
@@ -59,6 +63,9 @@ namespace Cursed.Character
             //Input for player attack
             Attack_1 = Input.GetButtonDown("Attack_1");
             Attack_2 = Input.GetButtonDown("Attack_2");
+
+            if (Attack_1 || Attack_2)
+                _atk.CheckForFlipWhenAttack(x);
 
             //Input for world interaction
             WorldInteraction = Input.GetButtonDown("WorldInteraction");

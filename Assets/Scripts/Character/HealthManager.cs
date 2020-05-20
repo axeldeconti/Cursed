@@ -39,8 +39,6 @@ namespace Cursed.Character
         private SFXHandler _sfx = null;
         private InvincibilityAnimation _invAnim;
 
-        public Action<int> onEnemyHealthUpdate;
-
         [Space]
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeCombo3 = null;
@@ -182,7 +180,7 @@ namespace Cursed.Character
             }
         }
 
-        public void UpdateCurrentHealth(int health)
+        public virtual void UpdateCurrentHealth(int health)
         {
             //Check if dead or not
             if (health <= 0)
@@ -196,8 +194,6 @@ namespace Cursed.Character
 
                 _headLight.color = _lightGradient.Evaluate(1 - (float)_currentHealth / (float)_maxHealth);
                 onHealthUpdate?.Raise(_currentHealth);
-                onEnemyHealthUpdate?.Invoke(_currentHealth);
-
             }
         }
 
@@ -291,8 +287,8 @@ namespace Cursed.Character
 
                 if (_zoomDuration != null)
                 {
-                    CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed);
-                    StartCoroutine(DoUnZoom(_zoomDuration.Value));
+                    CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed, true);
+                    CameraZoomController.Instance.CallWaitForZoom(_zoomDuration.Value, CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed, true);
                 }
 
                 if (_slowMotionDuration != null)
@@ -304,12 +300,6 @@ namespace Cursed.Character
             }
 
             onDeath?.Raise();
-        }
-
-        private IEnumerator DoUnZoom(float _duration)
-        {
-            yield return new WaitForSecondsRealtime(_duration);
-            CameraZoomController.Instance.Zoom(CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed);
         }
 
         #endregion

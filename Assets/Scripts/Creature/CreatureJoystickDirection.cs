@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Cursed.Character;
+using Cursed.Managers;
 
 namespace Cursed.Creature
 {

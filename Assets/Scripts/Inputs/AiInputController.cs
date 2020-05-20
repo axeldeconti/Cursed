@@ -1,14 +1,15 @@
-﻿using UnityEngine;
-using Cursed.AI;
+﻿using Cursed.AI;
 using System.Collections;
+using UnityEngine;
 
-namespace Cursed.Character 
-{ 
+namespace Cursed.Character
+{
     [RequireComponent(typeof(AiController))]
     public class AiInputController : MonoBehaviour, IInputController
     {
         private AiController _aiController = null;
         private CharacterMovement _move = null;
+        private CharacterAttackManager _atk = null;
 
         #region IInputController
         public float x { get; private set; }
@@ -34,6 +35,7 @@ namespace Cursed.Character
         {
             _aiController = GetComponent<AiController>();
             _move = GetComponent<CharacterMovement>();
+            _atk = GetComponent<CharacterAttackManager>();
         }
 
         private void Start()
@@ -90,6 +92,9 @@ namespace Cursed.Character
             //Attacks
             Attack_1 = _data.attack1;
             Attack_2 = _data.attack2;
+
+            if (Attack_1 || Attack_2)
+                _atk.CheckForFlipWhenAttack(x);
         }
 
         private IEnumerator JumpCoroutine()

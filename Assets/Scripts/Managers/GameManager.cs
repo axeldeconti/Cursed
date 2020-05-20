@@ -3,221 +3,225 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>
+namespace Cursed.Managers
 {
-    [SerializeField] private GameState _state = GameState.InGame;
-    [SerializeField] private bool _showFPS = false;
-    public static int FPS = 0;
-
-    [SerializeField] GameObject[] _systemPrefabs = null;
-    [SerializeField] private VoidEvent _loadingLevel;
-    private List<GameObject> _instancedSystemPrefabs = null;
-
-    private string _currentLevelName = string.Empty;
-    private Dictionary<AsyncOperation, UnloadInfo> _loadOperations = null;
-    private List<string> _loadedScene = null;
-
-    private void Start()
+    public class GameManager : Singleton<GameManager>
     {
-        DontDestroyOnLoad(gameObject);
+        [SerializeField] private GameState _state = GameState.InGame;
+        [SerializeField] private bool _showFPS = false;
+        public static int FPS = 0;
 
-        _loadOperations = new Dictionary<AsyncOperation, UnloadInfo>();
-        _loadedScene = new List<string>();
+        [SerializeField] GameObject[] _systemPrefabs = null;
+        [SerializeField] private VoidEvent _levelLoaded;
+        private List<GameObject> _instancedSystemPrefabs = null;
 
-        InstatiateSystemPrefabs();
+        private string _currentLevelName = string.Empty;
+        private Dictionary<AsyncOperation, UnloadInfo> _loadOperations = null;
+        private List<string> _loadedScene = null;
 
-        Application.targetFrameRate = GameSettings.FRAME_RATE;
-
-        State = GameState.InGame;
-
-        if (_showFPS)
-            CursedDebugger.Instance.Add("FPS", () => FPS.ToString());
-
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Boot"))
-            LoadLevel("Main", true);
-    }
-
-    private void Update()
-    {
-        FPS = Mathf.RoundToInt(1f / Time.unscaledDeltaTime);
-    }
-
-    public string GetGameVersion()
-    {
-        string version = Application.version;
-        return version;
-    }
-
-    private void InstatiateSystemPrefabs()
-    {
-        _instancedSystemPrefabs = new List<GameObject>();
-        
-        if (_systemPrefabs.Length == 0)
-            return;
-
-        GameObject instancePrefab = null;
-
-        foreach (GameObject prefab in _systemPrefabs)
+        private void Start()
         {
-            instancePrefab = Instantiate(prefab);
-            _instancedSystemPrefabs.Add(instancePrefab);
-        }
-    }
+            DontDestroyOnLoad(gameObject);
 
-    public void LoadLevel(string levelName, bool unloadAll)
-    {
-        _loadingLevel.Raise();
+            _loadOperations = new Dictionary<AsyncOperation, UnloadInfo>();
+            _loadedScene = new List<string>();
 
-        AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+            InstatiateSystemPrefabs();
 
-        if(ao == null || _loadedScene.Contains(levelName))
-        {
-            Debug.LogError("[GameManager] Unable to load level " + levelName);
-            return;
+            Application.targetFrameRate = GameSettings.FRAME_RATE;
+
+            State = GameState.InGame;
+
+            if (_showFPS)
+                CursedDebugger.Instance.Add("FPS", () => FPS.ToString());
+
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Boot"))
+                LoadLevel("Main", true);
         }
 
-        ao.completed += OnLoadOperationComplete;
-        _loadOperations.Add(ao, new UnloadInfo(levelName, unloadAll));
-        _loadedScene.Add(levelName);
-        _currentLevelName = levelName;
-
-        //Handle the button sound issue
-        ButtonHandler.isFirstSelected = true;
-    }
-
-    private void OnLoadOperationComplete(AsyncOperation ao)
-    {
-        if (_loadOperations.ContainsKey(ao))
+        private void Update()
         {
-            UnloadAll(_loadOperations[ao]);
-            _loadOperations.Remove(ao);
+            FPS = Mathf.RoundToInt(1f / Time.unscaledDeltaTime);
         }
 
-        Debug.Log("[GameManager] Load complete");
-        State = GameState.InGame;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
-    }
-
-    private void UnloadAll(UnloadInfo info)
-    {
-        if (!info.UnloadAll)
-            return;
-
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        public string GetGameVersion()
         {
-            if (!SceneManager.GetSceneAt(i).name.Equals("Boot") && !SceneManager.GetSceneAt(i).name.Equals(info.Name))
+            string version = Application.version;
+            return version;
+        }
+
+        private void InstatiateSystemPrefabs()
+        {
+            _instancedSystemPrefabs = new List<GameObject>();
+
+            if (_systemPrefabs.Length == 0)
+                return;
+
+            GameObject instancePrefab = null;
+
+            foreach (GameObject prefab in _systemPrefabs)
             {
-                UnloadLevel(SceneManager.GetSceneAt(i).name);
+                instancePrefab = Instantiate(prefab);
+                _instancedSystemPrefabs.Add(instancePrefab);
             }
         }
-    }
 
-    public void UnloadLevel(string levelName)
-    {
-        AsyncOperation ao = SceneManager.UnloadSceneAsync(levelName);
-
-        if (ao == null)
+        public void LoadLevel(string levelName, bool unloadAll)
         {
-            Debug.LogError("[GameManager] Unable to unload level " + levelName);
-            return;
-        }
 
-        if (_loadedScene.Contains(levelName))
-            _loadedScene.Remove(levelName);
-        ao.completed += OnUnloadOperationComplete;
-    }
+            AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 
-    private void OnUnloadOperationComplete(AsyncOperation ao)
-    {
-        Debug.Log("[GameManager] Unload complete");
-    }
-
-    private bool HasScene(string sceneName)
-    {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            if (SceneManager.GetSceneAt(i).name.Equals(sceneName))
-                return true;
-        }
-
-        return false;
-    }
-
-    public void ShowMouseCursor(bool visibility)
-    {
-        Cursor.visible = visibility;
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("[GameManager] !! Quit Game !!");
-        Application.Quit();
-    }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-
-        if (_instancedSystemPrefabs == null)
-            return;
-
-        if (_instancedSystemPrefabs.Count == 0)
-            return;
-
-        for (int i = 0; i < _instancedSystemPrefabs.Count; i++)
-        {
-            Destroy(_instancedSystemPrefabs[i]);
-        }
-
-        _instancedSystemPrefabs.Clear();
-    }
-
-    public GameState State { 
-        get { return _state; } 
-        set 
-        { 
-            _state = value;
-
-            switch (_state)
+            if (ao == null || _loadedScene.Contains(levelName))
             {
-                case GameState.InGame:
-                    ShowMouseCursor(false);
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Time.timeScale = 1f;
-                    break;
-                case GameState.Pause:
-                    ShowMouseCursor(false);
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Time.timeScale = 0f;
-                    break;
-                case GameState.InDevConsole:
-                    ShowMouseCursor(true);
-                    Cursor.lockState = CursorLockMode.Confined;
-                    break;
-                case GameState.WinLoose:
-                    ShowMouseCursor(false);
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Time.timeScale = 0f;
-                    break;
-                default:
-                    break;
+                Debug.LogError("[GameManager] Unable to load level " + levelName);
+                return;
             }
-        } 
-    }
 
-    public string CurrentLevelName => _currentLevelName;
+            ao.completed += OnLoadOperationComplete;
+            _loadOperations.Add(ao, new UnloadInfo(levelName, unloadAll));
+            _loadedScene.Add(levelName);
+            _currentLevelName = levelName;
 
-    public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition, Cinematic }
+            //Handle the button sound issue
+            ButtonHandler.isFirstSelected = true;
+        }
 
-    private struct UnloadInfo
-    {
-        public string Name;
-        public bool UnloadAll;
-
-        public UnloadInfo(string name, bool unloadAll)
+        private void OnLoadOperationComplete(AsyncOperation ao)
         {
-            Name = name;
-            UnloadAll = unloadAll;
+            if (_loadOperations.ContainsKey(ao))
+            {
+                UnloadAll(_loadOperations[ao]);
+                _loadOperations.Remove(ao);
+            }
+
+            Debug.Log("[GameManager] Load complete");
+            State = GameState.InGame;
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_currentLevelName));
+            _levelLoaded.Raise();
+        }
+
+        private void UnloadAll(UnloadInfo info)
+        {
+            if (!info.UnloadAll)
+                return;
+
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (!SceneManager.GetSceneAt(i).name.Equals("Boot") && !SceneManager.GetSceneAt(i).name.Equals(info.Name))
+                {
+                    UnloadLevel(SceneManager.GetSceneAt(i).name);
+                }
+            }
+        }
+
+        public void UnloadLevel(string levelName)
+        {
+            AsyncOperation ao = SceneManager.UnloadSceneAsync(levelName);
+
+            if (ao == null)
+            {
+                Debug.LogError("[GameManager] Unable to unload level " + levelName);
+                return;
+            }
+
+            if (_loadedScene.Contains(levelName))
+                _loadedScene.Remove(levelName);
+            ao.completed += OnUnloadOperationComplete;
+        }
+
+        private void OnUnloadOperationComplete(AsyncOperation ao)
+        {
+            Debug.Log("[GameManager] Unload complete");
+        }
+
+        private bool HasScene(string sceneName)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                if (SceneManager.GetSceneAt(i).name.Equals(sceneName))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public void ShowMouseCursor(bool visibility)
+        {
+            Cursor.visible = visibility;
+        }
+
+        public void QuitGame()
+        {
+            Debug.Log("[GameManager] !! Quit Game !!");
+            Application.Quit();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (_instancedSystemPrefabs == null)
+                return;
+
+            if (_instancedSystemPrefabs.Count == 0)
+                return;
+
+            for (int i = 0; i < _instancedSystemPrefabs.Count; i++)
+            {
+                Destroy(_instancedSystemPrefabs[i]);
+            }
+
+            _instancedSystemPrefabs.Clear();
+        }
+
+        public GameState State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+
+                switch (_state)
+                {
+                    case GameState.InGame:
+                        ShowMouseCursor(false);
+                        Cursor.lockState = CursorLockMode.Confined;
+                        Time.timeScale = 1f;
+                        break;
+                    case GameState.Pause:
+                        ShowMouseCursor(false);
+                        Cursor.lockState = CursorLockMode.Confined;
+                        Time.timeScale = 0f;
+                        break;
+                    case GameState.InDevConsole:
+                        ShowMouseCursor(true);
+                        Cursor.lockState = CursorLockMode.Confined;
+                        break;
+                    case GameState.WinLoose:
+                        ShowMouseCursor(false);
+                        Cursor.lockState = CursorLockMode.Confined;
+                        Time.timeScale = 0f;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public string CurrentLevelName => _currentLevelName;
+
+        public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition, Cinematic }
+
+        private struct UnloadInfo
+        {
+            public string Name;
+            public bool UnloadAll;
+
+            public UnloadInfo(string name, bool unloadAll)
+            {
+                Name = name;
+                UnloadAll = unloadAll;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using Cursed.Managers;
 
 namespace Cursed.UI
 {

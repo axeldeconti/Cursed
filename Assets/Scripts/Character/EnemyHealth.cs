@@ -1,11 +1,14 @@
 ﻿using Cursed.Combat;
 using Cursed.Creature;
+using System;
 using UnityEngine;
 
 namespace Cursed.Character
 {
     public class EnemyHealth : HealthManager
     {
+        public Action<int> onEnemyHealthUpdate;
+
         [Header("Creature")]
         [SerializeField] private IntReference _minCreatureAmountHealth;
         public bool _canBeAttackable { get; private set; }
@@ -40,6 +43,13 @@ namespace Cursed.Character
         public override void Die()
         {
             base.Die();
+        }
+
+        public override void UpdateCurrentHealth(int health)
+        {
+            base.UpdateCurrentHealth(health);
+
+            onEnemyHealthUpdate.Invoke(health);
         }
     }
 }

@@ -1,57 +1,71 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using Cursed.Character;
 using Cursed.UI;
+using Cursed.Managers;
 
-public class CellInfo : MonoBehaviour
+namespace Cursed.Props
 {
-    public int cellNumberInfo;
-
-    [HideInInspector] public bool _playerOnThisCell;
-    public bool _emptyCell { get; private set; }
-    public int _enemyCount { get; private set; }
-
-    public event System.Action _onEnemyCellCountUpdate;
-
-    private void CheckEnemyCount()
+    public class CellInfo : MonoBehaviour
     {
-        if (_enemyCount <= 0)
-            _emptyCell = true;
-        else
-            _emptyCell = false;
+        public int cellNumberInfo;
+        [SerializeField] private Cell _cell = Cell.A1;
 
-        _onEnemyCellCountUpdate?.Invoke();
-    }
+        [HideInInspector] public bool _playerOnThisCell;
+        public bool _emptyCell { get; private set; }
+        public int _enemyCount { get; private set; }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<EnemyRegister>())
+        public event Action onEnemyCellCountUpdate;
+        public Action<Cell> onPlayerEnterCell;
+
+        private void CheckEnemyCount()
         {
-            _enemyCount++;
-            CheckEnemyCount();
+            if (_enemyCount <= 0)
+                _emptyCell = true;
+            else
+                _emptyCell = false;
+
+            onEnemyCellCountUpdate?.Invoke();
         }
 
-        if (collision.gameObject.CompareTag("Player"))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            _playerOnThisCell = true;
-            foreach (MapCellUI cell in FindObjectsOfType<MapCellUI>())
+            if (collision.GetComponent<EnemyRegister>())
             {
-                if (this == cell._myCell)
-                    cell.PlayerOnMyCell();
+                _enemyCount++;
+                CheckEnemyCount();
+            }
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                PlayerOnCell(true);
+
+                foreach (MapCellUI cell in FindObjectsOfType<MapCellUI>())
+                {
+                    if (this == cell._myCell)
+                        cell.PlayerOnMyCell();
+                }
             }
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.GetComponent<EnemyRegister>())
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            _enemyCount--;
-            CheckEnemyCount();
+            if (collision.GetComponent<EnemyRegister>())
+            {
+                _enemyCount--;
+                CheckEnemyCount();
+            }
+
+            if (collision.gameObject.CompareTag("Player"))
+                PlayerOnCell(false);
         }
 
-        if (collision.gameObject.CompareTag("Player"))
-            _playerOnThisCell = false;
+        private void PlayerOnCell(bool value)
+        {
+            _playerOnThisCell = value;
+
+            if (value)
+                onPlayerEnterCell.Invoke(_cell);
+        }
     }
 }

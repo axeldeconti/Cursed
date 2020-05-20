@@ -26,6 +26,7 @@ namespace Cursed.Tutoriel
 
         private CharacterMovement _playerMovement;
         private CharacterAttackManager _playerAttacks;
+        private VfxHandler _vfx;
 
         [HideInInspector] public bool _alreadyTriggered;
         public event System.Action<TutorielType> SpellUnlock;
@@ -35,23 +36,43 @@ namespace Cursed.Tutoriel
             switch(type)
             {
                 case TutorielType.Jump:
-                    _playerMovement.JumpUnlock = true;
+                    if(_playerMovement.JumpUnlock == false)
+                    {
+                        _playerMovement.JumpUnlock = true;
+                        _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                    }                   
                     break;
 
                 case TutorielType.DoubleJump:
-                    _playerMovement.DoubleJumpUnlock = true;
+                    if (_playerMovement.DoubleJumpUnlock == false)
+                    {
+                        _playerMovement.DoubleJumpUnlock = true;
+                        _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                    }
                     break;
 
                 case TutorielType.WallRun:
-                    _playerMovement.WallRunUnlock = true;
+                    if (_playerMovement.WallRunUnlock == false)
+                    {
+                        _playerMovement.WallRunUnlock = true;
+                        _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                    }
                     break;
 
                 case TutorielType.Dash:
-                    _playerMovement.DashUnlock = true;
+                    if (_playerMovement.DashUnlock == false)
+                    {
+                        _playerMovement.DashUnlock = true;
+                        _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                    }
                     break;
 
                 case TutorielType.Attack1:
-                    _playerAttacks.AttacksUnlock = true;
+                    if (_playerAttacks.AttacksUnlock == false)
+                    {
+                        _playerAttacks.AttacksUnlock = true;
+                        _vfx.UnlockComp(_playerAttacks.gameObject.transform.position);
+                    }
                     break;
 
             }
@@ -66,6 +87,8 @@ namespace Cursed.Tutoriel
             {
                 _playerMovement = collision.GetComponent<CharacterMovement>();
                 _playerAttacks = collision.GetComponent<CharacterAttackManager>();
+                _vfx = collision.GetComponent<VfxHandler>();
+
                 UnlockSpell(_tutorielType);
                 _alreadyTriggered = true;
             }

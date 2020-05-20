@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Cursed.UI;
 
-public class CellCameraDetection : MonoBehaviour
+namespace Cursed.Props
 {
-    private void OnTriggerEnter(Collider other)
+    public class CellCameraDetection : MonoBehaviour
     {
-        if(other.GetComponent<CellInfo>())
+        private void OnTriggerEnter(Collider other)
         {
-            CellInfo cellTriggered = other.GetComponent<CellInfo>();
-            cellTriggered._playerOnThisCell = true;
-
-            foreach(MapCellUI cell in FindObjectsOfType<MapCellUI>())
+            if (other.GetComponent<CellInfo>())
             {
-                if (cellTriggered == cell._myCell)
-                    cell.PlayerOnMyCell();
+                CellInfo cellTriggered = other.GetComponent<CellInfo>();
+                cellTriggered._playerOnThisCell = true;
+
+                foreach (MapCellUI cell in FindObjectsOfType<MapCellUI>())
+                {
+                    if (cellTriggered == cell._myCell)
+                        cell.PlayerOnMyCell();
+                }
             }
         }
     }

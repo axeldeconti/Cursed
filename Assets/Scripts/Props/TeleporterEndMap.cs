@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
-using Cursed.Character;
+using Cursed.Managers;
 
 namespace Cursed.Props
 {

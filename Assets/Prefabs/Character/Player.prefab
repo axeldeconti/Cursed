@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 27705134}
   - component: {fileID: 27705149}
   - component: {fileID: 1803659878}
+  - component: {fileID: 7473647783957372404}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -531,6 +532,8 @@ MonoBehaviour:
     type: 3}
   _vfxAndroidPartExplosion: {fileID: 8051251058266920337, guid: 6ae6fc9307335fc408c436c8f1a6bf5f,
     type: 3}
+  _vfxUnlockComp: {fileID: 807834397647924636, guid: f45d0f4be7326844da2036f505be6a98,
+    type: 3}
   _refFlashScreen: {fileID: 0}
 --- !u!114 &3300097278112753336
 MonoBehaviour:
@@ -577,6 +580,10 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: a00a3acedd6d7df49ada474f8405a3a2, type: 2}
+  _forceFlipThreshold:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 35f7f5a3fb7cefc4fa8d1ca46c8da04f, type: 2}
   _shakeDivekick: {fileID: 11400000, guid: 00ee4123e00be2742b79b954cec756cc, type: 2}
   _onCamShake: {fileID: 11400000, guid: 8a79bf79c1417ee438404cab95d4a731, type: 2}
   _onContrVibration: {fileID: 11400000, guid: 299dca7641a102b4db9a58f1032752dc, type: 2}
@@ -615,10 +622,14 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 02c31bfef828c414ca58cc3c00c69f65, type: 2}
-  _freezeFrameKill:
+  _zoomDuration:
     UseConstant: 1
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 3bd9c869979bc854b8863bae69dcafff, type: 2}
+    Variable: {fileID: 0}
+  _slowMotionDuration:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   _takeDamageVibration: {fileID: 11400000, guid: dcb66c20196f42640b21d0a3479e9419,
     type: 2}
   _divekickTouchVibration: {fileID: 11400000, guid: 19e82ce1ca73db2449e33afaf03621ba,
@@ -723,3 +734,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeSpeed: 10
+--- !u!114 &7473647783957372404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8498843447298849143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bad31077f44c44b8e5f5af386f60b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 2, z: 0}

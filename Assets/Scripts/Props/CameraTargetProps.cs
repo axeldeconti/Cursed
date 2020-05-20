@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Cursed.Character;
+using Cursed.Managers;
 
 public class CameraTargetProps : MonoBehaviour
 {
@@ -30,11 +31,6 @@ public class CameraTargetProps : MonoBehaviour
         _cameraManager._onChangeTarget += () => ChangeTarget();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     private void ChangeTarget()
     {
         if (_targetIsEnemy)
@@ -54,7 +50,7 @@ public class CameraTargetProps : MonoBehaviour
         }
     }
 
-    IEnumerator TimerForSwitchTarget()
+    private IEnumerator TimerForSwitchTarget()
     {
         yield return new WaitForSeconds(_cameraManager._noiseDuration);
         _switchCellInfo.UpdateCellInformation(_cameraManager._enemyChosen.GetComponent<EnemyRegister>()._currentCell.cellNumberInfo);

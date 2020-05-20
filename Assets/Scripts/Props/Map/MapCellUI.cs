@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Cursed.Props;
 
 namespace Cursed.UI
 {
@@ -33,7 +32,7 @@ namespace Cursed.UI
                     _myCell = _cells[i];
             }
 
-            _myCell._onEnemyCellCountUpdate += () => UpdateSprite();
+            _myCell.onEnemyCellCountUpdate += () => UpdateSprite();
         }
 
         private void UpdateSprite()

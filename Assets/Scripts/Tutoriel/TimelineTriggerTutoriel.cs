@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using Cursed.Managers;
 
 public class TimelineTriggerTutoriel : MonoBehaviour
 {
