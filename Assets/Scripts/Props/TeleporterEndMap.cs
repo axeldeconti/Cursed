@@ -42,6 +42,7 @@ namespace Cursed.Props
         private void CloseWindows()
         {
             _animator.SetTrigger("Close");
+            AkSoundEngine.PostEvent("Play_EndLevelDoor", gameObject);
             StartCoroutine(WaitForLaunchTeleporter(_animator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
