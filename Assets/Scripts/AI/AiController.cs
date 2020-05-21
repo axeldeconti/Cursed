@@ -13,6 +13,7 @@ namespace Cursed.AI
         private CollisionHandler _col = null;
         private CharacterMovement _move = null;
         private CharacterAttackManager _atk = null;
+        private HealthManager _health = null;
 
         [SerializeField] private AiTarget _target = null;
 
@@ -37,6 +38,7 @@ namespace Cursed.AI
             _col = GetComponent<CollisionHandler>();
             _move = GetComponent<CharacterMovement>();
             _atk = GetComponent<CharacterAttackManager>();
+            _health = GetComponent<HealthManager>();
 
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
@@ -62,6 +64,20 @@ namespace Cursed.AI
                 Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Retrieve the inputs
+        /// </summary>
+        /// <param name="input">Input like the joystick [-1, 0, 1]</param>
+        /// <param name="jumpRequest"></param>
+        /// <param name="dashRequest"></param>
+        /// <param name="attack1"></param>
+        /// <param name="attack2"></param>
+        public void GetInputs(ref AIData data)
+        {
+            UpdateState(ref data);
+        }
+
+        #region Checks and Raycasts
         /// <summary>
         /// Check target distance with a check on line of sight
         /// </summary>
@@ -92,44 +108,21 @@ namespace Cursed.AI
         public RaycastHit2D RaycastInFront(float distance)
         {
             //Transform at character's feet so up the position a bit
-            Vector3 pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+            return RaycastInFront(distance, 2);
+        }
+
+        /// <summary>
+        /// Create a raycast in front of the AI and returns the result
+        /// </summary>
+        /// <param name="distance">Distance of the raycast</param>
+        /// <returns></returns>
+        public RaycastHit2D RaycastInFront(float distance, float height)
+        {
+            //Transform at character's feet so up the position a bit
+            Vector3 pos = transform.position + Vector3.up * height + Vector3.right * _move.Side * 2.5f;
             return Physics2D.Linecast(pos, pos + Vector3.right * _move.Side * distance);
         }
-
-        /// <summary>
-        /// Called by the Pathfinding Agent to check if a path is needed
-        /// </summary>
-        /// <returns></returns>
-        public bool NeedsPathfinding()
-        {
-            if (_state == "GroundPatrol" || _state == "Chase")
-                return true;
-
-            _pathAgent.CancelPathing();
-            return false;
-        }
-
-        /// <summary>
-        /// Retrieve the inputs
-        /// </summary>
-        /// <param name="input">Input like the joystick [-1, 0, 1]</param>
-        /// <param name="jumpRequest"></param>
-        /// <param name="dashRequest"></param>
-        /// <param name="attack1"></param>
-        /// <param name="attack2"></param>
-        public void GetInputs(ref AIData data)
-        {
-            UpdateState(ref data);
-        }
-
-        /// <summary>
-        /// Set the Path Agent target to a random tile
-        /// </summary>
-        public void FindRandomPathTarget()
-        {
-            _pathAgent.Target = _pathfindingMgr.GroundNodes[UnityEngine.Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform.position;
-            _pathAgent.RequestPath(_pathAgent.Target + new Vector3(0, 1, 0));
-        }
+        #endregion
 
         #region States
         /// <summary>
@@ -185,6 +178,29 @@ namespace Cursed.AI
         }
         #endregion
 
+        #region Path
+        /// <summary>
+        /// Called by the Pathfinding Agent to check if a path is needed
+        /// </summary>
+        /// <returns></returns>
+        public bool NeedsPathfinding()
+        {
+            if (_state == "GroundPatrol" || _state == "Chase")
+                return true;
+
+            _pathAgent.CancelPathing();
+            return false;
+        }
+
+        /// <summary>
+        /// Set the Path Agent target to a random tile
+        /// </summary>
+        public void FindRandomPathTarget()
+        {
+            _pathAgent.Target = _pathfindingMgr.GroundNodes[UnityEngine.Random.Range(0, _pathfindingMgr.GroundNodes.Count)].gameObject.transform.position;
+            _pathAgent.RequestPath(_pathAgent.Target + new Vector3(0, 1, 0));
+        }
+
         /// <summary>
         /// Called by the Path Agent when the path is completed
         /// </summary>
@@ -219,6 +235,7 @@ namespace Cursed.AI
                 _nbOfDirties = 0;
             }
         }
+        #endregion
 
         private void Log(string log)
         {
@@ -228,6 +245,8 @@ namespace Cursed.AI
         #region Getters & Setters
         public PathfindingAgent PathAgent => _pathAgent;
         public CharacterAttackManager Atk => _atk;
+        public CharacterMovement Move => _move;
+        public HealthManager Health => _health;
         public string State => _state;
         public AiTarget Target
         {
@@ -247,25 +266,32 @@ namespace Cursed.AI
                 return;
 
             Vector3 pos = Vector3.zero;
+            Vector3 pos2 = Vector3.zero;
 
             switch (_state)
             {
                 case "GroundPatrol":
                     pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+                    pos2 = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
 
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(pos, pos + Vector3.right * _move.Side * _aggroRange);
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(pos2, pos2 + Vector3.right * _move.Side * 5);
                     break;
                 case "Chase":
                     pos = transform.position + Vector3.up * 2;
                     Vector3 dir = (_target.Position - pos).normalized;
                     Vector3 aggroRangePos = pos + dir * _aggroRange;
                     Vector3 attackRangePos = pos + dir * _attackRange;
+                    pos2 = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
 
                     Gizmos.color = Color.cyan;
                     Gizmos.DrawLine(pos, aggroRangePos);
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(pos, attackRangePos);
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(pos2, pos2 + Vector3.right * _move.Side * 5);
                     break;
                 case "Attack":
                     break;

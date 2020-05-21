@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cursed.Traps;
+using UnityEngine;
 
 namespace Cursed.AI
 {
@@ -46,6 +47,12 @@ namespace Cursed.AI
             }
 
             controller.PathAgent.AiMovement(ref data);
+
+            //Check if there is a laser in front
+            RaycastHit2D laserCheck = controller.RaycastInFront(5);
+            if (laserCheck.collider && !controller.Move.IsDashing)
+                if (laserCheck.collider.GetComponent<LaserBeam>())
+                    data.dash = true;
         }
 
         protected override void CheckForTransition(AiController controller, ref string newState)

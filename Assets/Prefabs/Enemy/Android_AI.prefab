@@ -26,8 +26,9 @@ GameObject:
   - component: {fileID: 4899068109193366447}
   - component: {fileID: 330731327431944237}
   - component: {fileID: 6443285607939143391}
+  - component: {fileID: 5555989077860106762}
   m_Layer: 0
-  m_Name: patrolFollowAI_test
+  m_Name: Android_AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,6 +557,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 2, z: 0}
+--- !u!114 &5555989077860106762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275295404781019534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5ff1f7c0a3e1f4c8d0fb0f0f80111c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ghostDash: {fileID: 1914275734890146451, guid: d50533610e0052f438c81fbc71afefda,
+    type: 3}
+  _ghostDivekick: {fileID: 4796411183293776234, guid: f133d0bb7e555e34594fccb0607241d1,
+    type: 3}
+  _ghostDelayInterval:
+    UseConstant: 1
+    ConstantValue: 0.05
+    Variable: {fileID: 0}
+  _timeGhostDashVisible:
+    UseConstant: 1
+    ConstantValue: 0.8
+    Variable: {fileID: 0}
+  _timeGhostDivekickVisible:
+    UseConstant: 1
+    ConstantValue: 0.4
+    Variable: {fileID: 0}
 --- !u!1 &275295404781033898
 GameObject:
   m_ObjectHideFlags: 0

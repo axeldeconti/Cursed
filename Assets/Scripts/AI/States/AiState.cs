@@ -27,6 +27,16 @@ namespace Cursed.AI
 
         protected abstract void CheckForTransition(AiController controller, ref string newState);
 
+        /// <summary>
+        /// Return random true or false depending on the percent
+        /// </summary>
+        /// <param name="chancePercent">Chances to have true (0 = always false, 100 = always true)</param>
+        /// <returns></returns>
+        protected bool ChanceToGetTrue(float chancePercent)
+        {
+            return Random.Range(0, 100) <= chancePercent;
+        }
+
         public string Name => _name;
     }
 }

@@ -53,6 +53,10 @@ namespace Cursed.AI
 
         private void Update()
         {
+            //Update input buffers
+            Jump.Update(Time.deltaTime);
+            Dash.Update(Time.deltaTime);
+
             //Reset data
             _data.Reset();
 

@@ -305,11 +305,9 @@ namespace Cursed.Character
         #endregion
 
         #region Getters
-
         public float CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
-        public bool IsInvincible { get => _isInvincible; set => _isInvincible = value; }
-
+        public bool IsInvincible => _isInvincible;
         #endregion
     }
 }
