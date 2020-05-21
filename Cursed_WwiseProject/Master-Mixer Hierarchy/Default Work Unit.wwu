@@ -9,6 +9,174 @@
 							<ObjectRef Name="System" ID="{69FD5F82-41CD-4001-AF2B-9680DCCF0A7F}" WorkUnitID="{2ED0D1E1-B657-44FE-BC55-AC5822797A80}"/>
 						</Reference>
 					</ReferenceList>
+					<ChildrenList>
+						<Bus Name="Ambiance_Bus" ID="{16C3B4C2-790D-4654-B8E2-4ED34866C10D}">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{31E9F07D-1D05-4C07-B825-6A7C5C7FB47C}" ShortID="496829760">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="Ambiance_Slider" ID="{143E74F3-CE5C-4D61-8CDE-030600A37BD0}" WorkUnitID="{9B9D88A1-B71D-46F9-9431-A8F1A6A2A35D}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{5B091084-9145-431E-BC19-17D5D72B9E81}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>100</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Pause_Menu" ID="{0939CC9A-2909-470D-A4B7-C506D2F600AF}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="Paused" ID="{E153423B-E798-402D-9338-124D4DA88B17}"/>
+										<CustomState Name="" ID="{8707DBB3-92A9-4013-A274-51CAE2789A81}" ShortID="770101129">
+											<PropertyList>
+												<Property Name="BusVolume" Type="Real64" Value="-100"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="Unpaused" ID="{A4DE5B18-0DFE-4505-B0A3-4AB6DD6DA882}"/>
+										<CustomState Name="" ID="{1D6C1037-32F5-4EFF-BA54-A1492CBA1380}" ShortID="725809500"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
+						</Bus>
+						<Bus Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{03A0D424-2BC5-4BB4-AADB-F4E6B63FB02F}" ShortID="193974187">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="Music_Slider" ID="{1C1A1160-65FA-4765-81E2-F4B7E07A9666}" WorkUnitID="{9B9D88A1-B71D-46F9-9431-A8F1A6A2A35D}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{05939F7C-6875-49CA-921E-6F3876647C36}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>100</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+							<ChildrenList>
+								<Bus Name="SFX_Bus" ID="{203FAEE4-4D91-43A2-B8CC-762A3D71F2D5}">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<RTPCList>
+												<RTPC Name="" ID="{B6BFA5DB-CB7E-4985-99A5-A491FAFB633A}" ShortID="97180001">
+													<ReferenceList>
+														<Reference Name="ControlInput">
+															<ObjectRef Name="SFX_Slider" ID="{9CBCDBCD-14D2-4265-B157-4DCA25926B48}" WorkUnitID="{9B9D88A1-B71D-46F9-9431-A8F1A6A2A35D}"/>
+														</Reference>
+													</ReferenceList>
+													<Curve Name="" ID="{3D6E8905-D2D1-4B62-A566-6EBF1EBF63DE}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3"/>
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-200</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="AudioDevice">
+											<ObjectRef Name="System" ID="{69FD5F82-41CD-4001-AF2B-9680DCCF0A7F}" WorkUnitID="{2ED0D1E1-B657-44FE-BC55-AC5822797A80}"/>
+										</Reference>
+									</ReferenceList>
+									<StateInfo>
+										<StateGroupList>
+											<StateGroupInfo>
+												<StateGroupRef Name="Pause_Menu" ID="{0939CC9A-2909-470D-A4B7-C506D2F600AF}"/>
+											</StateGroupInfo>
+										</StateGroupList>
+										<CustomStateList>
+											<CustomState>
+												<StateRef Name="Paused" ID="{E153423B-E798-402D-9338-124D4DA88B17}"/>
+												<CustomState Name="" ID="{6EA4BC90-EE49-435B-8F35-8758C08F10D4}" ShortID="244841197">
+													<PropertyList>
+														<Property Name="BusVolume" Type="Real64" Value="-100"/>
+													</PropertyList>
+												</CustomState>
+											</CustomState>
+											<CustomState>
+												<StateRef Name="Unpaused" ID="{A4DE5B18-0DFE-4505-B0A3-4AB6DD6DA882}"/>
+												<CustomState Name="" ID="{F9535310-3A92-4018-91E3-E465384B97B3}" ShortID="955959084"/>
+											</CustomState>
+										</CustomStateList>
+									</StateInfo>
+								</Bus>
+							</ChildrenList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Pause_Menu" ID="{0939CC9A-2909-470D-A4B7-C506D2F600AF}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="Paused" ID="{E153423B-E798-402D-9338-124D4DA88B17}"/>
+										<CustomState Name="" ID="{070CF94A-7299-4C98-8730-35261DBE169A}" ShortID="650539603">
+											<PropertyList>
+												<Property Name="BusVolume" Type="Real64" Value="-100"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="Unpaused" ID="{A4DE5B18-0DFE-4505-B0A3-4AB6DD6DA882}"/>
+										<CustomState Name="" ID="{FF729A66-06AE-4EB3-9810-493C3D9D9E8E}" ShortID="836376636"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
+						</Bus>
+					</ChildrenList>
 				</Bus>
 			</ChildrenList>
 		</WorkUnit>

@@ -73,6 +73,8 @@
 				<SoundBank Name="Music" ID="{5284CA7A-9F32-4F84-A0B1-C8A9610E4165}">
 					<ObjectInclusionList>
 						<ObjectRef Name="Play_Music_MainMenu" ID="{DD62BE73-6985-431D-91FF-B32A3DAC2D74}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Music_ActorMixer" ID="{189351E6-E416-484C-A6AC-B4754088BE75}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Music_InGame" ID="{D6CF223E-8A02-48D7-A6E2-C8F64C205228}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Music" ID="{3A0C98F5-66D1-4B97-A8CC-037372EC8133}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
@@ -88,6 +90,14 @@
 						<ObjectRef Name="Play_PauseMenu_Off" ID="{C1298601-8147-49FD-A33B-2F534E08C468}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="PauseAllSounds" ID="{98E5CCA4-5843-4C2C-AACE-80BB64A93D06}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="Play_Button_Pressed" ID="{2159BA94-D09C-4FB6-AC74-41FE36CF2908}" WorkUnitID="{E3A751B0-C320-4DD2-98EC-3606B9386C58}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+				<SoundBank Name="Main" ID="{F9292D32-0A73-4F85-A95E-A1E94D237C19}">
+					<ObjectInclusionList>
+						<ObjectRef Name="SFX_ActorMixer" ID="{EBAD4D9B-380E-4B02-85B5-802768EA6761}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Ambiance_ActorMixer" ID="{EB28CB5C-0ADC-4B8E-B886-C11796BFBEAB}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
