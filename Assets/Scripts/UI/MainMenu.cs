@@ -9,12 +9,12 @@ namespace Cursed.UI
         private GameManager _gameManager = null;
 
         [SerializeField] private GameObject _mainMenu = null;
-        [SerializeField] private GameObject _controls = null;
+        [SerializeField] private GameObject _options = null;
         [SerializeField] private GameObject _credits = null;
         [SerializeField] private GameObject _tuto = null;
         [SerializeField] private Animator _mainMenuAnimator;
         [SerializeField] private Animator _creditsAnimator;
-        [SerializeField] private Animator _controlsAnimator;
+        [SerializeField] private Animator _optionsAnimator;
         [SerializeField] private Animator _tutoAnimator;
 
         [SerializeField] private string Level_Tuto;
@@ -27,7 +27,7 @@ namespace Cursed.UI
         {
             _gameManager = GameManager.Instance;
             _mainMenu.SetActive(true);
-            _controls.SetActive(false);
+            _options.SetActive(false);
             _credits.SetActive(false);
         }
 
@@ -35,8 +35,8 @@ namespace Cursed.UI
         {
             if (Input.GetButtonDown("Cancel"))
             {
-                if(_controls.activeSelf)
-                    ControlsToHome();
+                if(_options.activeSelf)
+                    OptionsToHome();
                 if (_credits.activeSelf)
                     CreditsToHome();
             }
@@ -70,11 +70,11 @@ namespace Cursed.UI
             StartCoroutine(WaitForActive(_credits, false, _creditsAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
-        public void ControlsToHome()
+        public void OptionsToHome()
         {
-            _controlsAnimator.SetTrigger("Close");
-            StartCoroutine(WaitForActive(_mainMenu, true, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitForActive(_controls, false, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            _optionsAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_mainMenu, true, _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_options, false, _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void TutoToHome()
@@ -91,11 +91,11 @@ namespace Cursed.UI
             StartCoroutine(WaitForActive(_credits, true, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
-        public void Controls()
+        public void Options()
         {
             _mainMenuAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitForActive(_controls, true, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_options, true, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void Quit()

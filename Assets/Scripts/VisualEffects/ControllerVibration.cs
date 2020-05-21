@@ -6,6 +6,7 @@ namespace Cursed.VisualEffect
 {
     public class ControllerVibration : Singleton<ControllerVibration>
     {
+        [HideInInspector] public bool vibrationActive = true;
         private bool _playerIndexSet = false;
         private PlayerIndex _playerIndex;
         private GamePadState _state;
@@ -56,6 +57,9 @@ namespace Cursed.VisualEffect
 
         public void StartVibration(VibrationData_SO data)
         {
+            if (!vibrationActive)
+                return;
+
             CheckPlayerIndex();
 
             if (_isVibrating && !_playerIndexSet)
