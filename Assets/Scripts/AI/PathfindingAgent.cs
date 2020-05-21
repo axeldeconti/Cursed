@@ -233,9 +233,9 @@ namespace Cursed.AI
             if (_pathIsDirty)
             {
                 _pathIsDirty = false;
-                if (_target != null && _aiController.State == AIState.Chase)
+                if (_target != null && _aiController.State.Equals("Chase"))
                     RequestPath(_target);
-                else if (_hasLastOrder && _aiController.State == AIState.GroundPatrol)
+                else if (_hasLastOrder && _aiController.State.Equals("GroundPatrol"))
                     RequestPath(_lastOrder);
                 else
                     OnPathDirty?.Invoke();
