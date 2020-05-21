@@ -70,5 +70,9 @@ namespace Cursed.VisualEffect
             _timer = data.VibrationTime;
         }
 
+        private void OnDestroy()
+        {
+            GamePad.SetVibration(_playerIndex, 0, 0);
+        }
     }
 }

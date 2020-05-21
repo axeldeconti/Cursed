@@ -1,8 +1,8 @@
-﻿using Cursed.AI;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using Cursed.Character;
 
-namespace Cursed.Character
+namespace Cursed.AI
 {
     [RequireComponent(typeof(AiController))]
     public class AiInputController : MonoBehaviour, IInputController
@@ -53,6 +53,10 @@ namespace Cursed.Character
 
         private void Update()
         {
+            //Update input buffers
+            Jump.Update(Time.deltaTime);
+            Dash.Update(Time.deltaTime);
+
             //Reset data
             _data.Reset();
 

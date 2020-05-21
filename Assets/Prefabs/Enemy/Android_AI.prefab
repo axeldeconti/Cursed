@@ -26,8 +26,9 @@ GameObject:
   - component: {fileID: 4899068109193366447}
   - component: {fileID: 330731327431944237}
   - component: {fileID: 6443285607939143391}
+  - component: {fileID: 5555989077860106762}
   m_Layer: 0
-  m_Name: patrolFollowAI_test
+  m_Name: Android_AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,8 +121,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3b98bc352a93541a9da7c8ae5cffae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 1
   _target: {fileID: 0}
+  _state: None
+  _allStates:
+  - {fileID: 11400000, guid: 557d3872a0f669d42977341454a1d749, type: 2}
+  - {fileID: 11400000, guid: 1bfe37e11f237a846bb2bc8f71463b1d, type: 2}
+  - {fileID: 11400000, guid: 0e4d59d548f910e42827a6dc2dd2217d, type: 2}
+  _debugLogs: 0
+  _debugDraws: 1
   _aggroRange:
     UseConstant: 0
     ConstantValue: 0
@@ -130,12 +137,6 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: c14f3522cb9984d469969948d828a77e, type: 2}
-  _timeToChangePlatformTarget:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 86a65608391953e4a9c51cfa9a81d30a, type: 2}
-  _debugLogs: 0
-  _debugDraws: 1
 --- !u!114 &2987228160341031770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +265,11 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 02c31bfef828c414ca58cc3c00c69f65, type: 2}
-  _freezeFrameKill:
+  _zoomDuration:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _slowMotionDuration:
     UseConstant: 1
     ConstantValue: 0
     Variable: {fileID: 0}
@@ -525,6 +530,7 @@ MonoBehaviour:
     type: 3}
   _vfxAndroidPartExplosion: {fileID: 8051251058266920337, guid: 6ae6fc9307335fc408c436c8f1a6bf5f,
     type: 3}
+  _vfxUnlockComp: {fileID: 0}
   _refFlashScreen: {fileID: 0}
 --- !u!114 &330731327431944237
 MonoBehaviour:
@@ -551,6 +557,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _offset: {x: 0, y: 2, z: 0}
+--- !u!114 &5555989077860106762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275295404781019534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5ff1f7c0a3e1f4c8d0fb0f0f80111c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ghostDash: {fileID: 1914275734890146451, guid: d50533610e0052f438c81fbc71afefda,
+    type: 3}
+  _ghostDivekick: {fileID: 4796411183293776234, guid: f133d0bb7e555e34594fccb0607241d1,
+    type: 3}
+  _ghostDelayInterval:
+    UseConstant: 1
+    ConstantValue: 0.05
+    Variable: {fileID: 0}
+  _timeGhostDashVisible:
+    UseConstant: 1
+    ConstantValue: 0.8
+    Variable: {fileID: 0}
+  _timeGhostDivekickVisible:
+    UseConstant: 1
+    ConstantValue: 0.4
+    Variable: {fileID: 0}
 --- !u!1 &275295404781033898
 GameObject:
   m_ObjectHideFlags: 0
