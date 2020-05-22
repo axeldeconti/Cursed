@@ -51,6 +51,8 @@ namespace Cursed.UI
                     CreditsToHome();
                 if (_controls.activeSelf)
                     ControlsToOption();
+                if (_tuto.activeSelf)
+                    TutoToHome();
             }
         }
 
