@@ -11,6 +11,7 @@ namespace Cursed.UI
 
         [Header("Referencies")]
         [SerializeField] private GameObject _pauseMenu = null;
+        [SerializeField] private GameObject _optionsMenu = null;
         [SerializeField] private GameObject _controlsMenu = null;
         [SerializeField] private GameObject _inGameMenu = null;
 
@@ -19,12 +20,13 @@ namespace Cursed.UI
         private DepthOfField _depthOfField;
 
         private bool _optionsToogle;
+        private bool _controlsToogle;
 
         private void Start()
         {
             _gameManager = GameManager.Instance;
             _pauseMenu.SetActive(false);
-            _controlsMenu.SetActive(false);
+            _optionsMenu.SetActive(false);
 
             // SET BLUR EFFECT 
             if (_globalVolume != null)
@@ -42,10 +44,12 @@ namespace Cursed.UI
 
             if(Input.GetButtonDown("Cancel"))
             {
-                if (_gameManager.State == GameManager.GameState.Pause && !_controlsMenu.activeSelf)
+                if (_gameManager.State == GameManager.GameState.Pause && !_optionsMenu.activeSelf && !_controlsMenu.activeSelf)
                     TooglePause();
-                if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
+                if (_gameManager.State == GameManager.GameState.Pause && _optionsMenu.activeSelf)
                     ToogleOptions();
+                if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
+                    ToogleControls();
             }
         }
 
@@ -57,7 +61,7 @@ namespace Cursed.UI
                     _gameManager.State = GameManager.GameState.Pause;
                     AkSoundEngine.PostEvent("Play_PauseMenu_Off", gameObject);
                     _pauseMenu.SetActive(true);
-                    _controlsMenu.SetActive(false);
+                    _optionsMenu.SetActive(false);
                     _inGameMenu.SetActive(false);
                     _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
                     ButtonHandler.isFirstSelected = true;
@@ -66,7 +70,7 @@ namespace Cursed.UI
                     _gameManager.State = GameManager.GameState.InGame;
                     AkSoundEngine.PostEvent("Play_PauseMenu_On", gameObject);
                     _pauseMenu.SetActive(false);
-                    _controlsMenu.SetActive(false);
+                    _optionsMenu.SetActive(false);
                     _inGameMenu.SetActive(true);
                     _depthOfField.mode.value = DepthOfFieldMode.Off;
                     break;
@@ -82,8 +86,15 @@ namespace Cursed.UI
         public void ToogleOptions()
         {
             _optionsToogle = !_optionsToogle;
-            _controlsMenu.SetActive(_optionsToogle);
+            _optionsMenu.SetActive(_optionsToogle);
             _pauseMenu.SetActive(!_optionsToogle);
+        }
+
+        public void ToogleControls()
+        {
+            _controlsToogle = !_controlsToogle;
+            _controlsMenu.SetActive(_controlsToogle);
+            _optionsMenu.SetActive(!_controlsToogle);
         }
 
         public void Quit()
