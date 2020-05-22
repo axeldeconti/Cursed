@@ -29,10 +29,12 @@ namespace Cursed.UI
         [Header("Cameras")]
         [SerializeField] private GameObject _mainCameraMenu;
         [SerializeField] private GameObject _virtualCameraMenu;
+        private Animator _cameraAnimator;
 
         private void Start()
         {
             _gameManager = GameManager.Instance;
+            _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
             _mainMenu.SetActive(true);
             _options.SetActive(false);
             _credits.SetActive(false);
@@ -111,15 +113,17 @@ namespace Cursed.UI
         public void OptionsToControls()
         {
             _optionsAnimator.SetTrigger("Close");
-            StartCoroutine(WaitForActive(_controls, true, _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitForActive(_options, false, _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForLaunchAnimation(_cameraAnimator, "Controls", _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_controls, true, _cameraAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void ControlsToOption()
         {
             _controlsAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_controls, false, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
-            StartCoroutine(WaitForActive(_options, true, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForLaunchAnimation(_cameraAnimator, "Idle", _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_options, true, _cameraAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void Quit()
@@ -139,6 +143,12 @@ namespace Cursed.UI
         {
             yield return new WaitForSeconds(delay);
             go.SetActive(active);
+        }
+
+        IEnumerator WaitForLaunchAnimation(Animator animator, string trigger, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            animator.SetTrigger(trigger);
         }
     }
 }
