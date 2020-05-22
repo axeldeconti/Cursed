@@ -21,7 +21,7 @@ namespace Cursed.UI
         [SerializeField] private string[] _headersName;
         [SerializeField] private int _maxIndex = 2;
 
-        private int _currentIndex;
+        public int _currentIndex { get; private set; }
 
         private void Start()
         {
