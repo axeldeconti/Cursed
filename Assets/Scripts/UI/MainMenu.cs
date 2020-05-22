@@ -8,18 +8,25 @@ namespace Cursed.UI
     {
         private GameManager _gameManager = null;
 
+        [Header("Menu Objects")]
         [SerializeField] private GameObject _mainMenu = null;
         [SerializeField] private GameObject _options = null;
         [SerializeField] private GameObject _credits = null;
         [SerializeField] private GameObject _tuto = null;
+        [SerializeField] private GameObject _controls = null;
+
+        [Header("Menu Animators")]
         [SerializeField] private Animator _mainMenuAnimator;
         [SerializeField] private Animator _creditsAnimator;
         [SerializeField] private Animator _optionsAnimator;
         [SerializeField] private Animator _tutoAnimator;
+        [SerializeField] private Animator _controlsAnimator;
 
+        [Header("Scenes Name")]
         [SerializeField] private string Level_Tuto;
         [SerializeField] private string Level_Intro;
 
+        [Header("Cameras")]
         [SerializeField] private GameObject _mainCameraMenu;
         [SerializeField] private GameObject _virtualCameraMenu;
 
@@ -29,6 +36,7 @@ namespace Cursed.UI
             _mainMenu.SetActive(true);
             _options.SetActive(false);
             _credits.SetActive(false);
+            _controls.SetActive(false);
         }
 
         private void Update()
@@ -39,6 +47,8 @@ namespace Cursed.UI
                     OptionsToHome();
                 if (_credits.activeSelf)
                     CreditsToHome();
+                if (_controls.activeSelf)
+                    ControlsToOption();
             }
         }
 
@@ -96,6 +106,20 @@ namespace Cursed.UI
             _mainMenuAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_mainMenu, false, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitForActive(_options, true, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
+        }
+
+        public void OptionsToControls()
+        {
+            _optionsAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_controls, true, _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_options, false, _optionsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+        }
+
+        public void ControlsToOption()
+        {
+            _controlsAnimator.SetTrigger("Close");
+            StartCoroutine(WaitForActive(_controls, false, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_options, true, _controlsAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
         public void Quit()
