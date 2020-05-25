@@ -1,8 +1,29 @@
 Event	ID	Name			Wwise Object Path	Notes
 	962944353	Play_Music_InGame			\Default Work Unit\Music\Play_Music_InGame	
+	1404684114	PauseAllSounds			\Default Work Unit\UI\PauseMenu\PauseAllSounds	
 	1566693136	Play_Music_MainMenu			\Default Work Unit\Music\Play_Music_MainMenu	
+	3456043509	ResumeAllSounds			\Default Work Unit\UI\PauseMenu\ResumeAllSounds	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	3422541661	Pause_Menu			\Default Work Unit\Pause_Menu	
+
+State	ID	Name	State Group			Notes
+	319258907	Paused	Pause_Menu			
+	748895195	None	Pause_Menu			
+	1365518790	Unpaused	Pause_Menu			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	650539603	Paused	Pause_Menu	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music_Bus		
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	1127857866	Music_Slider			\Default Work Unit\Music_Slider	
+	3087031974	Main_Slider			\Default Work Unit\Main_Slider	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	2680856269	Music_Bus			\Default Work Unit\Master Audio Bus\Music_Bus	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	170720435	Mus_Level01_Theme	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Mus_Level01_Theme_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Musics\Mus_Level01_Theme		41839940
-	235091105	Mus_MainMenu_Theme	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Mus_MainMenu_Theme_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Musics\Mus_MainMenu_Theme		8192064
+	170720435	Mus_Level01_Theme	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Mus_Level01_Theme_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Music_ActorMixer\Musics\Mus_Level01_Theme		41839940
+	235091105	Mus_MainMenu_Theme	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Mus_MainMenu_Theme_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Music_ActorMixer\Musics\Mus_MainMenu_Theme		8192064
 
