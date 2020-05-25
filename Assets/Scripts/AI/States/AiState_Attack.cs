@@ -6,6 +6,7 @@ namespace Cursed.AI
     [CreateAssetMenu(fileName = "New AiState Attack", menuName = "AI/States/Attack")]
     public class AiState_Attack : AiState
     {
+        [SerializeField] private FloatReference _aggroRange = null;
         [SerializeField] private FloatReference _attackRange = null;
 
         [Header("Chances")]
@@ -65,6 +66,9 @@ namespace Cursed.AI
 
         protected override void CheckForTransition(AiController controller, ref string newState)
         {
+            if (!controller.TargetInRange(_aggroRange, false) || controller.Target == null)
+                newState = "GroundPatrol";
+
             if (!controller.TargetInRange(_attackRange, true))
                 newState = "Chase";
         }

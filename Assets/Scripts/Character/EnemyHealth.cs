@@ -8,6 +8,7 @@ namespace Cursed.Character
     public class EnemyHealth : HealthManager
     {
         public Action<int> onEnemyHealthUpdate;
+        public Action<GameObject> onAttack;
 
         [Header("Creature")]
         [SerializeField] private IntReference _minCreatureAmountHealth;
@@ -37,6 +38,7 @@ namespace Cursed.Character
             else
             {
                 base.OnAttack(attacker, attack);
+                onAttack?.Invoke(attacker);
             }
         }
 

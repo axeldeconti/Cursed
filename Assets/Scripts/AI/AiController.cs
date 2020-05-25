@@ -13,7 +13,7 @@ namespace Cursed.AI
         private CollisionHandler _col = null;
         private CharacterMovement _move = null;
         private CharacterAttackManager _atk = null;
-        private HealthManager _health = null;
+        private EnemyHealth _health = null;
 
         [SerializeField] private AiTarget _target = null;
 
@@ -38,13 +38,14 @@ namespace Cursed.AI
             _col = GetComponent<CollisionHandler>();
             _move = GetComponent<CharacterMovement>();
             _atk = GetComponent<CharacterAttackManager>();
-            _health = GetComponent<HealthManager>();
+            _health = GetComponent<EnemyHealth>();
 
             if (_pathfindingMgr == null)
                 _pathfindingMgr = Pathfinding.Instance;
 
             _pathAgent.OnPathCompleted += OnPathCompleted;
             _pathAgent.OnPathDirty += OnPathDirty;
+            _health.onAttack += OnAttackCallback;
         }
 
         private void Start()
@@ -75,6 +76,24 @@ namespace Cursed.AI
         public void GetInputs(ref AIData data)
         {
             UpdateState(ref data);
+        }
+
+        /// <summary>
+        /// Callback for the enemy health onAttack action
+        /// </summary>
+        /// <param name="attacker"></param>
+        public void OnAttackCallback(GameObject attacker)
+        {
+            AiTarget target = attacker.GetComponent<AiTarget>();
+
+            if (target)
+            {
+                if (HasState("Chase"))
+                {
+                    SetState(CurrentState(), "Chase");
+                    _target = target;
+                }
+            }
         }
 
         #region Checks and Raycasts

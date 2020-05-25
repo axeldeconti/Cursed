@@ -14,6 +14,7 @@ namespace Cursed.AI
         public override void OnStateEnter(AiController controller)
         {
             _currentTimeToChangePlatformTarget = 0;
+            controller.Target = null;
         }
 
         public override void OnStateUpdate(AiController controller, ref AIData data)

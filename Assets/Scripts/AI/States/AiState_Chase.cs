@@ -30,7 +30,7 @@ namespace Cursed.AI
 
         protected override void CheckForTransition(AiController controller, ref string newState)
         {
-            if (!controller.TargetInRange(_aggroRange, false))
+            if (!controller.TargetInRange(_aggroRange, false) || controller.Target == null)
                 newState = "GroundPatrol";
 
             if (controller.TargetInRange(_attackRange, true))

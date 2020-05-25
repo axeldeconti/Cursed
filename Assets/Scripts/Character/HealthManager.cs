@@ -134,7 +134,7 @@ namespace Cursed.Character
                     if ((!attacker.tag.Equals("Player")) && (!attacker.tag.Equals("Creature")))
                         _sfx.FirstEnemyDamageSFX();
 
-                    if (attacker.tag.Equals("Player"))
+                    if (attacker.tag.Equals("Player") || attacker.tag.Equals("Enemy"))
                     {
                         if (atkMgr)
                         {
