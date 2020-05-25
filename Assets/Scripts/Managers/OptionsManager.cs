@@ -1,10 +1,13 @@
 ﻿using Cursed.VisualEffect;
+using Cursed.Utilities;
 using UnityEngine;
 
 namespace Cursed.Managers
 {
     public class OptionsManager : Singleton<OptionsManager>
     {
+        [SerializeField] private VibrationData_SO _activeVibration_SO;
+
         private float _mainVolume;
         private float _musicVolume;
         private float _sfxVolume;
@@ -17,7 +20,11 @@ namespace Cursed.Managers
             SetMainVolumeTo(1f);
             SetMusicVolumeTo(1f);
             SetSFXVolumeTo(1f);
-            SetVibration(true);
+
+            // Vibration INIT
+            _vibrationsActive = true;
+            ControllerVibration.Instance.vibrationActive = true;
+            Debug.Log("Vibrations set to " + true);
         }
 
         #endregion
@@ -55,8 +62,14 @@ namespace Cursed.Managers
         {
             _vibrationsActive = active;
             ControllerVibration.Instance.vibrationActive = active;
+            LaunchVibration();
             Debug.Log("Vibrations set to " + active);
             return _vibrationsActive;
+        }
+
+        private void LaunchVibration()
+        {
+            ControllerVibration.Instance.StartVibration(_activeVibration_SO);
         }
 
 
