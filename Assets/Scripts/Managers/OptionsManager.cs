@@ -27,7 +27,7 @@ namespace Cursed.Managers
             _mainVolume = value;
             Debug.Log("Main volume set to " + value);
 
-            // Update volume in wwise
+            AkSoundEngine.SetRTPCValue("Main_Slider", value);
             return _mainVolume;
         }
 
@@ -36,7 +36,7 @@ namespace Cursed.Managers
             _musicVolume = value;
             Debug.Log("Music volume set to " + value);
 
-            // Update volume in wwise
+            AkSoundEngine.SetRTPCValue("Music_Slider", value);
 
             return _musicVolume;
         }
@@ -46,7 +46,7 @@ namespace Cursed.Managers
             _sfxVolume = value;
             Debug.Log("SFX volume set to " + value);
 
-            // Update volume in wwise
+            AkSoundEngine.SetRTPCValue("SFX_Slider", value);
 
             return _sfxVolume;
         }
