@@ -13,6 +13,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	1251478039	Play_Creature_HitWall			\Default Work Unit\Creature\Play_Creature_HitWall	
 	1312214966	Play_Attack_Axe_FirstSlice			\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice	
 	1316790141	Stop_Creature_OnChar			\Default Work Unit\Creature\Stop_Creature_OnChar	
+	1404684114	PauseAllSounds			\Default Work Unit\UI\PauseMenu\PauseAllSounds	
 	1471082706	Play_Enemy_SecondDamage			\Default Work Unit\Character\Damage\Play_Enemy_SecondDamage	
 	1566693136	Play_Music_MainMenu			\Default Work Unit\Music\Play_Music_MainMenu	
 	1701637365	Play_MapGenerator_On			\Default Work Unit\Spatial\Play_MapGenerator_On	
@@ -43,12 +44,32 @@ Event	ID	Name			Wwise Object Path	Notes
 	3331455763	Play_Creature_EndDrain			\Default Work Unit\Creature\Play_Creature_EndDrain	
 	3361186193	Play_Creature_Launch			\Default Work Unit\Creature\Play_Creature_Launch	
 	3373431376	Play_Creature_Grabbing			\Default Work Unit\Creature\Play_Creature_Grabbing	
+	3456043509	ResumeAllSounds			\Default Work Unit\UI\PauseMenu\ResumeAllSounds	
 	3531069449	Play_DeathAnnouncement			\Default Work Unit\Spatial\Play_DeathAnnouncement	
 	3638125099	Play_Player_Damage			\Default Work Unit\Character\Damage\Play_Player_Damage	
 	3793046172	Play_AssemblyLine			\Default Work Unit\Spatial\Play_AssemblyLine	
 	3882482286	Play_Button_Selected			\Default Work Unit\UI\Play_Button_Selected	
 	3966446488	Play_DestructibleWall			\Default Work Unit\Character\Play_DestructibleWall	
 	4060380671	Play_Begin_WallSlide			\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	3422541661	Pause_Menu			\Default Work Unit\Pause_Menu	
+
+State	ID	Name	State Group			Notes
+	319258907	Paused	Pause_Menu			
+	748895195	None	Pause_Menu			
+	1365518790	Unpaused	Pause_Menu			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	244841197	Paused	Pause_Menu	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX_Bus		
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	3087031974	Main_Slider			\Default Work Unit\Main_Slider	
+	4140634290	SFX_Slider			\Default Work Unit\SFX_Slider	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	213475909	SFX_Bus			\Default Work Unit\Master Audio Bus\SFX_Bus	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	1810840	SFX_Creature_Launch	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Creature\Creature_Launch_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\SFX_Creature_Launch		87172

@@ -17,56 +17,24 @@
 			<Path>Init.bnk</Path>
 			<GameParameters>
 				<GameParameter Id="1127857866" Name="Music_Slider" ObjectPath="\Game Parameters\Default Work Unit\Music_Slider"/>
+				<GameParameter Id="3087031974" Name="Main_Slider" ObjectPath="\Game Parameters\Default Work Unit\Main_Slider"/>
 				<GameParameter Id="4140634290" Name="SFX_Slider" ObjectPath="\Game Parameters\Default Work Unit\SFX_Slider"/>
-				<GameParameter Id="4171556823" Name="Ambiance_Slider" ObjectPath="\Game Parameters\Default Work Unit\Ambiance_Slider"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="1551306167" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\UI</ObjectPath>
-			<ShortName>UI</ShortName>
-			<Path>UI.bnk</Path>
+		<SoundBank Id="3161908922" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
 			<IncludedEvents>
 				<Event Id="1404684114" Name="PauseAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\PauseAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
-				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980">
+				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
 					<IncludedMemoryFiles>
-						<File Id="1057618011" Language="SFX">
-							<ShortName>SFX_Button_Pressed.wav</ShortName>
-							<Path>SFX\SFX_Button_Pressed_10C4C929.wem</Path>
+						<File Id="447976717" Language="SFX">
+							<ShortName>SFX_AssemblyLine.wav</ShortName>
+							<Path>SFX\SFX_AssemblyLine_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3882482286" Name="Play_Button_Selected" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Selected" DurationType="OneShot" DurationMin="0.464649" DurationMax="0.464649">
-					<IncludedMemoryFiles>
-						<File Id="726945814" Language="SFX">
-							<ShortName>TestButtonFeedback.wav</ShortName>
-							<Path>SFX\TestButtonFeedback_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2956896607" Name="Play_PauseMenu_Off" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_Off" DurationType="OneShot" DurationMin="0.240544" DurationMax="0.240544">
-					<IncludedMemoryFiles>
-						<File Id="898334294" Language="SFX">
-							<ShortName>SFX_PauseMenu_Off.wav</ShortName>
-							<Path>SFX\SFX_PauseMenu_Off_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1184864651" Name="Play_PauseMenu_On" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_On" DurationType="OneShot" DurationMin="0.198095" DurationMax="0.198095">
-					<IncludedMemoryFiles>
-						<File Id="543115641" Language="SFX">
-							<ShortName>SFX_PauseMenu_On.wav</ShortName>
-							<Path>SFX\SFX_PauseMenu_On_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="3456043509" Name="ResumeAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\ResumeAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
-			</IncludedEvents>
-		</SoundBank>
-		<SoundBank Id="1557941045" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\Characters</ObjectPath>
-			<ShortName>Characters</ShortName>
-			<Path>Characters.bnk</Path>
-			<IncludedEvents>
 				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.449161" DurationMax="0.449161">
 					<IncludedMemoryFiles>
 						<File Id="986840092" Language="SFX">
@@ -131,181 +99,22 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Character\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
+				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980">
 					<IncludedMemoryFiles>
-						<File Id="135575679" Language="SFX">
-							<ShortName>Dash\Dash.wav</ShortName>
-							<Path>SFX\Dash\Dash_10C4C929.wem</Path>
+						<File Id="1057618011" Language="SFX">
+							<ShortName>SFX_Button_Pressed.wav</ShortName>
+							<Path>SFX\SFX_Button_Pressed_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3966446488" Name="Play_DestructibleWall" ObjectPath="\Events\Default Work Unit\Character\Play_DestructibleWall" DurationType="OneShot" DurationMin="0.790113" DurationMax="0.790113">
+				<Event Id="3882482286" Name="Play_Button_Selected" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Selected" DurationType="OneShot" DurationMin="0.464649" DurationMax="0.464649">
 					<IncludedMemoryFiles>
-						<File Id="633154784" Language="SFX">
-							<ShortName>Foley_DestructibleWall.wav</ShortName>
-							<Path>SFX\Foley_DestructibleWall_10C4C929.wem</Path>
+						<File Id="726945814" Language="SFX">
+							<ShortName>TestButtonFeedback.wav</ShortName>
+							<Path>SFX\TestButtonFeedback_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1735873294" Name="Play_Divekick" ObjectPath="\Events\Default Work Unit\Character\Play_Divekick" DurationType="OneShot" DurationMin="0.322472" DurationMax="0.352789">
-					<IncludedMemoryFiles>
-						<File Id="92819270" Language="SFX">
-							<ShortName>Divekick\Divekick_02.wav</ShortName>
-							<Path>SFX\Divekick\Divekick_02_10C4C929.wem</Path>
-						</File>
-						<File Id="1033079340" Language="SFX">
-							<ShortName>Divekick\Divekick_01.wav</ShortName>
-							<Path>SFX\Divekick\Divekick_01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="595748461" Name="Play_DoubleJump" ObjectPath="\Events\Default Work Unit\Character\Jump\Play_DoubleJump" DurationType="OneShot" DurationMin="0.440083" DurationMax="0.440083">
-					<IncludedMemoryFiles>
-						<File Id="699165359" Language="SFX">
-							<ShortName>DoubleJump.wav</ShortName>
-							<Path>SFX\DoubleJump_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2912867303" Name="Play_End_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_End_WallSlide" DurationType="OneShot" DurationMin="0.338594" DurationMax="0.338594">
-					<IncludedMemoryFiles>
-						<File Id="72233361" Language="SFX">
-							<ShortName>Foley_WallSlide_End.wav</ShortName>
-							<Path>SFX\Foley_WallSlide_End_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="3046156865" Name="Play_Enemy_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Enemy_Death" DurationType="OneShot" DurationMin="0.507506" DurationMax="0.781474">
-					<IncludedMemoryFiles>
-						<File Id="120410151" Language="SFX">
-							<ShortName>Death\Enemy\Enemy_Death01.wav</ShortName>
-							<Path>SFX\Death\Enemy\Enemy_Death01_10C4C929.wem</Path>
-						</File>
-						<File Id="344727761" Language="SFX">
-							<ShortName>Death\Enemy\Enemy_Death03.wav</ShortName>
-							<Path>SFX\Death\Enemy\Enemy_Death03_10C4C929.wem</Path>
-						</File>
-						<File Id="820326928" Language="SFX">
-							<ShortName>Death\Enemy\Enemy_Death02.wav</ShortName>
-							<Path>SFX\Death\Enemy\Enemy_Death02_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2563456942" Name="Play_Enemy_FirstDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_FirstDamage" DurationType="OneShot" DurationMin="0.135011" DurationMax="0.135011">
-					<IncludedMemoryFiles>
-						<File Id="266893339" Language="SFX">
-							<ShortName>Damage\Enemy\Enemy_Damage_FirstHit01.wav</ShortName>
-							<Path>SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1471082706" Name="Play_Enemy_SecondDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_SecondDamage" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
-					<IncludedMemoryFiles>
-						<File Id="13990874" Language="SFX">
-							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
-							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="765570963" Name="Play_Enemy_ThirdDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_ThirdDamage" DurationType="OneShot" DurationMin="0.174218" DurationMax="0.174218">
-					<IncludedMemoryFiles>
-						<File Id="630155253" Language="SFX">
-							<ShortName>Damage\Enemy\Enemy_Damage_ThirdHit01.wav</ShortName>
-							<Path>SFX\Damage\Enemy\Enemy_Damage_ThirdHit01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2323405115" Name="Play_Landing" ObjectPath="\Events\Default Work Unit\Character\Play_Landing" DurationType="OneShot" DurationMin="0.436961" DurationMax="0.436961">
-					<IncludedMemoryFiles>
-						<File Id="307684995" Language="SFX">
-							<ShortName>Landing\Landing.wav</ShortName>
-							<Path>SFX\Landing\Landing_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="291002683" Name="Play_LowHealth1" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth1" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227">
-					<IncludedMemoryFiles>
-						<File Id="480281922" Language="SFX">
-							<ShortName>LowHealth\LowHealth_First.wav</ShortName>
-							<Path>SFX\LowHealth\LowHealth_First_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="291002680" Name="Play_LowHealth2" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth2" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227">
-					<IncludedMemoryFiles>
-						<File Id="901544711" Language="SFX">
-							<ShortName>LowHealth\LowHealth_Second.wav</ShortName>
-							<Path>SFX\LowHealth\LowHealth_Second_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="3638125099" Name="Play_Player_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Player_Damage" DurationType="OneShot" DurationMin="0.428526" DurationMax="0.458118">
-					<IncludedMemoryFiles>
-						<File Id="20235951" Language="SFX">
-							<ShortName>Damage\Player\Player_Damage.wav</ShortName>
-							<Path>SFX\Damage\Player\Player_Damage_10C4C929.wem</Path>
-						</File>
-						<File Id="443828323" Language="SFX">
-							<ShortName>Damage\Player\Player_Damage_02.wav</ShortName>
-							<Path>SFX\Damage\Player\Player_Damage_02_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1835085974" Name="Play_Player_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Player_Death" DurationType="OneShot" DurationMin="2.042109" DurationMax="2.042109">
-					<IncludedMemoryFiles>
-						<File Id="206046367" Language="SFX">
-							<ShortName>Death\Player\Player_Death.wav</ShortName>
-							<Path>SFX\Death\Player\Player_Death_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Character\Play_Run" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295">
-					<IncludedMemoryFiles>
-						<File Id="108996717" Language="SFX">
-							<ShortName>Run\Run01.wav</ShortName>
-							<Path>SFX\Run\Run01_10C4C929.wem</Path>
-						</File>
-						<File Id="453798610" Language="SFX">
-							<ShortName>Run\Run04.wav</ShortName>
-							<Path>SFX\Run\Run04_10C4C929.wem</Path>
-						</File>
-						<File Id="498343508" Language="SFX">
-							<ShortName>Run\Run05.wav</ShortName>
-							<Path>SFX\Run\Run05_10C4C929.wem</Path>
-						</File>
-						<File Id="779069619" Language="SFX">
-							<ShortName>Run\Run06.wav</ShortName>
-							<Path>SFX\Run\Run06_10C4C929.wem</Path>
-						</File>
-						<File Id="892121780" Language="SFX">
-							<ShortName>Run\Run02.wav</ShortName>
-							<Path>SFX\Run\Run02_10C4C929.wem</Path>
-						</File>
-						<File Id="992813343" Language="SFX">
-							<ShortName>Run\Run03.wav</ShortName>
-							<Path>SFX\Run\Run03_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="848533759" Name="Stop_Begin_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide" DurationType="Infinite">
-					<IncludedMemoryFiles>
-						<File Id="239182092" Language="SFX">
-							<ShortName>Foley_Player_WallSlideLoop_02.wav</ShortName>
-							<Path>SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem</Path>
-						</File>
-						<File Id="719473206" Language="SFX">
-							<ShortName>Foley_Player_WallSlideLoop_01.wav</ShortName>
-							<Path>SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-			</IncludedEvents>
-		</SoundBank>
-		<SoundBank Id="2661483290" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\Creature</ObjectPath>
-			<ShortName>Creature</ShortName>
-			<Path>Creature.bnk</Path>
-			<IncludedEvents>
 				<Event Id="1776683280" Name="Play_Creature_Call" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Call" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873">
 					<IncludedMemoryFiles>
 						<File Id="327802423" Language="SFX">
@@ -314,7 +123,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="446620581" Name="Play_Creature_Camera" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Camera" DurationType="OneShot" DurationMin="0.281156" DurationMax="0.281156">
+				<Event Id="446620581" Name="Play_Creature_Camera" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Camera" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.281156" DurationMax="0.281156">
 					<IncludedMemoryFiles>
 						<File Id="951068667" Language="SFX">
 							<ShortName>SFX_Creature_Camera_V2.wav</ShortName>
@@ -386,19 +195,11 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1316790141" Name="Stop_Creature_OnChar" ObjectPath="\Events\Default Work Unit\Creature\Stop_Creature_OnChar" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
-			</IncludedEvents>
-		</SoundBank>
-		<SoundBank Id="2767400001" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\Spatialized</ObjectPath>
-			<ShortName>Spatialized</ShortName>
-			<Path>Spatialized.bnk</Path>
-			<IncludedEvents>
-				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
+				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Character\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
 					<IncludedMemoryFiles>
-						<File Id="447976717" Language="SFX">
-							<ShortName>SFX_AssemblyLine.wav</ShortName>
-							<Path>SFX\SFX_AssemblyLine_10C4C929.wem</Path>
+						<File Id="135575679" Language="SFX">
+							<ShortName>Dash\Dash.wav</ShortName>
+							<Path>SFX\Dash\Dash_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -410,7 +211,35 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" DurationType="Infinite">
+				<Event Id="3966446488" Name="Play_DestructibleWall" ObjectPath="\Events\Default Work Unit\Character\Play_DestructibleWall" DurationType="OneShot" DurationMin="0.790113" DurationMax="0.790113">
+					<IncludedMemoryFiles>
+						<File Id="633154784" Language="SFX">
+							<ShortName>Foley_DestructibleWall.wav</ShortName>
+							<Path>SFX\Foley_DestructibleWall_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1735873294" Name="Play_Divekick" ObjectPath="\Events\Default Work Unit\Character\Play_Divekick" DurationType="OneShot" DurationMin="0.322472" DurationMax="0.352789">
+					<IncludedMemoryFiles>
+						<File Id="92819270" Language="SFX">
+							<ShortName>Divekick\Divekick_02.wav</ShortName>
+							<Path>SFX\Divekick\Divekick_02_10C4C929.wem</Path>
+						</File>
+						<File Id="1033079340" Language="SFX">
+							<ShortName>Divekick\Divekick_01.wav</ShortName>
+							<Path>SFX\Divekick\Divekick_01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="595748461" Name="Play_DoubleJump" ObjectPath="\Events\Default Work Unit\Character\Jump\Play_DoubleJump" DurationType="OneShot" DurationMin="0.440083" DurationMax="0.440083">
+					<IncludedMemoryFiles>
+						<File Id="699165359" Language="SFX">
+							<ShortName>DoubleJump.wav</ShortName>
+							<Path>SFX\DoubleJump_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="742247423" Language="SFX">
 							<ShortName>ElectricTrap_Active.wav</ShortName>
@@ -418,7 +247,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1235386822" Name="Play_ElectricTrap_Inactive" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Inactive" DurationType="Infinite">
+				<Event Id="1235386822" Name="Play_ElectricTrap_Inactive" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Inactive" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="407740136" Language="SFX">
 							<ShortName>ElectricTrap_Inactive_04.wav</ShortName>
@@ -438,7 +267,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3294792404" Name="Play_ElectricTrap_Triggered" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Triggered" DurationType="Infinite">
+				<Event Id="3294792404" Name="Play_ElectricTrap_Triggered" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Triggered" MaxAttenuation="40.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="749166722" Language="SFX">
 							<ShortName>ElectricTrap_Triggered.wav</ShortName>
@@ -446,7 +275,15 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2268596465" Name="Play_EndLevelDoor" ObjectPath="\Events\Default Work Unit\Spatial\Play_EndLevelDoor" DurationType="OneShot" DurationMin="1.056508" DurationMax="1.056508">
+				<Event Id="2912867303" Name="Play_End_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_End_WallSlide" DurationType="OneShot" DurationMin="0.338594" DurationMax="0.338594">
+					<IncludedMemoryFiles>
+						<File Id="72233361" Language="SFX">
+							<ShortName>Foley_WallSlide_End.wav</ShortName>
+							<Path>SFX\Foley_WallSlide_End_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2268596465" Name="Play_EndLevelDoor" ObjectPath="\Events\Default Work Unit\Spatial\Play_EndLevelDoor" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="1.056508" DurationMax="1.056508">
 					<IncludedMemoryFiles>
 						<File Id="207810947" Language="SFX">
 							<ShortName>SFX_EndLevelDoor.wav</ShortName>
@@ -454,7 +291,55 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" DurationType="Infinite">
+				<Event Id="3046156865" Name="Play_Enemy_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Enemy_Death" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.507506" DurationMax="0.781474">
+					<IncludedMemoryFiles>
+						<File Id="120410151" Language="SFX">
+							<ShortName>Death\Enemy\Enemy_Death01.wav</ShortName>
+							<Path>SFX\Death\Enemy\Enemy_Death01_10C4C929.wem</Path>
+						</File>
+						<File Id="344727761" Language="SFX">
+							<ShortName>Death\Enemy\Enemy_Death03.wav</ShortName>
+							<Path>SFX\Death\Enemy\Enemy_Death03_10C4C929.wem</Path>
+						</File>
+						<File Id="820326928" Language="SFX">
+							<ShortName>Death\Enemy\Enemy_Death02.wav</ShortName>
+							<Path>SFX\Death\Enemy\Enemy_Death02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2563456942" Name="Play_Enemy_FirstDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_FirstDamage" DurationType="OneShot" DurationMin="0.135011" DurationMax="0.135011">
+					<IncludedMemoryFiles>
+						<File Id="266893339" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_FirstHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1471082706" Name="Play_Enemy_SecondDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_SecondDamage" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424">
+					<IncludedMemoryFiles>
+						<File Id="13990874" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_SecondHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_SecondHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="765570963" Name="Play_Enemy_ThirdDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_ThirdDamage" DurationType="OneShot" DurationMin="0.174218" DurationMax="0.174218">
+					<IncludedMemoryFiles>
+						<File Id="630155253" Language="SFX">
+							<ShortName>Damage\Enemy\Enemy_Damage_ThirdHit01.wav</ShortName>
+							<Path>SFX\Damage\Enemy\Enemy_Damage_ThirdHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2323405115" Name="Play_Landing" ObjectPath="\Events\Default Work Unit\Character\Play_Landing" DurationType="OneShot" DurationMin="0.436961" DurationMax="0.436961">
+					<IncludedMemoryFiles>
+						<File Id="307684995" Language="SFX">
+							<ShortName>Landing\Landing.wav</ShortName>
+							<Path>SFX\Landing\Landing_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" MaxAttenuation="45.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="738182096" Language="SFX">
 							<ShortName>Laser.wav</ShortName>
@@ -462,7 +347,23 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2809729569" Name="Play_MapGenerator_Off" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_Off" DurationType="OneShot" DurationMin="0.430295" DurationMax="0.430295">
+				<Event Id="291002683" Name="Play_LowHealth1" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth1" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227">
+					<IncludedMemoryFiles>
+						<File Id="480281922" Language="SFX">
+							<ShortName>LowHealth\LowHealth_First.wav</ShortName>
+							<Path>SFX\LowHealth\LowHealth_First_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="291002680" Name="Play_LowHealth2" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth2" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227">
+					<IncludedMemoryFiles>
+						<File Id="901544711" Language="SFX">
+							<ShortName>LowHealth\LowHealth_Second.wav</ShortName>
+							<Path>SFX\LowHealth\LowHealth_Second_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2809729569" Name="Play_MapGenerator_Off" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_Off" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.430295" DurationMax="0.430295">
 					<IncludedMemoryFiles>
 						<File Id="3225159" Language="SFX">
 							<ShortName>SFX_MapGenerator_Off.wav</ShortName>
@@ -470,7 +371,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1701637365" Name="Play_MapGenerator_On" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_On" DurationType="OneShot" DurationMin="0.434286" DurationMax="0.434286">
+				<Event Id="1701637365" Name="Play_MapGenerator_On" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_On" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.434286" DurationMax="0.434286">
 					<IncludedMemoryFiles>
 						<File Id="1048841554" Language="SFX">
 							<ShortName>SFX_MapGenerator_On.wav</ShortName>
@@ -478,7 +379,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" DurationType="Infinite">
+				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" MaxAttenuation="45.000000" DurationType="Infinite">
 					<IncludedMemoryFiles>
 						<File Id="738182096" Language="SFX">
 							<ShortName>Laser.wav</ShortName>
@@ -486,7 +387,44 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="3056885643" Name="Play_PuzzleDoor_Close" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Close" DurationType="OneShot" DurationMin="0.743651" DurationMax="0.743651">
+				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="Infinite"/>
+				<Event Id="2956896607" Name="Play_PauseMenu_Off" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_Off" DurationType="OneShot" DurationMin="0.240544" DurationMax="0.240544">
+					<IncludedMemoryFiles>
+						<File Id="898334294" Language="SFX">
+							<ShortName>SFX_PauseMenu_Off.wav</ShortName>
+							<Path>SFX\SFX_PauseMenu_Off_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1184864651" Name="Play_PauseMenu_On" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_On" DurationType="OneShot" DurationMin="0.198095" DurationMax="0.198095">
+					<IncludedMemoryFiles>
+						<File Id="543115641" Language="SFX">
+							<ShortName>SFX_PauseMenu_On.wav</ShortName>
+							<Path>SFX\SFX_PauseMenu_On_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3638125099" Name="Play_Player_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Player_Damage" DurationType="OneShot" DurationMin="0.428526" DurationMax="0.458118">
+					<IncludedMemoryFiles>
+						<File Id="20235951" Language="SFX">
+							<ShortName>Damage\Player\Player_Damage.wav</ShortName>
+							<Path>SFX\Damage\Player\Player_Damage_10C4C929.wem</Path>
+						</File>
+						<File Id="443828323" Language="SFX">
+							<ShortName>Damage\Player\Player_Damage_02.wav</ShortName>
+							<Path>SFX\Damage\Player\Player_Damage_02_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1835085974" Name="Play_Player_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Player_Death" DurationType="OneShot" DurationMin="2.042109" DurationMax="2.042109">
+					<IncludedMemoryFiles>
+						<File Id="206046367" Language="SFX">
+							<ShortName>Death\Player\Player_Death.wav</ShortName>
+							<Path>SFX\Death\Player\Player_Death_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3056885643" Name="Play_PuzzleDoor_Close" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Close" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.743651" DurationMax="0.743651">
 					<IncludedMemoryFiles>
 						<File Id="1000476603" Language="SFX">
 							<ShortName>SFX_PuzzleDoor_Close.wav</ShortName>
@@ -494,7 +432,7 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="973976397" Name="Play_PuzzleDoor_Open" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Open" DurationType="OneShot" DurationMin="0.428367" DurationMax="0.428367">
+				<Event Id="973976397" Name="Play_PuzzleDoor_Open" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Open" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.428367" DurationMax="0.428367">
 					<IncludedMemoryFiles>
 						<File Id="703962044" Language="SFX">
 							<ShortName>SFX_PuzzleDoor_Open.wav</ShortName>
@@ -502,7 +440,35 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
+				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Character\Play_Run" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295">
+					<IncludedMemoryFiles>
+						<File Id="108996717" Language="SFX">
+							<ShortName>Run\Run01.wav</ShortName>
+							<Path>SFX\Run\Run01_10C4C929.wem</Path>
+						</File>
+						<File Id="453798610" Language="SFX">
+							<ShortName>Run\Run04.wav</ShortName>
+							<Path>SFX\Run\Run04_10C4C929.wem</Path>
+						</File>
+						<File Id="498343508" Language="SFX">
+							<ShortName>Run\Run05.wav</ShortName>
+							<Path>SFX\Run\Run05_10C4C929.wem</Path>
+						</File>
+						<File Id="779069619" Language="SFX">
+							<ShortName>Run\Run06.wav</ShortName>
+							<Path>SFX\Run\Run06_10C4C929.wem</Path>
+						</File>
+						<File Id="892121780" Language="SFX">
+							<ShortName>Run\Run02.wav</ShortName>
+							<Path>SFX\Run\Run02_10C4C929.wem</Path>
+						</File>
+						<File Id="992813343" Language="SFX">
+							<ShortName>Run\Run03.wav</ShortName>
+							<Path>SFX\Run\Run03_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
 					<IncludedMemoryFiles>
 						<File Id="452589518" Language="SFX">
 							<ShortName>SFX_StaticNoise.wav</ShortName>
@@ -510,62 +476,19 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-			</IncludedEvents>
-		</SoundBank>
-		<SoundBank Id="3161908922" Language="SFX">
-			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
-			<ShortName>Main</ShortName>
-			<Path>Main.bnk</Path>
-			<IncludedEvents>
-				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955"/>
-				<Event Id="1312214966" Name="Play_Attack_Axe_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_FirstSlice" DurationType="OneShot" DurationMin="0.449161" DurationMax="0.449161"/>
-				<Event Id="378405260" Name="Play_Attack_Axe_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_SecondSlice" DurationType="OneShot" DurationMin="0.539546" DurationMax="0.539546"/>
-				<Event Id="1892380385" Name="Play_Attack_Axe_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Axe_ThirdSlice" DurationType="OneShot" DurationMin="0.522585" DurationMax="0.522585"/>
-				<Event Id="2804287435" Name="Play_Attack_Sword_FirstSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_FirstSlice" DurationType="OneShot" DurationMin="0.359320" DurationMax="0.359320"/>
-				<Event Id="2641629647" Name="Play_Attack_Sword_SecondSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_SecondSlice" DurationType="OneShot" DurationMin="0.436145" DurationMax="0.436145"/>
-				<Event Id="834008872" Name="Play_Attack_Sword_ThirdSlice" ObjectPath="\Events\Default Work Unit\Character\Attack\Play_Attack_Sword_ThirdSlice" DurationType="OneShot" DurationMin="0.418073" DurationMax="0.418073"/>
-				<Event Id="2216073360" Name="Play_BasicJump" ObjectPath="\Events\Default Work Unit\Character\Jump\Play_BasicJump" DurationType="OneShot" DurationMin="0.230500" DurationMax="0.230500"/>
-				<Event Id="4060380671" Name="Play_Begin_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide" DurationType="OneShot" DurationMin="1.147604" DurationMax="1.147604"/>
-				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980"/>
-				<Event Id="3882482286" Name="Play_Button_Selected" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Selected" DurationType="OneShot" DurationMin="0.464649" DurationMax="0.464649"/>
-				<Event Id="1776683280" Name="Play_Creature_Call" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Call" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873"/>
-				<Event Id="446620581" Name="Play_Creature_Camera" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Camera" DurationType="OneShot" DurationMin="0.281156" DurationMax="0.281156"/>
-				<Event Id="3331455763" Name="Play_Creature_EndDrain" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_EndDrain" DurationType="OneShot" DurationMin="0.485873" DurationMax="0.485873"/>
-				<Event Id="3373431376" Name="Play_Creature_Grabbing" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Grabbing" DurationType="OneShot" DurationMin="0.662222" DurationMax="0.662222"/>
-				<Event Id="1251478039" Name="Play_Creature_HitWall" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_HitWall" DurationType="OneShot" DurationMin="0.518866" DurationMax="0.518866"/>
-				<Event Id="3361186193" Name="Play_Creature_Launch" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_Launch" DurationType="OneShot" DurationMin="0.453687" DurationMax="0.453687"/>
-				<Event Id="2125403547" Name="Play_Creature_OnChar" ObjectPath="\Events\Default Work Unit\Creature\Play_Creature_OnChar" DurationType="Infinite"/>
-				<Event Id="2211787386" Name="Play_Dash" ObjectPath="\Events\Default Work Unit\Character\Play_Dash" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875"/>
-				<Event Id="3531069449" Name="Play_DeathAnnouncement" ObjectPath="\Events\Default Work Unit\Spatial\Play_DeathAnnouncement" DurationType="OneShot" DurationMin="4.028662" DurationMax="4.028662"/>
-				<Event Id="3966446488" Name="Play_DestructibleWall" ObjectPath="\Events\Default Work Unit\Character\Play_DestructibleWall" DurationType="OneShot" DurationMin="0.790113" DurationMax="0.790113"/>
-				<Event Id="1735873294" Name="Play_Divekick" ObjectPath="\Events\Default Work Unit\Character\Play_Divekick" DurationType="OneShot" DurationMin="0.322472" DurationMax="0.352789"/>
-				<Event Id="595748461" Name="Play_DoubleJump" ObjectPath="\Events\Default Work Unit\Character\Jump\Play_DoubleJump" DurationType="OneShot" DurationMin="0.440083" DurationMax="0.440083"/>
-				<Event Id="2006604231" Name="Play_ElectricTrap_Active" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active" DurationType="Infinite"/>
-				<Event Id="1235386822" Name="Play_ElectricTrap_Inactive" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Inactive" DurationType="Infinite"/>
-				<Event Id="3294792404" Name="Play_ElectricTrap_Triggered" ObjectPath="\Events\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Triggered" DurationType="Infinite"/>
-				<Event Id="2912867303" Name="Play_End_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_End_WallSlide" DurationType="OneShot" DurationMin="0.338594" DurationMax="0.338594"/>
-				<Event Id="2268596465" Name="Play_EndLevelDoor" ObjectPath="\Events\Default Work Unit\Spatial\Play_EndLevelDoor" DurationType="OneShot" DurationMin="1.056508" DurationMax="1.056508"/>
-				<Event Id="3046156865" Name="Play_Enemy_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Enemy_Death" DurationType="OneShot" DurationMin="0.507506" DurationMax="0.781474"/>
-				<Event Id="2563456942" Name="Play_Enemy_FirstDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_FirstDamage" DurationType="OneShot" DurationMin="0.135011" DurationMax="0.135011"/>
-				<Event Id="1471082706" Name="Play_Enemy_SecondDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_SecondDamage" DurationType="OneShot" DurationMin="0.223424" DurationMax="0.223424"/>
-				<Event Id="765570963" Name="Play_Enemy_ThirdDamage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Enemy_ThirdDamage" DurationType="OneShot" DurationMin="0.174218" DurationMax="0.174218"/>
-				<Event Id="2323405115" Name="Play_Landing" ObjectPath="\Events\Default Work Unit\Character\Play_Landing" DurationType="OneShot" DurationMin="0.436961" DurationMax="0.436961"/>
-				<Event Id="2270376495" Name="Play_Laser" ObjectPath="\Events\Default Work Unit\Spatial\Play_Laser" DurationType="Infinite"/>
-				<Event Id="291002683" Name="Play_LowHealth1" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth1" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227"/>
-				<Event Id="291002680" Name="Play_LowHealth2" ObjectPath="\Events\Default Work Unit\Character\LowHealth\Play_LowHealth2" DurationType="OneShot" DurationMin="0.920227" DurationMax="0.920227"/>
-				<Event Id="2809729569" Name="Play_MapGenerator_Off" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_Off" DurationType="OneShot" DurationMin="0.430295" DurationMax="0.430295"/>
-				<Event Id="1701637365" Name="Play_MapGenerator_On" ObjectPath="\Events\Default Work Unit\Spatial\Play_MapGenerator_On" DurationType="OneShot" DurationMin="0.434286" DurationMax="0.434286"/>
-				<Event Id="2996732270" Name="Play_MultiLaser" ObjectPath="\Events\Default Work Unit\Spatial\Play_MultiLaser" DurationType="Infinite"/>
-				<Event Id="1566693136" Name="Play_Music_MainMenu" ObjectPath="\Events\Default Work Unit\Music\Play_Music_MainMenu" DurationType="Infinite"/>
-				<Event Id="2956896607" Name="Play_PauseMenu_Off" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_Off" DurationType="OneShot" DurationMin="0.240544" DurationMax="0.240544"/>
-				<Event Id="1184864651" Name="Play_PauseMenu_On" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\Play_PauseMenu_On" DurationType="OneShot" DurationMin="0.198095" DurationMax="0.198095"/>
-				<Event Id="3638125099" Name="Play_Player_Damage" ObjectPath="\Events\Default Work Unit\Character\Damage\Play_Player_Damage" DurationType="OneShot" DurationMin="0.428526" DurationMax="0.458118"/>
-				<Event Id="1835085974" Name="Play_Player_Death" ObjectPath="\Events\Default Work Unit\Character\Death\Play_Player_Death" DurationType="OneShot" DurationMin="2.042109" DurationMax="2.042109"/>
-				<Event Id="3056885643" Name="Play_PuzzleDoor_Close" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Close" DurationType="OneShot" DurationMin="0.743651" DurationMax="0.743651"/>
-				<Event Id="973976397" Name="Play_PuzzleDoor_Open" ObjectPath="\Events\Default Work Unit\Spatial\Play_PuzzleDoor_Open" DurationType="OneShot" DurationMin="0.428367" DurationMax="0.428367"/>
-				<Event Id="2822207957" Name="Play_Run" ObjectPath="\Events\Default Work Unit\Character\Play_Run" DurationType="OneShot" DurationMin="0.330295" DurationMax="0.330295"/>
-				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048"/>
-				<Event Id="848533759" Name="Stop_Begin_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide" DurationType="Infinite"/>
+				<Event Id="3456043509" Name="ResumeAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\ResumeAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="848533759" Name="Stop_Begin_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="239182092" Language="SFX">
+							<ShortName>Foley_Player_WallSlideLoop_02.wav</ShortName>
+							<Path>SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem</Path>
+						</File>
+						<File Id="719473206" Language="SFX">
+							<ShortName>Foley_Player_WallSlideLoop_01.wav</ShortName>
+							<Path>SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="1316790141" Name="Stop_Creature_OnChar" ObjectPath="\Events\Default Work Unit\Creature\Stop_Creature_OnChar" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
@@ -834,6 +757,10 @@
 					<Path>SFX\Creature\Creature_HitWall_10C4C929.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
+			<GameParameters>
+				<GameParameter Id="3087031974" Name="Main_Slider" ObjectPath="\Game Parameters\Default Work Unit\Main_Slider"/>
+				<GameParameter Id="4140634290" Name="SFX_Slider" ObjectPath="\Game Parameters\Default Work Unit\SFX_Slider"/>
+			</GameParameters>
 		</SoundBank>
 		<SoundBank Id="3991942870" Language="SFX">
 			<ObjectPath>\SoundBanks\Default Work Unit\Music</ObjectPath>
@@ -871,7 +798,7 @@
 			</IncludedMemoryFiles>
 			<GameParameters>
 				<GameParameter Id="1127857866" Name="Music_Slider" ObjectPath="\Game Parameters\Default Work Unit\Music_Slider"/>
-				<GameParameter Id="4140634290" Name="SFX_Slider" ObjectPath="\Game Parameters\Default Work Unit\SFX_Slider"/>
+				<GameParameter Id="3087031974" Name="Main_Slider" ObjectPath="\Game Parameters\Default Work Unit\Main_Slider"/>
 			</GameParameters>
 		</SoundBank>
 	</SoundBanks>

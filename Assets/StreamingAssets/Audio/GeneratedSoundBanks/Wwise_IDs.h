@@ -86,7 +86,7 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
-        static const AkUniqueID AMBIANCE_SLIDER = 4171556823U;
+        static const AkUniqueID MAIN_SLIDER = 3087031974U;
         static const AkUniqueID MUSIC_SLIDER = 1127857866U;
         static const AkUniqueID SFX_SLIDER = 4140634290U;
     } // namespace GAME_PARAMETERS
@@ -94,17 +94,12 @@ namespace AK
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
-        static const AkUniqueID CHARACTERS = 1557941045U;
-        static const AkUniqueID CREATURE = 2661483290U;
         static const AkUniqueID MAIN = 3161908922U;
         static const AkUniqueID MUSIC = 3991942870U;
-        static const AkUniqueID SPATIALIZED = 2767400001U;
-        static const AkUniqueID UI = 1551306167U;
     } // namespace BANKS
 
     namespace BUSSES
     {
-        static const AkUniqueID AMBIANCE_BUS = 3161292138U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MUSIC_BUS = 2680856269U;
         static const AkUniqueID SFX_BUS = 213475909U;
