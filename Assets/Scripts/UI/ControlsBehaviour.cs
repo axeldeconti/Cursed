@@ -12,7 +12,9 @@ namespace Cursed.UI
         [SerializeField] private GameObject[] _infoObjects;
         [SerializeField] private TMP_Text _headerTxt;
         [SerializeField] private TMP_Text _indexInfoTxt;
-        private GameObject _firstSelectedButton;
+        private GameObject _firstSelectedButtonObject;
+        private Button _firstSelectedButton;
+        [SerializeField] private Button _returnButton;
         [SerializeField] private Button _button5;
         [SerializeField] private Button _button6;
         [SerializeField] private EventSystem _controlSystem;
@@ -27,7 +29,8 @@ namespace Cursed.UI
         {
             _currentIndex = 0;
             _maxIndex = _controlsObjects.Length - 1;
-            _firstSelectedButton = _controlSystem.firstSelectedGameObject;
+            _firstSelectedButtonObject = _controlSystem.firstSelectedGameObject;
+            _firstSelectedButton = _firstSelectedButtonObject.GetComponent<Button>();
             CheckIndex();
             UpdateUI();
         }
@@ -43,8 +46,11 @@ namespace Cursed.UI
 
         private void IncreaseIndex(int index)
         {
+            _returnButton.Select();
+            _controlSystem.SetSelectedGameObject(_returnButton.gameObject);
             _currentIndex += index;
-            _controlSystem.SetSelectedGameObject(_firstSelectedButton);
+            _firstSelectedButton.Select();
+            _controlSystem.SetSelectedGameObject(_firstSelectedButtonObject);
             CheckIndex();
             UpdateUI();
         }
