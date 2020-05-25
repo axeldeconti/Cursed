@@ -63,7 +63,7 @@ namespace Cursed.Creature
         public void UpdateCurrentStamina(int amount)
         {
             _currentStamina.Value = amount;
-            OnCurrentStaminaUpdate?.Raise(_currentStamina);
+            OnCurrentStaminaUpdate?.Raise(_currentStamina.Value);
         }
 
         public void UpdateMaxStamina(int amount)

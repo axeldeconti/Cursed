@@ -8,10 +8,10 @@ namespace Cursed.Creature
     public class CreatureHealthManager : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private IntReference _maxHealth;
+        [SerializeField] protected IntReference _maxHealth;
 
         [SerializeField] private IntReference _currentHealth;
-        [SerializeField] private CreatureStats _stats;
+        [SerializeField] protected CreatureStats _stats;
         [SerializeField] private CreatureManager _creatureManager;
         [SerializeField] private CreatureSearching _creatureSearching;
 
@@ -38,7 +38,7 @@ namespace Cursed.Creature
             _creatureSearching = GetComponent<CreatureSearching>();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             if (_stats != null)
                 _maxHealth.Value = _stats.CurrentMaxHealth;
@@ -70,8 +70,7 @@ namespace Cursed.Creature
         public void UpdateCurrentHealth(int health)
         {
             _currentHealth.Value = health;
-            if (onHealthUpdate != null)
-                onHealthUpdate.Raise(_currentHealth);
+            onHealthUpdate?.Raise(_currentHealth.Value);
         }
 
         public void AddCurrentHealth(int amount)
@@ -146,6 +145,7 @@ namespace Cursed.Creature
         {
             HealthManager playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>();
             playerHealth.AddCurrentHealth(_currentHealth);
+            Debug.Log("Give " + _currentHealth.Value + " hp to player");
             onHeal.Raise();
             UpdateCurrentHealth(0);
             _giveHealth = true;
