@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 4799e45544d55a4892fe138223275588
     GuidInternal: 
-    m_lastTime: -8586129322827039579
+    m_lastTime: -8586112104142695397
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -35,31 +35,44 @@ MonoBehaviour:
       - ElementName: Master Audio Bus
         ObjectType: 2
       Path: Default Work Unit\Master Audio Bus
+    - name: Music_Bus
+      guid: ca536c212d8d1f47ae23e0ce84f29c30
+      id: 2680856269
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: Music_Bus
+        ObjectType: 2
+      Path: Default Work Unit\Master Audio Bus\Music_Bus
+    - name: SFX_Bus
+      guid: e4ae3f20914da243b8cc762a3d71f2d5
+      id: 213475909
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      - ElementName: SFX_Bus
+        ObjectType: 2
+      Path: Default Work Unit\Master Audio Bus\SFX_Bus
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586116491530008399
+    m_lastTime: -8586112101790205470
     List:
-    - name: Characters
-      guid: 7cd07edfa3d31d43b7738d06e66fb061
-      id: 1557941045
+    - name: Main
+      guid: 322d29f9730a854fa95ea1e94d237c19
+      id: 3161908922
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Characters
+      - ElementName: Main
         ObjectType: 7
-      Path: Default Work Unit\Characters
-    - name: Creature
-      guid: 90a9f46898aa1e40a1d7a2a441fdc54b
-      id: 2661483290
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Creature
-        ObjectType: 7
-      Path: Default Work Unit\Creature
+      Path: Default Work Unit\Main
     - name: Music
       guid: 7aca8452329f844fa0b1c8a9610e4165
       id: 3991942870
@@ -69,30 +82,12 @@ MonoBehaviour:
       - ElementName: Music
         ObjectType: 7
       Path: Default Work Unit\Music
-    - name: Spatialized
-      guid: 2c95f594da1bb24cb2146adfd23fb61b
-      id: 2767400001
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: Spatialized
-        ObjectType: 7
-      Path: Default Work Unit\Spatialized
-    - name: UI
-      guid: ebf64210118ac245a899c95ed89df09d
-      id: 1551306167
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: UI
-        ObjectType: 7
-      Path: Default Work Unit\UI
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586116396042126835
+    m_lastTime: -8586115572086360131
     List:
     - name: Attack
       guid: 677527c83d22624681e9e422da0fa12b
@@ -1091,24 +1086,73 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: a1889d9b1db7f9469431a8f1a6a2a35d
     GuidInternal: 
-    m_lastTime: -8586116396041987115
+    m_lastTime: -8586112104556742950
     List:
-    - name: LaserMuffle
-      guid: 7bed2c5cfe395848a8bcef4ffce6a4ed
-      id: 643273893
+    - name: Main_Slider
+      guid: f3743e145cce614d8cde030600a37bd0
+      id: 3087031974
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: LaserMuffle
+      - ElementName: Main_Slider
         ObjectType: 13
-      Path: Default Work Unit\LaserMuffle
+      Path: Default Work Unit\Main_Slider
+    - name: Music_Slider
+      guid: 60111a1cfa65654781e2f4b7e07a9666
+      id: 1127857866
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Music_Slider
+        ObjectType: 13
+      Path: Default Work Unit\Music_Slider
+    - name: SFX_Slider
+      guid: cddbbc9cd2146542b1574dca25926b48
+      id: 4140634290
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: SFX_Slider
+        ObjectType: 13
+      Path: Default Work Unit\SFX_Slider
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPath: Default Work Unit
     guid: 276595bab354574f9d2d883a3a1b3010
     GuidInternal: 
-    m_lastTime: -8586152570422018606
-    List: []
+    m_lastTime: -8586115513029159743
+    List:
+    - name: Pause_Menu
+      guid: 9acc390909290d47a4b7c506d2f600af
+      id: 3422541661
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Pause_Menu
+        ObjectType: 9
+      Path: Default Work Unit\Pause_Menu
+      values:
+      - name: None
+        guid: 3dc9f850489f1244883e72e077cdb33a
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      - name: Paused
+        guid: 3b4253e198e72d409338124d4da88b17
+        id: 319258907
+        PathAndIcons:
+        - ElementName: Paused
+          ObjectType: 8
+      - name: Unpaused
+        guid: 185bdea4fe0d0545b0a34ab6dd6da882
+        id: 1365518790
+        PathAndIcons:
+        - ElementName: Unpaused
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPath: Default Work Unit
@@ -1125,10 +1169,5 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /Cursed_WwiseProject
-  - /Cursed_WwiseProject/Events
-  - /Cursed_WwiseProject/Events/Default Work Unit
-  - /Cursed_WwiseProject/Events/Default Work Unit/Spatial
-  - /Cursed_WwiseProject/SoundBanks
-  - /Cursed_WwiseProject/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
