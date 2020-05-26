@@ -24,7 +24,6 @@ namespace Cursed.Props
 
         public void CheckScene()
         {
-            Debug.Log("Checking scene");
             if (SceneManager.GetActiveScene().name == "Main")
             {
                 UpdateAnimator(_normalCuve);

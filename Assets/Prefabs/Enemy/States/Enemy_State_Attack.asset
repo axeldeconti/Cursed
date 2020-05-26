@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dfb12e5ecb10f40977a5ad347838f2, type: 3}
+  m_Name: Enemy_State_Attack
+  m_EditorClassIdentifier: 
+  _name: Attack
+  _aggroRange:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 196b30d9db9fe0b48a409273c90c8720, type: 2}
+  _attackRange:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: c14f3522cb9984d469969948d828a77e, type: 2}
+  _chancesToAttack:
+    UseConstant: 1
+    ConstantValue: 6
+    Variable: {fileID: 0}
+  _chancesToReAttack:
+    UseConstant: 1
+    ConstantValue: 0.1
+    Variable: {fileID: 0}
+  _chancesToDashWhenAttacked:
+    UseConstant: 1
+    ConstantValue: 0.08
+    Variable: {fileID: 0}

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Cursed.Combat;
-using Cursed.Character;
+﻿using Cursed.Character;
+using Cursed.Tutoriel;
 using System.Collections;
+using UnityEngine;
 
 namespace Cursed.Traps
 {
@@ -13,12 +13,17 @@ namespace Cursed.Traps
         [Header("Knock Back")]
         [SerializeField] private Vector2 _knockBackForce = new Vector2(17f, 15f);
 
+        [Header("Activate")]
+        [SerializeField] private bool _isActive = true;
+        private TutorielBox _dashTutoriel;
+
         [Header("Data")]
         [SerializeField] private Transform _start = null;
         [SerializeField] private Transform _end = null;
         [SerializeField] private ParticleSystem _groundParticles;
         [SerializeField] private ParticleSystem _laserParticles;
         [SerializeField] private float _timeBeforeReactivation = 1f;
+
 
         [SerializeField] private FloatReference _colliderSize = null;
 
@@ -27,8 +32,20 @@ namespace Cursed.Traps
 
         private void Awake()
         {
-            if(!_animator)
+            if (!_animator)
                 _animator = GetComponent<Animator>();
+
+            if (!_isActive)
+            {
+                DeActiveLaser();
+                foreach (TutorielBox box in FindObjectsOfType<TutorielBox>())
+                {
+                    if (box.TypeOfTutoriel == TutorielType.Dash)
+                        _dashTutoriel = box;
+                }
+                if (_dashTutoriel != null)
+                    _dashTutoriel.SpellUnlock += (value) => ActiveLaser(false);
+            }
         }
 
         protected override void InflinctDamage(Component[] attackables)
@@ -36,7 +53,7 @@ namespace Cursed.Traps
             base.InflinctDamage(attackables);
 
             // KNOCBACK CHARACTERS
-            for(int i = 0; i < attackables.Length; i++)
+            for (int i = 0; i < attackables.Length; i++)
             {
                 attackables[i].GetComponent<CharacterMovement>().Knockback(_knockBackForce, .3f, gameObject);
             }
@@ -59,15 +76,24 @@ namespace Cursed.Traps
             }
         }
 
-        public void ActiveLaser()
+        public void ActiveLaser(bool delay = true)
         {
-            StartCoroutine("WaitForActive");
+            if (delay)
+                StartCoroutine("WaitForActive");
+            else
+            {
+                _animator.SetBool("Deactive", false);
+                _animator.SetBool("Active", true);
+                _groundParticles.Play();
+                _laserParticles.Play();
+
+                UpdateCollider();
+            }
         }
 
         public void DeActiveLaser()
         {
             StopCoroutine("WaitForActive");
-            Debug.Log("Unactive");
             _animator.SetBool("Deactive", true);
             _animator.SetBool("Active", false);
 
@@ -79,9 +105,7 @@ namespace Cursed.Traps
 
         IEnumerator WaitForActive()
         {
-            Debug.Log("Wait for Active");
             yield return new WaitForSeconds(_timeBeforeReactivation);
-            Debug.Log("Active");
             _animator.SetBool("Deactive", false);
             _animator.SetBool("Active", true);
             _groundParticles.Play();

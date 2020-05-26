@@ -19,6 +19,7 @@ namespace Cursed.UI
         private void Start()
         {
             _fillImage = GetComponent<Image>();
+            _currentValue = _fillImage.fillAmount;
 
             EnemyHealth enemyHealth = GetComponentInParent<EnemyHealth>();
             if (enemyHealth != null)
@@ -36,7 +37,7 @@ namespace Cursed.UI
 
         public void UpdateValue(int value)
         {
-            _fillImage.fillAmount = _currentValue;
+            //_fillImage.fillAmount = _currentValue;
             float f = (float)value / (float)_updateMaxBar.LastMaxValue;
 
             if (!_lerpValues)

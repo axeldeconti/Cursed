@@ -4780,7 +4780,7 @@ GameObject:
   - component: {fileID: 6470206079598661877}
   - component: {fileID: 6470206079598661878}
   - component: {fileID: 3563569483424615605}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9657,7 +9657,7 @@ GameObject:
   - component: {fileID: 6470206079932081217}
   - component: {fileID: 6470206079932081218}
   - component: {fileID: 5564351684751235481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14736,8 +14736,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7177bd13fa4f20f4d976a20616f39f4c,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
@@ -14806,10 +14805,12 @@ MonoBehaviour:
   _attack: {fileID: 11400000, guid: f5b192af562f9a2418ef8d46541624f7, type: 2}
   _laserType: 2
   _knockBackForce: {x: 3, y: 40}
+  _isActive: 1
   _start: {fileID: 6470206079932081217}
   _end: {fileID: 6470206079598661877}
   _groundParticles: {fileID: 0}
   _laserParticles: {fileID: 0}
+  _timeBeforeReactivation: 1
   _colliderSize:
     UseConstant: 1
     ConstantValue: 1.2

@@ -13,10 +13,10 @@ namespace Cursed.Character
         private CharacterMovement _move = null;
 
         [SerializeField] private IntReference _maxHealth;
-        [SerializeField] private FloatReference _invincibleTime;
+        [SerializeField] protected FloatReference _invincibleTime;
         [SerializeField] private FloatReference _zoomDuration;
         [SerializeField] private FloatReference _slowMotionDuration;
-        [SerializeField] private VibrationData_SO _takeDamageVibration;
+        [SerializeField] protected VibrationData_SO _takeDamageVibration;
         [SerializeField] private VibrationData_SO _divekickTouchVibration;
 
         [Space]
@@ -35,9 +35,9 @@ namespace Cursed.Character
         public VoidEvent onDeath;
         public VoidEvent addEnemy;
 
-        private VfxHandler _vfx = null;
-        private SFXHandler _sfx = null;
-        private InvincibilityAnimation _invAnim;
+        protected VfxHandler _vfx = null;
+        protected SFXHandler _sfx = null;
+        protected InvincibilityAnimation _invAnim;
 
         [Space]
         [Header("Stats Camera Shake")]
@@ -134,7 +134,7 @@ namespace Cursed.Character
                     if ((!attacker.tag.Equals("Player")) && (!attacker.tag.Equals("Creature")))
                         _sfx.FirstEnemyDamageSFX();
 
-                    if (attacker.tag.Equals("Player"))
+                    if (attacker.tag.Equals("Player") || attacker.tag.Equals("Enemy"))
                     {
                         if (atkMgr)
                         {
@@ -305,11 +305,9 @@ namespace Cursed.Character
         #endregion
 
         #region Getters
-
         public float CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
-        public bool IsInvincible { get => _isInvincible; set => _isInvincible = value; }
-
+        public bool IsInvincible => _isInvincible;
         #endregion
     }
 }

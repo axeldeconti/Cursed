@@ -56,7 +56,7 @@ namespace Cursed.UI
                 _text.color = color;
         }
 
-        public void OnSelect(BaseEventData eventData)
+        public virtual void OnSelect(BaseEventData eventData)
         {
             SetTextColor(_button.colors.selectedColor);
 
@@ -66,7 +66,7 @@ namespace Cursed.UI
                 AkSoundEngine.PostEvent("Play_Button_Selected", gameObject);
         }
 
-        public void OnDeselect(BaseEventData eventData)
+        public virtual void OnDeselect(BaseEventData eventData)
         {
             SetTextColor(_button.colors.normalColor);
         }
