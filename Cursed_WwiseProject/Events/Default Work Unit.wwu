@@ -698,18 +698,23 @@
 									<ChildrenList>
 										<Action Name="" ID="{C22461C1-1BAF-4972-A401-C02F22172286}" ShortID="915392221">
 											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="8"/>
+												<Property Name="ActionType" Type="int16" Value="7"/>
 											</PropertyList>
-											<ReferenceList/>
-											<ChildrenList>
-												<EventActionException Name="" ID="{504C0736-751D-421B-A7FC-BFEB28D08536}">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Mus_Level01_Theme" ID="{7D831930-AFBE-4879-BD7A-2588CFFDDA70}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-														</Reference>
-													</ReferenceList>
-												</EventActionException>
-											</ChildrenList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{BB1F5464-06C1-4C01-A5B6-1F507F694C2B}" ShortID="186829598">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="7"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Bus" ID="{203FAEE4-4D91-43A2-B8CC-762A3D71F2D5}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
 										</Action>
 									</ChildrenList>
 								</Event>
@@ -717,23 +722,50 @@
 									<ChildrenList>
 										<Action Name="" ID="{7F5190A6-D524-4F42-835C-C5E7626662C5}" ShortID="502693163">
 											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="10"/>
+												<Property Name="ActionType" Type="int16" Value="9"/>
 											</PropertyList>
-											<ReferenceList/>
-											<ChildrenList>
-												<EventActionException Name="" ID="{CFA2307D-2547-4D81-AFA7-F2404F86C498}">
-													<ReferenceList>
-														<Reference Name="Target">
-															<ObjectRef Name="Mus_Level01_Theme" ID="{7D831930-AFBE-4879-BD7A-2588CFFDDA70}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-														</Reference>
-													</ReferenceList>
-												</EventActionException>
-											</ChildrenList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{58565410-1B06-4C5C-92A7-E40A79D4B26F}" ShortID="1036915573">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="9"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Bus" ID="{203FAEE4-4D91-43A2-B8CC-762A3D71F2D5}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
 										</Action>
 									</ChildrenList>
 								</Event>
 								<Event Name="Play_PauseMenu_Off" ID="{C1298601-8147-49FD-A33B-2F534E08C468}">
 									<ChildrenList>
+										<Action Name="" ID="{91D0F77F-7390-4E83-AE9E-EE2367FD4271}" ShortID="46252760">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="9"/>
+												<Property Name="Scope" Type="int16" Value="1"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{D355DD04-280C-4C23-8011-DDA16C5447D2}" ShortID="806431141">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="9"/>
+												<Property Name="Scope" Type="int16" Value="1"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Bus" ID="{203FAEE4-4D91-43A2-B8CC-762A3D71F2D5}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
 										<Action Name="" ID="{5C2E7D00-4713-4015-92F7-B9FA7031B0B1}" ShortID="383558681">
 											<ReferenceList>
 												<Reference Name="Target">
@@ -745,6 +777,28 @@
 								</Event>
 								<Event Name="Play_PauseMenu_On" ID="{742414E8-8225-40DD-B306-55FA1BDDA469}">
 									<ChildrenList>
+										<Action Name="" ID="{F98F037D-040B-4D52-9B44-6DE81E4F0FB6}" ShortID="755294573">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="7"/>
+												<Property Name="Scope" Type="int16" Value="1"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{5D9742EC-4636-4093-8100-7B0ED298FCD8}" ShortID="348220091">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="7"/>
+												<Property Name="Scope" Type="int16" Value="1"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Bus" ID="{203FAEE4-4D91-43A2-B8CC-762A3D71F2D5}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
 										<Action Name="" ID="{ECC19D1D-EFC3-44B0-8977-F55D18F5EFE1}" ShortID="170679818">
 											<ReferenceList>
 												<Reference Name="Target">
