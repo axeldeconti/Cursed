@@ -8,9 +8,11 @@ namespace Cursed.AI
     public class Pathfinding : Singleton<Pathfinding>
     {
         [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private LayerMask _collisionLayer;
 
-        [SerializeField] private GameObject _currentMap;
+        [SerializeField] private GameObject[] _maps;
 
+        [Space]
         /// <summary>
         /// Each block is square. This should probably match your square 2dCollider on a tile.
         /// </summary>
@@ -86,11 +88,17 @@ namespace Cursed.AI
             List<GameObject> groundObjects = new List<GameObject>();
 
             //Find all children of tile parent
-            foreach (Transform child in _currentMap.transform)
+            GameObject currentMap;
+            for (int i = 0; i < _maps.Length; i++)
             {
-                if (1 << child.gameObject.layer == _groundLayer.value)
+                currentMap = _maps[i];
+
+                foreach (Transform child in currentMap.transform)
                 {
-                    groundObjects.Add(child.gameObject);
+                    if (1 << child.gameObject.layer == _groundLayer.value)
+                    {
+                        groundObjects.Add(child.gameObject);
+                    }
                 }
             }
 
@@ -281,7 +289,7 @@ namespace Cursed.AI
             a.instr = instr;
             _readyOrders.Add(a);
 
-            if(_debugLogs)
+            if (_debugLogs)
                 Log("Path found");
         }
 
@@ -447,13 +455,13 @@ namespace Cursed.AI
                 Vector3 rightNode = searchList[i].pos; rightNode.x += spacing;
 
                 //raycheck left
-                if (!Physics2D.Linecast(searchList[i].pos, leftNode, _groundLayer))
+                if (!Physics2D.Linecast(searchList[i].pos, leftNode, _collisionLayer))
                 {
                     Vector3 colliderCheck = leftNode;
                     colliderCheck.y -= _fall_Y_GrndDist;
 
                     //raycheck down
-                    if (!Physics2D.Linecast(leftNode, colliderCheck, _groundLayer))
+                    if (!Physics2D.Linecast(leftNode, colliderCheck, _collisionLayer))
                     {
                         pathNode newFallNode = new pathNode(OrderType.Fall, leftNode);
 
@@ -468,13 +476,13 @@ namespace Cursed.AI
                 }
 
                 //raycheck right
-                if (!Physics2D.Linecast(searchList[i].pos, rightNode, _groundLayer))
+                if (!Physics2D.Linecast(searchList[i].pos, rightNode, _collisionLayer))
                 {
                     Vector3 colliderCheck = rightNode;
                     colliderCheck.y -= _fall_Y_GrndDist;
 
                     //raycheck down
-                    if (!Physics2D.Linecast(rightNode, colliderCheck, _groundLayer))
+                    if (!Physics2D.Linecast(rightNode, colliderCheck, _collisionLayer))
                     {
                         pathNode newFallNode = new pathNode(OrderType.Fall, rightNode);
 
@@ -504,7 +512,7 @@ namespace Cursed.AI
                         Vector3 air = searchList[i].pos;
                         air.y += curHeight;
 
-                        if (!Physics2D.Linecast(searchList[i].pos, air, _groundLayer))
+                        if (!Physics2D.Linecast(searchList[i].pos, air, _collisionLayer))
                         {
                             pathNode newJumpNode = new pathNode(OrderType.Jump, air);
 
@@ -524,7 +532,7 @@ namespace Cursed.AI
                             while (h > minHeight)
                             {
                                 Vector3 newHeight = new Vector3(air.x, air.y - (curHeight - h), air.z);
-                                if (!Physics2D.Linecast(searchList[i].pos, newHeight, _groundLayer))
+                                if (!Physics2D.Linecast(searchList[i].pos, newHeight, _collisionLayer))
                                 {
                                     pathNode newJumpNode = new pathNode(OrderType.Jump, newHeight);
 
@@ -574,7 +582,7 @@ namespace Cursed.AI
                     if (Mathf.Abs(a.pos.y - b.pos.y) < _blockSize * 0.7 && Vector3.Distance(a.pos, b.pos) < distanceBetween)
                     {
                         //Testing collision between nodes
-                        if (!Physics2D.Linecast(a.pos, b.pos, _groundLayer))
+                        if (!Physics2D.Linecast(a.pos, b.pos, _collisionLayer))
                         {
                             a.neighbours.Add(b);
 
@@ -614,7 +622,7 @@ namespace Cursed.AI
                             a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 0.9f - _blockSize * 1.8f &&
                             Mathf.Abs(a.pos.x - b.pos.x) < _blockSize * 4f + _groundMaxWidth)
                         {
-                            if (!Physics2D.Linecast(a.pos, b.pos, _groundLayer))
+                            if (!Physics2D.Linecast(a.pos, b.pos, _collisionLayer))
                             {
                                 bool hitTest = true;
                                 if ((Mathf.Abs(a.pos.x - b.pos.x) < _blockSize + _groundMaxWidth && a.spawnedFrom.pos.y == b.pos.y) ||
@@ -649,21 +657,21 @@ namespace Cursed.AI
                                     Vector3 straightUp = new Vector3(b.pos.x, a.pos.y - _blockSize, a.pos.z);
 
                                     if (xDistance > _blockSize + _groundMaxWidth)
-                                        if (Physics2D.Linecast(origin, quarterPoint, _groundLayer) ||
+                                        if (Physics2D.Linecast(origin, quarterPoint, _collisionLayer) ||
 
                                             (xDistance > _blockSize + _groundMaxWidth &&
-                                             Physics2D.Linecast(b.pos, quarterPastMidPoint, _groundLayer) &&
+                                             Physics2D.Linecast(b.pos, quarterPastMidPoint, _collisionLayer) &&
                                              a.spawnedFrom.pos.y >= b.pos.y - _groundNodeHeight) ||
 
-                                            (Physics2D.Linecast(origin, midPoint, _groundLayer)) ||
+                                            (Physics2D.Linecast(origin, midPoint, _collisionLayer)) ||
 
                                               (xDistance > _blockSize + _groundMaxWidth &&
                                              a.spawnedFrom.pos.y >= b.pos.y - _groundNodeHeight &&
-                                             Physics2D.Linecast(lowerMid, b.pos, _groundLayer)) ||
+                                             Physics2D.Linecast(lowerMid, b.pos, _collisionLayer)) ||
 
                                                 (xDistance > _blockSize * 1f + _groundMaxWidth &&
                                              a.spawnedFrom.pos.y >= b.pos.y &&
-                                              Physics2D.Linecast(b.pos, straightUp, _groundLayer)))
+                                              Physics2D.Linecast(b.pos, straightUp, _collisionLayer)))
                                         {
                                             hitTest = false;
                                         }
@@ -709,7 +717,7 @@ namespace Cursed.AI
                     if ((xDistance < _blockSize * 2 + _groundMaxWidth && a.pos.y > b.pos.y) || (a.pos.y - b.pos.y > Mathf.Abs(a.pos.x - b.pos.x) * 2.2f + _blockSize * 1f && //2.2 + blocksize * 1f
                         xDistance < _blockSize * 4f))
                     {
-                        if (!Physics2D.Linecast(a.pos, b.pos, _groundLayer))
+                        if (!Physics2D.Linecast(a.pos, b.pos, _collisionLayer))
                         {
                             bool hitTest = true;
 
@@ -725,11 +733,11 @@ namespace Cursed.AI
                             //Vector3 corner = new Vector3(b.pos.x, (a.pos.y - _blockSize * xDistance - _blockSize * 0.5f) - _groundNodeHeight, a.pos.z);
 
                             //Got rid od the corner linecast and the y pos check, didn't know why they were here and made it bug
-                            if (Physics2D.Linecast(quarterPointTop, b.pos, _groundLayer) ||
-                                Physics2D.Linecast(middlePointDrop, b.pos, _groundLayer) ||
+                            if (Physics2D.Linecast(quarterPointTop, b.pos, _collisionLayer) ||
+                                Physics2D.Linecast(middlePointDrop, b.pos, _collisionLayer) ||
                                 //a.pos.y > b.pos.y + _blockSize + _groundNodeHeight &&
                                 //Physics2D.Linecast(corner, b.pos, _groundLayer) ||
-                                Physics2D.Linecast(quarterPointBot, a.pos, _groundLayer))
+                                Physics2D.Linecast(quarterPointBot, a.pos, _collisionLayer))
                             {
                                 hitTest = false;
                             }
