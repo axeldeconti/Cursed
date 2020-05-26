@@ -17,6 +17,7 @@ namespace Cursed.UI
         [SerializeField] private FloatReference _regainingSpeed = null;
         [SerializeField] private Gradient _healthGradient;
         [SerializeField] private Image _lifeBar;
+        [SerializeField] private ParticleSystem _glowLifeBarParticles;
 
         private float _deltaPosition = 0.001f;
         private float _sliderMaxPosX = 0;
@@ -65,6 +66,9 @@ namespace Cursed.UI
         public void UpdateCurrentValue(int value)
         {
             _lifeBar.color = _healthGradient.Evaluate(1 - (float)value / (float)_maxValue);
+            ParticleSystem.MainModule main = _glowLifeBarParticles.main;
+            main.startColor = _healthGradient.Evaluate(1 - (float)value / (float)_maxValue);
+
             float percent = (float)value / _maxValue;
 
             if (percent < _targetPercent)
