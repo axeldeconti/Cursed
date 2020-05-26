@@ -17,8 +17,9 @@ namespace Cursed.Creature
 
         [SerializeField] private GameObject _vfxCameraDestruction;
 
-        public float _lowerChromacticAberrationValue { get; private set; } = .1f;
-        public float _higherChromacticAberrationValue { get; private set; } = .5f;
+        [Header("Chromatic Aberration")]
+        public FloatReference _lowerChromacticAberrationValue;
+        public FloatReference _higherChromacticAberrationValue;
 
 
         public void CreatureMoveParticle()
