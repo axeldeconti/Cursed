@@ -423,6 +423,7 @@
 									<PropertyList>
 										<Property Name="3DSpatialization" Type="int16" Value="1"/>
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="OverrideEffect" Type="bool" Value="True"/>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
@@ -2079,10 +2080,7 @@
 										<ActiveSource Name="Mus_MainMenu_Theme" ID="{710291F1-6303-4400-9A7B-A0F9F28E6B35}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="Mus_Level01_Theme" ID="{7D831930-AFBE-4879-BD7A-2588CFFDDA70}" ShortID="453904696">
-									<PropertyList>
-										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-									</PropertyList>
+								<RandomSequenceContainer Name="Random_InGame_Mus" ID="{4A9AC9AF-CD0B-410E-9C66-07CE5E9A0D32}" ShortID="667140009">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
@@ -2092,18 +2090,101 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="Mus_Level01_Theme" ID="{CBFBC26A-F3EE-4F14-989F-EEF126FEDD51}">
-											<Language>SFX</Language>
-											<AudioFile>Mus_Level01_Theme.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="170720435"/>
-											</MediaIDList>
-										</AudioFileSource>
+										<Sound Name="Mus_Level01_Theme" ID="{7D831930-AFBE-4879-BD7A-2588CFFDDA70}" ShortID="453904696">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="LoopCount" Type="int32" Value="3"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-10</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Mus_Level01_Theme" ID="{CBFBC26A-F3EE-4F14-989F-EEF126FEDD51}">
+													<Language>SFX</Language>
+													<AudioFile>Mus_Level01_Theme.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="170720435"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Mus_Level01_Theme" ID="{CBFBC26A-F3EE-4F14-989F-EEF126FEDD51}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Mus_Level02_Theme" ID="{93CAC91B-F5BE-40EF-A5C8-746E45500FCC}" ShortID="137262244">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="LoopCount" Type="int32" Value="3"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-10</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Mus_Level02_Theme" ID="{9869C794-0332-4AAF-BECC-D0106DB013C8}">
+													<Language>SFX</Language>
+													<AudioFile>Mus_Level02_Theme.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="83927923"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Mus_Level02_Theme" ID="{9869C794-0332-4AAF-BECC-D0106DB013C8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Mus_Level03_Theme" ID="{A557FE4B-81D8-4DF9-90D7-F14DC89CC8A3}" ShortID="440587571">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="LoopCount" Type="int32" Value="3"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-10</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Music_Bus" ID="{216C53CA-8D2D-471F-AE23-E0CE84F29C30}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Mus_Level03_Theme" ID="{54DE794C-EEA0-4705-A968-217D3FC2C09D}">
+													<Language>SFX</Language>
+													<AudioFile>Mus_Level03_Theme.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="949158757"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Mus_Level03_Theme" ID="{54DE794C-EEA0-4705-A968-217D3FC2C09D}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Mus_Level01_Theme" ID="{CBFBC26A-F3EE-4F14-989F-EEF126FEDD51}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
+								</RandomSequenceContainer>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>
