@@ -34,6 +34,11 @@ public class TextChanger : MonoBehaviour
         m_TextComponent = GetComponent<TMP_Text>();
     }
 
+    public void HideText()
+    {
+        m_TextComponent.text = "";
+    }
+
     public void OnEnemyDeath()
     {
         StartCoroutine(TimerForSwitchShader());
