@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -205,7 +205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 482878953}
-  - component: {fileID: 482878952}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -213,33 +212,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &482878952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482878951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f2a3ec6ad5342c4d9f2664824a243ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 345318ba236232c4cb9a599c64f67de9,
-    type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  diffractionFlags: 11
-  engineLogging: 0
 --- !u!4 &482878953
 Transform:
   m_ObjectHideFlags: 0
@@ -517,7 +489,7 @@ PrefabInstance:
     - target: {fileID: 1693091285359805794, guid: b34c5ea87df2b2746a1bf8470e17583d,
         type: 3}
       propertyPath: m_Color.a
-      value: 0.84313726
+      value: 0.39215687
       objectReference: {fileID: 0}
     - target: {fileID: 8730689588609704936, guid: b34c5ea87df2b2746a1bf8470e17583d,
         type: 3}
