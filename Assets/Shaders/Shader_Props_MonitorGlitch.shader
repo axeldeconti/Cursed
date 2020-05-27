@@ -5,21 +5,19 @@
 /// http://www.shadero.com #Docs                            //
 //////////////////////////////////////////////////////////////
 
-Shader "Shadero Customs/Shader_Props_TextMonitor"
+Shader "Shadero Customs/Shader_Props_MonitorGlitch"
 {
 Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-DistortionUV_WaveX_1("DistortionUV_WaveX_1", Range(0, 128)) = 1
-DistortionUV_WaveY_1("DistortionUV_WaveY_1", Range(0, 128)) = 1
-DistortionUV_DistanceX_1("DistortionUV_DistanceX_1", Range(0, 1)) = 0.5
-DistortionUV_DistanceY_1("DistortionUV_DistanceY_1", Range(0, 1)) = 0
-DistortionUV_Speed_1("DistortionUV_Speed_1", Range(-2, 2)) = 0.2
-PixelXYUV_SizeX_1("PixelXYUV_SizeX_1", Range(1, 128)) = 128
-PixelXYUV_SizeY_1("PixelXYUV_SizeY_1", Range(1, 128)) = 128
+PixelUV_Size_1("PixelUV_Size_1", Range(1, 128)) = 83
+AnimatedShakeUV_1_OffsetX_1("AnimatedShakeUV_1_OffsetX_1", Range(0, 0.05)) = 0.02
+AnimatedShakeUV_1_OffsetY_1("AnimatedShakeUV_1_OffsetY_1", Range(0, 0.05)) = 0
+AnimatedShakeUV_1_IntenseX_1("AnimatedShakeUV_1_IntenseX_1", Range(-3, 3)) = 3
+AnimatedShakeUV_1_IntenseY_1("AnimatedShakeUV_1_IntenseY_1", Range(-3, 3)) = 1
+AnimatedShakeUV_1_Speed_1("AnimatedShakeUV_1_Speed_1", Range(-1, 1)) = 1
 _SourceNewTex_1("_SourceNewTex_1(RGB)", 2D) = "white" { }
-_Hologram_Value_1("_Hologram_Value_1", Range(0, 1)) = 1
-_Hologram_Speed_1("_Hologram_Speed_1", Range(0, 4)) = 1
+__CompressionFX_Value_1("__CompressionFX_Value_1", Range(1, 16)) = 16
 _SpriteFade("SpriteFade", Range(0, 1)) = 1.0
 
 // required for UI.Mask
@@ -72,16 +70,14 @@ float4 color    : COLOR;
 
 sampler2D _MainTex;
 float _SpriteFade;
-float DistortionUV_WaveX_1;
-float DistortionUV_WaveY_1;
-float DistortionUV_DistanceX_1;
-float DistortionUV_DistanceY_1;
-float DistortionUV_Speed_1;
-float PixelXYUV_SizeX_1;
-float PixelXYUV_SizeY_1;
+float PixelUV_Size_1;
+float AnimatedShakeUV_1_OffsetX_1;
+float AnimatedShakeUV_1_OffsetY_1;
+float AnimatedShakeUV_1_IntenseX_1;
+float AnimatedShakeUV_1_IntenseY_1;
+float AnimatedShakeUV_1_Speed_1;
 sampler2D _SourceNewTex_1;
-float _Hologram_Value_1;
-float _Hologram_Speed_1;
+float __CompressionFX_Value_1;
 
 v2f vert(appdata_t IN)
 {
@@ -93,80 +89,45 @@ return OUT;
 }
 
 
-float2 DistortionUV(float2 p, float WaveX, float WaveY, float DistanceX, float DistanceY, float Speed)
+float CMPFXrng2(float2 seed)
 {
-Speed *=_Time*100;
-p.x= p.x+sin(p.y*WaveX + Speed)*DistanceX*0.05;
-p.y= p.y+cos(p.x*WaveY + Speed)*DistanceY*0.05;
-return p;
-}
-inline float Holo1mod(float x,float modu)
-{
-return x - floor(x * (1.0 / modu)) * modu;
+return frac(sin(dot(seed * floor(50 + (_Time + 0.1) * 12.), float2(127.1, 311.7))) * 43758.5453123);
 }
 
-inline float Holo1noise(sampler2D source,float2 p)
+float CMPFXrng(float seed)
 {
-float _TimeX = _Time.y;
-float sample = tex2D(source,float2(.2,0.2*cos(_TimeX))*_TimeX*8. + p*1.).x;
-sample *= sample;
-return sample;
+return CMPFXrng2(float2(seed, 1.0));
 }
 
-inline float Holo1onOff(float a, float b, float c)
+float4 CompressionFX(float2 uv, sampler2D source,float Value)
 {
-float _TimeX = _Time.y;
-return step(c, sin(_TimeX + a*cos(_TimeX*b)));
+float2 blockS = floor(uv * float2(24., 19.))*4.0;
+float2 blockL = floor(uv * float2(38., 14.))*4.0;
+float r = CMPFXrng2(uv);
+float lineNoise = pow(CMPFXrng2(blockS), 3.0) *Value* pow(CMPFXrng2(blockL), 3.0);
+float4 col1 = tex2D(source, uv + float2(lineNoise * 0.02 * CMPFXrng(2.0), 0));
+float4 result = float4(float3(col1.x, col1.y, col1.z), 1.0);
+result.a = col1.a;
+return result;
 }
-
-float4 Hologram(float2 uv, sampler2D source, float value, float speed)
+float2 PixelUV(float2 uv, float x)
 {
-float alpha = tex2D(source, uv).a;
-float _TimeX = _Time.y * speed;
-float2 look = uv;
-float window = 1. / (1. + 20.*(look.y - Holo1mod(_TimeX / 4., 1.))*(look.y - Holo1mod(_TimeX / 4., 1.)));
-look.x = look.x + sin(look.y*30. + _TimeX) / (50.*value)*Holo1onOff(4., 4., .3)*(1. + cos(_TimeX*80.))*window;
-float vShift = .4*Holo1onOff(2., 3., .9)*(sin(_TimeX)*sin(_TimeX*20.) + (0.5 + 0.1*sin(_TimeX*20.)*cos(_TimeX)));
-look.y = Holo1mod(look.y + vShift, 1.);
-float4 video = float4(0, 0, 0, 0);
-float4 videox = tex2D(source, look);
-video.r = tex2D(source, look - float2(.05, 0.)*Holo1onOff(2., 1.5, .9)).r;
-video.g = videox.g;
-video.b = tex2D(source, look + float2(.05, 0.)*Holo1onOff(2., 1.5, .9)).b;
-video.a = videox.a;
-video = video;
-float vigAmt = 3. + .3*sin(_TimeX + 5.*cos(_TimeX*5.));
-float vignette = (1. - vigAmt*(uv.y - .5)*(uv.y - .5))*(1. - vigAmt*(uv.x - .5)*(uv.x - .5));
-float noi = Holo1noise(source,uv*float2(0.5, 1.) + float2(6., 3.))*value * 3;
-float y = Holo1mod(uv.y*4. + _TimeX / 2. + sin(_TimeX + sin(_TimeX*0.63)), 1.);
-float start = .5;
-float end = .6;
-float inside = step(start, y) - step(end, y);
-float fact = (y - start) / (end - start)*inside;
-float f1 = (1. - fact) * inside;
-video += f1*noi;
-video += Holo1noise(source,uv*2.) / 2.;
-video.r *= vignette;
-video *= (12. + Holo1mod(uv.y*30. + _TimeX, 1.)) / 13.;
-video.a = video.a + (frac(sin(dot(uv.xy*_TimeX, float2(12.9898, 78.233))) * 43758.5453))*.5;
-video.a = (video.a*.3)*alpha*vignette * 2;
-video.a *=1.2;
-video.a *= 1.2;
-video = lerp(tex2D(source, uv), video, value);
-return video;
+uv = floor(uv * x + 0.5) / x;
+return uv;
 }
-float2 PixelXYUV(float2 uv, float x, float y)
+float2 AnimatedShakeUV(float2 uv, float offsetx, float offsety, float zoomx, float zoomy, float speed)
 {
-float2 pos = float2(x, y);
-uv = floor(uv * pos+0.5) / pos;
+float time = sin(_Time * speed * 5000 * zoomx);
+float time2 = sin(_Time * speed * 5000 * zoomy);
+uv += float2(offsetx * time, offsety * time2);
 return uv;
 }
 float4 frag (v2f i) : COLOR
 {
-float2 DistortionUV_1 = DistortionUV(i.texcoord,DistortionUV_WaveX_1,DistortionUV_WaveY_1,DistortionUV_DistanceX_1,DistortionUV_DistanceY_1,DistortionUV_Speed_1);
-float2 PixelXYUV_1 = PixelXYUV(DistortionUV_1,PixelXYUV_SizeX_1,PixelXYUV_SizeY_1);
-float4 _Hologram_1 = Hologram(PixelXYUV_1,_SourceNewTex_1,_Hologram_Value_1,_Hologram_Speed_1);
-float4 FinalResult = _Hologram_1;
+float2 PixelUV_1 = PixelUV(i.texcoord,PixelUV_Size_1);
+float2 AnimatedShakeUV_1 = AnimatedShakeUV(PixelUV_1,AnimatedShakeUV_1_OffsetX_1,AnimatedShakeUV_1_OffsetY_1,AnimatedShakeUV_1_IntenseX_1,AnimatedShakeUV_1_IntenseY_1,AnimatedShakeUV_1_Speed_1);
+float4 _CompressionFX_1 = CompressionFX(AnimatedShakeUV_1,_SourceNewTex_1,__CompressionFX_Value_1);
+float4 FinalResult = _CompressionFX_1;
 FinalResult.rgb *= i.color.rgb;
 FinalResult.a = FinalResult.a * _SpriteFade * i.color.a;
 return FinalResult;
