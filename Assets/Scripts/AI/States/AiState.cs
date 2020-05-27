@@ -5,6 +5,7 @@ namespace Cursed.AI
     public abstract class AiState : ScriptableObject
     {
         [SerializeField] private string _name = "New AiState";
+        [SerializeField] protected IntReference _aiUpdateFrame = null;
 
         private string _newState = "None";
 
@@ -34,7 +35,7 @@ namespace Cursed.AI
         /// <returns></returns>
         protected bool ChanceToGetTrue(float chancePercent)
         {
-            return Random.Range(0, 100) <= chancePercent;
+            return Random.Range(0, 100) <= chancePercent * _aiUpdateFrame;
         }
 
         public string Name => _name;

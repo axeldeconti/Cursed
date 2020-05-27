@@ -40,9 +40,6 @@ namespace Cursed.AI
             _atk = GetComponent<CharacterAttackManager>();
             _health = GetComponent<EnemyHealth>();
 
-            if (_pathfindingMgr == null)
-                _pathfindingMgr = Pathfinding.Instance;
-
             _pathAgent.OnPathCompleted += OnPathCompleted;
             _pathAgent.OnPathDirty += OnPathDirty;
             _health.onAttack += OnAttackCallback;
@@ -50,6 +47,9 @@ namespace Cursed.AI
 
         private void Start()
         {
+            if (_pathfindingMgr == null)
+                _pathfindingMgr = Pathfinding.Instance;
+
             _isMoving = false;
             _nbOfDirties = 0;
             _destroy = false;

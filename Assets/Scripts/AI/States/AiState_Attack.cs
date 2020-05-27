@@ -81,7 +81,7 @@ namespace Cursed.AI
         {
             int nb = 0;
 
-            nb = ChanceToGetTrue(50) ? 1 : 2;
+            nb = ChanceToGetTrue(50 / _aiUpdateFrame) ? 1 : 2;
 
             return nb;
         }

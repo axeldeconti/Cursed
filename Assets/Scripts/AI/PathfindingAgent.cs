@@ -93,9 +93,6 @@ namespace Cursed.AI
 
         private void Awake()
         {
-            if (_pathfindingMgr == null)
-                _pathfindingMgr = Pathfinding.Instance;
-
             _aiController = GetComponent<AiController>();
             _col = GetComponent<CollisionHandler>();
 
@@ -105,6 +102,9 @@ namespace Cursed.AI
 
         private void Start()
         {
+            if (_pathfindingMgr == null)
+                _pathfindingMgr = Pathfinding.Instance;
+
             //CursedDebugger.Instance.Add("GoTarget", () => _target.ToString());
             //CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
         }

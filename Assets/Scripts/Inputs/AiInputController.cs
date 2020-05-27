@@ -25,11 +25,19 @@ namespace Cursed.AI
         [SerializeField] private FloatReference _jumpInputBufferTimer;
         [SerializeField] private FloatReference _dashInputBufferTimer;
         [SerializeField] private FloatReference _jumpTimeForceInput;
+        [SerializeField] private IntReference _aiUpdateFrame;
 
-        private AIData _data;
+        [Header("Debug")]
+        [SerializeField] private bool _debug = false;
+
+        private AIData _data = null;
         private bool _wasJumping = false;
         private bool _wasDashing = false;
         private bool _forceJump = false;
+
+        private bool _updateAI = true;
+        private int _currentAiUpdateFrame = 0;
+        private AIData _previousData = null;
 
         private void Awake()
         {
@@ -45,10 +53,17 @@ namespace Cursed.AI
             _wasDashing = false;
             _forceJump = false;
 
+            _updateAI = true;
+            _currentAiUpdateFrame = 0;
+            _previousData = new AIData();
+
             Jump = new BoolBuffer(_jumpInputBufferTimer);
             Dash = new BoolBuffer(_dashInputBufferTimer);
 
-            CursedDebugger.Instance.Add("Input", () => _data.input.ToString());
+            if (_debug)
+            {
+                CursedDebugger.Instance.Add("Input", () => _data.input.ToString());
+            }
         }
 
         private void Update()
@@ -60,8 +75,26 @@ namespace Cursed.AI
             //Reset data
             _data.Reset();
 
-            //Retrieve value from AiController
-            _aiController.GetInputs(ref _data);
+            //Update AI when needed
+            if (_updateAI)
+            {
+                _updateAI = false;
+                _currentAiUpdateFrame = 0;
+
+                //Retrieve value from AiController
+                _aiController.GetInputs(ref _data);
+
+                _previousData = _data;
+            }
+            else
+            {
+                _currentAiUpdateFrame++;
+                if(_currentAiUpdateFrame >= _aiUpdateFrame)
+                    _updateAI = true;
+
+                _data.input = _previousData.input;
+                return;
+            }
 
             x = _data.input.x;
             y = _data.input.y;
