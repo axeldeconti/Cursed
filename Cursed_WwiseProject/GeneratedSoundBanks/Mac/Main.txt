@@ -49,19 +49,25 @@ Event	ID	Name			Wwise Object Path	Notes
 	3638125099	Play_Player_Damage			\Default Work Unit\Character\Damage\Play_Player_Damage	
 	3793046172	Play_AssemblyLine			\Default Work Unit\Spatial\Play_AssemblyLine	
 	3882482286	Play_Button_Selected			\Default Work Unit\UI\Play_Button_Selected	
+	3956660081	Play_Creature_Laser			\Default Work Unit\Creature\Play_Creature_Laser	
 	3966446488	Play_DestructibleWall			\Default Work Unit\Character\Play_DestructibleWall	
 	4060380671	Play_Begin_WallSlide			\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide	
 
 State Group	ID	Name			Wwise Object Path	Notes
+	2181744491	LowPassLaser			\Default Work Unit\LowPassLaser	
 	3422541661	Pause_Menu			\Default Work Unit\Pause_Menu	
 
 State	ID	Name	State Group			Notes
+	748895195	None	LowPassLaser			
+	898236029	CreatureOn	LowPassLaser			
+	3174797897	CreatureOff	LowPassLaser			
 	319258907	Paused	Pause_Menu			
 	748895195	None	Pause_Menu			
 	1365518790	Unpaused	Pause_Menu			
 
 Custom State	ID	Name	State Group	Owner		Notes
 	244841197	Paused	Pause_Menu	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX_Bus		
+	745896829	CreatureOn	LowPassLaser	\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Traps\SFX_Laser_Loop		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	3087031974	Main_Slider			\Default Work Unit\Main_Slider	
@@ -131,6 +137,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	986840092	SFX_Player_AxeFirstSlice	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_Player_AxeFirstSlice_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Weapon\SFX_Player_AxeFirstSlice		79296
 	992813343	SFX_Player_Run_03	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Run\Run03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Run\Random_SFX_Player_Run\SFX_Player_Run_03		58328
 	1000476603	SFX_PuzzleDoor_Close	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_PuzzleDoor_Close_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Props\SFX_PuzzleDoor_Close		131244
+	1020018044	SFX_Creature_Laser	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_Creature_Laser_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\SFX_Creature_Laser		116880
 	1033079340	SFX_Player_Divekick_01	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Divekick\Divekick_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Divekick\Random_SFX_Player_Divekick\SFX_Player_Divekick_01		56948
 	1034113395	SFX_ElectricTrap_Inactive_02	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\ElectricTrap_Inactive_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Traps\ElectricTrap\Random_SFX_ElectricTrap_Inactive\SFX_ElectricTrap_Inactive_02		57568
 	1048841554	SFX_MapGenerator_On	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_MapGenerator_On_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Props\MapGenerator\SFX_MapGenerator_On		76672

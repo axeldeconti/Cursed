@@ -86,9 +86,10 @@ namespace Cursed.Traps
                 _animator.SetBool("Active", true);
                 _groundParticles.Play();
                 _laserParticles.Play();
-
+                
                 UpdateCollider();
             }
+            AkSoundEngine.SetState("LowPassLaser", "CreatureOff");
         }
 
         public void DeActiveLaser()
@@ -96,6 +97,8 @@ namespace Cursed.Traps
             StopCoroutine("WaitForActive");
             _animator.SetBool("Deactive", true);
             _animator.SetBool("Active", false);
+            AkSoundEngine.SetState("LowPassLaser", "CreatureOn");
+            AkSoundEngine.PostEvent("Play_Creature_Laser", gameObject);
 
             if (!_coll)
                 _coll = GetComponent<BoxCollider2D>();

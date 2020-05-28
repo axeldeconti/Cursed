@@ -10,6 +10,29 @@
 						<State Name="Unpaused" ID="{A4DE5B18-0DFE-4505-B0A3-4AB6DD6DA882}"/>
 					</ChildrenList>
 				</StateGroup>
+				<StateGroup Name="LowPassLaser" ID="{B1D16267-45D6-4465-A39B-5E0A6D4B1644}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="0"/>
+					</PropertyList>
+					<ChildrenList>
+						<State Name="CreatureOff" ID="{FE3D516C-80A6-43E1-AAB2-F2DB621EEDC9}"/>
+						<State Name="CreatureOn" ID="{8F0B2FCC-499A-4CB0-8133-1E2743E9D523}"/>
+					</ChildrenList>
+					<TransitionList>
+						<Transition>
+							<StartState Name="CreatureOff" ID="{FE3D516C-80A6-43E1-AAB2-F2DB621EEDC9}"/>
+							<EndState Name="CreatureOn" ID="{8F0B2FCC-499A-4CB0-8133-1E2743E9D523}"/>
+							<Time>0</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+						<Transition>
+							<StartState Name="CreatureOn" ID="{8F0B2FCC-499A-4CB0-8133-1E2743E9D523}"/>
+							<EndState Name="CreatureOff" ID="{FE3D516C-80A6-43E1-AAB2-F2DB621EEDC9}"/>
+							<Time>0</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+					</TransitionList>
+				</StateGroup>
 			</ChildrenList>
 		</WorkUnit>
 	</States>
