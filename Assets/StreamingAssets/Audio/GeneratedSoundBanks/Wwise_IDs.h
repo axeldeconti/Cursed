@@ -72,6 +72,7 @@ namespace AK
         static const AkUniqueID PLAY_MUSIC_MAINMENU = 1566693136U;
         static const AkUniqueID PLAY_PAUSEMENU_OFF = 2956896607U;
         static const AkUniqueID PLAY_PAUSEMENU_ON = 1184864651U;
+        static const AkUniqueID PLAY_PLAYER_DAMAGE = 3638125099U;
         static const AkUniqueID PLAY_PLAYER_DEATH = 1835085974U;
         static const AkUniqueID PLAY_PUZZLEDOOR_CLOSE = 3056885643U;
         static const AkUniqueID PLAY_PUZZLEDOOR_OPEN = 973976397U;

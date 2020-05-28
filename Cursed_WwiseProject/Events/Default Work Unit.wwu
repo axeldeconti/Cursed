@@ -264,6 +264,21 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Folder Name="Damage" ID="{5D5E44FB-E18B-461B-81F1-9B8D85ED6E8E}" ShortID="493419280">
+							<ChildrenList>
+								<Event Name="Play_Player_Damage" ID="{8683117A-6A15-4933-9389-5F256C2C24EC}">
+									<ChildrenList>
+										<Action Name="" ID="{C4516426-59D5-4DCA-8754-531E2E7D774F}" ShortID="55192985">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Random_Player_Damage" ID="{E58B0963-D936-4A39-9D30-581349CFE8FF}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Creature" ID="{9BC71CF0-4981-4B6E-9425-C9EA7E793384}" ShortID="862410764">
