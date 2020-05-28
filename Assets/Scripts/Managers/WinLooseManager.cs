@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cursed.Props;
+using UnityEngine.SceneManagement;
 
 namespace Cursed.Managers
 {
@@ -9,8 +10,10 @@ namespace Cursed.Managers
 
         [SerializeField] private GameObject _winScreen = null;
         [SerializeField] private GameObject _looseScreen = null;
+        [SerializeField] private VoidEvent _retryEvent = null;
 
         private int _enemyCount = 0;
+        private bool _retryLaunch = false;
 
         private void Start()
         {
@@ -52,6 +55,13 @@ namespace Cursed.Managers
                 _gameManager.UnloadLevel("Main");
 
             GameManager.Instance.LoadLevel("Main", true);
+            _retryLaunch = true;
+        }
+
+        public void RetryEventPush()
+        {
+            if (_retryLaunch)
+                _retryEvent?.Raise();
         }
     }
 }

@@ -63,6 +63,12 @@ namespace Cursed.UI
             StartCoroutine(WaitForActive(_tuto, true, _mainMenuAnimator.GetCurrentAnimatorClipInfo(0).Length));
         }
 
+        public void Retry()
+        {
+            StartCoroutine(WaitForActive(_mainMenu, false, .05f));
+            StartCoroutine(WaitBeforeLoad(0f, Level_Intro, false));
+        }
+
         public void Tuto()
         {
             _tutoAnimator.SetTrigger("Close");
