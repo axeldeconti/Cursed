@@ -425,6 +425,13 @@
 										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 										<Property Name="OverrideEffect" Type="bool" Value="True"/>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{521C3774-F057-45FA-9231-836EFD210F07}"/>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
 												<Value>-15</Value>
@@ -454,6 +461,27 @@
 									<PositioningInfo>
 										<Panner Name="" ID="{8D0664DA-8D39-4E41-939D-99C34C77C77F}"/>
 									</PositioningInfo>
+									<StateInfo>
+										<StateGroupList>
+											<StateGroupInfo>
+												<StateGroupRef Name="LowPassLaser" ID="{B1D16267-45D6-4465-A39B-5E0A6D4B1644}"/>
+											</StateGroupInfo>
+										</StateGroupList>
+										<CustomStateList>
+											<CustomState>
+												<StateRef Name="CreatureOff" ID="{FE3D516C-80A6-43E1-AAB2-F2DB621EEDC9}"/>
+												<CustomState Name="" ID="{0C56C27C-D1C5-4951-AE4C-E0BDB6B61DE6}" ShortID="501077308"/>
+											</CustomState>
+											<CustomState>
+												<StateRef Name="CreatureOn" ID="{8F0B2FCC-499A-4CB0-8133-1E2743E9D523}"/>
+												<CustomState Name="" ID="{DE404009-196E-462E-8077-BB4CB9D618A0}" ShortID="745896829">
+													<PropertyList>
+														<Property Name="Lowpass" Type="int16" Value="70"/>
+													</PropertyList>
+												</CustomState>
+											</CustomState>
+										</CustomStateList>
+									</StateInfo>
 									<ActiveSourceList>
 										<ActiveSource Name="Laser" ID="{53E705DF-9594-4EF2-A71A-38672AA5CD3C}" Platform="Linked"/>
 									</ActiveSourceList>
@@ -699,7 +727,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-15</Value>
+												<Value>-10</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -1061,6 +1089,28 @@
 									</ChildrenList>
 									<ActiveSourceList>
 										<ActiveSource Name="SFX_Creature_Camera_V2" ID="{77CAFBD1-384F-40A5-AABD-070F7917CC21}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="SFX_Creature_Laser" ID="{A5843472-7A3F-444D-9932-92E35CFA9140}" ShortID="175122829">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="SFX_Creature_Laser" ID="{BBC63AD9-219D-4ACD-A1CA-EE938B4541D7}">
+											<Language>SFX</Language>
+											<AudioFile>SFX_Creature_Laser.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1020018044"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="SFX_Creature_Laser" ID="{BBC63AD9-219D-4ACD-A1CA-EE938B4541D7}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

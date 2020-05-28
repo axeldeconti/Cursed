@@ -30,6 +30,7 @@ namespace AK
         static const AkUniqueID PLAY_CREATURE_ENDDRAIN = 3331455763U;
         static const AkUniqueID PLAY_CREATURE_GRABBING = 3373431376U;
         static const AkUniqueID PLAY_CREATURE_HITWALL = 1251478039U;
+        static const AkUniqueID PLAY_CREATURE_LASER = 3956660081U;
         static const AkUniqueID PLAY_CREATURE_LAUNCH = 3361186193U;
         static const AkUniqueID PLAY_CREATURE_ONCHAR = 2125403547U;
         static const AkUniqueID PLAY_DASH = 2211787386U;
@@ -70,6 +71,18 @@ namespace AK
 
     namespace STATES
     {
+        namespace LOWPASSLASER
+        {
+            static const AkUniqueID GROUP = 2181744491U;
+
+            namespace STATE
+            {
+                static const AkUniqueID CREATUREOFF = 3174797897U;
+                static const AkUniqueID CREATUREON = 898236029U;
+                static const AkUniqueID NONE = 748895195U;
+            } // namespace STATE
+        } // namespace LOWPASSLASER
+
         namespace PAUSE_MENU
         {
             static const AkUniqueID GROUP = 3422541661U;
@@ -86,6 +99,7 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID LOWPASSLASER_SLIDER = 3274930301U;
         static const AkUniqueID MAIN_SLIDER = 3087031974U;
         static const AkUniqueID MUSIC_SLIDER = 1127857866U;
         static const AkUniqueID SFX_SLIDER = 4140634290U;
