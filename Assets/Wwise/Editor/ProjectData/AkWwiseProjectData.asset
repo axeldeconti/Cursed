@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 4799e45544d55a4892fe138223275588
     GuidInternal: 
-    m_lastTime: -8586112104142695397
+    m_lastTime: -8586112032448804887
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -62,7 +62,7 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 2b4a7c585e688e4bb01e9a62d19cd9ff
     GuidInternal: 
-    m_lastTime: -8586112101790205470
+    m_lastTime: -8586109299994047069
     List:
     - name: Main
       guid: 322d29f9730a854fa95ea1e94d237c19
@@ -87,8 +87,24 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: b051a7e320c3d24d98ec3606b9386c58
     GuidInternal: 
-    m_lastTime: -8586115572086360131
+    m_lastTime: -8586109294762986160
     List:
+    - name: Attack
+      guid: 35be2a1e7cbd304ea1da21bb5631b203
+      id: 180661997
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Attack
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Attack
       guid: 677527c83d22624681e9e422da0fa12b
       id: 180661997
@@ -134,7 +150,7 @@ MonoBehaviour:
       maxDuration: -1
       minDuration: -1
     - name: Damage
-      guid: 33049ea359d67542a4d6939788913329
+      guid: fb445e5d8be11b4681f19b8d85ed6e8e
       id: 1786804762
       PathAndIcons:
       - ElementName: Default Work Unit
@@ -146,6 +162,38 @@ MonoBehaviour:
       - ElementName: Damage
         ObjectType: 3
       Path: Default Work Unit\Character\Damage\Damage
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Damage
+      guid: 33049ea359d67542a4d6939788913329
+      id: 1786804762
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Damage
+        ObjectType: 4
+      - ElementName: Damage
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Damage\Damage
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Death
+      guid: 311d93c2f6a84e46bd8d115f8d34b908
+      id: 779278001
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Death
+        ObjectType: 4
+      - ElementName: Death
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Death\Death
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -178,6 +226,36 @@ MonoBehaviour:
       - ElementName: ElectricTrap
         ObjectType: 3
       Path: Default Work Unit\Spatial\ElectricTrap\ElectricTrap
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Enemy
+      guid: ed41ccf59f0dd542af7ba065ebf72f1f
+      id: 2299321487
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Enemy
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Enemy
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Jump
+      guid: 6a53230b4c82f2498e4db1c4792a0394
+      id: 3833651337
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Jump\Jump
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -499,6 +577,20 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Creature_Laser
+      guid: dba6ef803bf4a54cbf0f514cafcd65f2
+      id: 3956660081
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Creature
+        ObjectType: 4
+      - ElementName: Play_Creature_Laser
+        ObjectType: 3
+      Path: Default Work Unit\Creature\Play_Creature_Laser
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Creature_Launch
       guid: 4d047ebeb5784a4bbd3094cf252f2cdb
       id: 3361186193
@@ -677,19 +769,207 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Play_Enemy_Attack_Axe_FirstSlice
+      guid: 76e88fbf550b5749bb95240096922a97
+      id: 429946107
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Play_Enemy_Attack_Axe_FirstSlice
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Axe_FirstSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Attack_Axe_SecondSlice
+      guid: 0305b42bea532045aecfc92c824e579b
+      id: 1392456287
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Play_Enemy_Attack_Axe_SecondSlice
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Axe_SecondSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Attack_Axe_ThirdSlice
+      guid: 68e9967ea54ecc4bacd9250f504876b2
+      id: 784730744
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Play_Enemy_Attack_Axe_ThirdSlice
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Axe_ThirdSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Attack_Sword_FirstSlice
+      guid: ba723adc57e58844829e1bd99ea1d93b
+      id: 3016141430
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Play_Enemy_Attack_Sword_FirstSlice
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Sword_FirstSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Attack_Sword_SecondSlice
+      guid: 7f71b2132c823441a4a539b15b456ffe
+      id: 2608954444
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Play_Enemy_Attack_Sword_SecondSlice
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Sword_SecondSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Attack_Sword_ThirdSlice
+      guid: a1d71b4ca91f5844a68be64a319f3ca4
+      id: 3914179745
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Attack
+        ObjectType: 4
+      - ElementName: Play_Enemy_Attack_Sword_ThirdSlice
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Sword_ThirdSlice
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_BasicJump
+      guid: 8e0c534aeff64b44b370221899f34d8e
+      id: 2658991137
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 4
+      - ElementName: Play_Enemy_BasicJump
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Jump\Play_Enemy_BasicJump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Begin_WallSlide
+      guid: c16dcd50a125b54287e33fd46a6ce556
+      id: 2607534410
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Play_Enemy_Begin_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\WallSlide\Play_Enemy_Begin_WallSlide
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Dash
+      guid: f379108838096f4ea6e27335968cee9b
+      id: 1673311249
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Play_Enemy_Dash
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Play_Enemy_Dash
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Play_Enemy_Death
-      guid: c1b1a7b216a037429978c49daa3fba99
+      guid: 937a1b8e33d9bc4d8c98dd2a04f9d085
       id: 3046156865
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Character
+      - ElementName: Enemy
         ObjectType: 4
       - ElementName: Death
         ObjectType: 4
       - ElementName: Play_Enemy_Death
         ObjectType: 3
-      Path: Default Work Unit\Character\Death\Play_Enemy_Death
+      Path: Default Work Unit\Enemy\Death\Play_Enemy_Death
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Divekick
+      guid: b679bb51e8078548804726a3a481658f
+      id: 2403737389
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Play_Enemy_Divekick
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Play_Enemy_Divekick
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_DoubleJump
+      guid: 58a7b8cd53991f4a980fc9bfe017c267
+      id: 3488763742
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Jump
+        ObjectType: 4
+      - ElementName: Play_Enemy_DoubleJump
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Jump\Play_Enemy_DoubleJump
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_End_WallSlide
+      guid: 9bd55e17c0a42f4fb442e74d9b20b2bf
+      id: 1154830918
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Play_Enemy_End_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\WallSlide\Play_Enemy_End_WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -699,13 +979,41 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Character
+      - ElementName: Enemy
         ObjectType: 4
       - ElementName: Damage
         ObjectType: 4
       - ElementName: Play_Enemy_FirstDamage
         ObjectType: 3
-      Path: Default Work Unit\Character\Damage\Play_Enemy_FirstDamage
+      Path: Default Work Unit\Enemy\Damage\Play_Enemy_FirstDamage
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Landing
+      guid: 8b0b8badd6b19a4d8fb822b01a2b7c5d
+      id: 2983322058
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Play_Enemy_Landing
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Play_Enemy_Landing
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Enemy_Run
+      guid: 6cc0abea03bce84a8d8b223298d9c1ad
+      id: 2182773848
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: Play_Enemy_Run
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\Play_Enemy_Run
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -715,13 +1023,13 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Character
+      - ElementName: Enemy
         ObjectType: 4
       - ElementName: Damage
         ObjectType: 4
       - ElementName: Play_Enemy_SecondDamage
         ObjectType: 3
-      Path: Default Work Unit\Character\Damage\Play_Enemy_SecondDamage
+      Path: Default Work Unit\Enemy\Damage\Play_Enemy_SecondDamage
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -731,13 +1039,13 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Character
+      - ElementName: Enemy
         ObjectType: 4
       - ElementName: Damage
         ObjectType: 4
       - ElementName: Play_Enemy_ThirdDamage
         ObjectType: 3
-      Path: Default Work Unit\Character\Damage\Play_Enemy_ThirdDamage
+      Path: Default Work Unit\Enemy\Damage\Play_Enemy_ThirdDamage
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -904,7 +1212,7 @@ MonoBehaviour:
       maxDuration: -1
       minDuration: -1
     - name: Play_Player_Damage
-      guid: 1e0393a67511624ab9a7518f0a1277bf
+      guid: 7a118386156a334993895f256c2c24ec
       id: 3638125099
       PathAndIcons:
       - ElementName: Default Work Unit
@@ -1051,6 +1359,22 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Stop_Enemy_Begin_Play_Loop_WallSlide
+      guid: 8d5f82763e7f0e4aad0ba1086e39a666
+      id: 1592044262
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: Stop_Enemy_Begin_Play_Loop_WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\WallSlide\Stop_Enemy_Begin_Play_Loop_WallSlide
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: UI
       guid: 43ccb9df5ed6594ab9cf1b5072b6ddda
       id: 1551306167
@@ -1062,6 +1386,22 @@ MonoBehaviour:
       - ElementName: UI
         ObjectType: 3
       Path: Default Work Unit\UI\UI
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: WallSlide
+      guid: a22a0f8619aa6849a92d5b98bc4a8bf7
+      id: 682663092
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 4
+      - ElementName: WallSlide
+        ObjectType: 3
+      Path: Default Work Unit\Enemy\WallSlide\WallSlide
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -1086,8 +1426,17 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: a1889d9b1db7f9469431a8f1a6a2a35d
     GuidInternal: 
-    m_lastTime: -8586112104556742950
+    m_lastTime: -8586109446794249180
     List:
+    - name: LowPassLaser_Slider
+      guid: 0ea470ca5a764f4989e4cea3df0402b5
+      id: 3274930301
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: LowPassLaser_Slider
+        ObjectType: 13
+      Path: Default Work Unit\LowPassLaser_Slider
     - name: Main_Slider
       guid: f3743e145cce614d8cde030600a37bd0
       id: 3087031974
@@ -1120,8 +1469,39 @@ MonoBehaviour:
     ParentPath: Default Work Unit
     guid: 276595bab354574f9d2d883a3a1b3010
     GuidInternal: 
-    m_lastTime: -8586115513029159743
+    m_lastTime: -8586109299994037096
     List:
+    - name: LowPassLaser
+      guid: 6762d1b1d6456544a39b5e0a6d4b1644
+      id: 2181744491
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: LowPassLaser
+        ObjectType: 9
+      Path: Default Work Unit\LowPassLaser
+      values:
+      - name: CreatureOff
+        guid: 6c513dfea680e143aab2f2db621eedc9
+        id: 3174797897
+        PathAndIcons:
+        - ElementName: CreatureOff
+          ObjectType: 8
+      - name: CreatureOn
+        guid: cc2f0b8f9a49b04c81331e2743e9d523
+        id: 898236029
+        PathAndIcons:
+        - ElementName: CreatureOn
+          ObjectType: 8
+      - name: None
+        guid: 330c82bf89ad1143aa8d5300f861d677
+        id: 748895195
+        PathAndIcons:
+        - ElementName: None
+          ObjectType: 8
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
     - name: Pause_Menu
       guid: 9acc390909290d47a4b7c506d2f600af
       id: 3422541661
