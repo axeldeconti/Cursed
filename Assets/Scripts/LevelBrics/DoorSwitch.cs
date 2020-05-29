@@ -5,6 +5,7 @@ using Cursed.Creature;
 public class DoorSwitch : MonoBehaviour
 {
     [SerializeField] private InteractiveDoor[] _interactiveDoors;
+    public event System.Action _toggleDoor;
 
     public void ToggleDoors()
     {
@@ -12,5 +13,6 @@ public class DoorSwitch : MonoBehaviour
         {
             _interactiveDoors[i].ToggleDoor();
         }
+        _toggleDoor?.Invoke();
     }
 }
