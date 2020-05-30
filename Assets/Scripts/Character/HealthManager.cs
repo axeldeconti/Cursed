@@ -45,6 +45,8 @@ namespace Cursed.Character
         [SerializeField] private ShakeData _shakeCritic = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
 
+        private GameObject _currentAttacker = null;
+
         #region Initalizer
 
         private void Awake()
@@ -97,6 +99,7 @@ namespace Cursed.Character
             else
             {
                 //Update health
+                _currentAttacker = attacker;
                 UpdateCurrentHealth(_currentHealth - attack.Damage);
 
                 //Apply the effect of the attack
@@ -121,6 +124,45 @@ namespace Cursed.Character
                         _sfx.PlayerDamageSFX();
                         _vfx.FlashScreenDmgPlayer();
 
+                        if (atkMgr)
+                        {
+                            _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
+
+                        /*
+                            if (!atkMgr.IsDiveKicking)
+                                _vfx.AttackEffect(transform.position, attacker);
+                          
+                            //Do something is critical
+                            if (attack.IsCritical && atkMgr.Combo != 3)
+                            {
+                                _vfx.CriticalEffect(transform.position, attacker);
+                                _onCamShake?.Raise(_shakeCritic);
+                            }
+
+                            //Do something for Combo 2
+                            if (atkMgr.Combo == 2)
+                            {
+                                _sfx.SecondEnemyDamageSFX();
+                            }
+
+                            //Do something for Combo 3
+                            if (atkMgr.Combo == 3)
+                            {
+                                _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
+                                _sfx.ThirdEnemyDamageSFX();
+                                _onCamShake?.Raise(_shakeCombo3);
+                            }    
+                        */                        
+
+                            //Blood effect
+                            int _varRndBlood = UnityEngine.Random.Range(0, 3);
+                            if (!atkMgr.IsDiveKicking && _varRndBlood == 0)
+                            {
+                                _vfx.BloodParticle(transform.position, attacker);
+                                _vfx.BloodProjection(transform.position, attacker);
+                            }
+                        }
+
                         ControllerVibration.Instance.StartVibration(_takeDamageVibration);
                         _invAnim.LaunchAnimation();
 
@@ -131,20 +173,17 @@ namespace Cursed.Character
 
                 if (gameObject.tag.Equals("Enemy"))
                 {
-                    if ((!attacker.tag.Equals("Player")) && (!attacker.tag.Equals("Creature")))
+                    if (!attacker.tag.Equals("Creature"))
+                    {
+                        // Enemy take damage
                         _sfx.FirstEnemyDamageSFX();
 
-                    if (attacker.tag.Equals("Player") || attacker.tag.Equals("Enemy"))
-                    {
                         if (atkMgr)
                         {
-                            _sfx.FirstEnemyDamageSFX();
                             _vfx.TouchImpact(transform.position, atkMgr.GetVfxTouchImpact());
 
-                            if(!atkMgr.IsDiveKicking)
+                            if (!atkMgr.IsDiveKicking)
                                 _vfx.AttackEffect(transform.position, attacker);
-                            if(atkMgr.IsDiveKicking)
-                                ControllerVibration.Instance.StartVibration(_divekickTouchVibration);
 
                             //Do something is critical
                             if (attack.IsCritical && atkMgr.Combo != 3)
@@ -169,13 +208,13 @@ namespace Cursed.Character
 
                             //Blood effect
                             int _varRndBlood = UnityEngine.Random.Range(0, 3);
-                            if(!atkMgr.IsDiveKicking && _varRndBlood == 0)
+                            if (!atkMgr.IsDiveKicking && _varRndBlood == 0)
                             {
                                 _vfx.BloodParticle(transform.position, attacker);
                                 _vfx.BloodProjection(transform.position, attacker);
                             }
                         }
-                    }
+                    }                  
                 }
             }
         }
@@ -277,7 +316,10 @@ namespace Cursed.Character
             {
                 _sfx.PlayerDeathSFX();
                 _vfx.DeathEffect(transform.position);
+                _vfx.BloodExplosion(transform.position);
+                _vfx.AndroidPartExplosion(transform.position);
             }
+
             if (gameObject.tag.Equals("Enemy"))
             {
                 _sfx.EnemyDeathSFX();
@@ -285,15 +327,17 @@ namespace Cursed.Character
                 _vfx.BloodExplosion(transform.position);
                 _vfx.AndroidPartExplosion(transform.position);
 
-                if (_zoomDuration != null)
+                if(_currentAttacker != null && _currentAttacker.tag.Equals("Player"))
                 {
-                    CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed, true);
-                    CameraZoomController.Instance.CallWaitForZoom(_zoomDuration.Value, CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed, true);
-                }
-
-                if (_slowMotionDuration != null)
-                {
-                    SlowMotion.Instance.Freeze(_slowMotionDuration);
+                    if (_zoomDuration != null)
+                    {
+                        CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed, true);
+                        CameraZoomController.Instance.CallWaitForZoom(_zoomDuration.Value, CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed, true);
+                    }
+                    if (_slowMotionDuration != null)
+                    {
+                        SlowMotion.Instance.Freeze(_slowMotionDuration);
+                    }
                 }
 
                 Destroy(gameObject);

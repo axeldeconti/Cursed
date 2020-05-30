@@ -569,7 +569,8 @@ namespace Cursed.Character
             {
                 //SetIsInvinsible(true);
                 StartCoroutine(Dash(dir));
-                _onCamShake?.Raise(_shakeDash);
+                if(_onCamShake != null)
+                    _onCamShake?.Raise(_shakeDash);
                 
                 _refDashSpeedVfx = _vfx.DashSpeedVfx();
                 _refDashSpeedVfx.GetComponent<DestoyOnCondition>().condition = () => { return !_isDashing; };
