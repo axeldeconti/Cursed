@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Cursed.AI
 {
-    public class Pathfinding : Singleton<Pathfinding>
+    public class Pathfinding : MonoBehaviour
     {
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private LayerMask _collisionLayer;

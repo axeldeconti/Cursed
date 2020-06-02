@@ -1303,6 +1303,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &452045441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6911443179845584767, guid: a6cf0e048d3d6e84da9de5101a643832,
+    type: 3}
+  m_PrefabInstance: {fileID: 1684850581454960818}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c012a7032751c4f9b516539252a887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &561381354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3390,8 +3402,13 @@ PrefabInstance:
     - target: {fileID: 275295404781019534, guid: 39cc6f3b7d7baa747996960059627610,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 502983778585291273, guid: 39cc6f3b7d7baa747996960059627610,
+        type: 3}
+      propertyPath: _pathfindingMgr
+      value: 
+      objectReference: {fileID: 452045441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39cc6f3b7d7baa747996960059627610, type: 3}
 --- !u!1 &2036408459
@@ -3599,6 +3616,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Android_AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 502983778585291273, guid: 39cc6f3b7d7baa747996960059627610,
+        type: 3}
+      propertyPath: _pathfindingMgr
+      value: 
+      objectReference: {fileID: 452045441}
+    - target: {fileID: 7148813450785064788, guid: 39cc6f3b7d7baa747996960059627610,
+        type: 3}
+      propertyPath: _debugDraws
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39cc6f3b7d7baa747996960059627610, type: 3}

@@ -24,11 +24,17 @@ namespace Cursed.AI
             //Check for a target if I have none
             if (!controller.Target)
             {
-                RaycastHit2D hit = controller.RaycastInFront(_aggroRange);
-                if (hit)
+                RaycastHit2D[] hit = controller.RaycastInFront(_aggroRange);
+                if (hit.Length > 0)
                 {
-                    //Set target to the AiTarget if one is hit
-                    controller.Target = hit.collider.GetComponent<AiTarget>();
+                    for (int i = 0; i < hit.Length; i++)
+                    {
+                        if(hit[i].collider.GetInstanceID() != controller.gameObject.GetInstanceID())
+                        {
+                            //Set target to the AiTarget if one is hit
+                            controller.Target = hit[i].collider.GetComponent<AiTarget>();
+                        }
+                    }
                 }
             }
 
@@ -50,10 +56,15 @@ namespace Cursed.AI
             controller.PathAgent.AiMovement(ref data);
 
             //Check if there is a laser in front
-            RaycastHit2D laserCheck = controller.RaycastInFront(5);
-            if (laserCheck.collider && !controller.Move.IsDashing)
-                if (laserCheck.collider.GetComponent<LaserBeam>())
-                    data.dash = true;
+            bool shouldDash = false;
+            RaycastHit2D[] laserCheck = controller.RaycastInFront(5);
+            for (int i = 0; i < laserCheck.Length; i++)
+            {
+                if (laserCheck[i].collider && !controller.Move.IsDashing)
+                    if (laserCheck[i].collider.GetComponent<LaserBeam>())
+                        shouldDash = true;
+            }
+            data.dash = shouldDash;
         }
 
         protected override void CheckForTransition(AiController controller, ref string newState)

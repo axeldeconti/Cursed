@@ -22,10 +22,16 @@ namespace Cursed.AI
             controller.PathAgent.AiMovement(ref data);
 
             //Check if there is a laser in front
-            RaycastHit2D laserCheck = controller.RaycastInFront(5);
-            if (laserCheck.collider && !controller.Move.IsDashing)
-                if (laserCheck.collider.GetComponent<LaserBeam>())
-                    data.dash = true;
+            //Check if there is a laser in front
+            bool shouldDash = false;
+            RaycastHit2D[] laserCheck = controller.RaycastInFront(5);
+            for (int i = 0; i < laserCheck.Length; i++)
+            {
+                if (laserCheck[i].collider && !controller.Move.IsDashing)
+                    if (laserCheck[i].collider.GetComponent<LaserBeam>())
+                        shouldDash = true;
+            }
+            data.dash = shouldDash;
         }
 
         protected override void CheckForTransition(AiController controller, ref string newState)

@@ -7,7 +7,7 @@ namespace Cursed.AI
 {
     public class AiController : MonoBehaviour
     {
-        private static Pathfinding _pathfindingMgr;
+        private /*static*/ Pathfinding _pathfindingMgr;
 
         private PathfindingAgent _pathAgent = null;
         private CollisionHandler _col = null;
@@ -20,6 +20,9 @@ namespace Cursed.AI
         [Header("States")]
         [SerializeField] private string _state = "None";
         [SerializeField] private List<AiState> _allStates = null;
+
+        [Header("Raycasts")]
+        [SerializeField] private FloatReference _xRaycastOffset = null;
 
         [Header("Debug")]
         [SerializeField] private bool _debugLogs = false;
@@ -47,8 +50,10 @@ namespace Cursed.AI
 
         private void Start()
         {
-            if (_pathfindingMgr == null)
-                _pathfindingMgr = Pathfinding.Instance;
+            //if (_pathfindingMgr == null)
+            //    _pathfindingMgr = Pathfinding.Instance;
+
+            _pathfindingMgr = _pathAgent._pathfindingMgr;
 
             _isMoving = false;
             _nbOfDirties = 0;
@@ -106,9 +111,14 @@ namespace Cursed.AI
             {
                 //Transform at character's feet so up the position a bit
                 Vector3 pos = transform.position + Vector3.up * 2;
-                if (raycastOn && !Physics2D.Linecast(pos, _target.Position, _pathfindingMgr.GroundLayer))
+                RaycastHit2D[] hit = Physics2D.LinecastAll(pos, _target.Position, _pathfindingMgr.GroundLayer);
+                if (raycastOn && hit.Length > 0)
                 {
-                    return true;
+                    for (int i = 0; i < hit.Length; i++)
+                    {
+                        if (hit[i].collider.GetInstanceID() != gameObject.GetInstanceID())
+                            return true;
+                    }
                 }
                 else if (!raycastOn)
                 {
@@ -124,7 +134,7 @@ namespace Cursed.AI
         /// </summary>
         /// <param name="distance">Distance of the raycast</param>
         /// <returns></returns>
-        public RaycastHit2D RaycastInFront(float distance)
+        public RaycastHit2D[] RaycastInFront(float distance)
         {
             //Transform at character's feet so up the position a bit
             return RaycastInFront(distance, 2);
@@ -135,11 +145,11 @@ namespace Cursed.AI
         /// </summary>
         /// <param name="distance">Distance of the raycast</param>
         /// <returns></returns>
-        public RaycastHit2D RaycastInFront(float distance, float height)
+        public RaycastHit2D[] RaycastInFront(float distance, float height)
         {
             //Transform at character's feet so up the position a bit
-            Vector3 pos = transform.position + Vector3.up * height + Vector3.right * _move.Side * 2.5f;
-            return Physics2D.Linecast(pos, pos + Vector3.right * _move.Side * distance);
+            Vector3 pos = transform.position + Vector3.up * height + Vector3.right * _move.Side * _xRaycastOffset;
+            return Physics2D.LinecastAll(pos, pos + Vector3.right * _move.Side * distance);
         }
         #endregion
 
@@ -290,8 +300,8 @@ namespace Cursed.AI
             switch (_state)
             {
                 case "GroundPatrol":
-                    pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
-                    pos2 = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+                    pos = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * _xRaycastOffset;
+                    pos2 = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * _xRaycastOffset;
 
                     Gizmos.color = Color.red;
                     Gizmos.DrawLine(pos, pos + Vector3.right * _move.Side * _aggroRange);
@@ -303,7 +313,7 @@ namespace Cursed.AI
                     Vector3 dir = (_target.Position - pos).normalized;
                     Vector3 aggroRangePos = pos + dir * _aggroRange;
                     Vector3 attackRangePos = pos + dir * _attackRange;
-                    pos2 = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * 2.5f;
+                    pos2 = transform.position + Vector3.up * 2 + Vector3.right * _move.Side * _xRaycastOffset;
 
                     Gizmos.color = Color.cyan;
                     Gizmos.DrawLine(pos, aggroRangePos);

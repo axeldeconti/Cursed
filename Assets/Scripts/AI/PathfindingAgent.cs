@@ -7,7 +7,7 @@ namespace Cursed.AI
 {
     public class PathfindingAgent : MonoBehaviour
     {
-        public static Pathfinding _pathfindingMgr;
+        public /*static*/ Pathfinding _pathfindingMgr;
 
         private AiController _aiController = null;
         private CollisionHandler _col = null;
@@ -102,8 +102,8 @@ namespace Cursed.AI
 
         private void Start()
         {
-            if (_pathfindingMgr == null)
-                _pathfindingMgr = Pathfinding.Instance;
+            //if (_pathfindingMgr == null)
+            //    _pathfindingMgr = Pathfinding.Instance;
 
             //CursedDebugger.Instance.Add("GoTarget", () => _target.ToString());
             //CursedDebugger.Instance.Add("VectorTarget", () => _lastOrder.ToString());
