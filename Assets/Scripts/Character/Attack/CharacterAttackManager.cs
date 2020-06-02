@@ -184,7 +184,8 @@ namespace Cursed.Character
             _isAttacking = true;
             _isDiveKicking = true;
             _anim.LaunchAttack(0, ++_combo);
-            _onCamShake?.Raise(_shakeDivekick);
+            if( _onCamShake != null)
+                _onCamShake?.Raise(_shakeDivekick);
         }
 
         /// <summary>

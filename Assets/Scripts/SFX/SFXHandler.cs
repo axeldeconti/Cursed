@@ -11,6 +11,7 @@ public class SFXHandler : MonoBehaviour
     private HealthManager _healthManager = null;
     private LaserBeam _laserBeam = null;
     private CreatureManager _creatureManager = null;
+    private EnemyHealth _enemyHealth = null;
 
     private bool _myIsDiveKicking;
     private bool _lowHealth1Played = false;
@@ -25,6 +26,7 @@ public class SFXHandler : MonoBehaviour
         _creatureManager = GetComponent<CreatureManager>();
         _healthManager = GetComponent<HealthManager>();
         _laserBeam = GetComponent<LaserBeam>();
+        _enemyHealth = GetComponent<EnemyHealth>();
 
         #region Spatialized
         if (_laserBeam != null)
@@ -89,72 +91,168 @@ public class SFXHandler : MonoBehaviour
 
     public void RunSFX()
     {
-        AkSoundEngine.PostEvent("Play_Run", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Run", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Run", gameObject);
+        }
     }
 
     public void WallRunSFX()
     {
-        AkSoundEngine.PostEvent("Play_Run", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Run", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Run", gameObject);
+        }
     }
 
     public void JumpSFX()
     {
-        AkSoundEngine.PostEvent("Play_BasicJump", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_BasicJump", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_BasicJump", gameObject);
+        }        
     }
 
     public void DoubleJumpSFX()
     {
-        AkSoundEngine.PostEvent("Play_DoubleJump", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_DoubleJump", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_DoubleJump", gameObject);
+        }
     }
 
     public void DashSFX()
     {
-        AkSoundEngine.PostEvent("Play_Dash", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Dash", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Dash", gameObject);
+        }
     }
 
     public void LandingSFX()
     {
-        AkSoundEngine.PostEvent("Play_Landing", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Landing", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Landing", gameObject);
+        }
     }
 
     #region Attack
     public void FirstSwordAttackSFX()
     {
-        AkSoundEngine.PostEvent("Play_Attack_Sword_FirstSlice", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Attack_Sword_FirstSlice", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Attack_Sword_FirstSlice", gameObject);
+        }
     }
 
     public void SecondSwordAttackSFX()
     {
-        AkSoundEngine.PostEvent("Play_Attack_Sword_SecondSlice", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Attack_Sword_SecondSlice", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Attack_Sword_SecondSlice", gameObject);
+        }
     }
 
     public void ThirdSwordAttackSFX()
     {
-        AkSoundEngine.PostEvent("Play_Attack_Sword_ThirdSlice", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Attack_Sword_ThirdSlice", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Attack_Sword_ThirdSlice", gameObject);
+        }
     }
 
     public void FirstAxeAttackSFX()
     {
-        AkSoundEngine.PostEvent("Play_Attack_Axe_FirstSlice", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Attack_Axe_FirstSlice", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Attack_Axe_FirstSlice", gameObject);
+        }
     }
 
     public void SecondAxeAttackSFX()
     {
-        AkSoundEngine.PostEvent("Play_Attack_Axe_SecondSlice", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Attack_Axe_SecondSlice", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Attack_Axe_SecondSlice", gameObject);
+        }
     }
 
     public void ThirdAxeAttackSFX()
     {
-        AkSoundEngine.PostEvent("Play_Attack_Axe_ThirdSlice", gameObject);
+        if (_enemyHealth == null)
+        {
+            AkSoundEngine.PostEvent("Play_Attack_Axe_ThirdSlice", gameObject);
+        }
+        if (_enemyHealth != null)
+        {
+            AkSoundEngine.PostEvent("Play_Enemy_Attack_Axe_ThirdSlice", gameObject);
+        }
     }
 
     public void DiveKickSFX()
     {
-        if (!_myIsDiveKicking)
+        if (_enemyHealth == null)
         {
-            AkSoundEngine.PostEvent("Play_Divekick", gameObject);
-            _myIsDiveKicking = true;
+            if (!_myIsDiveKicking)
+            {
+                AkSoundEngine.PostEvent("Play_Divekick", gameObject);
+                _myIsDiveKicking = true;
+            }
         }
+        if (_enemyHealth != null)
+        {
+            if (!_myIsDiveKicking)
+            {
+                AkSoundEngine.PostEvent("Play_Enemy_Divekick", gameObject);
+                _myIsDiveKicking = true;
+            }
+        }
+
     }
     #endregion
 

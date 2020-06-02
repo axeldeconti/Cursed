@@ -136,7 +136,8 @@ namespace Cursed.Character
                             if (attack.IsCritical && atkMgr.Combo != 3)
                             {
                                 _vfx.CriticalEffect(transform.position, attacker);
-                                _onCamShake?.Raise(_shakeCritic);
+                                if(attacker.tag.Equals("Player"))
+                                    _onCamShake?.Raise(_shakeCritic);
                             }
 
                             //Do something for Combo 2
@@ -150,7 +151,8 @@ namespace Cursed.Character
                             {
                                 _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
                                 _sfx.ThirdEnemyDamageSFX();
-                                _onCamShake?.Raise(_shakeCombo3);
+                                if(attacker.tag.Equals("Player"))
+                                    _onCamShake?.Raise(_shakeCombo3);
                             }    
                         */                        
 
@@ -189,7 +191,8 @@ namespace Cursed.Character
                             if (attack.IsCritical && atkMgr.Combo != 3)
                             {
                                 _vfx.CriticalEffect(transform.position, attacker);
-                                _onCamShake?.Raise(_shakeCritic);
+                                if(attacker.tag.Equals("Player"))
+                                    _onCamShake?.Raise(_shakeCritic);
                             }
 
                             //Do something for Combo 2
@@ -203,7 +206,8 @@ namespace Cursed.Character
                             {
                                 _vfx.Combo3(transform.position, atkMgr.GetVfxCombo3(), attacker);
                                 _sfx.ThirdEnemyDamageSFX();
-                                _onCamShake?.Raise(_shakeCombo3);
+                                if (attacker.tag.Equals("Player"))
+                                    _onCamShake?.Raise(_shakeCombo3);
                             }
 
                             //Blood effect
@@ -330,12 +334,13 @@ namespace Cursed.Character
                 if(_currentAttacker != null && _currentAttacker.tag.Equals("Player"))
                 {
                     if (_zoomDuration != null)
-                    {
+                    {                       
                         CameraZoomController.Instance.Zoom(CameraZoomController.Instance._maxZoomKill, CameraZoomController.Instance._zoomInKillSpeed, true);
                         CameraZoomController.Instance.CallWaitForZoom(_zoomDuration.Value, CameraZoomController.Instance._initialZoom, CameraZoomController.Instance._zoomOutKillSpeed, true);
                     }
                     if (_slowMotionDuration != null)
                     {
+                        Debug.Log("Freeze");
                         SlowMotion.Instance.Freeze(_slowMotionDuration);
                     }
                 }
