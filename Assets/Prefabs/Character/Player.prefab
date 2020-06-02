@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 8498843447298849143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.27, y: -1.26, z: 0}
-  m_LocalScale: {x: -8, y: 8, z: 1}
+  m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children:
   - {fileID: 1497935134210606031}
   - {fileID: 2285594007269526412}
@@ -623,13 +623,13 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 02c31bfef828c414ca58cc3c00c69f65, type: 2}
   _zoomDuration:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: c62ff12a319ce1141b457112c4d104da, type: 2}
   _slowMotionDuration:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 202e863fd0b64b74b837447c8cb09a56, type: 2}
   _takeDamageVibration: {fileID: 11400000, guid: dcb66c20196f42640b21d0a3479e9419,
     type: 2}
   _divekickTouchVibration: {fileID: 11400000, guid: 19e82ce1ca73db2449e33afaf03621ba,
@@ -701,8 +701,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 784b0a376c599314abb8c86b811cf9ea,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
