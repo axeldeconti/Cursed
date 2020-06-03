@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 7144165205379774518}
   - component: {fileID: 4528637824863839940}
   - component: {fileID: 3073993330950672913}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AndroidMannequin_AI
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bea418f815d36848937c4d85262f744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pathfindingMgr: {fileID: 0}
   _target: {x: 0, y: 0, z: 0}
   _normalJump: {fileID: 11400000, guid: fc3e26308e6583a48b7890b1249a9e24, type: 2}
   followPathTimer: 0.5
@@ -351,6 +352,13 @@ MonoBehaviour:
   _state: None
   _allStates:
   - {fileID: 11400000, guid: 94c5ab12a8c64534282f2aaae720d157, type: 2}
+  _checkLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _xRaycastOffset:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   _debugLogs: 0
   _debugDraws: 1
   _aggroRange:
@@ -385,6 +393,11 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 1
     Variable: {fileID: 11400000, guid: d6340ac09bda8a949880deca7099c373, type: 2}
+  _aiUpdateFrame:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _debug: 0
 --- !u!114 &1579586781309840263
 MonoBehaviour:
   m_ObjectHideFlags: 0
