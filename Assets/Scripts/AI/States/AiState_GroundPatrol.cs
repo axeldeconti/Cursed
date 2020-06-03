@@ -29,7 +29,7 @@ namespace Cursed.AI
                 {
                     for (int i = 0; i < hit.Length; i++)
                     {
-                        if(hit[i].collider.GetInstanceID() != controller.gameObject.GetInstanceID())
+                        if(hit[i].collider.gameObject.GetInstanceID() != controller.gameObject.GetInstanceID())
                         {
                             //Set target to the AiTarget if one is hit
                             controller.Target = hit[i].collider.GetComponent<AiTarget>();

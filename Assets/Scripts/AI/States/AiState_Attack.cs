@@ -15,6 +15,14 @@ namespace Cursed.AI
         [SerializeField] private FloatReference _chancesToDashWhenAttacked = null;
 
         private bool _attack = false;
+        private bool _forceAttack = false;
+
+        public override void OnStateEnter(AiController controller)
+        {
+            base.OnStateEnter(controller);
+
+            _forceAttack = true;
+        }
 
         public override void OnStateUpdate(AiController controller, ref AIData data)
         {
@@ -51,6 +59,13 @@ namespace Cursed.AI
                 bool dash = ChanceToGetTrue(_chancesToDashWhenAttacked);
                 data.dash = dash;
                 _attack = _attack && !dash;
+            }
+
+            //Force attack when entering the attack state
+            if (_forceAttack)
+            {
+                _attack = true;
+                _forceAttack = false;
             }
             
             if (_attack)

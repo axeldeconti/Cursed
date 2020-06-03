@@ -22,6 +22,7 @@ namespace Cursed.AI
         [SerializeField] private List<AiState> _allStates = null;
 
         [Header("Raycasts")]
+        [SerializeField] private LayerMask _checkLayer;
         [SerializeField] private FloatReference _xRaycastOffset = null;
 
         [Header("Debug")]
@@ -111,12 +112,15 @@ namespace Cursed.AI
             {
                 //Transform at character's feet so up the position a bit
                 Vector3 pos = transform.position + Vector3.up * 2;
-                RaycastHit2D[] hit = Physics2D.LinecastAll(pos, _target.Position, _pathfindingMgr.GroundLayer);
+                RaycastHit2D[] hit = Physics2D.LinecastAll(pos, _target.Position, _checkLayer);
                 if (raycastOn && hit.Length > 0)
                 {
                     for (int i = 0; i < hit.Length; i++)
                     {
-                        if (hit[i].collider.GetInstanceID() != gameObject.GetInstanceID())
+                        if (hit[i].collider.gameObject.layer == _pathfindingMgr.GroundLayer)
+                            return false;
+
+                        if (hit[i].collider.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                             return true;
                     }
                 }
