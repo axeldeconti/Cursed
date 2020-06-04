@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using Cursed.Props;
 
 namespace Cursed.Managers
@@ -7,6 +6,8 @@ namespace Cursed.Managers
     public class CellManager : Singleton<CellManager>
     {
         public Action<Cell> onPlayerEnterCell = null;
+
+        private Cell currentCell = Cell.A1;
 
         private void Start()
         {
@@ -18,6 +19,7 @@ namespace Cursed.Managers
 
         private void OnPlayerEnterCellCallback(Cell cell)
         {
+            currentCell = cell;
             onPlayerEnterCell.Invoke(cell);
         }
     }
