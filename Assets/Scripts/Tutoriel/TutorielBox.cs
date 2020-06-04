@@ -40,7 +40,8 @@ namespace Cursed.Tutoriel
                     {
                         _playerMovement.JumpUnlock = true;
                         _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
-                    }                   
+                        AkSoundEngine.PostEvent("Play_SkillUnlocked", gameObject);
+                    }
                     break;
 
                 case TutorielType.DoubleJump:
@@ -48,6 +49,7 @@ namespace Cursed.Tutoriel
                     {
                         _playerMovement.DoubleJumpUnlock = true;
                         _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                        AkSoundEngine.PostEvent("Play_SkillUnlocked", gameObject);
                     }
                     break;
 
@@ -56,6 +58,7 @@ namespace Cursed.Tutoriel
                     {
                         _playerMovement.WallRunUnlock = true;
                         _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                        AkSoundEngine.PostEvent("Play_SkillUnlocked", gameObject);
                     }
                     break;
 
@@ -64,6 +67,7 @@ namespace Cursed.Tutoriel
                     {
                         _playerMovement.DashUnlock = true;
                         _vfx.UnlockComp(_playerMovement.gameObject.transform.position);
+                        AkSoundEngine.PostEvent("Play_SkillUnlocked", gameObject);
                     }
                     break;
 
@@ -72,6 +76,7 @@ namespace Cursed.Tutoriel
                     {
                         _playerAttacks.AttacksUnlock = true;
                         _vfx.UnlockComp(_playerAttacks.gameObject.transform.position);
+                        AkSoundEngine.PostEvent("Play_SkillUnlocked", gameObject);
                     }
                     break;
 
@@ -91,6 +96,7 @@ namespace Cursed.Tutoriel
 
                 UnlockSpell(_tutorielType);
                 _alreadyTriggered = true;
+                AkSoundEngine.PostEvent("Play_MapGenerator_On", gameObject);
             }
         }
 

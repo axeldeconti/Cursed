@@ -27,6 +27,14 @@
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
 				<Event Id="1404684114" Name="PauseAllSounds" ObjectPath="\Events\Default Work Unit\UI\PauseMenu\PauseAllSounds" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="823759501" Name="Play_Amb_Atmosphere" ObjectPath="\Events\Default Work Unit\Amb\Play_Amb_Atmosphere" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="182660995" Language="SFX">
+							<ShortName>Amb_Atmosphere.wav</ShortName>
+							<Path>SFX\Amb_Atmosphere_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="3793046172" Name="Play_AssemblyLine" ObjectPath="\Events\Default Work Unit\Spatial\Play_AssemblyLine" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="11.199955" DurationMax="11.199955">
 					<IncludedMemoryFiles>
 						<File Id="447976717" Language="SFX">
@@ -612,6 +620,14 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
+				<Event Id="2761579074" Name="Play_SkillUnlocked" ObjectPath="\Events\Default Work Unit\Character\Play_SkillUnlocked" DurationType="OneShot" DurationMin="0.835918" DurationMax="0.835918">
+					<IncludedMemoryFiles>
+						<File Id="298259720" Language="SFX">
+							<ShortName>SFX_SkillUnlocked.wav</ShortName>
+							<Path>SFX\SFX_SkillUnlocked_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 				<Event Id="1913495746" Name="Play_StaticNoise" ObjectPath="\Events\Default Work Unit\Spatial\Play_StaticNoise" MaxAttenuation="45.000000" DurationType="OneShot" DurationMin="0.579048" DurationMax="0.579048">
 					<IncludedMemoryFiles>
 						<File Id="452589518" Language="SFX">
@@ -692,6 +708,10 @@
 					<ShortName>Jumps\BasicJump.wav</ShortName>
 					<Path>SFX\Jumps\BasicJump_10C4C929.wem</Path>
 				</File>
+				<File Id="182660995" Language="SFX">
+					<ShortName>Amb_Atmosphere.wav</ShortName>
+					<Path>SFX\Amb_Atmosphere_D79FB2B7.wem</Path>
+				</File>
 				<File Id="206046367" Language="SFX">
 					<ShortName>Death\Player\Player_Death.wav</ShortName>
 					<Path>SFX\Death\Player\Player_Death_10C4C929.wem</Path>
@@ -707,6 +727,10 @@
 				<File Id="266893339" Language="SFX">
 					<ShortName>Damage\Enemy\Enemy_Damage_FirstHit01.wav</ShortName>
 					<Path>SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem</Path>
+				</File>
+				<File Id="298259720" Language="SFX">
+					<ShortName>SFX_SkillUnlocked.wav</ShortName>
+					<Path>SFX\SFX_SkillUnlocked_10C4C929.wem</Path>
 				</File>
 				<File Id="299119010" Language="SFX">
 					<ShortName>SFX_Creature_OnChar_07.wav</ShortName>
