@@ -13,6 +13,10 @@ public class MusicHandler : Singleton<MusicHandler>
             AkSoundEngine.PostEvent("Play_Music_MainMenu", gameObject);
 
         if (SceneManager.GetActiveScene().name == "Level1")
+        {
             AkSoundEngine.PostEvent("Play_Music_InGame", gameObject);
+            AkSoundEngine.PostEvent("Play_Amb_Atmosphere", gameObject);
+        }
     }
+            
 }

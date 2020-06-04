@@ -14,6 +14,7 @@ namespace AK
     namespace EVENTS
     {
         static const AkUniqueID PAUSEALLSOUNDS = 1404684114U;
+        static const AkUniqueID PLAY_AMB_ATMOSPHERE = 823759501U;
         static const AkUniqueID PLAY_ASSEMBLYLINE = 3793046172U;
         static const AkUniqueID PLAY_ATTACK_AXE_FIRSTSLICE = 1312214966U;
         static const AkUniqueID PLAY_ATTACK_AXE_SECONDSLICE = 378405260U;
@@ -77,6 +78,7 @@ namespace AK
         static const AkUniqueID PLAY_PUZZLEDOOR_CLOSE = 3056885643U;
         static const AkUniqueID PLAY_PUZZLEDOOR_OPEN = 973976397U;
         static const AkUniqueID PLAY_RUN = 2822207957U;
+        static const AkUniqueID PLAY_SKILLUNLOCKED = 2761579074U;
         static const AkUniqueID PLAY_STATICNOISE = 1913495746U;
         static const AkUniqueID RESUMEALLSOUNDS = 3456043509U;
         static const AkUniqueID STOP_BEGIN_PLAY_LOOP_WALLSLIDE = 848533759U;

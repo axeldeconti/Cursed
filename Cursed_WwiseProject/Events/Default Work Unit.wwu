@@ -279,6 +279,17 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
+						<Event Name="Play_SkillUnlocked" ID="{02EEAC81-D0E1-4F16-AE64-19A8490B05BC}">
+							<ChildrenList>
+								<Action Name="" ID="{DB2D48AF-B424-4503-A154-C044E0B970DE}" ShortID="371395828">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_SkillUnlocked" ID="{D6BC8D3A-B581-4ED7-BF5B-0D54283F284E}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Creature" ID="{9BC71CF0-4981-4B6E-9425-C9EA7E793384}" ShortID="862410764">
@@ -1035,6 +1046,21 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="SFX_Enemy_Dash" ID="{F017D304-BB76-4C4D-8D4A-7D6EE3B53121}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Amb" ID="{64A1FCAF-8124-4625-8C85-5F3B161E9E90}" ShortID="759817357">
+					<ChildrenList>
+						<Event Name="Play_Amb_Atmosphere" ID="{FA8CECB1-27EF-4E87-AAFA-BA718706DAB5}">
+							<ChildrenList>
+								<Action Name="" ID="{0409F438-AB01-4C68-8265-EEB595A0F027}" ShortID="707082237">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Amb_Atmosphere" ID="{8B306431-CEC4-48CE-A9D5-833CEE7B57B5}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
