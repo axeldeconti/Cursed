@@ -2,12 +2,12 @@
 
 public class MusicHandler : Singleton<MusicHandler>
 {   
-    void Start()
+    void Update()
     {
-
+        MusicSwitch();
     }
 
-    void Update()
+    void MusicSwitch()
     {
         if (SceneManager.GetActiveScene().name == "Main")
             AkSoundEngine.PostEvent("Play_Music_MainMenu", gameObject);
@@ -18,5 +18,4 @@ public class MusicHandler : Singleton<MusicHandler>
             AkSoundEngine.PostEvent("Play_Amb_Atmosphere", gameObject);
         }
     }
-            
 }
