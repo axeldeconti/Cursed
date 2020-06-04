@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1660755708}
   - component: {fileID: 1660755707}
   - component: {fileID: 1660755706}
+  - component: {fileID: 1736659506238506315}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -66,6 +67,22 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.25
   m_ForceModuleActive: 0
+--- !u!114 &1736659506238506315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660755705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc779c5a003ddc42865132aec72fcd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystickThreshold:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 35f7f5a3fb7cefc4fa8d1ca46c8da04f, type: 2}
 --- !u!1 &372083199674974806
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,8 +456,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a9509177ef3038a4b9b4b5922cc761ea,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
@@ -1835,8 +1851,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: a9509177ef3038a4b9b4b5922cc761ea,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
@@ -3162,6 +3177,7 @@ GameObject:
   - component: {fileID: 1792611249285228505}
   - component: {fileID: 5883220462300972083}
   - component: {fileID: 7146221222860190916}
+  - component: {fileID: 4897132627831223915}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -3217,6 +3233,22 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.25
   m_ForceModuleActive: 0
+--- !u!114 &4897132627831223915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460940279280661298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc779c5a003ddc42865132aec72fcd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystickThreshold:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 35f7f5a3fb7cefc4fa8d1ca46c8da04f, type: 2}
 --- !u!1 &8647144489764473192
 GameObject:
   m_ObjectHideFlags: 0
@@ -4190,18 +4222,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af1510a984c9a6f4ca10f59d843a87d9, type: 3}
---- !u!114 &1590132489233782148 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3678829416442391735, guid: af1510a984c9a6f4ca10f59d843a87d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2674182488755550515}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590132489233782150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1590132489233782150 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3678829416442391733, guid: af1510a984c9a6f4ca10f59d843a87d9,
@@ -4214,6 +4234,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2674182488755550515}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1590132489233782148 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3678829416442391735, guid: af1510a984c9a6f4ca10f59d843a87d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2674182488755550515}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590132489233782150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3412957147455405634
 PrefabInstance:
   m_ObjectHideFlags: 0

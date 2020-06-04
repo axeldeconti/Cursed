@@ -186,21 +186,21 @@ namespace Cursed.Managers
                 {
                     case GameState.InGame:
                         ShowMouseCursor(false);
-                        Cursor.lockState = CursorLockMode.Confined;
+                        Cursor.lockState = CursorLockMode.Locked;
                         Time.timeScale = 1f;
                         break;
                     case GameState.Pause:
                         ShowMouseCursor(false);
-                        Cursor.lockState = CursorLockMode.Confined;
+                        Cursor.lockState = CursorLockMode.Locked;
                         Time.timeScale = 0f;
                         break;
                     case GameState.InDevConsole:
                         ShowMouseCursor(true);
-                        Cursor.lockState = CursorLockMode.Confined;
+                        Cursor.lockState = CursorLockMode.Locked;
                         break;
                     case GameState.WinLoose:
                         ShowMouseCursor(false);
-                        Cursor.lockState = CursorLockMode.Confined;
+                        Cursor.lockState = CursorLockMode.Locked;
                         Time.timeScale = 0f;
                         break;
                     default:
