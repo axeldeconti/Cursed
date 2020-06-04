@@ -55,6 +55,14 @@ namespace Cursed.Managers
                 _gameManager.UnloadLevel("Main");
 
             GameManager.Instance.LoadLevel("Main", true);
+        }
+
+        public void Retry()
+        {
+            if (_gameManager.CurrentLevelName == "Tuto" || _gameManager.CurrentLevelName == "Intro")
+                _gameManager.UnloadLevel("Main");
+
+            GameManager.Instance.LoadLevel("Main", true);
             _retryLaunch = true;
         }
 

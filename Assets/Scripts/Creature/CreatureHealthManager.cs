@@ -2,6 +2,7 @@
 using Cursed.Combat;
 using System.Collections;
 using UnityEngine;
+using Cursed.Managers;
 
 namespace Cursed.Creature
 {
@@ -53,6 +54,9 @@ namespace Cursed.Creature
 
             else if (_creatureManager.CurrentState == CreatureState.OnCharacter)
             {
+                if (GameManager.Instance.State != GameManager.GameState.InGame)
+                    return;
+
                 if (!_alreadyOnPlayer && _currentHealth.Value > 0)
                 {
                     GiveHealthToPlayer();
