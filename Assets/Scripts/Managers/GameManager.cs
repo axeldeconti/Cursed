@@ -20,6 +20,8 @@ namespace Cursed.Managers
         private Dictionary<AsyncOperation, UnloadInfo> _loadOperations = null;
         private List<string> _loadedScene = null;
 
+        private bool _pauseGame = false;
+
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
@@ -43,6 +45,17 @@ namespace Cursed.Managers
         private void Update()
         {
             FPS = Mathf.RoundToInt(1f / Time.unscaledDeltaTime);
+
+            // PAUSE GAME
+            if(Input.GetButtonDown("PauseGame"))
+            {
+                _pauseGame = !_pauseGame;
+
+                if (_pauseGame)
+                    _state = GameState.Pause;
+                else
+                    _state = GameState.InGame;
+            }
         }
 
         public string GetGameVersion()
