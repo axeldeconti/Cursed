@@ -796,6 +796,23 @@ namespace Cursed.Character
         /// Disable the movement input for the duration in parameter
         /// </summary>
         /// 
+
+        public void DisableMovementImmediatly()
+        {
+            _dashUnlock = false;
+            _jumpUnlock = false;
+            _doubleJumpUnlock = false;
+            _wallRunUnlock = false;
+        }
+
+        public void ActiveMovementImmediatly()
+        {
+            _dashUnlock = true;
+            _jumpUnlock = true;
+            _doubleJumpUnlock = true;
+            _wallRunUnlock = true;
+        }
+
         public void CallDisableMovement(float time)
         {
             if (_isStunned)

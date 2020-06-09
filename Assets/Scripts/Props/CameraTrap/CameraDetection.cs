@@ -14,6 +14,11 @@ namespace Cursed.Props
             {
                 _enterCameraLight?.Raise();
             }
+            if(collision.GetComponent<CharacterMovement>())
+            {
+                CharacterMovement character = collision.GetComponent<CharacterMovement>();
+                character.DisableMovementImmediatly();
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -21,6 +26,11 @@ namespace Cursed.Props
             if (collision.GetComponent<PlayerInputController>())
             {
                 _exitCameraLight?.Raise();
+            }
+            if (collision.GetComponent<CharacterMovement>())
+            {
+                CharacterMovement character = collision.GetComponent<CharacterMovement>();
+                character.ActiveMovementImmediatly();
             }
         }
     }
