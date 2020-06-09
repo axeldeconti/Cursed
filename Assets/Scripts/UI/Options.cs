@@ -15,6 +15,7 @@ namespace Cursed.UI
         [SerializeField] private Slider _mainVolumeSlider;
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _sfxVolumeSlider;
+        [SerializeField] private Slider _ambianceVolumeSlider;
 
         private void Start()
         {
@@ -26,6 +27,7 @@ namespace Cursed.UI
             _mainVolumeSlider.value = OptionsManager.Instance.MainVolume;
             _musicVolumeSlider.value = OptionsManager.Instance.MusicVolume;
             _sfxVolumeSlider.value = OptionsManager.Instance.SFXVolume;
+            _ambianceVolumeSlider.value = OptionsManager.Instance.AmbianceVolume;
         }
 
         public void ToggleVibrations()
@@ -49,6 +51,10 @@ namespace Cursed.UI
         public void UpdateSFXVolume(float volume)
         {
             OptionsManager.Instance.SetSFXVolumeTo(volume);
+        }
+        public void UpdateAmbianceVolume(float volume)
+        {
+            OptionsManager.Instance.SetAmbianceVolumeTo(volume);
         }
     }
 }

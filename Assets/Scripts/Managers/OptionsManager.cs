@@ -11,6 +11,7 @@ namespace Cursed.Managers
         private float _mainVolume;
         private float _musicVolume;
         private float _sfxVolume;
+        private float _ambianceVolume;
 
         private bool _vibrationsActive;
 
@@ -20,6 +21,7 @@ namespace Cursed.Managers
             SetMainVolumeTo(1f);
             SetMusicVolumeTo(1f);
             SetSFXVolumeTo(1f);
+            SetAmbianceVolumeTo(1f);
 
             // Vibration INIT
             _vibrationsActive = true;
@@ -58,6 +60,16 @@ namespace Cursed.Managers
             return _sfxVolume;
         }
 
+        public float SetAmbianceVolumeTo(float value)
+        {
+            _ambianceVolume = value;
+            Debug.Log("Ambiance volume set to " + value);
+
+            AkSoundEngine.SetRTPCValue("Ambiance_Slider", value);
+
+            return _ambianceVolume;
+        }
+
         public bool SetVibration(bool active)
         {
             _vibrationsActive = active;
@@ -77,6 +89,7 @@ namespace Cursed.Managers
         public float MainVolume => _mainVolume;
         public float MusicVolume => _musicVolume;
         public float SFXVolume => _sfxVolume;
+        public float AmbianceVolume => _ambianceVolume;
         public bool VibrationActive
         {
             get => _vibrationsActive;
