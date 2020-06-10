@@ -322,6 +322,15 @@ namespace Cursed.Character
                 _vfx.DeathEffect(transform.position);
                 _vfx.BloodExplosion(transform.position);
                 _vfx.AndroidPartExplosion(transform.position);
+
+                if (_slowMotionDuration != null)
+                {
+                    Debug.Log("Freeze");
+                    SlowMotion.Instance.Freeze(_slowMotionDuration);
+                }
+
+                Destroy(gameObject);
+
             }
 
             if (gameObject.tag.Equals("Enemy"))

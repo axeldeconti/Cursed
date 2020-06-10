@@ -231,7 +231,7 @@ namespace Cursed.Managers
                     case GameState.WinLoose:
                         ShowMouseCursor(false);
                         Cursor.lockState = CursorLockMode.Locked;
-                        Time.timeScale = 0f;
+                        //Time.timeScale = 0f;
                         break;
                     default:
                         break;
