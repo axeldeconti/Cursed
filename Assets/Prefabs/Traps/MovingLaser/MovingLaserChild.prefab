@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3547111419381641474}
   - component: {fileID: 1295174586945485649}
   - component: {fileID: 5595080467748993018}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LaserParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4780,7 +4780,7 @@ GameObject:
   - component: {fileID: 3326124685563728292}
   - component: {fileID: 3326124685563728294}
   - component: {fileID: 3326124685563728293}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GroundParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9534,7 +9534,7 @@ GameObject:
   - component: {fileID: 8107738446914397351}
   - component: {fileID: 8107738446914397345}
   - component: {fileID: 8107738446914397344}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9676,7 +9676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8107738446939890038}
   - component: {fileID: 8107738446939890039}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -9775,7 +9775,7 @@ GameObject:
   - component: {fileID: 3326124684229411023}
   - component: {fileID: 4636408313208309302}
   - component: {fileID: 3428232773628487163}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9900,7 +9900,7 @@ GameObject:
   - component: {fileID: 2171742445016854966}
   - component: {fileID: -1508910711368905654}
   - component: {fileID: 5822063176343553609}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: MovingLaserChild
   m_TagString: Traps
   m_Icon: {fileID: 0}
@@ -9986,10 +9986,12 @@ MonoBehaviour:
   _attack: {fileID: 11400000, guid: 01a7db9ee5517d04b93add853f498c37, type: 2}
   _laserType: 0
   _knockBackForce: {x: 17, y: 15}
+  _isActive: 1
   _start: {fileID: 8107738446939890038}
   _end: {fileID: 8107738446956838036}
   _groundParticles: {fileID: 3326124685563728294}
   _laserParticles: {fileID: 1295174586945485649}
+  _timeBeforeReactivation: 1
   _colliderSize:
     UseConstant: 1
     ConstantValue: 0.8
@@ -10023,8 +10025,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7177bd13fa4f20f4d976a20616f39f4c,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0

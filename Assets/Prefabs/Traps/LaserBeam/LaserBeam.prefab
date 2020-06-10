@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 621114380}
   - component: {fileID: 621114382}
   - component: {fileID: 621114381}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GroundParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4766,7 +4766,7 @@ GameObject:
   - component: {fileID: 2238601059986773162}
   - component: {fileID: 4598639951990873849}
   - component: {fileID: 7173527004959855186}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LaserParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9538,7 +9538,7 @@ GameObject:
   - component: {fileID: -4261646193983801752}
   - component: {fileID: 3461949765157409822}
   - component: {fileID: 2071730747}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LaserBeam
   m_TagString: Traps
   m_Icon: {fileID: 0}
@@ -9624,10 +9624,12 @@ MonoBehaviour:
   _attack: {fileID: 11400000, guid: 01a7db9ee5517d04b93add853f498c37, type: 2}
   _laserType: 0
   _knockBackForce: {x: 17, y: 15}
+  _isActive: 1
   _start: {fileID: 6822036367087453406}
   _end: {fileID: 6822036367104137532}
   _groundParticles: {fileID: 621114382}
   _laserParticles: {fileID: 4598639951990873849}
+  _timeBeforeReactivation: 1
   _colliderSize:
     UseConstant: 1
     ConstantValue: 0.8
@@ -9661,8 +9663,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 7177bd13fa4f20f4d976a20616f39f4c,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
@@ -9699,7 +9700,7 @@ GameObject:
   - component: {fileID: 6822036367081881871}
   - component: {fileID: 6822036367081881865}
   - component: {fileID: 6822036367081881864}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9841,7 +9842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6822036367087453406}
   - component: {fileID: 6822036367087453407}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -9940,7 +9941,7 @@ GameObject:
   - component: {fileID: 1452107111}
   - component: {fileID: 1305168197}
   - component: {fileID: 1305168198}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}

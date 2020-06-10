@@ -21,6 +21,8 @@ namespace Cursed.Managers
         private List<string> _loadedScene = null;
 
         private bool _pauseGame = false;
+        private int _nbOfFramesPassed = 0;
+        private float _lastTime = 0;
 
         private void Start()
         {
@@ -32,6 +34,8 @@ namespace Cursed.Managers
             InstatiateSystemPrefabs();
 
             Application.targetFrameRate = GameSettings.FRAME_RATE;
+            _nbOfFramesPassed = 0;
+            _lastTime = 0;
 
             State = GameState.InGame;
 
@@ -44,7 +48,7 @@ namespace Cursed.Managers
 
         private void Update()
         {
-            FPS = Mathf.RoundToInt(1f / Time.unscaledDeltaTime);
+            ComputeFPS();
 
             // PAUSE GAME
             if(Input.GetButtonDown("PauseGame"))
@@ -55,6 +59,19 @@ namespace Cursed.Managers
                     _state = GameState.Pause;
                 else
                     _state = GameState.InGame;
+            }
+        }
+
+        private void ComputeFPS()
+        {
+            _nbOfFramesPassed++;
+            
+            if(Time.realtimeSinceStartup - _lastTime >= 1)
+            {
+                FPS = _nbOfFramesPassed;
+
+                _nbOfFramesPassed = 0;
+                _lastTime = Time.realtimeSinceStartup;
             }
         }
 
