@@ -116,6 +116,7 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID AMBIANCE_SLIDER = 4171556823U;
         static const AkUniqueID LOWPASSLASER_SLIDER = 3274930301U;
         static const AkUniqueID MAIN_SLIDER = 3087031974U;
         static const AkUniqueID MUSIC_SLIDER = 1127857866U;
@@ -131,6 +132,7 @@ namespace AK
 
     namespace BUSSES
     {
+        static const AkUniqueID AMBIANCE_BUS = 3161292138U;
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MUSIC_BUS = 2680856269U;
         static const AkUniqueID SFX_BUS = 213475909U;

@@ -151,6 +151,59 @@
 								</CustomStateList>
 							</StateInfo>
 						</Bus>
+						<Bus Name="Ambiance_Bus" ID="{DD645FE4-25E2-439F-939E-8F4CC6E40DDF}">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{01A8CD6E-D02F-4925-AE99-09E956CAEB65}" ShortID="396162716">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<ObjectRef Name="Ambiance_Slider" ID="{AA8D307A-3753-4F8C-A03B-2E32F2F495D5}" WorkUnitID="{9B9D88A1-B71D-46F9-9431-A8F1A6A2A35D}"/>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{CA89FE6C-7A14-40D0-9006-5DCED7EBEA46}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-200</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>1</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Pause_Menu" ID="{0939CC9A-2909-470D-A4B7-C506D2F600AF}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="Paused" ID="{E153423B-E798-402D-9338-124D4DA88B17}"/>
+										<CustomState Name="" ID="{94E34C91-77E1-4F03-B30B-E963475B1C55}" ShortID="842985675">
+											<PropertyList>
+												<Property Name="BusVolume" Type="Real64" Value="-100"/>
+											</PropertyList>
+										</CustomState>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="Unpaused" ID="{A4DE5B18-0DFE-4505-B0A3-4AB6DD6DA882}"/>
+										<CustomState Name="" ID="{8A1C6A30-7E3C-4704-8BA5-AA1C42704B1C}" ShortID="112290405"/>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
+						</Bus>
 					</ChildrenList>
 				</Bus>
 			</ChildrenList>

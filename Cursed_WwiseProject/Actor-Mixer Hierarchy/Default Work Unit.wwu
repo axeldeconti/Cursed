@@ -2805,52 +2805,6 @@
 								</Folder>
 							</ChildrenList>
 						</Folder>
-						<Folder Name="Amb" ID="{9F151EDA-5C0F-45BD-A39E-6B8AF463A92A}" ShortID="237197231">
-							<ChildrenList>
-								<Sound Name="Amb_Atmosphere" ID="{8B306431-CEC4-48CE-A9D5-833CEE7B57B5}" ShortID="683381525">
-									<PropertyList>
-										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
-										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
-										<Property Name="MaxSoundPerInstance" Type="int16">
-											<ValueList>
-												<Value>1</Value>
-											</ValueList>
-										</Property>
-										<Property Name="UseMaxSoundPerInstance" Type="bool">
-											<ValueList>
-												<Value>True</Value>
-											</ValueList>
-										</Property>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-25</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Amb_Atmosphere" ID="{6C05FBD4-32DC-429A-8BB5-3895AAFC8440}">
-											<Language>SFX</Language>
-											<AudioFile>Amb_Atmosphere.wav</AudioFile>
-											<MediaIDList>
-												<MediaID ID="182660995"/>
-											</MediaIDList>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Amb_Atmosphere" ID="{6C05FBD4-32DC-429A-8BB5-3895AAFC8440}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-							</ChildrenList>
-						</Folder>
 					</ChildrenList>
 				</ActorMixer>
 				<ActorMixer Name="Music_ActorMixer" ID="{189351E6-E416-484C-A6AC-B4754088BE75}" ShortID="830022708">
@@ -3039,6 +2993,64 @@
 						<ActiveSource Name="Mus_Level03_Theme" ID="{54DE794C-EEA0-4705-A968-217D3FC2C09D}" Platform="Linked"/>
 					</ActiveSourceList>
 				</Sound>
+				<ActorMixer Name="Ambiance_ActorMixer" ID="{0A0238C8-20DD-4597-B8FE-18A37C71CEA0}" ShortID="791084146">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Ambiance_Bus" ID="{DD645FE4-25E2-439F-939E-8F4CC6E40DDF}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Folder Name="Amb" ID="{9F151EDA-5C0F-45BD-A39E-6B8AF463A92A}" ShortID="237197231">
+							<ChildrenList>
+								<Sound Name="Amb_Atmosphere" ID="{8B306431-CEC4-48CE-A9D5-833CEE7B57B5}" ShortID="683381525">
+									<PropertyList>
+										<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+										<Property Name="MaxSoundPerInstance" Type="int16">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
+										<Property Name="UseMaxSoundPerInstance" Type="bool">
+											<ValueList>
+												<Value>True</Value>
+											</ValueList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-25</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Amb_Atmosphere" ID="{6C05FBD4-32DC-429A-8BB5-3895AAFC8440}">
+											<Language>SFX</Language>
+											<AudioFile>Amb_Atmosphere.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="182660995"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Amb_Atmosphere" ID="{6C05FBD4-32DC-429A-8BB5-3895AAFC8440}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</ActorMixer>
 			</ChildrenList>
 		</WorkUnit>
 	</AudioObjects>
