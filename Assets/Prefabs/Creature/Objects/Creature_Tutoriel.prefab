@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 1883072331}
   - component: {fileID: 4650846219107832707}
   - component: {fileID: 8752141549130404017}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Creature_Tutoriel
   m_TagString: Creature
   m_Icon: {fileID: 0}
@@ -265,6 +265,14 @@ MonoBehaviour:
   _chromaticAberrationChanging: {fileID: 0}
   _vfxCameraDestruction: {fileID: 4810634002622866826, guid: b3d171dbb5ac7334da42c97aa2361775,
     type: 3}
+  _lowerChromacticAberrationValue:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  _higherChromacticAberrationValue:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
 --- !u!114 &4650846219107832707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,8 +290,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 356dc9e6c5e9d1349bfc17ce617eae59,
-      type: 2}
+    WwiseObjectReference: {fileID: 0}
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
@@ -330,7 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4523534062690566824}
   - component: {fileID: 4854305433943983630}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6014028933180009065}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: OriginRadiusOnWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4416345157102534476}
   - component: {fileID: 8869791747354272466}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +520,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2324769279063736866}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BackTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +550,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6896838160539058969}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: OriginRadiusInAir
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -575,7 +582,7 @@ GameObject:
   - component: {fileID: 6494810293441498829}
   - component: {fileID: 2766293629249864647}
   - component: {fileID: 5145673111556155876}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
