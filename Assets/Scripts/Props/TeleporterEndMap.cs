@@ -6,6 +6,8 @@ namespace Cursed.Props
 {
     public class TeleporterEndMap : MonoBehaviour
     {
+        public int _teleporterNumberCell;
+
         [SerializeField] private Transform _targetLaunch;
         [SerializeField] private float _launchSpeed;
         [SerializeField] private string _sceneToLaunch;

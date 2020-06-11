@@ -10,10 +10,16 @@ namespace Cursed.Managers
     {
         private GameManager _gameManager = null;
 
+        [Header("Objects")]
         [SerializeField] private GameObject _winScreen = null;
         [SerializeField] private GameObject _looseScreen = null;
         [SerializeField] private GameObject _blackScreen = null;
+
+        [Header("Events")]
         [SerializeField] private VoidEvent _retryEvent = null;
+        [SerializeField] private VoidEvent _allEnemiesKilled = null;
+
+        [Header("Settings")]
         [SerializeField] private FloatReference _slowMotionDuration;
 
         private int _enemyCount = 0;
@@ -40,7 +46,9 @@ namespace Cursed.Managers
 
         private void Win()
         {
-            GameManager.Instance.State = GameManager.GameState.WinLoose;
+            _allEnemiesKilled?.Raise();
+            Debug.Log("Win !");
+            /*GameManager.Instance.State = GameManager.GameState.WinLoose;
 
             if (_slowMotionDuration != null)
             {
@@ -48,7 +56,7 @@ namespace Cursed.Managers
                 SlowMotion.Instance.Freeze(_slowMotionDuration);
             }
 
-            StartCoroutine(WaitForActive(2f, _winScreen, true));
+            StartCoroutine(WaitForActive(2f, _winScreen, true));*/
         }
 
         public void OnPlayerDeath() => Loose();
