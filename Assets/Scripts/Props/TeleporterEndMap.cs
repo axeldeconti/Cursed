@@ -11,6 +11,7 @@ namespace Cursed.Props
         [SerializeField] private Transform _targetLaunch;
         [SerializeField] private float _launchSpeed;
         [SerializeField] private string _sceneToLaunch;
+        [SerializeField] private VoidEvent _enterInTeleporter;
 
         private Animator _animator;
         private bool _launchTeleporter;
@@ -56,6 +57,7 @@ namespace Cursed.Props
                 collision.transform.parent = this.transform;
                 collision.transform.localPosition = new Vector3(0f, -2.75f, 0f);
                 GameManager.Instance.State = GameManager.GameState.SceneTransition;
+                _enterInTeleporter?.Raise();
             }
         }
 
