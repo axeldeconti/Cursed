@@ -30,9 +30,6 @@ namespace Cursed.Managers
 
         private void ChangeTarget()
         {
-            if (GameManager.Instance.State == GameManager.GameState.WinLoose)
-                return;
-
             _enemyChosen = _enemyList[Random.Range(0, _enemyList.Length)];
             CheckEnemyChosen();
 
@@ -50,6 +47,7 @@ namespace Cursed.Managers
         {
             yield return new WaitForSeconds(_noiseDuration);
             yield return new WaitForSeconds(_timeBeforeSwitchTarget);
+            GetEnemyList();
             ChangeTarget();
         }
     }

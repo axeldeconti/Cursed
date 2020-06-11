@@ -48,9 +48,8 @@ namespace Cursed.Managers
         {
             _allEnemiesKilled?.Raise();
             Debug.Log("Win !");
-            /*GameManager.Instance.State = GameManager.GameState.WinLoose;
 
-            if (_slowMotionDuration != null)
+            /*if (_slowMotionDuration != null)
             {
                 Debug.Log("Freeze");
                 SlowMotion.Instance.Freeze(_slowMotionDuration);
