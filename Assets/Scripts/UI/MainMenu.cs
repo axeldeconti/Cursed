@@ -57,6 +57,8 @@ namespace Cursed.UI
                 if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
                     _depthOfField = depthOfField;
             }
+            _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+
         }
 
         private void Update()
