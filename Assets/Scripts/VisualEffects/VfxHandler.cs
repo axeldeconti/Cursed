@@ -31,6 +31,7 @@ namespace Cursed.Character
 
         [Header("Others")]
         [SerializeField] private GameObject _vfxUnlockComp;
+        [SerializeField] private GameObject _vfxDysfunction;
 
         [Space]
         [SerializeField] private FlashScreen _refFlashScreen;
@@ -278,6 +279,13 @@ namespace Cursed.Character
         {
             Vector3 offset = new Vector3(0, 3, 0);
             Instantiate(_vfxUnlockComp, pos + offset, Quaternion.identity, transform);
+        }
+
+        public GameObject Dysfunction(Vector3 pos)
+        {
+            Vector3 offset = new Vector3(0, 3, 0);
+            GameObject go = Instantiate(_vfxDysfunction, pos + offset, Quaternion.identity, transform);
+            return go;
         }
 
         #region Getters & Setters
