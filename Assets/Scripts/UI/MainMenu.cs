@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Cursed.Managers;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 namespace Cursed.UI
 {
@@ -9,6 +11,7 @@ namespace Cursed.UI
         private GameManager _gameManager = null;
 
         [Header("Menu Objects")]
+        [SerializeField] private GameObject _splashScreen = null;
         [SerializeField] private GameObject _mainMenu = null;
         [SerializeField] private GameObject _options = null;
         [SerializeField] private GameObject _credits = null;
@@ -16,6 +19,7 @@ namespace Cursed.UI
         [SerializeField] private GameObject _controls = null;
 
         [Header("Menu Animators")]
+        [SerializeField] private Animator _splashScreenAnimator;
         [SerializeField] private Animator _mainMenuAnimator;
         [SerializeField] private Animator _creditsAnimator;
         [SerializeField] private Animator _optionsAnimator;
@@ -31,14 +35,28 @@ namespace Cursed.UI
         [SerializeField] private GameObject _virtualCameraMenu;
         private Animator _cameraAnimator;
 
+
+        [Header("Post Process")]
+        [SerializeField] private Volume _globalVolume = null;
+        private DepthOfField _depthOfField;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
             _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
-            _mainMenu.SetActive(true);
+            _splashScreen.SetActive(true);
+            _mainMenu.SetActive(false);
             _options.SetActive(false);
             _credits.SetActive(false);
             _controls.SetActive(false);
+
+            // SET BLUR EFFECT 
+            if (_globalVolume != null)
+            {
+                DepthOfField depthOfField;
+                if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
+                    _depthOfField = depthOfField;
+            }
         }
 
         private void Update()
@@ -54,6 +72,20 @@ namespace Cursed.UI
                 if (_tuto.activeSelf)
                     TutoToHome();
             }
+
+            if(Input.GetButtonDown("Pause"))
+            {
+                if (_splashScreen.activeSelf)
+                    SkipSplashScreen();
+            }
+        }
+
+        public void SkipSplashScreen()
+        {
+            _splashScreenAnimator.SetTrigger("Pressed");
+            StartCoroutine(WaitForActive(_mainMenu, true, _splashScreenAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_splashScreen, false, _splashScreenAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            _depthOfField.mode.value = DepthOfFieldMode.Off;
         }
 
         public void Play()
