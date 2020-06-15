@@ -11,6 +11,7 @@ namespace Cursed.UI
         private GameManager _gameManager = null;
 
         [Header("Menu Objects")]
+        [SerializeField] private GameObject _controllerScreen = null;
         [SerializeField] private GameObject _splashScreen = null;
         [SerializeField] private GameObject _mainMenu = null;
         [SerializeField] private GameObject _options = null;
@@ -19,6 +20,7 @@ namespace Cursed.UI
         [SerializeField] private GameObject _controls = null;
 
         [Header("Menu Animators")]
+        [SerializeField] private Animator _controllerScreenAnimator;
         [SerializeField] private Animator _splashScreenAnimator;
         [SerializeField] private Animator _mainMenuAnimator;
         [SerializeField] private Animator _creditsAnimator;
@@ -44,11 +46,14 @@ namespace Cursed.UI
         {
             _gameManager = GameManager.Instance;
             _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
-            _splashScreen.SetActive(true);
+            _controllerScreen.SetActive(true);
+            _splashScreen.SetActive(false);
             _mainMenu.SetActive(false);
             _options.SetActive(false);
             _credits.SetActive(false);
             _controls.SetActive(false);
+
+            SkipControllerScreen();
 
             // SET BLUR EFFECT 
             if (_globalVolume != null)
@@ -80,6 +85,12 @@ namespace Cursed.UI
                 if (_splashScreen.activeSelf)
                     SkipSplashScreen();
             }
+        }
+
+        private void SkipControllerScreen()
+        {
+            StartCoroutine(WaitForActive(_splashScreen, true, 4f));
+            StartCoroutine(WaitForActive(_controllerScreen, false, 4f));
         }
 
         public void SkipSplashScreen()
