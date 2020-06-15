@@ -20,6 +20,8 @@ namespace Cursed.Props
             {
                 CharacterMovement character = collision.GetComponent<CharacterMovement>();
                 character.DisableMovementImmediatly();
+                CharacterAttackManager characterAttacks = collision.GetComponent<CharacterAttackManager>();
+                characterAttacks.AttacksUnlock = false;
                 _refVfxDysfunction = character.GetComponent<VfxHandler>().Dysfunction(character.transform.position);
             }
         }
@@ -34,6 +36,8 @@ namespace Cursed.Props
             {
                 CharacterMovement character = collision.GetComponent<CharacterMovement>();
                 character.ActiveMovementImmediatly();
+                CharacterAttackManager characterAttacks = collision.GetComponent<CharacterAttackManager>();
+                characterAttacks.AttacksUnlock = true;
                 Destroy(_refVfxDysfunction);
             }
         }
