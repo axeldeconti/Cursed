@@ -42,9 +42,12 @@ namespace Cursed.UI
         [SerializeField] private Volume _globalVolume = null;
         private DepthOfField _depthOfField;
 
+        private ControlerManager _controlerManager;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
+            _controlerManager = ControlerManager.Instance;
             _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
             _controllerScreen.SetActive(true);
             _splashScreen.SetActive(false);
@@ -68,9 +71,34 @@ namespace Cursed.UI
 
         private void Update()
         {
-            if (Input.GetButtonDown("Cancel"))
+            #region XBOX CONTROLS
+            if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
             {
-                if(_options.activeSelf)
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    if (_options.activeSelf)
+                        OptionsToHome();
+                    if (_credits.activeSelf)
+                        CreditsToHome();
+                    if (_controls.activeSelf)
+                        ControlsToOption();
+                    if (_tuto.activeSelf)
+                        TutoToHome();
+                }
+
+                if (Input.GetButtonDown("Pause"))
+                {
+                    if (_splashScreen.activeSelf)
+                        SkipSplashScreen();
+                }
+            }
+            #endregion
+
+            #region PS4 CONTROLS
+
+            if (Input.GetButtonDown("Cancel_PS4"))
+            {
+                if (_options.activeSelf)
                     OptionsToHome();
                 if (_credits.activeSelf)
                     CreditsToHome();
@@ -80,11 +108,13 @@ namespace Cursed.UI
                     TutoToHome();
             }
 
-            if(Input.GetButtonDown("Pause"))
+            if (Input.GetButtonDown("Pause_PS4"))
             {
                 if (_splashScreen.activeSelf)
                     SkipSplashScreen();
             }
+            #endregion
+
         }
 
         private void SkipControllerScreen()

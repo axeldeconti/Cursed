@@ -50,15 +50,18 @@ namespace Cursed.Managers
         {
             ComputeFPS();
 
-            // PAUSE GAME
-            if(Input.GetButtonDown("PauseGame"))
+            if (ControlerManager.Instance._ControlerType == ControlerManager.ControlerType.XBOX)
             {
-                _pauseGame = !_pauseGame;
+                // PAUSE GAME
+                if (Input.GetButtonDown("PauseGame"))
+                {
+                    _pauseGame = !_pauseGame;
 
-                if (_pauseGame)
-                    _state = GameState.Pause;
-                else
-                    _state = GameState.InGame;
+                    if (_pauseGame)
+                        _state = GameState.Pause;
+                    else
+                        _state = GameState.InGame;
+                }
             }
         }
 

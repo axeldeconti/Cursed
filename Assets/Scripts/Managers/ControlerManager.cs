@@ -64,11 +64,6 @@ namespace Cursed.Managers
                         _onControlerChanged?.Invoke(_currentControler);
                     }
                 }
-                else
-                {
-                    Debug.Log("No Controler connected");
-                    _currentControler = ControlerType.None;
-                }
             }
             return _currentControler;
         }
