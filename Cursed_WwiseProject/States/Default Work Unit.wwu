@@ -34,6 +34,30 @@
 						</Transition>
 					</TransitionList>
 				</StateGroup>
+				<StateGroup Name="LowPassCamera" ID="{12B0DE36-FCB8-4F8A-BC35-7B3266FF4FBD}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="0"/>
+					</PropertyList>
+					<ChildrenList>
+						<State Name="None" ID="{C6FD30B6-B029-4A7F-9114-8F3F229B0FF1}"/>
+						<State Name="CameraOnChar" ID="{62AE1E09-EBE2-4540-936F-866252371CBD}"/>
+						<State Name="CameraOffChar" ID="{116AC39A-F846-4CDA-87C7-BDE563F54601}"/>
+					</ChildrenList>
+					<TransitionList>
+						<Transition>
+							<StartState Name="CameraOffChar" ID="{116AC39A-F846-4CDA-87C7-BDE563F54601}"/>
+							<EndState Name="CameraOnChar" ID="{62AE1E09-EBE2-4540-936F-866252371CBD}"/>
+							<Time>0</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+						<Transition>
+							<StartState Name="CameraOnChar" ID="{62AE1E09-EBE2-4540-936F-866252371CBD}"/>
+							<EndState Name="CameraOffChar" ID="{116AC39A-F846-4CDA-87C7-BDE563F54601}"/>
+							<Time>0</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+					</TransitionList>
+				</StateGroup>
 			</ChildrenList>
 		</WorkUnit>
 	</States>
