@@ -2,6 +2,7 @@
 using UnityEngine;
 using Cursed.VisualEffect;
 using Cursed.Managers;
+using Cursed.Utilities;
 
 namespace Cursed.Character
 {
@@ -31,6 +32,11 @@ namespace Cursed.Character
         [Header("Stats Camera Shake")]
         [SerializeField] private ShakeData _shakeDash = null;
         [SerializeField] private ShakeDataEvent _onCamShake = null;
+
+        [Space]
+        [Header("Stats Vibration")]
+        [SerializeField] private VibrationEvent _onContrVibration = null;
+        [SerializeField] private VibrationData_SO _unavailableAction;
 
         [Space]
         [Header("Stats")]
@@ -101,6 +107,7 @@ namespace Cursed.Character
         private Vector2 _capsuleSize = Vector2.zero;
         private bool _isKnockback;
         private bool _isStunned;
+        private bool _isInCameraVision = false;
 
         [Space]
         private float _currentGravity = 0f;
@@ -454,8 +461,6 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateJump()
         {
-            if (!_jumpUnlock)
-                return;
 
             if (!_input.Jump.Value)
                 return;
@@ -479,6 +484,13 @@ namespace Cursed.Character
             //If on ground, jump
             if (_coll.OnGround || _canStillJump)
             {
+                if(!_jumpUnlock)
+                {
+                    if(_isInCameraVision)
+                        LaunchUnavailalbleActionVibration();
+
+                    return;
+                }
                 _canStillJump = false;
                 StopCoroutine("CoyoteTime");
                 _isCoyoteTime = false;
@@ -560,13 +572,20 @@ namespace Cursed.Character
             if (!CheckIfCanDash(false))
                 return;
 
-            if (!_input.Dash.Value || !_canDash || !_groundTouch || !_dashUnlock)
+            if (!_input.Dash.Value || !_canDash || !_groundTouch)
                 return;
 
             float dir = x > 0.2f ? x : _side;
 
             if (dir != 0)
             {
+                if(!_dashUnlock)
+                {
+                    if(_isInCameraVision)
+                        LaunchUnavailalbleActionVibration();
+
+                    return;
+                }
                 //SetIsInvinsible(true);
                 StartCoroutine(Dash(dir));
                 if(_onCamShake != null)
@@ -584,8 +603,7 @@ namespace Cursed.Character
         /// </summary>
         private void UpdateWallGrab(float x, float y)
         {
-            if (!_wallRunUnlock)
-                return;
+            
 
             if (_wallGrab && !_isDashing && CheckIfWallGrabDuringJump() && !_attackManager.IsAttacking)
             {
@@ -598,6 +616,14 @@ namespace Cursed.Character
                 //Wall run
                 if (_input.HoldRightTrigger)
                 {
+                    if (!_wallRunUnlock)
+                    {
+                        if(_isInCameraVision)
+                            LaunchUnavailalbleActionVibration();
+
+                        return;
+                    }
+
                     _wallRun = true;
 
                     if (_isJumping)
@@ -820,6 +846,16 @@ namespace Cursed.Character
 
             StartCoroutine(DisableAllMovements(time));
         }
+
+        private void LaunchUnavailalbleActionVibration()
+        {
+            if (_unavailableAction != null)
+            {
+                _onContrVibration?.Raise(_unavailableAction);
+                Debug.Log("Launch Vibration unavalableAttack");
+            }
+        }
+
         private IEnumerator DisableMovement(float time)
         {
             _canMove = false;
@@ -939,6 +975,12 @@ namespace Cursed.Character
         }
 
         public CharacterMovementState State => _state;
+
+        public bool InCameraVision
+        {
+            get => _isInCameraVision;
+            set => _isInCameraVision = value;
+        }
 
         #endregion
     }

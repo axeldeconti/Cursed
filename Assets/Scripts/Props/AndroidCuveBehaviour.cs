@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cursed.Managers;
 
 namespace Cursed.Props
 {
@@ -11,15 +12,26 @@ namespace Cursed.Props
 
         private Animator _animator;
 
-        private void Awake()
+        private ControlerManager _controlerManager;
+
+        private void Start()
         {
             _animator = GetComponent<Animator>();
+            _controlerManager = ControlerManager.Instance;
         }
 
         private void Update()
         {
-            if (Input.GetButtonDown("Attack_1"))
-                CheckScene();
+            if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
+            {
+                if (Input.GetButtonDown("Attack_1"))
+                    CheckScene();
+            }
+            else if(_controlerManager._ControlerType == ControlerManager.ControlerType.PS4)
+            {
+                if (Input.GetButtonDown("Attack_1_PS4"))
+                    CheckScene();
+            }
         }
 
         public void CheckScene()

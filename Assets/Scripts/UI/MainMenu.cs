@@ -42,18 +42,17 @@ namespace Cursed.UI
         [SerializeField] private Volume _globalVolume = null;
         private DepthOfField _depthOfField;
 
+        private ControlerManager _controlerManager;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
+            _controlerManager = ControlerManager.Instance;
             _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
-            _controllerScreen.SetActive(true);
             _splashScreen.SetActive(false);
-            _mainMenu.SetActive(false);
             _options.SetActive(false);
             _credits.SetActive(false);
             _controls.SetActive(false);
-
-            SkipControllerScreen();
 
             // SET BLUR EFFECT 
             if (_globalVolume != null)
@@ -62,15 +61,54 @@ namespace Cursed.UI
                 if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
                     _depthOfField = depthOfField;
             }
-            _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+
+            // CHECK IF MENU HAS BEEN PASSED
+            if (!_gameManager._mainMenuPassed)
+            {
+                _controllerScreen.SetActive(true);
+                _mainMenu.SetActive(false);
+                _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+                SkipControllerScreen();
+            }
+            else
+            {
+                _controllerScreen.SetActive(false);
+                _mainMenu.SetActive(true);
+                _depthOfField.mode.value = DepthOfFieldMode.Off;
+            }
 
         }
 
         private void Update()
         {
-            if (Input.GetButtonDown("Cancel"))
+            #region XBOX CONTROLS
+            if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
             {
-                if(_options.activeSelf)
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    if (_options.activeSelf)
+                        OptionsToHome();
+                    if (_credits.activeSelf)
+                        CreditsToHome();
+                    if (_controls.activeSelf)
+                        ControlsToOption();
+                    if (_tuto.activeSelf)
+                        TutoToHome();
+                }
+
+                if (Input.GetButtonDown("Pause"))
+                {
+                    if (_splashScreen.activeSelf)
+                        SkipSplashScreen();
+                }
+            }
+            #endregion
+
+            #region PS4 CONTROLS
+
+            if (Input.GetButtonDown("Cancel_PS4"))
+            {
+                if (_options.activeSelf)
                     OptionsToHome();
                 if (_credits.activeSelf)
                     CreditsToHome();
@@ -80,11 +118,13 @@ namespace Cursed.UI
                     TutoToHome();
             }
 
-            if(Input.GetButtonDown("Pause"))
+            if (Input.GetButtonDown("Pause_PS4"))
             {
                 if (_splashScreen.activeSelf)
                     SkipSplashScreen();
             }
+            #endregion
+
         }
 
         private void SkipControllerScreen()
@@ -119,6 +159,7 @@ namespace Cursed.UI
             _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
+            _gameManager._mainMenuPassed = true;
         }
 
         public void Intro()
@@ -126,6 +167,7 @@ namespace Cursed.UI
             _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
+            _gameManager._mainMenuPassed = true;
         }
 
         public void CreditsToHome()
