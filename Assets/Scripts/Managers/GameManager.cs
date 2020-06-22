@@ -24,6 +24,8 @@ namespace Cursed.Managers
         private int _nbOfFramesPassed = 0;
         private float _lastTime = 0;
 
+        [HideInInspector] public bool _mainMenuPassed = false;
+
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
@@ -68,8 +70,8 @@ namespace Cursed.Managers
         private void ComputeFPS()
         {
             _nbOfFramesPassed++;
-            
-            if(Time.realtimeSinceStartup - _lastTime >= 1)
+
+            if (Time.realtimeSinceStartup - _lastTime >= 1)
             {
                 FPS = _nbOfFramesPassed;
 
@@ -102,7 +104,7 @@ namespace Cursed.Managers
 
         public void LoadLevel(string levelName, bool unloadAll)
         {
-            if(_loadingScreen != null) _loadingScreen.SetActive(true);
+            if (_loadingScreen != null) _loadingScreen.SetActive(true);
             AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Additive);
 
             if (ao == null || _loadedScene.Contains(levelName))
@@ -246,16 +248,18 @@ namespace Cursed.Managers
 
         public enum GameState { InGame, Pause, InDevConsole, WinLoose, SceneTransition, Cinematic }
 
-        private struct UnloadInfo
-        {
-            public string Name;
-            public bool UnloadAll;
 
-            public UnloadInfo(string name, bool unloadAll)
-            {
-                Name = name;
-                UnloadAll = unloadAll;
-            }
+    private struct UnloadInfo
+    {
+        public string Name;
+        public bool UnloadAll;
+
+        public UnloadInfo(string name, bool unloadAll)
+        {
+            Name = name;
+            UnloadAll = unloadAll;
         }
     }
+
+}
 }

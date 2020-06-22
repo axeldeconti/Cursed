@@ -49,14 +49,10 @@ namespace Cursed.UI
             _gameManager = GameManager.Instance;
             _controlerManager = ControlerManager.Instance;
             _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
-            _controllerScreen.SetActive(true);
             _splashScreen.SetActive(false);
-            _mainMenu.SetActive(false);
             _options.SetActive(false);
             _credits.SetActive(false);
             _controls.SetActive(false);
-
-            SkipControllerScreen();
 
             // SET BLUR EFFECT 
             if (_globalVolume != null)
@@ -65,7 +61,21 @@ namespace Cursed.UI
                 if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
                     _depthOfField = depthOfField;
             }
-            _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+
+            // CHECK IF MENU HAS BEEN PASSED
+            if (!_gameManager._mainMenuPassed)
+            {
+                _controllerScreen.SetActive(true);
+                _mainMenu.SetActive(false);
+                _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+                SkipControllerScreen();
+            }
+            else
+            {
+                _controllerScreen.SetActive(false);
+                _mainMenu.SetActive(true);
+                _depthOfField.mode.value = DepthOfFieldMode.Off;
+            }
 
         }
 
@@ -149,6 +159,7 @@ namespace Cursed.UI
             _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
+            _gameManager._mainMenuPassed = true;
         }
 
         public void Intro()
@@ -156,6 +167,7 @@ namespace Cursed.UI
             _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
+            _gameManager._mainMenuPassed = true;
         }
 
         public void CreditsToHome()
