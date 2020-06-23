@@ -37,7 +37,7 @@ namespace Cursed.Traps
 
             if (!_isActive)
             {
-                DeActiveLaser();
+                DeActiveLaser(false);
                 foreach (TutorielBox box in FindObjectsOfType<TutorielBox>())
                 {
                     if (box.TypeOfTutoriel == TutorielType.Dash)
@@ -92,13 +92,17 @@ namespace Cursed.Traps
             AkSoundEngine.SetState("LowPassLaser", "CreatureOff");
         }
 
-        public void DeActiveLaser()
+        public void DeActiveLaser(bool deactiveByCreature)
         {
             StopCoroutine("WaitForActive");
             _animator.SetBool("Deactive", true);
             _animator.SetBool("Active", false);
-            AkSoundEngine.SetState("LowPassLaser", "CreatureOn");
-            AkSoundEngine.PostEvent("Play_Creature_Laser", gameObject);
+
+            if (deactiveByCreature)
+            {
+                AkSoundEngine.SetState("LowPassLaser", "CreatureOn");
+                AkSoundEngine.PostEvent("Play_Creature_Laser", gameObject);
+            }
 
             if (!_coll)
                 _coll = GetComponent<BoxCollider2D>();

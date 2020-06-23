@@ -128,7 +128,7 @@ namespace Cursed.Creature
                 {
                     if (_creatureManager.CurrentState != CreatureState.OnLaser)
                     {
-                        collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser();
+                        collision.gameObject.GetComponent<EndLaserBeam>()._laserBeam.DeActiveLaser(true);
                         collision.gameObject.GetComponent<Collider2D>().enabled = false;
                         CollideWithObject(CreatureState.OnLaser, collision.transform, true);
                         _alreadyExitFromLaser = false;
@@ -142,57 +142,6 @@ namespace Cursed.Creature
                 _creatureVfx.DestructionCamera(collision.gameObject.transform.position);
 
                 Destroy(collision.gameObject);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            /*if (_creatureManager.CurrentState == CreatureState.OnComeBack && _hitTransform != null)
-            {
-                if (_hitTransform.gameObject.GetComponent<DoorSwitch>() != null && !_alreadyExitFromDoorSwitch)
-                {
-                    _hitTransform.gameObject.GetComponent<DoorSwitch>().ToggleDoors();
-                    _alreadyExitFromDoorSwitch = true;
-                }
-
-                if (_hitTransform.gameObject.GetComponent<EndLaserBeam>() != null && !_alreadyExitFromLaser)
-                {
-                    _hitTransform.gameObject.GetComponent<EndLaserBeam>()._laserBeam.ActiveLaser();
-                    _alreadyExitFromLaser = true;
-                }
-            }*/
-        }
-
-        // COLLISIONS
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Player") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
-            {
-                CollideWithObject(CreatureState.OnCharacter, collision.transform);
-                AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
-            }
-
-            if (collision.gameObject.CompareTag("Enemy") && _animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "AC_GoFromCharacter")
-            {
-                if (_creatureManager.CurrentState != CreatureState.OnComeBack)
-                {
-                    if (_creatureSearching.Enemy == null)
-                        _creatureSearching.Enemy = collision.transform;
-
-                    CollideWithObject(CreatureState.OnEnemy, collision.transform);
-                    AkSoundEngine.PostEvent("Play_Creature_Grabbing", gameObject);
-                }
-            }
-
-            if (collision.gameObject.layer.Equals(LayerMask.NameToLayer("Ground")))
-            {
-                if (_creatureManager.CurrentState == CreatureState.Moving)
-                {
-                    _wallNormalPoint = collision.contacts[0].normal;
-                    _wallCollision = collision.transform;
-                    _creatureManager.CurrentState = CreatureState.OnWall;
-                    AkSoundEngine.PostEvent("Play_Creature_HitWall", gameObject);
-                }
             }
         }
 
