@@ -116,7 +116,7 @@ namespace Cursed.Character
                     if (Mathf.Abs(_move.XSpeed) > 4)
                     {
                         //Run attack
-                        RunAttack();
+                        RunAttack(attackNb);
                     }
                     else
                     {
@@ -180,10 +180,13 @@ namespace Cursed.Character
         /// <summary>
         /// Handle run attacks
         /// </summary>
-        private void RunAttack()
+        private void RunAttack(int attackNb)
         {
+            _weaponNb = attackNb;
+            Weapon weapon = _weaponInv.GetWeapon(_weaponNb);
+
             _isAttacking = true;
-            _anim.LaunchAttack(0, ++_combo);
+            _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
         }
 
         /// <summary>
