@@ -26,6 +26,8 @@ namespace AK
         static const AkUniqueID PLAY_BEGIN_WALLSLIDE = 4060380671U;
         static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
         static const AkUniqueID PLAY_BUTTON_SELECTED = 3882482286U;
+        static const AkUniqueID PLAY_CAMERAONCHARACTER = 469478885U;
+        static const AkUniqueID PLAY_CAPACITYLOCKED = 722908980U;
         static const AkUniqueID PLAY_CREATURE_CALL = 1776683280U;
         static const AkUniqueID PLAY_CREATURE_CAMERA = 446620581U;
         static const AkUniqueID PLAY_CREATURE_ENDDRAIN = 3331455763U;
@@ -82,12 +84,25 @@ namespace AK
         static const AkUniqueID PLAY_STATICNOISE = 1913495746U;
         static const AkUniqueID RESUMEALLSOUNDS = 3456043509U;
         static const AkUniqueID STOP_BEGIN_PLAY_LOOP_WALLSLIDE = 848533759U;
+        static const AkUniqueID STOP_CAMERAONCHARACTER = 1436075639U;
         static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
         static const AkUniqueID STOP_ENEMY_BEGIN_PLAY_LOOP_WALLSLIDE = 1592044262U;
     } // namespace EVENTS
 
     namespace STATES
     {
+        namespace LOWPASSCAMERA
+        {
+            static const AkUniqueID GROUP = 1507096379U;
+
+            namespace STATE
+            {
+                static const AkUniqueID CAMERAOFFCHAR = 1849192767U;
+                static const AkUniqueID CAMERAONCHAR = 415253243U;
+                static const AkUniqueID NONE = 748895195U;
+            } // namespace STATE
+        } // namespace LOWPASSCAMERA
+
         namespace LOWPASSLASER
         {
             static const AkUniqueID GROUP = 2181744491U;

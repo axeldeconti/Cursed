@@ -290,6 +290,17 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="Play_CapacityLocked" ID="{7F921228-A5D4-41F9-9EF1-E5FE502A1AC7}">
+							<ChildrenList>
+								<Action Name="" ID="{AD443999-514B-429A-A1F3-0C78E3699A13}" ShortID="814642563">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_CapacityLocked" ID="{5811B6B7-FCDB-45FF-B822-421EF5409B40}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Creature" ID="{9BC71CF0-4981-4B6E-9425-C9EA7E793384}" ShortID="862410764">
@@ -580,6 +591,20 @@
 						<Event Name="Play_CameraOnCharacter" ID="{D43FC361-F422-45CE-90D2-B761C7FBCDE6}">
 							<ChildrenList>
 								<Action Name="" ID="{EAC388FB-85F7-480B-99E8-45F41025127D}" ShortID="224334415">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_CameraOnCharacter" ID="{4792A7C4-99A2-4E4B-A548-FF54AD1BAF47}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Stop_CameraOnCharacter" ID="{AA201103-6F38-42CC-80CD-87798309A249}">
+							<ChildrenList>
+								<Action Name="" ID="{CDADADAE-FBA8-44F2-9770-F4C374B230FB}" ShortID="687815961">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="SFX_CameraOnCharacter" ID="{4792A7C4-99A2-4E4B-A548-FF54AD1BAF47}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>

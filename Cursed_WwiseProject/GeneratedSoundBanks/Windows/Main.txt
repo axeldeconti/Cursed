@@ -4,7 +4,9 @@ Event	ID	Name			Wwise Object Path	Notes
 	378405260	Play_Attack_Axe_SecondSlice			\Default Work Unit\Character\Attack\Play_Attack_Axe_SecondSlice	
 	429946107	Play_Enemy_Attack_Axe_FirstSlice			\Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Axe_FirstSlice	
 	446620581	Play_Creature_Camera			\Default Work Unit\Creature\Play_Creature_Camera	
+	469478885	Play_CameraOnCharacter			\Default Work Unit\Spatial\Play_CameraOnCharacter	
 	595748461	Play_DoubleJump			\Default Work Unit\Character\Jump\Play_DoubleJump	
+	722908980	Play_CapacityLocked			\Default Work Unit\Character\Play_CapacityLocked	
 	765570963	Play_Enemy_ThirdDamage			\Default Work Unit\Enemy\Damage\Play_Enemy_ThirdDamage	
 	784730744	Play_Enemy_Attack_Axe_ThirdSlice			\Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Axe_ThirdSlice	
 	823759501	Play_Amb_Atmosphere			\Default Work Unit\Amb\Play_Amb_Atmosphere	
@@ -19,6 +21,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	1316790141	Stop_Creature_OnChar			\Default Work Unit\Creature\Stop_Creature_OnChar	
 	1392456287	Play_Enemy_Attack_Axe_SecondSlice			\Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Axe_SecondSlice	
 	1404684114	PauseAllSounds			\Default Work Unit\UI\PauseMenu\PauseAllSounds	
+	1436075639	Stop_CameraOnCharacter			\Default Work Unit\Spatial\Stop_CameraOnCharacter	
 	1471082706	Play_Enemy_SecondDamage			\Default Work Unit\Enemy\Damage\Play_Enemy_SecondDamage	
 	1566693136	Play_Music_MainMenu			\Default Work Unit\Music\Play_Music_MainMenu	
 	1592044262	Stop_Enemy_Begin_Play_Loop_WallSlide			\Default Work Unit\Enemy\WallSlide\Stop_Enemy_Begin_Play_Loop_WallSlide	
@@ -71,10 +74,14 @@ Event	ID	Name			Wwise Object Path	Notes
 	4060380671	Play_Begin_WallSlide			\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide	
 
 State Group	ID	Name			Wwise Object Path	Notes
+	1507096379	LowPassCamera			\Default Work Unit\LowPassCamera	
 	2181744491	LowPassLaser			\Default Work Unit\LowPassLaser	
 	3422541661	Pause_Menu			\Default Work Unit\Pause_Menu	
 
 State	ID	Name	State Group			Notes
+	415253243	CameraOnChar	LowPassCamera			
+	748895195	None	LowPassCamera			
+	1849192767	CameraOffChar	LowPassCamera			
 	748895195	None	LowPassLaser			
 	898236029	CreatureOn	LowPassLaser			
 	3174797897	CreatureOff	LowPassLaser			
@@ -84,8 +91,10 @@ State	ID	Name	State Group			Notes
 
 Custom State	ID	Name	State Group	Owner		Notes
 	244841197	Paused	Pause_Menu	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX_Bus		
+	729057466	CameraOnChar	LowPassCamera	\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer		
 	745896829	CreatureOn	LowPassLaser	\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Traps\SFX_Laser_Loop		
 	842985675	Paused	Pause_Menu	\Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Ambiance_Bus		
+	907338878	CameraOnChar	LowPassCamera	\Actor-Mixer Hierarchy\Default Work Unit\Ambiance_ActorMixer		
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	3087031974	Main_Slider			\Default Work Unit\Main_Slider	
@@ -114,6 +123,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	207810947	SFX_EndLevelDoor	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_EndLevelDoor_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Props\SFX_EndLevelDoor		186432
 	239182092	Foley_Player_WallSlideLoop_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\WallSlide\SFX_Random_WallSlide_Loop\Foley_Player_WallSlideLoop_02		339796
 	266893339	SFX_Enemy_DamageFirstHit_01	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Enemy\Damage\SFX_Enemy_DamageFirstHit_01		23880
+	295667681	SFX_CapacityLocked	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_CapacityLocked_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\CameraEffect_ActorMixer\SFX_CapacityLocked		57920
 	298259720	SFX_SkillUnlocked	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_SkillUnlocked_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\SFX_SkillUnlocked		147520
 	299119010	SFX_Creature_OnChar_07	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_Creature_OnChar_07_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\Random_SFX_Creature_OnChar\SFX_Creature_OnChar_07		301648
 	307684995	SFX_Player_Landing	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\Landing\Landing_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Landing\SFX_Player_Landing		77144
@@ -154,6 +164,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	898334294	SFX_PauseMenu_Off	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_PauseMenu_Off_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\UI\SFX_PauseMenu_Off		42496
 	901544711	SFX_Player_LowHealthSecond	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\LowHealth\LowHealth_Second_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\LowHealth\SFX_Player_LowHealthSecond		81228
 	912044876	SFX_DeathAnnouncement	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_DeathAnnouncement_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Props\SFX_DeathAnnouncement		710720
+	947163011	SFX_CameraOnCharacter	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_CameraOnCharacter_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\CameraEffect_ActorMixer\SFX_CameraOnCharacter		1445056
 	951068667	SFX_Creature_Camera	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_Creature_Camera_V2_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\SFX_Creature_Camera		49660
 	963114625	SFX_Creature_OnChar_02	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_Creature_OnChar_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\Random_SFX_Creature_OnChar\SFX_Creature_OnChar_02		356452
 	986840092	SFX_Player_AxeFirstSlice	D:\Cursed\Cursed_WwiseProject\.cache\Windows\SFX\SFX_Player_AxeFirstSlice_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Weapon\SFX_Player_AxeFirstSlice		79296
