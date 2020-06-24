@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 8067229478668248369}
   - component: {fileID: 2082022336012771400}
   - component: {fileID: 2876801914977854370}
+  - component: {fileID: 1506497539484740265}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -193,12 +194,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.79607844}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.94509804}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0fc2fba2f854ac1449c5ac3791379ac2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 103d40f0e778986498b2b7d43bbe5cfb, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -208,6 +209,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1506497539484740265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113410380220294816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e94ca7208dfce4bb93161180ee2eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputType: 7
 --- !u!1 &6630750182405091691
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +331,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0

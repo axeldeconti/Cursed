@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cursed.Managers;
+using Cursed.Utilities;
 
 namespace Cursed.Character
 {
@@ -34,6 +35,7 @@ namespace Cursed.Character
         private int _weaponNb = 0;
         private int _combo = 0;
         private bool _canCombo = false;
+        private bool _isInCameraVision;
 
         [Space]
         [Header("Stats Camera Shake")]
@@ -43,6 +45,7 @@ namespace Cursed.Character
         [Space]
         [Header("Stats Vibration")]
         [SerializeField] private VibrationEvent _onContrVibration = null;
+        [SerializeField] private VibrationData_SO _unavailableAction;
 
         [Header("Unlocks")]
         [SerializeField] private bool _attacksUnlock = true;
@@ -86,7 +89,14 @@ namespace Cursed.Character
         private void UpdateAttack(int attackNb)
         {
             if (!_attacksUnlock)
+            {
+                if (_unavailableAction != null && _isInCameraVision)
+                {
+                    _onContrVibration?.Raise(_unavailableAction);
+                }
+
                 return;
+            }
 
             if (_coll.OnGround)
             {
@@ -336,6 +346,11 @@ namespace Cursed.Character
         {
             get => _attacksUnlock;
             set => _attacksUnlock = value;
+        }
+        public bool InCameraVision
+        {
+            get => _isInCameraVision;
+            set => _isInCameraVision = value;
         }
 
         #endregion

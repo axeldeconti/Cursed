@@ -11,7 +11,7 @@ namespace Cursed.Props
         public int cellNumberInfo;
         [SerializeField] private Cell _cell = Cell.A1;
 
-        [HideInInspector] public bool _playerOnThisCell;
+        public bool _playerOnThisCell;
         public bool _emptyCell { get; private set; }
         public int _enemyCount { get; private set; }
 

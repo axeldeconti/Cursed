@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections;
 using Cursed.Props;
+using Cursed.VisualEffect;
 using UnityEngine.SceneManagement;
 
 namespace Cursed.Managers
@@ -8,9 +10,17 @@ namespace Cursed.Managers
     {
         private GameManager _gameManager = null;
 
+        [Header("Objects")]
         [SerializeField] private GameObject _winScreen = null;
         [SerializeField] private GameObject _looseScreen = null;
+        [SerializeField] private GameObject _blackScreen = null;
+
+        [Header("Events")]
         [SerializeField] private VoidEvent _retryEvent = null;
+        [SerializeField] private VoidEvent _allEnemiesKilled = null;
+
+        [Header("Settings")]
+        [SerializeField] private FloatReference _slowMotionDuration;
 
         private int _enemyCount = 0;
         private bool _retryLaunch = false;
@@ -20,6 +30,7 @@ namespace Cursed.Managers
             _gameManager = GameManager.Instance;
             _winScreen.SetActive(false);
             _looseScreen.SetActive(false);
+            _blackScreen.SetActive(false);
         }
 
         public void AddEnemy() => _enemyCount++;
@@ -30,16 +41,31 @@ namespace Cursed.Managers
                 return;
 
             if (--_enemyCount <= 0)
-            {
-                GameManager.Instance.State = GameManager.GameState.WinLoose;
-                _winScreen.SetActive(true);
-            }
+                Win();
         }
 
-        public void OnPlayerDeath()
+        private void Win()
+        {
+            _allEnemiesKilled?.Raise();
+            Debug.Log("Win !");
+
+            /*if (_slowMotionDuration != null)
+            {
+                Debug.Log("Freeze");
+                SlowMotion.Instance.Freeze(_slowMotionDuration);
+            }
+
+            StartCoroutine(WaitForActive(2f, _winScreen, true));*/
+        }
+
+        public void OnPlayerDeath() => Loose();
+
+        private void Loose()
         {
             GameManager.Instance.State = GameManager.GameState.WinLoose;
-            _looseScreen.SetActive(true);
+
+            StartCoroutine(WaitForActive(.5f, _blackScreen, true));
+            StartCoroutine(WaitForActive(1.5f, _looseScreen, true));
             UpdateEnemyCountLose();
         }
 
@@ -70,6 +96,12 @@ namespace Cursed.Managers
         {
             if (_retryLaunch)
                 _retryEvent?.Raise();
+        }
+
+        private IEnumerator WaitForActive(float delay, GameObject go, bool active)
+        {
+            yield return new WaitForSeconds(delay);
+            go.SetActive(active);
         }
     }
 }

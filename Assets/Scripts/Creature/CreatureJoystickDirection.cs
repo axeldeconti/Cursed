@@ -20,12 +20,15 @@ namespace Cursed.Creature
         private CollisionHandler _playerCollision;  
         private Transform _origin;
 
+        private ControlerManager _controlerManager;
+
         private void Awake()
         {
             _creature = GetComponent<CreatureManager>();
             _input = GetComponent<CreatureInputController>();
             _origin = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
             _playerCollision = GameObject.FindGameObjectWithTag("Player").GetComponent<CollisionHandler>();
+            _controlerManager = ControlerManager.Instance;
         }
 
         private void Update()
@@ -40,10 +43,25 @@ namespace Cursed.Creature
 
             if (_creature.CurrentState == CreatureState.OnCharacter)
             {
-                float mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")).magnitude);
+                float mag;
+                // XBOX CONTROLS
+                if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
+                    mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight"), Input.GetAxis("VerticalRight")).magnitude);
+                // PS4 CONTROLS
+                else if (_controlerManager._ControlerType == ControlerManager.ControlerType.PS4)
+                    mag = Mathf.Clamp01(new Vector2(Input.GetAxis("HorizontalRight_PS4"), Input.GetAxis("VerticalRight_PS4")).magnitude);
+                else
+                    mag = 0f;
+
                 if (mag > .85f)
                 {
-                    _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
+                    // XBOX CONTROLS
+                    if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
+                        _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight") + Vector2.up * Input.GetAxisRaw("VerticalRight");
+                    // PS4 CONTROLS
+                    else if (_controlerManager._ControlerType == ControlerManager.ControlerType.PS4)
+                        _direction = Vector2.right * Input.GetAxisRaw("HorizontalRight_PS4") + Vector2.up * Input.GetAxisRaw("VerticalRight_PS4");
+
                     float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
 
                     if (_playerCollision.OnGround)

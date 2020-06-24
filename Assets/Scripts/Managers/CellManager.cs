@@ -7,7 +7,7 @@ namespace Cursed.Managers
     {
         public Action<Cell> onPlayerEnterCell = null;
 
-        private Cell currentCell = Cell.A1;
+        public Cell currentCell { get; private set; } = Cell.A1;
 
         private void Start()
         {

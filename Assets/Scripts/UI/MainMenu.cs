@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Cursed.Managers;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 namespace Cursed.UI
 {
@@ -9,6 +11,8 @@ namespace Cursed.UI
         private GameManager _gameManager = null;
 
         [Header("Menu Objects")]
+        [SerializeField] private GameObject _controllerScreen = null;
+        [SerializeField] private GameObject _splashScreen = null;
         [SerializeField] private GameObject _mainMenu = null;
         [SerializeField] private GameObject _options = null;
         [SerializeField] private GameObject _credits = null;
@@ -16,6 +20,8 @@ namespace Cursed.UI
         [SerializeField] private GameObject _controls = null;
 
         [Header("Menu Animators")]
+        [SerializeField] private Animator _controllerScreenAnimator;
+        [SerializeField] private Animator _splashScreenAnimator;
         [SerializeField] private Animator _mainMenuAnimator;
         [SerializeField] private Animator _creditsAnimator;
         [SerializeField] private Animator _optionsAnimator;
@@ -31,21 +37,78 @@ namespace Cursed.UI
         [SerializeField] private GameObject _virtualCameraMenu;
         private Animator _cameraAnimator;
 
+
+        [Header("Post Process")]
+        [SerializeField] private Volume _globalVolume = null;
+        private DepthOfField _depthOfField;
+
+        private ControlerManager _controlerManager;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
+            _controlerManager = ControlerManager.Instance;
             _cameraAnimator = _virtualCameraMenu.GetComponent<Animator>();
-            _mainMenu.SetActive(true);
+            _splashScreen.SetActive(false);
             _options.SetActive(false);
             _credits.SetActive(false);
             _controls.SetActive(false);
+
+            // SET BLUR EFFECT 
+            if (_globalVolume != null)
+            {
+                DepthOfField depthOfField;
+                if (_globalVolume.profile.TryGet<DepthOfField>(out depthOfField))
+                    _depthOfField = depthOfField;
+            }
+
+            // CHECK IF MENU HAS BEEN PASSED
+            if (!_gameManager._mainMenuPassed)
+            {
+                _controllerScreen.SetActive(true);
+                _mainMenu.SetActive(false);
+                _depthOfField.mode.value = DepthOfFieldMode.Gaussian;
+                SkipControllerScreen();
+            }
+            else
+            {
+                _controllerScreen.SetActive(false);
+                _mainMenu.SetActive(true);
+                _depthOfField.mode.value = DepthOfFieldMode.Off;
+            }
+
         }
 
         private void Update()
         {
-            if (Input.GetButtonDown("Cancel"))
+            #region XBOX CONTROLS
+            if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
             {
-                if(_options.activeSelf)
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    if (_options.activeSelf)
+                        OptionsToHome();
+                    if (_credits.activeSelf)
+                        CreditsToHome();
+                    if (_controls.activeSelf)
+                        ControlsToOption();
+                    if (_tuto.activeSelf)
+                        TutoToHome();
+                }
+
+                if (Input.GetButtonDown("Pause"))
+                {
+                    if (_splashScreen.activeSelf)
+                        SkipSplashScreen();
+                }
+            }
+            #endregion
+
+            #region PS4 CONTROLS
+
+            if (Input.GetButtonDown("Cancel_PS4"))
+            {
+                if (_options.activeSelf)
                     OptionsToHome();
                 if (_credits.activeSelf)
                     CreditsToHome();
@@ -54,6 +117,28 @@ namespace Cursed.UI
                 if (_tuto.activeSelf)
                     TutoToHome();
             }
+
+            if (Input.GetButtonDown("Pause_PS4"))
+            {
+                if (_splashScreen.activeSelf)
+                    SkipSplashScreen();
+            }
+            #endregion
+
+        }
+
+        private void SkipControllerScreen()
+        {
+            StartCoroutine(WaitForActive(_splashScreen, true, 4f));
+            StartCoroutine(WaitForActive(_controllerScreen, false, 4f));
+        }
+
+        public void SkipSplashScreen()
+        {
+            _splashScreenAnimator.SetTrigger("Pressed");
+            StartCoroutine(WaitForActive(_mainMenu, true, _splashScreenAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            StartCoroutine(WaitForActive(_splashScreen, false, _splashScreenAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            _depthOfField.mode.value = DepthOfFieldMode.Off;
         }
 
         public void Play()
@@ -74,6 +159,7 @@ namespace Cursed.UI
             _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Tuto, false));
+            _gameManager._mainMenuPassed = true;
         }
 
         public void Intro()
@@ -81,6 +167,7 @@ namespace Cursed.UI
             _tutoAnimator.SetTrigger("Close");
             StartCoroutine(WaitForActive(_tuto, false, _tutoAnimator.GetCurrentAnimatorClipInfo(0).Length));
             StartCoroutine(WaitBeforeLoad(_tutoAnimator.GetCurrentAnimatorClipInfo(0).Length, Level_Intro, false));
+            _gameManager._mainMenuPassed = true;
         }
 
         public void CreditsToHome()

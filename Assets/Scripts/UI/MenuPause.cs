@@ -22,9 +22,12 @@ namespace Cursed.UI
         private bool _optionsToogle;
         private bool _controlsToogle;
 
+        private ControlerManager _controlerManager;
+
         private void Start()
         {
             _gameManager = GameManager.Instance;
+            _controlerManager = ControlerManager.Instance;
             _pauseMenu.SetActive(false);
             _optionsMenu.SetActive(false);
 
@@ -39,18 +42,41 @@ namespace Cursed.UI
 
         private void Update()
         {
-            if (Input.GetButtonDown("Pause"))
-                TooglePause();
-
-            if(Input.GetButtonDown("Cancel"))
+            #region XBOX CONTROLS
+            if (_controlerManager._ControlerType == ControlerManager.ControlerType.XBOX || _controlerManager._ControlerType == ControlerManager.ControlerType.None)
             {
-                if (_gameManager.State == GameManager.GameState.Pause && !_optionsMenu.activeSelf && !_controlsMenu.activeSelf)
+                if (Input.GetButtonDown("Pause"))
                     TooglePause();
-                if (_gameManager.State == GameManager.GameState.Pause && _optionsMenu.activeSelf)
-                    ToogleOptions();
-                if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
-                    ToogleControls();
+
+                if (Input.GetButtonDown("Cancel"))
+                {
+                    if (_gameManager.State == GameManager.GameState.Pause && !_optionsMenu.activeSelf && !_controlsMenu.activeSelf)
+                        TooglePause();
+                    if (_gameManager.State == GameManager.GameState.Pause && _optionsMenu.activeSelf)
+                        ToogleOptions();
+                    if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
+                        ToogleControls();
+                }
             }
+            #endregion
+
+            #region PS4 CONTROLS
+            else if(_controlerManager._ControlerType == ControlerManager.ControlerType.PS4)
+            {
+                if (Input.GetButtonDown("Pause_PS4"))
+                    TooglePause();
+
+                if (Input.GetButtonDown("Cancel_PS4"))
+                {
+                    if (_gameManager.State == GameManager.GameState.Pause && !_optionsMenu.activeSelf && !_controlsMenu.activeSelf)
+                        TooglePause();
+                    if (_gameManager.State == GameManager.GameState.Pause && _optionsMenu.activeSelf)
+                        ToogleOptions();
+                    if (_gameManager.State == GameManager.GameState.Pause && _controlsMenu.activeSelf)
+                        ToogleControls();
+                }
+            }
+            #endregion
         }
 
         public void TooglePause()

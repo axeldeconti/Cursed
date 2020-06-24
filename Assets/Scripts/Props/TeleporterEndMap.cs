@@ -6,9 +6,10 @@ namespace Cursed.Props
 {
     public class TeleporterEndMap : MonoBehaviour
     {
-        [SerializeField] private Transform _targetLaunch;
-        [SerializeField] private float _launchSpeed;
+        public Cell _cell;
+
         [SerializeField] private string _sceneToLaunch;
+        [SerializeField] private VoidEvent _enterInTeleporter;
 
         private Animator _animator;
         private bool _launchTeleporter;
@@ -17,26 +18,6 @@ namespace Cursed.Props
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _targetVector = _targetLaunch.position;
-        }
-
-        private void Update()
-        {
-            if (_launchTeleporter)
-                Launch();
-        }
-
-        private void Launch()
-        {
-            transform.position = Vector2.MoveTowards(transform.position, _targetVector, _launchSpeed * Time.deltaTime);
-
-            CheckDistanceFromTarget();
-        }
-
-        private void CheckDistanceFromTarget()
-        {
-            if (transform.position.y == _targetLaunch.position.y)
-                GameManager.Instance.LoadLevel(_sceneToLaunch, true);
         }
 
         private void CloseWindows()
@@ -54,6 +35,7 @@ namespace Cursed.Props
                 collision.transform.parent = this.transform;
                 collision.transform.localPosition = new Vector3(0f, -2.75f, 0f);
                 GameManager.Instance.State = GameManager.GameState.SceneTransition;
+                _enterInTeleporter?.Raise();
             }
         }
 
@@ -62,7 +44,6 @@ namespace Cursed.Props
             yield return new WaitForSeconds(delay);
             Debug.Log("Load map : " + _sceneToLaunch);
             GameManager.Instance.LoadLevel(_sceneToLaunch, true);
-            //_launchTeleporter = true;
         }
     }
 }
