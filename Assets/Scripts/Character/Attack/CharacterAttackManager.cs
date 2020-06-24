@@ -93,6 +93,7 @@ namespace Cursed.Character
                 if (_unavailableAction != null && _isInCameraVision)
                 {
                     _onContrVibration?.Raise(_unavailableAction);
+                    AkSoundEngine.PostEvent("Play_CapacityLocked", gameObject);
                 }
 
                 return;

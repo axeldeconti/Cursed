@@ -852,6 +852,7 @@ namespace Cursed.Character
             if (_unavailableAction != null)
             {
                 _onContrVibration?.Raise(_unavailableAction);
+                AkSoundEngine.PostEvent("Play_CapacityLocked", gameObject);
                 Debug.Log("Launch Vibration unavalableAttack");
             }
         }

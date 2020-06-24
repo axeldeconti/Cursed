@@ -15,6 +15,8 @@ namespace Cursed.Props
             if(collision.GetComponent<PlayerInputController>())
             {
                 _enterCameraLight?.Raise();
+                AkSoundEngine.PostEvent("Play_CameraOnCharacter", gameObject);
+                AkSoundEngine.SetState("LowPassCamera", "CameraOnChar");
             }
             if(collision.GetComponent<CharacterMovement>())
             {
@@ -33,6 +35,8 @@ namespace Cursed.Props
             if (collision.GetComponent<PlayerInputController>())
             {
                 _exitCameraLight?.Raise();
+                AkSoundEngine.PostEvent("Stop_CameraOnCharacter", gameObject);
+                AkSoundEngine.SetState("LowPassCamera", "CameraOffChar");
             }
             if (collision.GetComponent<CharacterMovement>())
             {
