@@ -187,6 +187,9 @@ namespace Cursed.Character
 
             _isAttacking = true;
             _anim.LaunchAttack(weapon.WeaponType.GetHashCode(), ++_combo);
+
+            _onContrVibration?.Raise(weapon.ClassicVibration);
+
         }
 
         /// <summary>
