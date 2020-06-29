@@ -2805,6 +2805,28 @@
 								</Folder>
 							</ChildrenList>
 						</Folder>
+						<Sound Name="SFX_Cuve_Break" ID="{AE3E196C-D3A8-4ED1-842C-DC9B0C642B34}" ShortID="271320803">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="SFX_BreakGlass" ID="{40204318-322E-44AF-B4F1-EC92556FB530}">
+									<Language>SFX</Language>
+									<AudioFile>SFX_BreakGlass.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="752668356"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="SFX_BreakGlass" ID="{40204318-322E-44AF-B4F1-EC92556FB530}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 					<StateInfo>
 						<StateGroupList>
