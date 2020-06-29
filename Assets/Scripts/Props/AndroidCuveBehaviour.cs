@@ -44,6 +44,7 @@ namespace Cursed.Props
             {
                 UpdateAnimator(_brokenCuve);
                 _cuveBroken?.Raise();
+                AkSoundEngine.PostEvent("Play_Cuve_Break", gameObject);
             }
         }
 

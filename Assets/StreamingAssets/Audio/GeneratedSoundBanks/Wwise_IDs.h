@@ -36,6 +36,7 @@ namespace AK
         static const AkUniqueID PLAY_CREATURE_LASER = 3956660081U;
         static const AkUniqueID PLAY_CREATURE_LAUNCH = 3361186193U;
         static const AkUniqueID PLAY_CREATURE_ONCHAR = 2125403547U;
+        static const AkUniqueID PLAY_CUVE_BREAK = 1944563533U;
         static const AkUniqueID PLAY_DASH = 2211787386U;
         static const AkUniqueID PLAY_DEATHANNOUNCEMENT = 3531069449U;
         static const AkUniqueID PLAY_DESTRUCTIBLEWALL = 3966446488U;
