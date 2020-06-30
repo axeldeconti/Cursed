@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cursed.Managers;
+using System.Collections;
 
 namespace Cursed.Props
 {
@@ -8,6 +9,7 @@ namespace Cursed.Props
     {
         [SerializeField] private RuntimeAnimatorController _normalCuve;
         [SerializeField] private RuntimeAnimatorController _brokenCuve;
+        [SerializeField] private RuntimeAnimatorController _brokingCuve;
         [SerializeField] private VoidEvent _cuveBroken;
 
         private Animator _animator;
@@ -42,15 +44,22 @@ namespace Cursed.Props
             }
             else if (SceneManager.GetActiveScene().name == "Tuto" || SceneManager.GetActiveScene().name == "Intro")
             {
-                UpdateAnimator(_brokenCuve);
-                _cuveBroken?.Raise();
-                AkSoundEngine.PostEvent("Play_Cuve_Break", gameObject);
+                UpdateAnimator(_brokingCuve);
+                StartCoroutine(WaitForLaunchBrokenEffet(.25f));
             }
         }
 
         private void UpdateAnimator(RuntimeAnimatorController newAnimator)
         {
             _animator.runtimeAnimatorController = newAnimator;
+        }
+
+        private IEnumerator WaitForLaunchBrokenEffet(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            UpdateAnimator(_brokenCuve);
+            _cuveBroken?.Raise();
+            AkSoundEngine.PostEvent("Play_Cuve_Break", gameObject);
         }
     }
 }
