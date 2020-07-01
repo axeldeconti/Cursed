@@ -345,6 +345,8 @@ namespace Cursed.Character
 
             //Apply new velocity
             UpdateVelocity(push, -_wallSlideSpeed);
+
+            AkSoundEngine.PostEvent("Stop_Begin_Play_Loop_WallSlide", gameObject);
         }
 
         /// <summary>
@@ -385,6 +387,8 @@ namespace Cursed.Character
 
             Jump(_wallJump);
             UpdateVelocity(-_side * _runSpeed, _rb.velocity.y);
+
+            AkSoundEngine.PostEvent("Play_End_WallSlide", gameObject);
         }
 
         /// <summary>

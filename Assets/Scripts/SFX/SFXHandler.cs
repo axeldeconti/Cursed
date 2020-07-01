@@ -69,15 +69,9 @@ public class SFXHandler : MonoBehaviour
     public void WallSlideBeginSFX()
     {
         if (!_wallslideIsPlaying)
-        AkSoundEngine.PostEvent("Play_Main_WallSlide", gameObject);
+        AkSoundEngine.PostEvent("Play_Begin_WallSlide", gameObject);
         _wallslideIsPlaying = true;
         StartCoroutine(WallSlideEnum());
-    }
-
-    public void WallSlideEndSFX()
-    {
-        AkSoundEngine.PostEvent("Play_End_WallSlide", gameObject);
-        _wallslideIsPlaying = false;
     }
 
     IEnumerator WallSlideEnum()
@@ -85,7 +79,7 @@ public class SFXHandler : MonoBehaviour
         yield return new WaitForSeconds(4.841f);
         if (_wallslideIsPlaying)
         {
-            AkSoundEngine.PostEvent("Stop_Main_Play_Loop_WallSlide", gameObject);
+            AkSoundEngine.PostEvent("Stop_Begin_Play_Loop_WallSlide", gameObject);
         }
     }
 
