@@ -12,6 +12,7 @@ public class SFXHandler : MonoBehaviour
     private LaserBeam _laserBeam = null;
     private CreatureManager _creatureManager = null;
     private EnemyHealth _enemyHealth = null;
+    private CharacterMovement _characterMovement = null;
 
     private bool _myIsDiveKicking;
     private bool _lowHealth1Played = false;
@@ -27,6 +28,7 @@ public class SFXHandler : MonoBehaviour
         _healthManager = GetComponent<HealthManager>();
         _laserBeam = GetComponent<LaserBeam>();
         _enemyHealth = GetComponent<EnemyHealth>();
+        _characterMovement = GetComponent<CharacterMovement>();
 
         #region Spatialized
         if (_laserBeam != null)
@@ -63,25 +65,22 @@ public class SFXHandler : MonoBehaviour
             }
         }
 
+        if (_characterMovement != null && _enemyHealth == null)
+        {
+            if (_characterMovement.WallSlide == true)
+                AkSoundEngine.PostEvent("Stop_Begin_Play_Loop_WallSlide", gameObject);
+
+            if (_characterMovement.WallSlide == false)
+                AkSoundEngine.PostEvent("Stop_WallSlide", gameObject);
+        }
+        if (_characterMovement != null && _enemyHealth != null)
+        {
+            if (_characterMovement.WallSlide == true)
+                AkSoundEngine.PostEvent("Foley_Enemy_Wallslide_Main", gameObject);
+        }
     }
 
     #region Character
-    public void WallSlideBeginSFX()
-    {
-        if (!_wallslideIsPlaying)
-        AkSoundEngine.PostEvent("Play_Begin_WallSlide", gameObject);
-        _wallslideIsPlaying = true;
-        StartCoroutine(WallSlideEnum());
-    }
-
-    IEnumerator WallSlideEnum()
-    {
-        yield return new WaitForSeconds(4.841f);
-        if (_wallslideIsPlaying)
-        {
-            AkSoundEngine.PostEvent("Stop_Begin_Play_Loop_WallSlide", gameObject);
-        }
-    }
 
     public void RunSFX()
     {

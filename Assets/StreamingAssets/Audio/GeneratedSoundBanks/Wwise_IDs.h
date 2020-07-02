@@ -23,7 +23,6 @@ namespace AK
         static const AkUniqueID PLAY_ATTACK_SWORD_SECONDSLICE = 2641629647U;
         static const AkUniqueID PLAY_ATTACK_SWORD_THIRDSLICE = 834008872U;
         static const AkUniqueID PLAY_BASICJUMP = 2216073360U;
-        static const AkUniqueID PLAY_BEGIN_WALLSLIDE = 4060380671U;
         static const AkUniqueID PLAY_BUTTON_PRESSED = 1724924593U;
         static const AkUniqueID PLAY_BUTTON_SELECTED = 3882482286U;
         static const AkUniqueID PLAY_CAMERAONCHARACTER = 469478885U;
@@ -54,17 +53,16 @@ namespace AK
         static const AkUniqueID PLAY_ENEMY_ATTACK_SWORD_SECONDSLICE = 2608954444U;
         static const AkUniqueID PLAY_ENEMY_ATTACK_SWORD_THIRDSLICE = 3914179745U;
         static const AkUniqueID PLAY_ENEMY_BASICJUMP = 2658991137U;
-        static const AkUniqueID PLAY_ENEMY_BEGIN_WALLSLIDE = 2607534410U;
         static const AkUniqueID PLAY_ENEMY_DASH = 1673311249U;
         static const AkUniqueID PLAY_ENEMY_DEATH = 3046156865U;
         static const AkUniqueID PLAY_ENEMY_DIVEKICK = 2403737389U;
         static const AkUniqueID PLAY_ENEMY_DOUBLEJUMP = 3488763742U;
-        static const AkUniqueID PLAY_ENEMY_END_WALLSLIDE = 1154830918U;
         static const AkUniqueID PLAY_ENEMY_FIRSTDAMAGE = 2563456942U;
         static const AkUniqueID PLAY_ENEMY_LANDING = 2983322058U;
         static const AkUniqueID PLAY_ENEMY_RUN = 2182773848U;
         static const AkUniqueID PLAY_ENEMY_SECONDDAMAGE = 1471082706U;
         static const AkUniqueID PLAY_ENEMY_THIRDDAMAGE = 765570963U;
+        static const AkUniqueID PLAY_ENEMY_WALLSLIDE_MAIN = 2281765076U;
         static const AkUniqueID PLAY_LANDING = 2323405115U;
         static const AkUniqueID PLAY_LASER = 2270376495U;
         static const AkUniqueID PLAY_LOWHEALTH1 = 291002683U;
@@ -87,7 +85,7 @@ namespace AK
         static const AkUniqueID STOP_BEGIN_PLAY_LOOP_WALLSLIDE = 848533759U;
         static const AkUniqueID STOP_CAMERAONCHARACTER = 1436075639U;
         static const AkUniqueID STOP_CREATURE_ONCHAR = 1316790141U;
-        static const AkUniqueID STOP_ENEMY_BEGIN_PLAY_LOOP_WALLSLIDE = 1592044262U;
+        static const AkUniqueID STOP_WALLSLIDE = 2189370507U;
     } // namespace EVENTS
 
     namespace STATES

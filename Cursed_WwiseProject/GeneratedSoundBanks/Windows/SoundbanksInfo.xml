@@ -100,14 +100,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="4060380671" Name="Play_Begin_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide" DurationType="OneShot" DurationMin="1.147604" DurationMax="1.147604">
-					<IncludedMemoryFiles>
-						<File Id="324426504" Language="SFX">
-							<ShortName>Foley_WallSlide_Begin.wav</ShortName>
-							<Path>SFX\Foley_WallSlide_Begin_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="1724924593" Name="Play_Button_Pressed" ObjectPath="\Events\Default Work Unit\UI\Play_Button_Pressed" DurationType="OneShot" DurationMin="0.548980" DurationMax="0.548980">
 					<IncludedMemoryFiles>
 						<File Id="1057618011" Language="SFX">
@@ -388,14 +380,6 @@
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
-				<Event Id="2607534410" Name="Play_Enemy_Begin_WallSlide" ObjectPath="\Events\Default Work Unit\Enemy\WallSlide\Play_Enemy_Begin_WallSlide" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="1.147604" DurationMax="1.147604">
-					<IncludedMemoryFiles>
-						<File Id="324426504" Language="SFX">
-							<ShortName>Foley_WallSlide_Begin.wav</ShortName>
-							<Path>SFX\Foley_WallSlide_Begin_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
 				<Event Id="1673311249" Name="Play_Enemy_Dash" ObjectPath="\Events\Default Work Unit\Enemy\Play_Enemy_Dash" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.502875" DurationMax="0.502875">
 					<IncludedMemoryFiles>
 						<File Id="135575679" Language="SFX">
@@ -437,14 +421,6 @@
 						<File Id="699165359" Language="SFX">
 							<ShortName>DoubleJump.wav</ShortName>
 							<Path>SFX\DoubleJump_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
-				<Event Id="1154830918" Name="Play_Enemy_End_WallSlide" ObjectPath="\Events\Default Work Unit\Enemy\WallSlide\Play_Enemy_End_WallSlide" MaxAttenuation="40.000000" DurationType="OneShot" DurationMin="0.338594" DurationMax="0.338594">
-					<IncludedMemoryFiles>
-						<File Id="72233361" Language="SFX">
-							<ShortName>Foley_WallSlide_End.wav</ShortName>
-							<Path>SFX\Foley_WallSlide_End_10C4C929.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -505,6 +481,14 @@
 						<File Id="630155253" Language="SFX">
 							<ShortName>Damage\Enemy\Enemy_Damage_ThirdHit01.wav</ShortName>
 							<Path>SFX\Damage\Enemy\Enemy_Damage_ThirdHit01_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2281765076" Name="Play_Enemy_WallSlide_Main" ObjectPath="\Events\Default Work Unit\Enemy\WallSlide\Play_Enemy_WallSlide_Main" MaxAttenuation="40.000000" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="379720737" Language="SFX">
+							<ShortName>Foley_Wallslide_Main.wav</ShortName>
+							<Path>SFX\Foley_Wallslide_Main_D79FB2B7.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -672,18 +656,7 @@
 				</Event>
 				<Event Id="1436075639" Name="Stop_CameraOnCharacter" ObjectPath="\Events\Default Work Unit\Spatial\Stop_CameraOnCharacter" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="1316790141" Name="Stop_Creature_OnChar" ObjectPath="\Events\Default Work Unit\Creature\Stop_Creature_OnChar" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
-				<Event Id="1592044262" Name="Stop_Enemy_Begin_Play_Loop_WallSlide" ObjectPath="\Events\Default Work Unit\Enemy\WallSlide\Stop_Enemy_Begin_Play_Loop_WallSlide" MaxAttenuation="40.000000" DurationType="Infinite">
-					<IncludedMemoryFiles>
-						<File Id="239182092" Language="SFX">
-							<ShortName>Foley_Player_WallSlideLoop_02.wav</ShortName>
-							<Path>SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem</Path>
-						</File>
-						<File Id="719473206" Language="SFX">
-							<ShortName>Foley_Player_WallSlideLoop_01.wav</ShortName>
-							<Path>SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem</Path>
-						</File>
-					</IncludedMemoryFiles>
-				</Event>
+				<Event Id="2189370507" Name="Stop_WallSlide" ObjectPath="\Events\Default Work Unit\Character\WallSlide\Stop_WallSlide" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="1810840" Language="SFX">
@@ -742,10 +715,6 @@
 					<ShortName>SFX_EndLevelDoor.wav</ShortName>
 					<Path>SFX\SFX_EndLevelDoor_10C4C929.wem</Path>
 				</File>
-				<File Id="239182092" Language="SFX">
-					<ShortName>Foley_Player_WallSlideLoop_02.wav</ShortName>
-					<Path>SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem</Path>
-				</File>
 				<File Id="266893339" Language="SFX">
 					<ShortName>Damage\Enemy\Enemy_Damage_FirstHit01.wav</ShortName>
 					<Path>SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem</Path>
@@ -765,10 +734,6 @@
 				<File Id="307684995" Language="SFX">
 					<ShortName>Landing\Landing.wav</ShortName>
 					<Path>SFX\Landing\Landing_10C4C929.wem</Path>
-				</File>
-				<File Id="324426504" Language="SFX">
-					<ShortName>Foley_WallSlide_Begin.wav</ShortName>
-					<Path>SFX\Foley_WallSlide_Begin_10C4C929.wem</Path>
 				</File>
 				<File Id="327802423" Language="SFX">
 					<ShortName>SFX_Creature_EndDrain.wav</ShortName>
@@ -865,10 +830,6 @@
 				<File Id="703962044" Language="SFX">
 					<ShortName>SFX_PuzzleDoor_Open.wav</ShortName>
 					<Path>SFX\SFX_PuzzleDoor_Open_10C4C929.wem</Path>
-				</File>
-				<File Id="719473206" Language="SFX">
-					<ShortName>Foley_Player_WallSlideLoop_01.wav</ShortName>
-					<Path>SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem</Path>
 				</File>
 				<File Id="726945814" Language="SFX">
 					<ShortName>TestButtonFeedback.wav</ShortName>

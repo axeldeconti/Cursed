@@ -1412,42 +1412,6 @@
 								</Folder>
 								<Folder Name="WallSlide" ID="{C8692C41-2FFA-4E66-923E-FEBA3F8DB3E7}" ShortID="755976540">
 									<ChildrenList>
-										<Sound Name="Foley_WallSlide_Begin" ID="{23BC7248-24BD-4E98-A734-C37845473747}" ShortID="239188187">
-											<PropertyList>
-												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
-												<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
-												<Property Name="MaxSoundPerInstance" Type="int16">
-													<ValueList>
-														<Value>1</Value>
-													</ValueList>
-												</Property>
-												<Property Name="UseMaxSoundPerInstance" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Foley_WallSlide_Begin" ID="{1257D9F6-8621-424F-A604-86CA6B166537}">
-													<Language>SFX</Language>
-													<AudioFile>Foley_WallSlide_Begin.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="324426504"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Foley_WallSlide_Begin" ID="{1257D9F6-8621-424F-A604-86CA6B166537}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
 										<Sound Name="Foley_WallSlide_End" ID="{71AA31EE-560C-4B6A-BD59-B0022C3EC2E8}" ShortID="353228266">
 											<PropertyList>
 												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
@@ -2450,9 +2414,11 @@
 								</Folder>
 								<Folder Name="WallSlide" ID="{5D0FEE83-38EF-40A7-9710-4175C281EC67}" ShortID="735842330">
 									<ChildrenList>
-										<RandomSequenceContainer Name="SFX_Random_Enemy_WallSlide_Loop" ID="{FFB0DB71-F1C2-4EA6-B72D-9771FF94BDE1}" ShortID="466947832">
+										<Sound Name="Foley_Enemy_Wallslide_Main" ID="{BE293E83-CE55-4818-93AF-92F036DBA8D1}" ShortID="137117572">
 											<PropertyList>
 												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 												<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
 												<Property Name="MaxSoundPerInstance" Type="int16">
 													<ValueList>
@@ -2460,9 +2426,6 @@
 													</ValueList>
 												</Property>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
-												<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
-												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
-												<Property Name="RandomAvoidRepeating" Type="bool" Value="False"/>
 												<Property Name="UseMaxSoundPerInstance" Type="bool">
 													<ValueList>
 														<Value>True</Value>
@@ -2470,7 +2433,7 @@
 												</Property>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-10</Value>
+														<Value>-5</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -2482,124 +2445,20 @@
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
+													<ObjectRef Name="SFX_Bus" ID="{203FAEE4-4D91-43A2-B8CC-762A3D71F2D5}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<Sound Name="Foley_Enemy_WallSlideLoop_01" ID="{5EA3197D-071B-41D4-AAD7-B5F3943DADC9}" ShortID="341541518">
-													<PropertyList>
-														<Property Name="3DSpatialization" Type="int16" Value="1"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Attenuation">
-															<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-														</Reference>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="Foley_Player_WallSlideLoop_01" ID="{D7A98153-6A79-4F4B-BABF-251D079EFE88}">
-															<Language>SFX</Language>
-															<AudioFile>Foley_Player_WallSlideLoop_01.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="719473206"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ActiveSourceList>
-														<ActiveSource Name="Foley_Player_WallSlideLoop_01" ID="{D7A98153-6A79-4F4B-BABF-251D079EFE88}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-												<Sound Name="Foley_Enemy_WallSlideLoop_02" ID="{9722D75E-A8B3-45AE-A2C0-BB6CE76A9CEA}" ShortID="1004682669">
-													<PropertyList>
-														<Property Name="3DSpatialization" Type="int16" Value="1"/>
-													</PropertyList>
-													<ReferenceList>
-														<Reference Name="Attenuation">
-															<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-														</Reference>
-														<Reference Name="Conversion">
-															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-														</Reference>
-														<Reference Name="OutputBus">
-															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-														</Reference>
-													</ReferenceList>
-													<ChildrenList>
-														<AudioFileSource Name="Foley_Player_WallSlideLoop_02" ID="{4C0601B2-13DD-4098-989A-23AD8560FED6}">
-															<Language>SFX</Language>
-															<AudioFile>Foley_Player_WallSlideLoop_02.wav</AudioFile>
-															<MediaIDList>
-																<MediaID ID="239182092"/>
-															</MediaIDList>
-														</AudioFileSource>
-													</ChildrenList>
-													<ActiveSourceList>
-														<ActiveSource Name="Foley_Player_WallSlideLoop_02" ID="{4C0601B2-13DD-4098-989A-23AD8560FED6}" Platform="Linked"/>
-													</ActiveSourceList>
-												</Sound>
-											</ChildrenList>
-										</RandomSequenceContainer>
-										<Sound Name="Foley_Enemy_WallSlide_Begin" ID="{7FB55DC0-093B-45B2-953D-8319255C91DC}" ShortID="876649652">
-											<PropertyList>
-												<Property Name="3DSpatialization" Type="int16" Value="1"/>
-												<Property Name="OverridePositioning" Type="bool" Value="True"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Attenuation">
-													<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-												</Reference>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Foley_WallSlide_Begin" ID="{40D82076-6E73-46F4-A373-0080367FCCED}">
+												<AudioFileSource Name="Foley_Wallslide_Main" ID="{F217146F-58F7-4D6C-AB6A-5C3B6D389EE5}">
 													<Language>SFX</Language>
-													<AudioFile>Foley_WallSlide_Begin.wav</AudioFile>
+													<AudioFile>Foley_Wallslide_Main.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="324426504"/>
+														<MediaID ID="379720737"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
-												<ActiveSource Name="Foley_WallSlide_Begin" ID="{40D82076-6E73-46F4-A373-0080367FCCED}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Foley_Enemy_WallSlide_End" ID="{B519A439-E25B-4D4E-9A81-2E933C8C0776}" ShortID="1062464659">
-											<PropertyList>
-												<Property Name="3DSpatialization" Type="int16" Value="1"/>
-												<Property Name="OverridePositioning" Type="bool" Value="True"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Attenuation">
-													<ObjectRef Name="Enemy" ID="{7281D956-7B43-4A9F-898E-6A3AB538EFD7}" WorkUnitID="{526953C5-A9CA-4092-B7D2-BF05E6BAF6E4}"/>
-												</Reference>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Foley_WallSlide_End" ID="{F94E8369-99D5-492E-9F81-3F6BFF08C75E}">
-													<Language>SFX</Language>
-													<AudioFile>Foley_WallSlide_End.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="72233361"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Foley_WallSlide_End" ID="{F94E8369-99D5-492E-9F81-3F6BFF08C75E}" Platform="Linked"/>
+												<ActiveSource Name="Foley_Wallslide_Main" ID="{F217146F-58F7-4D6C-AB6A-5C3B6D389EE5}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>

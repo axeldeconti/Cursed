@@ -13,7 +13,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	834008872	Play_Attack_Sword_ThirdSlice			\Default Work Unit\Character\Attack\Play_Attack_Sword_ThirdSlice	
 	848533759	Stop_Begin_Play_Loop_WallSlide			\Default Work Unit\Character\WallSlide\Stop_Begin_Play_Loop_WallSlide	
 	973976397	Play_PuzzleDoor_Open			\Default Work Unit\Spatial\Play_PuzzleDoor_Open	
-	1154830918	Play_Enemy_End_WallSlide			\Default Work Unit\Enemy\WallSlide\Play_Enemy_End_WallSlide	
 	1184864651	Play_PauseMenu_On			\Default Work Unit\UI\PauseMenu\Play_PauseMenu_On	
 	1235386822	Play_ElectricTrap_Inactive			\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Inactive	
 	1251478039	Play_Creature_HitWall			\Default Work Unit\Creature\Play_Creature_HitWall	
@@ -24,7 +23,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	1436075639	Stop_CameraOnCharacter			\Default Work Unit\Spatial\Stop_CameraOnCharacter	
 	1471082706	Play_Enemy_SecondDamage			\Default Work Unit\Enemy\Damage\Play_Enemy_SecondDamage	
 	1566693136	Play_Music_MainMenu			\Default Work Unit\Music\Play_Music_MainMenu	
-	1592044262	Stop_Enemy_Begin_Play_Loop_WallSlide			\Default Work Unit\Enemy\WallSlide\Stop_Enemy_Begin_Play_Loop_WallSlide	
 	1673311249	Play_Enemy_Dash			\Default Work Unit\Enemy\Play_Enemy_Dash	
 	1701637365	Play_MapGenerator_On			\Default Work Unit\Spatial\Play_MapGenerator_On	
 	1724924593	Play_Button_Pressed			\Default Work Unit\UI\Play_Button_Pressed	
@@ -37,14 +35,15 @@ Event	ID	Name			Wwise Object Path	Notes
 	2006604231	Play_ElectricTrap_Active			\Default Work Unit\Spatial\ElectricTrap\Play_ElectricTrap_Active	
 	2125403547	Play_Creature_OnChar			\Default Work Unit\Creature\Play_Creature_OnChar	
 	2182773848	Play_Enemy_Run			\Default Work Unit\Enemy\Play_Enemy_Run	
+	2189370507	Stop_WallSlide			\Default Work Unit\Character\WallSlide\Stop_WallSlide	
 	2211787386	Play_Dash			\Default Work Unit\Character\Play_Dash	
 	2216073360	Play_BasicJump			\Default Work Unit\Character\Jump\Play_BasicJump	
 	2268596465	Play_EndLevelDoor			\Default Work Unit\Spatial\Play_EndLevelDoor	
 	2270376495	Play_Laser			\Default Work Unit\Spatial\Play_Laser	
+	2281765076	Play_Enemy_WallSlide_Main			\Default Work Unit\Enemy\WallSlide\Play_Enemy_WallSlide_Main	
 	2323405115	Play_Landing			\Default Work Unit\Character\Play_Landing	
 	2403737389	Play_Enemy_Divekick			\Default Work Unit\Enemy\Play_Enemy_Divekick	
 	2563456942	Play_Enemy_FirstDamage			\Default Work Unit\Enemy\Damage\Play_Enemy_FirstDamage	
-	2607534410	Play_Enemy_Begin_WallSlide			\Default Work Unit\Enemy\WallSlide\Play_Enemy_Begin_WallSlide	
 	2608954444	Play_Enemy_Attack_Sword_SecondSlice			\Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Sword_SecondSlice	
 	2641629647	Play_Attack_Sword_SecondSlice			\Default Work Unit\Character\Attack\Play_Attack_Sword_SecondSlice	
 	2658991137	Play_Enemy_BasicJump			\Default Work Unit\Enemy\Jump\Play_Enemy_BasicJump	
@@ -72,7 +71,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	3914179745	Play_Enemy_Attack_Sword_ThirdSlice			\Default Work Unit\Enemy\Attack\Play_Enemy_Attack_Sword_ThirdSlice	
 	3956660081	Play_Creature_Laser			\Default Work Unit\Creature\Play_Creature_Laser	
 	3966446488	Play_DestructibleWall			\Default Work Unit\Character\Play_DestructibleWall	
-	4060380671	Play_Begin_WallSlide			\Default Work Unit\Character\WallSlide\Play_Begin_WallSlide	
 
 State Group	ID	Name			Wwise Object Path	Notes
 	1507096379	LowPassCamera			\Default Work Unit\LowPassCamera	
@@ -122,13 +120,11 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	182660995	Amb_Atmosphere	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Amb_Atmosphere_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambiance_ActorMixer\Amb\Amb_Atmosphere		20348992
 	206046367	SFX_Player_Death	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Death\Player\Player_Death_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Death\SFX_Player_Death		180178
 	207810947	SFX_EndLevelDoor	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_EndLevelDoor_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Props\SFX_EndLevelDoor		186432
-	239182092	Foley_Enemy_WallSlideLoop_02	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Foley_Player_WallSlideLoop_02_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Enemy\WallSlide\SFX_Random_Enemy_WallSlide_Loop\Foley_Enemy_WallSlideLoop_02		339796
 	266893339	SFX_Enemy_DamageFirstHit_01	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Damage\Enemy\Enemy_Damage_FirstHit01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Enemy\Damage\SFX_Enemy_DamageFirstHit_01		23880
 	295667681	SFX_CapacityLocked	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_CapacityLocked_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\CameraEffect_ActorMixer\SFX_CapacityLocked		57920
 	298259720	SFX_SkillUnlocked	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_SkillUnlocked_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\SFX_SkillUnlocked		147520
 	299119010	SFX_Creature_OnChar_07	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_Creature_OnChar_07_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\Random_SFX_Creature_OnChar\SFX_Creature_OnChar_07		301648
 	307684995	SFX_Player_Landing	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Landing\Landing_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Landing\SFX_Player_Landing		77144
-	324426504	Foley_WallSlide_Begin	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Foley_WallSlide_Begin_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\WallSlide\Foley_WallSlide_Begin		110234
 	327802423	SFX_Creature_EndDrain	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_Creature_EndDrain_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\SFX_Creature_EndDrain		85772
 	344727761	SFX_Enemy_Death_03	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Death\Enemy\Enemy_Death03_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Enemy\Death\Random_SFX_Enemy_Death\SFX_Enemy_Death_03		44826
 	352268105	SFX_Creature_Call	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Creature\Creature_Call_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Creature\SFX_Creature_Call		51520
@@ -153,7 +149,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	666528824	SFX_Player_SwordThirdSlice	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Weapon_ThirdSlice_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Weapon\SFX_Player_SwordThirdSlice		73812
 	699165359	SFX_Player_DoubleJump	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\DoubleJump_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Character\Jumps\SFX_Player_DoubleJump		84560
 	703962044	SFX_PuzzleDoor_Open	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\SFX_PuzzleDoor_Open_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Props\SFX_PuzzleDoor_Open		75628
-	719473206	Foley_Enemy_WallSlideLoop_01	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Foley_Player_WallSlideLoop_01_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Enemy\WallSlide\SFX_Random_Enemy_WallSlide_Loop\Foley_Enemy_WallSlideLoop_01		339796
 	726945814	SFX_Button_Selected	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\TestButtonFeedback_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\UI\SFX_Button_Selected		41046
 	738182096	SFX_Laser_Loop	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\Laser_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Traps\SFX_Laser_Loop		2354568
 	742247423	SFX_ElectricTrap_Active	D:\Cursed\Cursed_WwiseProject\.cache\Mac\SFX\ElectricTrap_Active_D79FB2B7.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX_ActorMixer\Traps\ElectricTrap\SFX_ElectricTrap_Active		1781824
