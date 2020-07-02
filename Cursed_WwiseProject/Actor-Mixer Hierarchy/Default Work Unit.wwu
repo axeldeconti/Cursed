@@ -1412,42 +1412,6 @@
 								</Folder>
 								<Folder Name="WallSlide" ID="{C8692C41-2FFA-4E66-923E-FEBA3F8DB3E7}" ShortID="755976540">
 									<ChildrenList>
-										<Sound Name="Foley_WallSlide_End" ID="{71AA31EE-560C-4B6A-BD59-B0022C3EC2E8}" ShortID="353228266">
-											<PropertyList>
-												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
-												<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
-												<Property Name="MaxSoundPerInstance" Type="int16">
-													<ValueList>
-														<Value>1</Value>
-													</ValueList>
-												</Property>
-												<Property Name="UseMaxSoundPerInstance" Type="bool">
-													<ValueList>
-														<Value>True</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{059D2AE7-4FEC-4A3B-89F9-8AC54F4E5FB6}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{55E49947-D544-485A-92FE-138223275588}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Foley_WallSlide_End" ID="{769E84B1-F01A-467B-8171-23F48A98B2A6}">
-													<Language>SFX</Language>
-													<AudioFile>Foley_WallSlide_End.wav</AudioFile>
-													<MediaIDList>
-														<MediaID ID="72233361"/>
-													</MediaIDList>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Foley_WallSlide_End" ID="{769E84B1-F01A-467B-8171-23F48A98B2A6}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
 										<Sound Name="Foley_Wallslide_Main" ID="{5AEC1B13-3F70-46D9-B29A-97FEE8CEA7BA}" ShortID="137302636">
 											<PropertyList>
 												<Property Name="IgnoreParentMaxSoundInstance" Type="bool" Value="True"/>
