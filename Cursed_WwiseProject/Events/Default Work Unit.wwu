@@ -7,29 +7,8 @@
 					<ChildrenList>
 						<Folder Name="WallSlide" ID="{537BDD75-9EED-4DDF-AE20-30C5D45CB485}" ShortID="644457230">
 							<ChildrenList>
-								<Event Name="Play_Begin_WallSlide" ID="{6FC21CEA-D6F5-4B84-A14E-D8B7B03CB94E}">
-									<ChildrenList>
-										<Action Name="" ID="{D8F0A012-875D-49CF-92EC-04642D6B856B}" ShortID="523668072">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Foley_WallSlide_Begin" ID="{23BC7248-24BD-4E98-A734-C37845473747}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
 								<Event Name="Stop_Begin_Play_Loop_WallSlide" ID="{581F892E-E3F7-49BC-8B9B-07D2B638425A}">
 									<ChildrenList>
-										<Action Name="" ID="{7B9D9BBF-0A49-4BE7-BAE9-608219AF47F0}" ShortID="916001676">
-											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="2"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Foley_WallSlide_Begin" ID="{23BC7248-24BD-4E98-A734-C37845473747}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
 										<Action Name="" ID="{1137C871-E3E5-46D0-B758-17E10E361BB2}" ShortID="190201572">
 											<ReferenceList>
 												<Reference Name="Target">
@@ -41,16 +20,6 @@
 								</Event>
 								<Event Name="Play_End_WallSlide" ID="{6E9F5483-2DDF-417E-BFF4-DDEABCAF6BE3}">
 									<ChildrenList>
-										<Action Name="" ID="{A2600CC2-3C44-48C3-BF8E-44EF801D92E1}" ShortID="662708022">
-											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="2"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Foley_WallSlide_Begin" ID="{23BC7248-24BD-4E98-A734-C37845473747}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
 										<Action Name="" ID="{41865A66-CD08-47D3-91DB-B7BE5E9D0835}" ShortID="65314198">
 											<PropertyList>
 												<Property Name="ActionType" Type="int16" Value="2"/>
@@ -65,6 +34,20 @@
 											<ReferenceList>
 												<Reference Name="Target">
 													<ObjectRef Name="Foley_WallSlide_End" ID="{71AA31EE-560C-4B6A-BD59-B0022C3EC2E8}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_WallSlide" ID="{3E1E1B37-F97B-4844-9F9B-307A77004D74}">
+									<ChildrenList>
+										<Action Name="" ID="{6569974A-1808-4268-A3D7-0027915C3E5C}" ShortID="371891498">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Foley_Wallslide_Main" ID="{5AEC1B13-3F70-46D9-B29A-97FEE8CEA7BA}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 												</Reference>
 											</ReferenceList>
 										</Action>
@@ -952,64 +935,12 @@
 						</Folder>
 						<Folder Name="WallSlide" ID="{860F2AA2-AA19-4968-A92D-5B98BC4A8BF7}" ShortID="651042750">
 							<ChildrenList>
-								<Event Name="Play_Enemy_Begin_WallSlide" ID="{50CD6DC1-25A1-42B5-87E3-3FD46A6CE556}">
+								<Event Name="Play_Enemy_WallSlide_Main" ID="{9170F362-2B02-4AA8-BFD9-B2A19129B818}">
 									<ChildrenList>
-										<Action Name="" ID="{2EC6F10E-D11C-450D-A394-4E9394C0B176}" ShortID="1017601337">
+										<Action Name="" ID="{DE663E67-24F9-4609-80DD-A1F4E862C656}" ShortID="750070530">
 											<ReferenceList>
 												<Reference Name="Target">
-													<ObjectRef Name="Foley_Enemy_WallSlide_Begin" ID="{7FB55DC0-093B-45B2-953D-8319255C91DC}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
-								<Event Name="Stop_Enemy_Begin_Play_Loop_WallSlide" ID="{76825F8D-7F3E-4A0E-AD0B-A1086E39A666}">
-									<ChildrenList>
-										<Action Name="" ID="{5BB0266F-DD75-4507-8366-2F8132F5BEC5}" ShortID="691066955">
-											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="2"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Foley_Enemy_WallSlide_Begin" ID="{7FB55DC0-093B-45B2-953D-8319255C91DC}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-										<Action Name="" ID="{C6C4937E-ABF1-47B2-9EAE-169793FCEC2C}" ShortID="536731135">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="SFX_Random_Enemy_WallSlide_Loop" ID="{FFB0DB71-F1C2-4EA6-B72D-9771FF94BDE1}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-									</ChildrenList>
-								</Event>
-								<Event Name="Play_Enemy_End_WallSlide" ID="{175ED59B-A4C0-4F2F-B442-E74D9B20B2BF}">
-									<ChildrenList>
-										<Action Name="" ID="{873A325B-FF72-48E4-A092-9B86D26EFF5B}" ShortID="731264542">
-											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="2"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Foley_Enemy_WallSlide_Begin" ID="{7FB55DC0-093B-45B2-953D-8319255C91DC}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-										<Action Name="" ID="{3DF56F8D-60B1-4F7C-A874-7FB7320C020B}" ShortID="200661776">
-											<PropertyList>
-												<Property Name="ActionType" Type="int16" Value="2"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="SFX_Random_Enemy_WallSlide_Loop" ID="{FFB0DB71-F1C2-4EA6-B72D-9771FF94BDE1}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
-												</Reference>
-											</ReferenceList>
-										</Action>
-										<Action Name="" ID="{75FFBA22-2FF3-4636-BB64-1ED1B9E7169A}" ShortID="946533741">
-											<ReferenceList>
-												<Reference Name="Target">
-													<ObjectRef Name="Foley_Enemy_WallSlide_End" ID="{B519A439-E25B-4D4E-9A81-2E933C8C0776}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
+													<ObjectRef Name="Foley_Enemy_Wallslide_Main" ID="{BE293E83-CE55-4818-93AF-92F036DBA8D1}" WorkUnitID="{4C9D7801-DCFD-483E-8A6B-ACD7A69863D0}"/>
 												</Reference>
 											</ReferenceList>
 										</Action>
