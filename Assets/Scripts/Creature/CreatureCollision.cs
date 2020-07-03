@@ -139,6 +139,8 @@ namespace Cursed.Creature
             {
                 // LAUNCH SFX & VFX EFFECTS
                 AkSoundEngine.PostEvent("Play_Creature_Camera", gameObject);
+                AkSoundEngine.PostEvent("Stop_CameraOnCharacter", gameObject);
+                AkSoundEngine.SetState("LowPassCamera", "CameraOffChar");
                 _creatureVfx.DestructionCamera(collision.gameObject.transform.position);
 
                 Destroy(collision.gameObject);
