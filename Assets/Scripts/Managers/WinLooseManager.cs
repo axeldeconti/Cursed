@@ -66,7 +66,7 @@ namespace Cursed.Managers
 
             StartCoroutine(WaitForActive(.5f, _blackScreen, true));
             StartCoroutine(WaitForActive(1.5f, _looseScreen, true));
-            UpdateEnemyCountLose();
+            StartCoroutine(WaitForUpdateEnemyCount(1.5f));
         }
 
         private void UpdateEnemyCountLose()
@@ -102,6 +102,12 @@ namespace Cursed.Managers
         {
             yield return new WaitForSeconds(delay);
             go.SetActive(active);
+        }
+
+        private IEnumerator WaitForUpdateEnemyCount(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            UpdateEnemyCountLose();
         }
     }
 }
